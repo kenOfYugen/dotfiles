@@ -3,6 +3,10 @@
 </p>
 
 <p align="center">
+  <b>There is no place like ~</b>
+</p>
+
+<p align="center">
   <b>👻 Gokul's Dot Files 👻</b>
 </p>
 
