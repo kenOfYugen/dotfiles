@@ -15,6 +15,7 @@ set foldmethod=indent
 set foldlevel=99
 set mouse=a
 set ruler
+set laststatus=2
 
 " Markdown Preview Settings
 let g:mkdp_auto_start = 1
@@ -24,8 +25,16 @@ let g:mkdp_command_for_global = 0
 let g:mkdp_open_to_the_world = 0
 let g:mkdp_browser = 'firefox'
 
-" Color Scheme
-colorscheme wal
+" Nord Options
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ }
+
+let g:nord_cursor_line_number_background = 1
+let g:nord_uniform_status_lines = 1
+let g:nord_bold_vertical_split_line = 0
+
+colorscheme nord
 
 " Start Page
 let g:startify_custom_header = [
