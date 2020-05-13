@@ -48,18 +48,7 @@ super + d
 
 # rofi logout
 super + x
-	~/.config/rofi/scripts/powermenu.sh
-
-# rofi network
-super + n
-	~/.config/rofi/scripts/network.sh
-
-# rofi screenshot
-Print
-	~/.config/rofi/scripts/screenshot.sh
-
-super + p
-        ~/.config/rofi/scripts/battery.sh
+	~/.config/rofi/power/powermenu.sh
 
 # lock
 super + l 
