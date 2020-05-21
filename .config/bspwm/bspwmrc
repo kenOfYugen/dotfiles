@@ -6,10 +6,12 @@
 bspc monitor -d 1 2 3 4 5
 
 # Window Settings
-bspc config border_width        0
-bspc config window_gap          15 # 15
-bspc config focused_border_color "#607d8b"
-bspc config normal_border_color "#2E3440"
+
+~/bin/handle_borders.sh & # This script eliminates borders with one window
+
+bspc config window_gap          0 # 15
+bspc config focused_border_color "#5e81ac"
+bspc config normal_border_color  "#434C5E"
 
 bspc config split_ratio          0.5
 bspc config borderless_monocle   true
@@ -50,3 +52,7 @@ picom --experimental-backends &
 
 # Handles cursor problem
 xsetroot -cursor_name left_ptr &
+
+# Load Bitmap Fonts
+xset +fp ~/.local/share/fonts &
+xset fp rehash &
