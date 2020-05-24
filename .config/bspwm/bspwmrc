@@ -7,7 +7,7 @@ bspc monitor -d 1 2 3 4 5
 
 # Window Settings
 
-wm.bspwm_singles & 
+~/.bin/wm.bspwm_singles & 
 
 #bspc config border_width 	  3
 #bspc config window_gap           5 # 15
@@ -27,7 +27,7 @@ bspc rule -a "Zoom Group Chat" state=floating
 ### Autostart Apps ###
 
 # Handles Keys
-sxhkd -c /home/javacafe01/.config/bspwm/sxhkdrc &
+sxhkd -c ~/.config/bspwm/sxhkdrc &
 
 # Power Manager
 xfce4-power-manager &
@@ -36,7 +36,7 @@ xfce4-power-manager &
 xrdb -load ~/.Xresources &
 
 # Background
-wm.bspwm_blur_background &
+~/.bin/wm.bspwm_blur_background &
 #nitrogen --restore &
 
 # Enables Windows Key
