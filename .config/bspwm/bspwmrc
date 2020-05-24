@@ -7,7 +7,7 @@ bspc monitor -d 1 2 3 4 5
 
 # Window Settings
 
-~/.bin/handle_singles.sh & 
+wm.bspwm_singles & 
 
 #bspc config border_width 	  3
 #bspc config window_gap           5 # 15
@@ -36,7 +36,7 @@ xfce4-power-manager &
 xrdb -load ~/.Xresources &
 
 # Background
-~/.bin/blur-background.sh &
+wm.bspwm_blur_background &
 #nitrogen --restore &
 
 # Enables Windows Key
