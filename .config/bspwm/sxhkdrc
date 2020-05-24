@@ -5,10 +5,10 @@
 #### Change Window Properties ###
 
 super + shift + {minus, equal}
-  ~/.bin/wm.bspwm_gap {+, -}
+  wm.bspwm_gap {+, -}
 
 super + {minus, equal}
-  ~/.bin/wm.bspwm_padding {+, -}
+  wm.bspwm_padding {+, -}
 
 #### Audio Keys ####
 
