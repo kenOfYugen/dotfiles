@@ -97,5 +97,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+path+=('/home/javacafe01/.bin')
+export PATH
+
 alias v="nvim"
 alias config='/usr/bin/git --git-dir=/home/javacafe01/.cfg/ --work-tree=/home/javacafe01'
