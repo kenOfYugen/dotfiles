@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 if [[ "$1" = "+" ]]; then
 	bspc config -d focused left_padding $((`bspc config -d focused left_padding ` + 16 ))

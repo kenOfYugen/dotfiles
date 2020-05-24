@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/bash
 
 bspc subscribe | while read -r line; do
     node_num=$(bspc query --nodes --desktop | wc -l)

@@ -1,4 +1,5 @@
 #!/bin/bash
+
 ## Get system info
 user="${USER}@$(hostname)"
 distro='Arch'
