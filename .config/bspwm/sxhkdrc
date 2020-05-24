@@ -5,10 +5,10 @@
 #### Change Window Properties ###
 
 super + shift + {minus, equal}
-  ~/bin/wm.bspwm_gap {+, -}
+  ~/.bin/wm.bspwm_gap {+, -}
 
 super + {minus, equal}
-  ~/bin/wm.bspwm_padding {+, -}
+  ~/.bin/wm.bspwm_padding {+, -}
 
 #### Audio Keys ####
 
@@ -63,7 +63,7 @@ super + Escape
 #
 
 # quit/restart bspwm
-super + alt + {q,r}
+super + shift + {q,r}
 	bspc {quit,wm -r}
 
 # close and kill
@@ -87,11 +87,10 @@ super + g
 #
 
 # set the window state
-#super + {t,shift + t,s,f}
-#	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+super + shift + {t,alt + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
-super + shift + {t,s,f}
-	bspc node -t {tiled,floating,fullscreen}
+#super + shift + {t,s,f}
 
 # set the node flags
 super + ctrl + {m,x,y,z}

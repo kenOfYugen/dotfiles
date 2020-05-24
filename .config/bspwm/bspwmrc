@@ -7,11 +7,12 @@ bspc monitor -d 1 2 3 4 5
 
 # Window Settings
 
-~/bin/handle_borders.sh & # This script eliminates borders with one window
+~/.bin/handle_singles.sh & 
 
-bspc config window_gap          0 # 15
+#bspc config border_width 	  3
+#bspc config window_gap           5 # 15
 bspc config focused_border_color "#5e81ac"
-bspc config normal_border_color  "#434C5E"
+bspc config normal_border_color  "#232730" #"#434C5E"
 
 bspc config split_ratio          0.5
 bspc config borderless_monocle   true
@@ -26,7 +27,7 @@ bspc rule -a "Zoom Group Chat" state=floating
 ### Autostart Apps ###
 
 # Handles Keys
-sxhkd &
+sxhkd -c /home/javacafe01/.config/bspwm/sxhkdrc &
 
 # Power Manager
 xfce4-power-manager &
@@ -35,14 +36,14 @@ xfce4-power-manager &
 xrdb -load ~/.Xresources &
 
 # Background
-#~/bin/blur-background.sh &
-nitrogen --restore &
+~/.bin/blur-background.sh &
+#nitrogen --restore &
 
 # Enables Windows Key
 ksuperkey &
 
 # Compositor
-picom --experimental-backends &
+picom &
 
 # Polybar
 ~/.config/polybar/launch.sh &
