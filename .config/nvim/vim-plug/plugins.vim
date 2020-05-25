@@ -7,23 +7,24 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
-Plug 'VundleVim/Vundle.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-"Plug 'itchyny/lightline.vim'
-Plug 'ryanoasis/vim-devicons'
-Plug 'preservim/nerdtree'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-Plug 'mhinz/vim-startify'
-Plug 'arcticicestudio/nord-vim'
-Plug 'artur-shaik/vim-javacomplete2'
+    Plug 'VundleVim/Vundle.vim'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    "Plug 'itchyny/lightline.vim'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'preservim/nerdtree'
+    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+    Plug 'mhinz/vim-startify'
+    Plug 'arcticicestudio/nord-vim'
+    Plug 'artur-shaik/vim-javacomplete2'
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
 endif
+    Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 " Automatically install missing plugins on startup
