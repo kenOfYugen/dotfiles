@@ -68,7 +68,7 @@ ZSH_THEME="cdimascio-lambda"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git dotbare)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -102,4 +102,6 @@ path+=('/home/javacafe01/.bin')
 export PATH
 
 alias v="nvim"
-alias config='/usr/bin/git --git-dir=/home/javacafe01/.cfg/ --work-tree=/home/javacafe01'
+
+export DOTBARE_DIR="$HOME/.cfg"
+export DOTBARE_TREE="$HOME"
