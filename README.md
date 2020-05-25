@@ -32,4 +32,19 @@ Bspwm used to be my daily driver, but occasionaly it glitches on me. I then hopp
 
 ## Setup
 
-I maintain my dotfiles using a git bare repository, which is further explained [here](https://www.atlassian.com/git/tutorials/dotfiles).
+I maintain my dotfiles using [dotbare](https://github.com/kazhala/dotbare). It's basically a wrapper program for the git bare repository method of handling dotfiles.
+
+### Migrate my dots
+
+If you want to use my dots, follow these simple steps: 
+1. Install [dotbare](https://github.com/kazhala/dotbare)
+2. Setup environment variables, for example in your `.zshrc` 
+    ```bash
+    export DOTBARE_DIR="$HOME/.cfg"
+    export DOTBARE_TREE="$HOME"
+    ```
+3. Use this remote's url with dotbare
+    ```bash
+    dotbare finit -u https://github.com/JavaCafe01/dotfiles.git
+    ```
+Everything is further explained on the readme in dotbare's [repo](https://github.com/kazhala/dotbare).
