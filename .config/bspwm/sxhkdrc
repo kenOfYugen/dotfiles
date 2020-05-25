@@ -8,8 +8,12 @@
 #super + shift + {minus, equal}
 #  ~/.bin/wm.bspwm_gap {+, -}
 
+super + {shift + a, a}
+    ~/.bin/wm.bspwm_singles {0, 1}
+     
+
 super + {minus, equal}
-  ~/.bin/wm.bspwm_padding {+, -}
+    ~/.bin/wm.bspwm_padding {+, -}
 
 #### Audio Keys ####
 
