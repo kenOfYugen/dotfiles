@@ -10,11 +10,12 @@
   <b>👻 Gokul's Dot Files 👻</b>
 </p>
 
-<img src="https://i.redd.it/4gbcwiblvdx41.png" alt="img" align="right" width="400px">
+| bspwm | spectrwm |
+| --- | --- |
+| <img src="https://imgur.com/yv1q7Zs.jpg" alt="img" width="450px"> | <img src="https://imgur.com/q3HqlYU.jpg" alt="img" width="450px"> |
 
 ## System Info
 
-+ **WM**: bspwm
 + **OS**: Arch
 + **Shell**: zsh
 + **Terminal**: kitty
@@ -23,7 +24,11 @@
 + **Launcher**: rofi
 + **Browser**: firefox
 + **Color Scheme**: Nord
-+ **GTK Theme**: oomix generated
++ **GTK Theme**: [wpgtk](https://github.com/deviantfero/wpgtk) generated
+
+### Why two window managers?
+
+Bspwm used to be my daily driver, but occasionaly it glitches on me. I then hopped window managers to dwm and qtile. Dwm was simple and usable, but it was hyped way too much and I didn't like the suckless philosophy. Qtile was neat and stable, except it was in python. Spectrwm was inspired by dwm and xmonad and it is written in C, which peaked my curiosity and lead to where I am today. Its snappy and hasn't failed me yet.
 
 ## Setup
 
