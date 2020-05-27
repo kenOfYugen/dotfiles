@@ -22,7 +22,7 @@
 + **Editor**: neovim
 + **File Manager**: thunar
 + **Launcher**: rofi
-+ **Browser**: firefox
++ **Browser**: firefox / qutebrowser
 + **Color Scheme**: Nord
 + **GTK Theme**: [wpgtk](https://github.com/deviantfero/wpgtk) generated
 
@@ -34,7 +34,7 @@ Bspwm used to be my daily driver, but occasionaly it glitches on me. I then hopp
 
 I maintain my dotfiles using [dotbare](https://github.com/kazhala/dotbare). It's basically a wrapper program for the git bare repository method of handling dotfiles.
 
-### Migrate my dots
+### Migrate to my dots
 
 If you want to use my dots, follow these simple steps: 
 1. Install [dotbare](https://github.com/kazhala/dotbare)
