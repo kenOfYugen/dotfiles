@@ -114,3 +114,4 @@ c.colors.webpage.bg = "#ffffff"
 c.url.start_pages = "/home/javacafe01/code/startpage/index.html"
 c.url.default_page = "/home/javacafe01/code/startpage/index.html"
 
+c.qt.args = [ "blink-settings=darkMode=4" ]
