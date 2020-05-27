@@ -51,5 +51,6 @@ let g:startify_custom_header = [
 " Java Autocomplete
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
+
 " Deoplete
 let g:deoplete#enable_at_startup = 1
