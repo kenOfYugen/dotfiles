@@ -10,9 +10,9 @@
   <b>👻 Gokul's Dot Files 👻</b>
 </p>
 
-| bspwm | spectrwm |
-| --- | --- |
-| <img src="https://imgur.com/yv1q7Zs.jpg" alt="img" width="450px"> | <img src="https://imgur.com/q3HqlYU.jpg" alt="img" width="450px"> |
+<p align="center">
+<img src="https://imgur.com/KIPOkYW.jpg" alt="img" width="900px">
+</p>
 
 ## System Info
 
