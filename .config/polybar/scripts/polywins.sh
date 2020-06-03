@@ -15,7 +15,7 @@ add_spaces="true"
 
 # SETUP # ------------------------------------------------------------------------
 
-actv_win_left="%{F#88c0d0}%{B#434c5e}"
+actv_win_left="%{F#81A1C1}%{B$(xrdb -query | awk '/*.color8/ {print substr($2,1)}')}"
 actv_win_right="%{F- B-}"
 
 active_workspace=$(wmctrl -d | awk '/\*/ {print $1}')

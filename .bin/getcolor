@@ -1,0 +1,3 @@
+#! /bin/bash
+var=$1
+echo $(xrdb -query | awk '/*.$var/ {print substr($2,1)}')

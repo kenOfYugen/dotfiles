@@ -1,0 +1,9 @@
+#!/bin/bash
+
+file="$HOME/Pictures/screenshots/gif_$(date '+%Y-%m-%d%H:%M:%S').gif"
+
+if [ "$2" == "sel" ]; then
+    giph -s -t $1 $file
+else 
+    giph -t $1 $file
+fi

@@ -9,7 +9,7 @@
 window {
     width:      			280px;
     padding:    			30px;
-    border:					1px;
+    border:					0px;
     border-radius:          0px;
     border-color:           @border;
     location:               center;

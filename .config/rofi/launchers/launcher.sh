@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-rofi -no-lazy-grab -show drun -theme launchers/blurry_full.rasi
+rofi -no-lazy-grab -show drun -theme launchers/grid.rasi

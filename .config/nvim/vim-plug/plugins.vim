@@ -16,6 +16,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
     Plug 'mhinz/vim-startify'
     Plug 'arcticicestudio/nord-vim'
+    "Plug 'dylanaraps/wal.vim'
     Plug 'artur-shaik/vim-javacomplete2'
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
