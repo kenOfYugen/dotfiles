@@ -12,8 +12,22 @@
 
 ## Preview
 
+> ### Normal
+
 <p align="center">
 <img src="https://imgur.com/tgDpwiu.jpg" alt="img" width="900px">
+</p>
+
+> ### Launcher
+
+<p align="center">
+<img src="https://imgur.com/XLuPQAd.jpg" alt="img" width="900px">
+</p>
+
+> ### Lock Screen
+
+<p align="center">
+<img src="https://imgur.com/nFusR3G.jpg" alt="img" width="900px">
 </p>
 
 ## System Info
