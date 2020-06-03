@@ -4,16 +4,18 @@
 
 #### Change Window Properties ###
 
-## Adjusting gaps doesn't work with singles script
-#super + shift + {minus, equal}
-#  ~/.bin/wm.bspwm_gap {+, -}
+# Adjusting gaps doesn't work with singles script
+super + shift + {minus, equal}
+    ~/.bin/wm.bspwm_gap {+, -}
 
 super + {shift + a, a}
     ~/.bin/wm.bspwm_singles {0, 1}
      
-
 super + {minus, equal}
     ~/.bin/wm.bspwm_padding {+, -}
+
+ctrl + {h,j,k,l}
+    ~/.bin/chunkwm-warp {west,south,north,east}
 
 #### Audio Keys ####
 
@@ -41,7 +43,7 @@ super + f
 
 # firefox
 super + w
-	firefox
+	qutebrowser
 
 # terminal emulator
 super + t
@@ -57,7 +59,7 @@ super + x
 
 # lock
 super + l 
-	i3lock-fancy-rapid 5 pixel
+	~/.bin/lock
 
 # make sxhkd reload its configuration files:
 super + Escape

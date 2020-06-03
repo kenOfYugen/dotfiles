@@ -14,7 +14,7 @@ settings:
     global: 12pt default_family
   fonts.default_family:
     global:
-    - Fira Code
+    - Iosevka Nerd Font
   fonts.downloads:
     global: 12pt default_family
   fonts.hints:
@@ -54,7 +54,7 @@ settings:
   tabs.position:
     global: top
   tabs.show:
-    global: multiple
+    global: always
   tabs.title.alignment:
     global: center
   tabs.title.format:

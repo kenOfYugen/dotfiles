@@ -52,7 +52,7 @@ case $chosen in
         fi
         ;;
     $lock)
-        i3lock-fancy-rapid 4 pixel
+         mantablockscreen -sc
         ;;
     $suspend)
 		ans=$($dir/confirm.sh)

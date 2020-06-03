@@ -16,6 +16,7 @@ set foldlevel=99
 set mouse=a
 set ruler
 set laststatus=2
+set clipboard+=unnamedplus
 
 " Markdown Preview Settings
 let g:mkdp_auto_start = 1

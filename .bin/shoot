@@ -1,0 +1,10 @@
+#!/bin/bash
+
+file="$HOME/Pictures/screenshots/shot_$(date '+%Y-%m-%d%H:%M:%S').png"
+
+if [ "$1" == "sel" ]; then
+    sel=$(slop -f "-i %i -g %g")
+    shotgun $sel $file
+else 
+    shotgun $file
+fi

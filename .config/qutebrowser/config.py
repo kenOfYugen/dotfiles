@@ -1,5 +1,5 @@
 import subprocess
-import sys
+import sys, os
 
 def read_xresources(prefix):
     props = {}
@@ -70,7 +70,7 @@ c.colors.messages.warning.bg     = xresources['*.color1']
 c.colors.messages.warning.border = xresources['*.color1']
 c.colors.messages.warning.fg     = xresources['*.color7']
 
-c.colors.prompts.bg          = xresources['*.color7']
+c.colors.prompts.bg          = xresources['*.background']
 c.colors.prompts.border      = '1px solid gray'
 c.colors.prompts.fg          = xresources['*.color7']
 c.colors.prompts.selected.bg = xresources['*.background']
@@ -105,13 +105,10 @@ c.colors.tabs.indicator.error  = '#ff0000'
 c.colors.tabs.odd.bg           = adjust(xresources['*.background'], 1.35)
 c.colors.tabs.odd.fg           = xresources['*.color7']
 c.colors.tabs.selected.even.bg = adjust(xresources['*.background'], 1.15)
-c.colors.tabs.selected.even.fg = xresources['*.color3']
+c.colors.tabs.selected.even.fg = xresources['*.color4']
 c.colors.tabs.selected.odd.bg  = adjust(xresources['*.background'], 1.35)
-c.colors.tabs.selected.odd.fg  = xresources['*.color3']
+c.colors.tabs.selected.odd.fg  = xresources['*.color4']
 
-c.colors.webpage.bg = "#ffffff"
 
 c.url.start_pages = "/home/javacafe01/code/startpage/index.html"
 c.url.default_page = "/home/javacafe01/code/startpage/index.html"
-
-c.qt.args = [ "blink-settings=darkMode=4" ]
