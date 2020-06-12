@@ -15,36 +15,46 @@
 > ### Normal
 
 <p align="center">
-<img src="https://imgur.com/tgDpwiu.jpg" alt="img" width="900px">
+<img src="https://imgur.com/6x7n9gJ.jpg" alt="img" width="900px">
 </p>
 
 > ### Launcher
 
 <p align="center">
-<img src="https://imgur.com/XLuPQAd.jpg" alt="img" width="900px">
+<img src="https://imgur.com/mjpxlSW.jpg" alt="img" width="900px">
 </p>
 
 > ### Lock Screen
 
 <p align="center">
-<img src="https://imgur.com/nFusR3G.jpg" alt="img" width="900px">
+<img src="https://imgur.com/KA9KNT2.jpg" alt="img" width="900px">
 </p>
 
 ## System Info
 
 + **OS**: Arch
 + **Shell**: zsh
-+ **Terminal**: kitty
++ **Terminal**: alacritty
 + **Editor**: neovim
 + **File Manager**: thunar
 + **Launcher**: rofi
-+ **Browser**: firefox / qutebrowser
-+ **Color Scheme**: Nord
++ **Browser**: firefox ([startpage](https://github.com/JavaCafe01/startpage))
++ **Color Scheme**: custom
 + **GTK Theme**: [wpgtk](https://github.com/deviantfero/wpgtk) generated
 
-### Why two window managers?
+### Wallpapers
 
-Bspwm used to be my daily driver, but occasionaly it glitches on me. I then hopped window managers to dwm and qtile. Dwm was simple and usable, but it was hyped way too much and I didn't like the suckless philosophy. Qtile was neat and stable, except it was in python. Spectrwm was inspired by dwm and xmonad and it is written in C, which peaked my curiosity and lead to where I am today. Its snappy and hasn't failed me yet.
+The wallpapers I use can be found [here](https://imgur.com/a/f8f6xE2).
+
+### Discord
+
+I use [Enhanced Discord](https://github.com/joe27g/EnhancedDiscord) to change the theme.
+
+> ### Screenshot
+
+<p align="center">
+<img src="https://imgur.com/JCkzlZh.jpg" alt="img" width="600px">
+</p>
 
 ## Setup
 
