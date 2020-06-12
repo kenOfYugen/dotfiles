@@ -38,7 +38,7 @@
 + **Editor**: neovim
 + **File Manager**: thunar
 + **Launcher**: rofi
-+ **Browser**: firefox ([startpage](https://github.com/JavaCafe01/startpage))
++ **Browser**: firefox
 + **Color Scheme**: custom
 + **GTK Theme**: [wpgtk](https://github.com/deviantfero/wpgtk) generated
 
@@ -77,6 +77,6 @@ Everything is further explained on the readme in dotbare's [repo](https://github
 
 ### Firefox
 
-I use a nord firefox theme, credits to dpcdpc11, from deviantart which can be found [here](https://www.deviantart.com/dpcdpc11/art/Nord-for-Firefox-837860916).
+I use an edited version of [MaterialFox](https://github.com/muckSponge/MaterialFox).
 
 My startpage files can be found [here](https://github.com/JavaCafe01/startpage).
