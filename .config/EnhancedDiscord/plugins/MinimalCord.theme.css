@@ -1,0 +1,37 @@
+/**
+ * @name MinimalCord
+ * @author Gibbu#1211
+ * @version 1.0.0
+ * @description Changes Discord enough to give it a fresh feel while also making it darker. Supports both Light and Dark themes.
+ * @invite ZHthyCw
+ * @donate https://paypal.me/IanRGibson
+ * @authorId 174868361040232448
+ * @source https://github.com/Gibbu/BetterDiscord-Themes/tree/master/MinimalCord
+ * @website https://gibbu.me
+*/
+
+/* This theme was edited using https://gibbu.me/editor/minimalcord */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
+@import url('https://gibbu.github.io/BetterDiscord-Themes/MinimalCord/base.css');
+@import url('https://monstrousdev.github.io/themes/addons/user-tags.css');
+@import url('https://gibbu.github.io/BetterDiscord-Themes/HorizontalServerlist/base.css');
+
+:root {
+  --accent: 76,81,76.1;
+  --search-results-width: 25vw;
+  --emoji-picker-height: 260px;
+  --chat-message-padding: 20px;
+  --chat-message-spacing: 20px;
+  --font: 'Roboto';
+  --HSL-server-icon-size: 30px;
+  --HSL-server-spacing: 15px;
+}
+
+.theme-dark {
+  --foreground-1: #252831;
+  --foreground-2: #21232b;
+  --foreground-divider: #dadada;
+  --background-1: #191919;
+  --background-2: #24323C;
+  }
