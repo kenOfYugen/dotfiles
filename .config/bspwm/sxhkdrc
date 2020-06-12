@@ -43,11 +43,11 @@ super + f
 
 # firefox
 super + w
-	qutebrowser
+	firefox
 
 # terminal emulator
 super + t
-	kitty
+	alacritty
 
 # program launcher
 super + d

@@ -1,0 +1,28 @@
+{
+    "wallpaper": "/home/javacafe01/Downloads/wallhaven-r78p5w_1920x1080.png",
+    "alpha": "100",
+
+    "special": {
+        "background": "#191919",
+        "foreground": "#a2a4a6",
+        "cursor": "#a2a4a6"
+    },
+    "colors": {
+        "color0": "#191919",
+        "color1": "#1f2c31",
+        "color2": "#24323c",
+        "color3": "#343434",
+        "color4": "#2d3f43",
+        "color5": "#394f55",
+        "color6": "#4c514c",
+        "color7": "#a2a4a6",
+        "color8": "#46494d",
+        "color9": "#1f2c31",
+        "color10": "#24323c",
+        "color11": "#343434",
+        "color12": "#2d3f43",
+        "color13": "#394f55",
+        "color14": "#4c514c",
+        "color15": "#a2a4a6"
+    }
+}

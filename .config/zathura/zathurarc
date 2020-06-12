@@ -1,6 +1,3 @@
-# Base16 Nord
-# Author: arcticicestudio
-
 set default-bg                  "#2E3440"
 set default-fg                  "#3B4252"
 
@@ -31,5 +28,5 @@ set completion-highlight-bg     "#EBCB8B"
 set recolor-lightcolor          "#2E3440"
 set recolor-darkcolor           "#ECEFF4"
 
-set recolor                     "true"
+set recolor                     "false"
 set recolor-keephue             "false"
