@@ -16,7 +16,6 @@ set foldlevel=99
 set mouse=a
 set ruler
 set laststatus=2
-set clipboard+=unnamedplus
 
 " Markdown Preview Settings
 let g:mkdp_auto_start = 1
@@ -28,14 +27,14 @@ let g:mkdp_browser = 'firefox'
 
 " Nord Options
 let g:lightline = {
-      \ 'colorscheme': 'nord',
+      \ 'colorscheme': 'wal',
       \ }
 
 let g:nord_cursor_line_number_background = 1
 let g:nord_uniform_status_lines = 1
 let g:nord_bold_vertical_split_line = 0
 
-colorscheme nord
+colorscheme wal
 
 " Start Page
 let g:startify_custom_header = [
