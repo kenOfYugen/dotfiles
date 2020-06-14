@@ -77,6 +77,6 @@ Everything is further explained on the readme in dotbare's [repo](https://github
 
 ### Firefox
 
-I use an edited version of [MaterialFox](https://github.com/muckSponge/MaterialFox).
+My firefox css files can be found [here](https://github.com/JavaCafe01/firefoxcss).
 
 My startpage files can be found [here](https://github.com/JavaCafe01/startpage).
