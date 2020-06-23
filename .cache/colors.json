@@ -1,28 +1,28 @@
 {
-    "wallpaper": "/home/javacafe01/Downloads/wallhaven-r78p5w_1920x1080.png",
+    "wallpaper": "None",
     "alpha": "100",
 
     "special": {
-        "background": "#191919",
-        "foreground": "#a2a4a6",
-        "cursor": "#a2a4a6"
+        "background": "#1f2528",
+        "foreground": "#C0C5CE",
+        "cursor": "#C0C5CE"
     },
     "colors": {
-        "color0": "#191919",
-        "color1": "#1f2c31",
-        "color2": "#24323c",
-        "color3": "#343434",
-        "color4": "#2d3f43",
-        "color5": "#394f55",
-        "color6": "#4c514c",
-        "color7": "#a2a4a6",
-        "color8": "#46494d",
-        "color9": "#1f2c31",
-        "color10": "#24323c",
-        "color11": "#343434",
-        "color12": "#2d3f43",
-        "color13": "#394f55",
-        "color14": "#4c514c",
-        "color15": "#a2a4a6"
+        "color0": "#1f2528",
+        "color1": "#EC5f67",
+        "color2": "#99C794",
+        "color3": "#FAC863",
+        "color4": "#6699CC",
+        "color5": "#C594C5",
+        "color6": "#5FB3B3",
+        "color7": "#C0C5CE",
+        "color8": "#65737E",
+        "color9": "#EC5f67",
+        "color10": "#99C794",
+        "color11": "#FAC863",
+        "color12": "#6699CC",
+        "color13": "#C594C5",
+        "color14": "#5FB3B3",
+        "color15": "#D8DEE9"
     }
 }

@@ -1,5 +1,5 @@
 [global]
-    font = Iosevka Nerd Font Mono 12
+    font = Fira Code 12
     
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -64,7 +64,7 @@
     # the top and down respectevly.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "0x20-15+43"
+    geometry = "0x20-15+15"
     
     # Shrink window if it's smaller than the width.  Will be ignored if
     # width is 0.
@@ -149,7 +149,7 @@
 
 [frame]
     width = 0
-    color = "#191919"
+    color = "#1f2528"
 
 [shortcuts]
 
@@ -175,19 +175,19 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#191919"
+    background = "#1f2528"
     foreground = "#d3d0c8"
 	frame_color = "#2d2d2d"
     timeout = 3
 
 [urgency_normal]
-    background = "#191919"
+    background = "#1f2528"
     foreground = "#d3d0c8"
 	frame_color = "#2d2d2d"
     timeout = 5
 
 [urgency_critical]
-    background = "#191919"
+    background = "#1f2528"
     foreground = "#d3d0c8"
 	frame_color = "#2d2d2d"
     timeout = 0

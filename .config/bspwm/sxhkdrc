@@ -43,7 +43,7 @@ super + f
 
 # firefox
 super + w
-	firefox
+	qutebrowser
 
 # terminal emulator
 super + t

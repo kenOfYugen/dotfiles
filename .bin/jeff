@@ -3,7 +3,7 @@
 file="$HOME/Pictures/screenshots/gif_$(date '+%Y-%m-%d%H:%M:%S').gif"
 
 if [ "$2" == "sel" ]; then
-    giph -s -t $1 $file
+    giph -p 20 -s -t $1 $file
 else 
-    giph -t $1 $file
+    giph -g "1980x1080+0+0" -t $1 $file
 fi
