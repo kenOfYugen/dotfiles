@@ -6,7 +6,24 @@ let g:airline_left_sep=''
 let g:airline_left_alt_sep=''
 let g:airline_right_sep=''
 let g:airline_right_alt_sep=''
+let g:airline_section_a = '%{toupper(g:currentmode[mode()])}'
 let g:airline_section_z = '%l/%L:%c'
+
+
+let g:airline_theme = 'oceanicnext'
+
+
+let g:currentmode={
+       \ 'n'  : 'NORMAL',
+       \ 'v'  : 'VISUAL',
+       \ 'V'  : 'V·Line',
+       \ '' : 'V·Block',
+       \ 'i'  : 'INSERT',
+       \ 'R'  : 'R',
+       \ 'Rv' : 'V·Replace',
+       \ 'c'  : 'Command',
+       \}
+
 
 "let g:airline_mode_map = {
 "    \ '__' : '-',

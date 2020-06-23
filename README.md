@@ -15,20 +15,27 @@
 > ### Normal
 
 <p align="center">
-<img src="https://imgur.com/6x7n9gJ.jpg" alt="img" width="900px">
+<img src="https://imgur.com/IsIhu6S.jpg" alt="img" width="900px">
 </p>
 
 > ### Launcher
 
 <p align="center">
-<img src="https://imgur.com/mjpxlSW.jpg" alt="img" width="900px">
+<img src="https://imgur.com/376GGYI.jpg" alt="img" width="900px">
 </p>
 
 > ### Lock Screen
 
 <p align="center">
-<img src="https://imgur.com/KA9KNT2.jpg" alt="img" width="900px">
+<img src="https://imgur.com/cshj0CC.jpg" alt="img" width="900px">
 </p>
+
+> ### Autohide Polybar
+
+<p align="center">
+<img src="https://imgur.com/iuTJL1g.gif" alt="img" width="900px">
+</p>
+
 
 ## System Info
 
@@ -53,7 +60,7 @@ I use [Enhanced Discord](https://github.com/joe27g/EnhancedDiscord) to change th
 > ### Screenshot
 
 <p align="center">
-<img src="https://imgur.com/JCkzlZh.jpg" alt="img" width="600px">
+<img src="https://imgur.com/CFbkqJA.jpg" alt="img" width="600px">
 </p>
 
 ## Setup

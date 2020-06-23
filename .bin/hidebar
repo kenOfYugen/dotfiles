@@ -1,0 +1,29 @@
+#!/bin/sh
+
+BAR_HEIGHT=2
+SHOW_CMD='~/.config/polybar/launch.sh &'
+HIDE_CMD='pkill polybar &'
+
+# Return y-position of cursor
+get_y_position() {    
+    loc=$(xdotool getmouselocation --shell | grep Y)
+    echo ${loc:2}
+}
+
+hidden=true
+eval $HIDE_CMD
+while :; do
+
+    y_loc=$(get_y_position)
+    sleep 0.30
+
+    if (( y_loc < BAR_HEIGHT )) && [ "$hidden" = true ]; then
+        eval $SHOW_CMD
+        hidden=false
+    fi
+
+    if (( y_loc >= BAR_HEIGHT )) && [ "$hidden" = false ]; then
+        eval $HIDE_CMD
+        hidden=true
+    fi
+done

@@ -3,8 +3,9 @@
 file="$HOME/Pictures/screenshots/shot_$(date '+%Y-%m-%d%H:%M:%S').png"
 
 if [ "$1" == "sel" ]; then
-    sel=$(slop -f "-i %i -g %g")
-    shotgun $sel $file
+    slop=$(slop -p 20 -f "%g") || exit 1
+    read -r G < <(echo $slop)
+    import -window root -crop $G $file
 else 
-    shotgun $file
+    import -window root $file
 fi

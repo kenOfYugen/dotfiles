@@ -23,9 +23,6 @@ bspc config gapless_monocle       true
 
 bspc config focus_follows_pointer true
 
-### Window Rules ###
-
-bspc rule -a "Zoom Group Chat" state=floating
 
 ### Autostart Apps ###
 
@@ -33,7 +30,7 @@ bspc rule -a "Zoom Group Chat" state=floating
 sxhkd -c ~/.config/bspwm/sxhkdrc & 
 
 # Polybar
-~/.config/polybar/launch.sh &
+~/.bin/hidebar &
 
 # Power Manager
 xfce4-power-manager &
@@ -42,13 +39,10 @@ xfce4-power-manager &
 xrdb -load ~/.Xresources &
 
 # Background
-nitrogen --restore &
-
-# Enables Windows Key
-ksuperkey &
+hsetroot -solid "#4d5a60" &
 
 # Compositor
-picom &
+~/.bin/picom &
 
 # Network Manager
 # nm-applet &
@@ -60,3 +54,8 @@ xsetroot -cursor_name left_ptr &
 xset +fp ~/.local/share/fonts &
 xset fp rehash &
 xset fp+ /usr/share/fonts/bitmap &
+
+
+### Window Rules ###
+
+bspc rule -a "polybar" state=above &
