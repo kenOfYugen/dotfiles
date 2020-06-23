@@ -36,6 +36,7 @@
 <img src="https://imgur.com/iuTJL1g.gif" alt="img" width="900px">
 </p>
 
+To achieve this, I basically start polybar whenever the cursor is in range and kill it when out of range. I found a python script to this [here](https://www.reddit.com/r/unixporn/comments/7sm2ch/oc_updated_polybarautohide/), but converted the script from python to shell, which can be found as [`hidebar`](https://github.com/JavaCafe01/dotfiles/blob/master/.bin/hidebar).
 
 ## System Info
 
@@ -45,7 +46,7 @@
 + **Editor**: neovim
 + **File Manager**: thunar
 + **Launcher**: rofi
-+ **Browser**: firefox
++ **Browser**: qutebrowser
 + **Color Scheme**: custom
 + **GTK Theme**: [wpgtk](https://github.com/deviantfero/wpgtk) generated
 
@@ -82,8 +83,6 @@ If you want to use my dots, follow these simple steps:
     ```
 Everything is further explained on the readme in dotbare's [repo](https://github.com/kazhala/dotbare).
 
-### Firefox
-
-My firefox css files can be found [here](https://github.com/JavaCafe01/firefoxcss).
+### Browser
 
 My startpage files can be found [here](https://github.com/JavaCafe01/startpage).
