@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="custom"
+ZSH_THEME="javacafe"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -101,8 +101,21 @@ source $ZSH/oh-my-zsh.sh
 path=("$HOME/.bin" $path)
 export PATH
 
+# Aliases
 alias v="nvim"
+alias icat="kitty +kitten icat"
 
+# Dotbare Variables
 export DOTBARE_DIR="$HOME/.cfg"
 export DOTBARE_TREE="$HOME"
+
+# For colored man pages
 export PAGER="most"
+
+export TERM="xterm-256color"
+  if [ "$ISLINUX" '==' 'true' ]; then
+    { infocmp -1 xterm-256color ; echo "\tsitm=\\E[3m,\n\tritm=\\E[23m,"; } | \
+      tic -x -
+  fi
+
+clear; pastlogin; fetch

@@ -2,6 +2,13 @@
 # wm independent hotkeys
 #
 
+# For shots
+super + Print
+    ~/.bin/shoot
+
+super + shift + Print
+    ~/.bin/shoot sel
+
 #### Change Window Properties ###
 
 # Adjusting gaps doesn't work with singles script
@@ -43,11 +50,11 @@ super + f
 
 # firefox
 super + w
-	qutebrowser
+	firefox
 
 # terminal emulator
 super + t
-	alacritty
+	kitty
 
 # program launcher
 super + d

@@ -7,6 +7,13 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
+    " --------- adding the following three plugins for Latex ---------
+    Plug 'lervag/vimtex'
+    Plug 'Konfekt/FastFold'
+    Plug 'matze/vim-tex-fold'    
+
+    Plug 'xolox/vim-notes'
+    Plug 'xolox/vim-misc'
     Plug 'VundleVim/Vundle.vim'
     "Plug 'itchyny/lightline.vim'
     Plug 'vim-airline/vim-airline'
@@ -17,7 +24,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'mhinz/vim-startify'
     Plug 'dylanaraps/wal.vim'
     Plug 'artur-shaik/vim-javacomplete2'
-    Plug 'mhartington/oceanic-next'
+    Plug 'sainnhe/gruvbox-material'
 if has('nvim')
    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else

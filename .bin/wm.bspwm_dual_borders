@@ -21,14 +21,17 @@ border_width_current=$(bspc config border_width)
 
 # half if even, 1px to outer if odd
 border_width_in_normal=$border_width_current
-border_width_out_normal=$(( 3 * $border_width_current + 4 ))
+border_width_out_normal=$(( $border_width_current * 3 ))
 border_width_in_focused=$border_width_in_normal
 border_width_out_focused=$border_width_out_normal
 
-border_color_in_normal=212121
-border_color_out_normal=$(xrdb -query | awk '/*.background/ {print substr($2,2)}')
-border_color_in_focused=2d3f43
-border_color_out_focused=$(xrdb -query | awk '/*.background/ {print substr($2,2)}')
+bg=$(xgetres background)
+acc=$(xgetres color0)
+
+border_color_in_normal=${acc:1}
+border_color_out_normal=${bg:1}
+border_color_in_focused=$border_color_in_normal
+border_color_out_focused=$border_color_out_normal
 
 type theme >/dev/null 2>&1 && eval "$(theme get)"
 
@@ -57,3 +60,4 @@ bspc subscribe node_state node_geometry node_focus | while read msg; do
     _chwb2 focused $(bspwindows)
     _chwb2 normal $(bspwindows inactive)
 done
+

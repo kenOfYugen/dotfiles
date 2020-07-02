@@ -16,10 +16,15 @@ set foldlevel=99
 set mouse=a
 set ruler
 set laststatus=2
-set relativenumber
+set nostartofline
+set nowrap
+
+"set relativenumber
 " Remove Tildas
 let &fcs='eob: '
 
+" Notes
+let g:notes_directories = ['~/Documents/notes']
 
 " Markdown Preview Settings
 let g:mkdp_auto_start = 1
@@ -29,11 +34,12 @@ let g:mkdp_command_for_global = 0
 let g:mkdp_open_to_the_world = 0
 let g:mkdp_browser = 'firefox'
 
-colorscheme OceanicNext
 set background=dark
 
-let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
+let g:gruvbox_material_background = 'medium'
+
+colorscheme gruvbox-material
+
 
 " Start Page
 let g:startify_custom_header = [
@@ -71,3 +77,20 @@ if (empty($TMUX))
     set termguicolors
   endif
 endif
+
+let g:tex_flavor  = 'latex'
+let g:tex_conceal = ''
+let g:vimtex_fold_manual = 1
+let g:vimtex_latexmk_continuous = 1
+let g:vimtex_compiler_progname = 'nvr'
+
+" This is new style
+call deoplete#custom#var('omni', 'input_patterns', {
+      \ 'tex': g:vimtex#re#deoplete
+      \})
+
+let g:vimtex_view_general_viewer = 'zathura'
+
+  " Enable Italics
+let &t_ZH = "\e[3m"
+let &t_ZR = "\e[23m"
