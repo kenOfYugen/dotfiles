@@ -1,29 +1,32 @@
-#!/bin/sh
+#!/usr/bin/env python
+import time
+import subprocess
+import re
+import logging
 
-BAR_HEIGHT=2
-SHOW_CMD='~/.config/polybar/launch.sh &'
-HIDE_CMD='pkill polybar &'
+SCREEN_HEIGHT = 800
+PERCENT_LIMIT = 250
+SHOW_CMD = '~/.config/polybar/launch.sh'
+HIDE_CMD = 'killall polybar'
 
-# Return y-position of cursor
-get_y_position() {    
-    loc=$(xdotool getmouselocation --shell | grep Y)
-    echo ${loc:2}
-}
+logging.basicConfig(level=logging.INFO)
 
-hidden=true
-eval $HIDE_CMD
-while :; do
+def get_y_position():
+    xdotool_output = subprocess.check_output(
+        'xdotool getmouselocation --shell',
+        shell=True).decode('utf-8')
+    return int(re.search(r'Y=(\d{1,})', xdotool_output).groups()[0]) + 1
 
-    y_loc=$(get_y_position)
-    sleep 0.30
-
-    if (( y_loc < BAR_HEIGHT )) && [ "$hidden" = true ]; then
-        eval $SHOW_CMD
-        hidden=false
-    fi
-
-    if (( y_loc >= BAR_HEIGHT )) && [ "$hidden" = false ]; then
-        eval $HIDE_CMD
-        hidden=true
-    fi
-done
+hidden = True
+subprocess.call(HIDE_CMD, shell=True)
+while True:
+    y = get_y_position()
+    time.sleep(.30)
+    on_edge = y < SCREEN_HEIGHT / PERCENT_LIMIT
+    logging.info("Got height %d. On edge: %s", y, str(on_edge))
+    if on_edge and hidden:
+        subprocess.call(SHOW_CMD, shell=True)
+        hidden = False
+    if (not on_edge) and (not hidden):
+        subprocess.call(HIDE_CMD, shell=True)
+        hidden = True

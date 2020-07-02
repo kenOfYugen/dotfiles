@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 ## WM Name
 windowManagerName () {
     local window=$(

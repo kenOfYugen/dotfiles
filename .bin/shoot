@@ -1,6 +1,6 @@
 #!/bin/bash
-
-file="$HOME/Pictures/screenshots/shot_$(date '+%Y-%m-%d%H:%M:%S').png"
+img="shot_$(date '+%m%d%H%M%S').png"
+file="$HOME/Pictures/screenshots/$img"
 
 if [ "$1" == "sel" ]; then
     slop=$(slop -p 20 -f "%g") || exit 1
@@ -9,3 +9,5 @@ if [ "$1" == "sel" ]; then
 else 
     import -window root $file
 fi
+
+notify-send -i $file "Saved as $img"
