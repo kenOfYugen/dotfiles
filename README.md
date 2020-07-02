@@ -42,8 +42,7 @@
 <img src="https://imgur.com/PoAK9Z9.gif" alt="img" width="900px">
 </p>
 
-To achieve this, I basically start polybar whenever the cursor is in range and kill it when out of range. I found a python script to this [here](https://www.reddit.com/r/unixporn/comments/7sm2ch/oc_updated_polybarautohide/), but converted the script from python to shell, which can be found as [`hidebar`](https://github.com/JavaCafe01/dotfiles/blob/master/.bin/hidebar).
-
+To achieve this, I basically start polybar whenever the cursor is in range and kill it when out of range. I found a python script to this [here](https://www.reddit.com/r/unixporn/comments/7sm2ch/oc_updated_polybarautohide/), but converted the script from python to shell, which worked well until it started to break so I reverted back to the python script.
 ## System Info
 
 + **OS**: Arch
