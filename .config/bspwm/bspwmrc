@@ -46,7 +46,7 @@ xrdb -load ~/.Xresources &
 hsetroot -solid $(xgetres background) &
 
 # Compositor
-~/.bin/picom &
+~/.bin/phicom &
 
 # Network Manager
 # nm-applet &

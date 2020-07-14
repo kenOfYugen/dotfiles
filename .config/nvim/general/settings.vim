@@ -17,7 +17,7 @@ set mouse=a
 set ruler
 set laststatus=2
 set nostartofline
-set nowrap
+" set nowrap
 
 "set relativenumber
 " Remove Tildas
@@ -26,19 +26,11 @@ let &fcs='eob: '
 " Notes
 let g:notes_directories = ['~/Documents/notes']
 
-" Markdown Preview Settings
-let g:mkdp_auto_start = 1
-let g:mkdp_auto_close = 1
-let g:mkdp_refresh_slow = 0
-let g:mkdp_command_for_global = 0
-let g:mkdp_open_to_the_world = 0
-let g:mkdp_browser = 'firefox'
+"set background=dark
 
-set background=dark
+"let g:gruvbox_material_background = 'medium'
 
-let g:gruvbox_material_background = 'medium'
-
-colorscheme gruvbox-material
+colorscheme wal
 
 
 " Start Page
@@ -91,6 +83,10 @@ call deoplete#custom#var('omni', 'input_patterns', {
 
 let g:vimtex_view_general_viewer = 'zathura'
 
-  " Enable Italics
+" Enable Italics
 let &t_ZH = "\e[3m"
 let &t_ZR = "\e[23m"
+
+" Format Lua on Save
+autocmd FileType lua nnoremap <buffer> <c-k> :call LuaFormat()<cr>
+autocmd BufWrite *.lua call LuaFormat()

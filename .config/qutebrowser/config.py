@@ -99,14 +99,14 @@ c.colors.statusbar.url.warn.fg          = xresources['*.color3']
 
 
 c.colors.tabs.bar.bg           = xresources['*.background']
-c.colors.tabs.even.bg          = adjust(xresources['*.background'], 1.15)
+c.colors.tabs.even.bg          = xresources['*.background']
 c.colors.tabs.even.fg          = xresources['*.color7']
 c.colors.tabs.indicator.error  = '#ff0000'
-c.colors.tabs.odd.bg           = adjust(xresources['*.background'], 1.35)
+c.colors.tabs.odd.bg           = xresources['*.background']
 c.colors.tabs.odd.fg           = xresources['*.color7']
-c.colors.tabs.selected.even.bg = adjust(xresources['*.background'], 1.15)
+c.colors.tabs.selected.even.bg = xresources['*.background']
 c.colors.tabs.selected.even.fg = xresources['*.color4']
-c.colors.tabs.selected.odd.bg  = adjust(xresources['*.background'], 1.35)
+c.colors.tabs.selected.odd.bg  = xresources['*.background']
 c.colors.tabs.selected.odd.fg  = xresources['*.color4']
 
 

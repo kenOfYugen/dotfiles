@@ -104,6 +104,8 @@ export PATH
 # Aliases
 alias v="nvim"
 alias icat="kitty +kitten icat"
+alias c="clear"
+alias ubrmus="~/.ncmpcpp/ncmpcpp-ueberzug/ncmpcpp-ueberzug"
 
 # Dotbare Variables
 export DOTBARE_DIR="$HOME/.cfg"
