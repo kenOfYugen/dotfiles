@@ -16,6 +16,8 @@
 <img src="https://imgur.com/dc9pXE8.png" alt="img" width="900px">
 </p>
 
+This rice was heavily ~~stolen from~~ inspired by [elenapan](https://github.com/elenapan/dotfiles/tree/master/config/awesome) and [Eredarion](https://github.com/Eredarion/dotfiles/tree/master/.config/awesome).
+
 ## System Info
 
 + **OS**: Arch
@@ -40,8 +42,9 @@ I use [Enhanced Discord](https://github.com/joe27g/EnhancedDiscord) to change th
 
 ### Compositor
 
-A legendary hackerman from the unixporn server patched picom for their own needs/fun and added transitions. They were also nice enough to share their work. As their discord username was `phisch`, their edit of picom became to be known as `phicom`. For fun, I merged their edits with [ibhagwan's]
-(https://github.com/ibhagwan/picom) fork of picom to get transitions and nice antialiased corners. It is called `phicom2`, and is under the `~/.bin` directory. Use it at your own risk, it is not official. I DID NOT WRITE ANY CODE, ALL I DID WAS TYPE A FEW GIT COMMANDS AND SOLVED MERGE CONFLICTS. IF SOMETHING BREAKS, DO NOT GO ASKING FOR HELP TO THE COMPTON/PICOM/PICOM_FORK DEVS. AGAIN, USE AT YOUR OWN RISK. All credit goes to the compton devs, picom devs, ibhagwan, and phisch.
+A legendary hackerman from the unixporn server patched picom for their own needs/fun and added transitions. They were also nice enough to share their work. As their discord username was `phisch`, their edit of picom became to be known as `phicom`. For fun, I merged their edits with [ibhagwan's](https://github.com/ibhagwan/picom) fork of picom to get transitions and nice antialiased corners. It is called `phicom2`, and is under the `~/.bin` directory. Use it at your own risk, it is not official. **I DID NOT WRITE ANY CODE, ALL I DID WAS TYPE A FEW GIT COMMANDS AND SOLVED MERGE CONFLICTS. IF SOMETHING BREAKS, DO NOT GO ASKING FOR HELP TO THE COMPTON/PICOM/PICOM_FORK DEVS. AGAIN, USE AT YOUR OWN RISK. All credit goes to the compton devs, picom devs, ibhagwan, and phisch.**
+
+If you want to use a more stable picom, grab the original or any fork you like. Edit the `picom.conf` file to remove the corners and blur (if the other picoms don't support it). Also make sure to edit the `autostart.lua` for picom.
 
 ## Setup
 
