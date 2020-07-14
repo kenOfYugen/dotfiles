@@ -1,9 +1,5 @@
 <p align="center">
-  <img width="15%" src="https://github.com/javacafe01.png" />
-</p>
-
-<p align="center">
-  <b>There is no place like ~</b>
+  <img width="40%" src="https://imgur.com/ZGE5XCL.png" />
 </p>
 
 <p align="center">
