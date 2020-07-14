@@ -25,7 +25,6 @@ windowManagerName () {
     echo "${name}"
 }
 
-
 ## Get system info
 user="${USER}@$(hostname)"
 distro='Arch'
@@ -102,5 +101,6 @@ t=$'\e[0m'
 v=$'\e[7m'
  
  
-pcs() { for i in {0..7}; do echo -en "\e[${1}$((30+$i))m\u2580 \e[0m"; done; }
-printf "\n\t\t  %s\n" "$(pcs)"
+#pcs() { for i in {0..7}; do echo -en "\e[${1}$((30+$i))m\u2584 \e[0m"; done; }
+#printf "\n\t\t    %s\n" "$(pcs)"
+printf "\n"

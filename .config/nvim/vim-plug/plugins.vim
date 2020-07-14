@@ -7,6 +7,12 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
+    " Git Status
+    Plug 'tpope/vim-fugitive'
+
+    " Format
+    Plug 'andrejlevkovitch/vim-lua-format'
+
     " --------- adding the following three plugins for Latex ---------
     Plug 'lervag/vimtex'
     Plug 'Konfekt/FastFold'
@@ -16,13 +22,12 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'xolox/vim-misc'
     Plug 'VundleVim/Vundle.vim'
     "Plug 'itchyny/lightline.vim'
-    Plug 'vim-airline/vim-airline'
+    "Plug 'vim-airline/vim-airline'
     "Plug 'vim-airline/vim-airline-themes'
-    Plug 'ryanoasis/vim-devicons'
+    "Plug 'ryanoasis/vim-devicons'
     Plug 'preservim/nerdtree'
-    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
     Plug 'mhinz/vim-startify'
-    Plug 'dylanaraps/wal.vim'
+    Plug 'sprockmonty/wal.vim'
     Plug 'artur-shaik/vim-javacomplete2'
     Plug 'sainnhe/gruvbox-material'
 if has('nvim')

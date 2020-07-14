@@ -3,7 +3,11 @@ img="shot_$(date '+%m%d%H%M%S').png"
 file="$HOME/Pictures/screenshots/$img"
 
 if [ "$1" == "sel" ]; then
-    slop=$(slop -p 20 -f "%g") || exit 1
+    slop=$(slop -p 40 -f "%g") || exit 1
+    read -r G < <(echo $slop)
+    import -window root -crop $G $file
+elif [ "$1" == "selnp" ]; then
+    slop=$(slop -f "%g") || exit 1
     read -r G < <(echo $slop)
     import -window root -crop $G $file
 else 

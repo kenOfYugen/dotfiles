@@ -1,5 +1,5 @@
 /*
- * Amazing theme done by elkowar
+ * Amazing theme done by elkowar (edited for my theme)
  *
  * Source:
  * https://github.com/elkowar/a-box-of-gruv
@@ -7,26 +7,26 @@
 
 :root {
   /*  ----  */
-  --bg1: #282828;
-  --bg2: #222222;
-  --bg3: #1d2021;
+  --bg1: #30333d;
+  --bg2: #292b34;
+  --bg3: #292b34;
   --button: #daddee1a;
   /*  ----  */
-  --fg2: #a89984;
-  --fg1: #fbf1c7;
-  --disabled: #696969;
+  --fg1: #dfd7d7;
+  --fg2: #c0c0c0;
+  --disabled: #585e74;
   /*  ----  */
   --accent: #83c07c;
-  --accent2: #83a598;
+  --accent2: #7ed491;
   --contrast: #ffffff;
   /*  ----  */
 
-  --red: #fb4934;
-  --purple: #b16286;
-  --blue: #458588;
-  --cyan: #7acfe4;
-  --green: #83c07c;
-  --yellow: #fabd2f;
+  --red: #f9929b;
+  --purple: #ccaced;
+  --blue: #a3b8ef;
+  --cyan: #9ce5c0;
+  --green: #7ed491;
+  --yellow: #fbdf90;
   --border1: #223344;
   --border2: #334455;
   -moz-tab-size: 2;
@@ -225,7 +225,7 @@ button[class*="lookFilled"] {
 
 
 div[class*="chat"] div[class*="root"] {
-  background-color: #282828;
+  background-color: var(--bg3);
 }
 
 div[class*="chat"] div[class*="root"] canvas {

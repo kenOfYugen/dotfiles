@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+pcs() { for i in {0..7}; do echo -en "\e[${1}$((30+$i))m \uf6e2 \e[0m"; done; }
+printf "\n%s\n%s\n" "$(pcs)"
