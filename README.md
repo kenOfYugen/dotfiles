@@ -12,37 +12,10 @@
 
 ## Preview
 
-> ### Normal
-
 <p align="center">
-<img src="https://imgur.com/8fq7O2M.jpg" alt="img" width="900px">
+<img src="https://imgur.com/dc9pXE8.png" alt="img" width="900px">
 </p>
 
-> ### Launcher
-
-<p align="center">
-<img src="https://imgur.com/JmwkI1F.jpg" alt="img" width="900px">
-</p>
-
-> ### Lock Screen
-
-<p align="center">
-<img src="https://imgur.com/O8guGbD.jpg" alt="img" width="900px">
-</p>
-
-> ### Sample Workflow
-
-<p align="center">
-<img src="https://imgur.com/I3Z9oLM.jpg" alt="img" width="900px">
-</p>
-
-> ### Autohide Polybar
-
-<p align="center">
-<img src="https://imgur.com/PoAK9Z9.gif" alt="img" width="900px">
-</p>
-
-To achieve this, I basically start polybar whenever the cursor is in range and kill it when out of range. I found a python script to this [here](https://www.reddit.com/r/unixporn/comments/7sm2ch/oc_updated_polybarautohide/), but converted the script from python to shell, which worked well until it started to break so I reverted back to the python script.
 ## System Info
 
 + **OS**: Arch
@@ -51,25 +24,41 @@ To achieve this, I basically start polybar whenever the cursor is in range and k
 + **Editor**: neovim
 + **File Manager**: thunar
 + **Launcher**: rofi
-+ **Browser**: qutebrowser
-+ **Color Scheme**: [gruvbox material](https://github.com/sainnhe/gruvbox-material)
++ **Browser**: firefox
++ **Color Scheme**: custom
 + **GTK Theme**: [wpgtk](https://github.com/deviantfero/wpgtk) generated
 
 ### Discord
 
-I use [Enhanced Discord](https://github.com/joe27g/EnhancedDiscord) to change the theme. Special thanks to [ElKowar's boxful of gruv](https://github.com/elkowar/a-box-of-gruv) for the amazing gruvbox theme.
+I use [Enhanced Discord](https://github.com/joe27g/EnhancedDiscord) to change the theme. Special thanks to [ElKowar's boxful of gruv](https://github.com/elkowar/a-box-of-gruv) as I edited his gruvbox theme colors to fit my scheme.
 
 > ### Screenshot
 
 <p align="center">
-<img src="https://imgur.com/F9oPGbG.jpg" alt="img" width="600px">
+<img src="https://imgur.com/dzDi9dg.png" alt="img" width="600px">
 </p>
+
+### Compositor
+
+A legendary hackerman from the unixporn server patched picom for their own needs/fun and added transitions. They were also nice enough to share their work. As their discord username was `phisch`, their edit of picom became to be known as `phicom`. For fun, I merged their edits with [ibhagwan's]
+(https://github.com/ibhagwan/picom) fork of picom to get transitions and nice antialiased corners. It is called `phicom2`, and is under the `~/.bin` directory. Use it at your own risk, it is not official. I DID NOT WRITE ANY CODE, ALL I DID WAS TYPE A FEW GIT COMMANDS AND SOLVED MERGE CONFLICTS. IF SOMETHING BREAKS, DO NOT GO ASKING FOR HELP TO THE COMPTON/PICOM/PICOM_FORK DEVS. AGAIN, USE AT YOUR OWN RISK. All credit goes to the compton devs, picom devs, ibhagwan, and phisch.
 
 ## Setup
 
-I maintain my dotfiles using [dotbare](https://github.com/kazhala/dotbare). It's basically a wrapper program for the git bare repository method of handling dotfiles.
+I use the regular packaged version of [awesome](https://www.archlinux.org/packages/?name=awesome), not the git version.
+Some of my keybinds use tools from [lain](https://github.com/lcpz/lain), a great toolset for awesome.
+
+There are a bunch of other programs used, like feh and pactl, but I'm too lazy to remember.
+
+### Browser
+
+I use Firefox Review with some minor edits. My fork of it can be found [here](https://github.com/JavaCafe01/firefox-review).
+
+My startpage files can be found [here](https://github.com/JavaCafe01/startpage).
 
 ### Migrate to my dots
+
+I maintain my dotfiles using [dotbare](https://github.com/kazhala/dotbare). It's basically a wrapper program for the git bare repository method of handling dotfiles.
 
 If you want to use my dots, follow these simple steps: 
 1. Install [dotbare](https://github.com/kazhala/dotbare)
@@ -84,6 +73,6 @@ If you want to use my dots, follow these simple steps:
     ```
 Everything is further explained on the readme in dotbare's [repo](https://github.com/kazhala/dotbare).
 
-### Browser
+## Old Dots
 
-My startpage files can be found [here](https://github.com/JavaCafe01/startpage).
+If you are looking for my old bspwm setup, go [here](https://github.com/JavaCafe01/dotfiles/tree/79da31811d5fcf32e999e5bdc536c55efdc4dfed).
