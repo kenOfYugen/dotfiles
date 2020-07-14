@@ -26,6 +26,12 @@ This rice was heavily ~~stolen from~~ inspired by [elenapan](https://github.com/
 + **Color Scheme**: custom
 + **GTK Theme**: [wpgtk](https://github.com/deviantfero/wpgtk) generated
 
+### Fonts
+
++ Fira Code
++ Iosevka
++ Font Awesome 5
+
 ### Discord
 
 I use [Enhanced Discord](https://github.com/joe27g/EnhancedDiscord) to change the theme. Special thanks to [ElKowar's boxful of gruv](https://github.com/elkowar/a-box-of-gruv) as I edited his gruvbox theme colors to fit my scheme.
