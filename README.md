@@ -27,6 +27,10 @@ This rice was heavily ~~stolen from~~ inspired by [elenapan](https://github.com/
 + **GTK Theme**: [wpgtk](https://github.com/deviantfero/wpgtk) generated
 + **Wallpaper**: [here](https://drive.google.com/file/d/1y7u8iN0ibN-ljpJ-PvhIhhTcQwZRCoeU/view?usp=sharing)
 
+### [Zsh Prompt](https://gist.github.com/JavaCafe01/db8d1fdcc3376374eb5980c580b5673f)
+
+To make the curved look in the prompt, I used semicircles from the font.
+
 ### Fonts
 
 + Fira Code Mono
