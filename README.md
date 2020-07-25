@@ -9,7 +9,7 @@
 ## Preview
 
 <p align="center">
-<img src="https://imgur.com/dc9pXE8.png" alt="img" width="900px">
+<img src="https://imgur.com/Pe0JO6f.png" alt="img" width="900px">
 </p>
 
 This rice was heavily ~~stolen from~~ inspired by [elenapan](https://github.com/elenapan/dotfiles/tree/master/config/awesome) and [Eredarion](https://github.com/Eredarion/dotfiles/tree/master/.config/awesome).
@@ -18,19 +18,20 @@ This rice was heavily ~~stolen from~~ inspired by [elenapan](https://github.com/
 
 + **OS**: Arch
 + **Shell**: zsh
-+ **Terminal**: kitty
++ **Terminal**: alacritty
 + **Editor**: neovim
 + **File Manager**: thunar
 + **Launcher**: rofi
 + **Browser**: firefox
 + **Color Scheme**: custom
 + **GTK Theme**: [wpgtk](https://github.com/deviantfero/wpgtk) generated
++ **Wallpaper**: [here](https://drive.google.com/file/d/1y7u8iN0ibN-ljpJ-PvhIhhTcQwZRCoeU/view?usp=sharing)
 
 ### Fonts
 
-+ Fira Code
-+ Iosevka
-+ Font Awesome 5
++ Fira Code Mono
++ Iosevka Extended
++ Nerd Font Icons
 
 ### Discord
 
@@ -53,7 +54,7 @@ If you want to use a more stable picom, grab the original or any fork you like. 
 I use the regular packaged version of [awesome](https://www.archlinux.org/packages/?name=awesome), not the git version.
 Some of my keybinds use tools from [lain](https://github.com/lcpz/lain), a great toolset for awesome.
 
-There are a bunch of other programs used, like feh and pactl, but I'm too lazy to remember.
+For the titlebars and slidebar, I use these two amazing plugins: [smart_borders](https://github.com/intrntbrn/smart_borders) and [awesome-wm-slidebar](https://github.com/mut-ex/awesome-wm-slidebar).
 
 ### Browser
 
