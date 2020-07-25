@@ -22,7 +22,7 @@ local icon_font = "Font Awesome 5 45"
 local poweroff_text_icon = ""
 local reboot_text_icon = ""
 local suspend_text_icon = ""
-local exit_text_icon = ""
+local exit_text_icon = ""
 local lock_text_icon = ""
 local exitscreen_bg = beautiful.xbackground .. "95"
 
@@ -71,9 +71,9 @@ local create_button = function(symbol, hover_color, text, command)
         },
         forced_height = button_size,
         forced_width = button_size,
-        border_width = dpi(8),
+        border_width = dpi(3),
         border_color = button_bg,
-        shape = helpers.rrect(dpi(20)),
+        shape = gears.shape.rectangle,
         bg = button_bg,
         widget = wibox.container.background
     }

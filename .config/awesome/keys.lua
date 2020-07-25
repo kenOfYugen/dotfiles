@@ -59,18 +59,22 @@ globalkeys = gears.table.join(
         {description = "go back", group = "client"}),
     awful.key({ modkey, }, "x", function() exit_screen_show() end,
            {description = "show exit screen", group = "awesome"}),
-    awful.key({ modkey,  }, "d", function() os.execute("~/.config/rofi/launchers/launcher.sh")  end,
+    awful.key({ modkey,  }, "d", function() awful.spawn.with_shell("~/.config/rofi/launchers/launcher.sh")  end,
            {description = "show rofi ", group = "launcher"}),
     
     --Volume control
-    awful.key({}, "XF86AudioRaiseVolume", function() os.execute("pamixer -i 3" )    end   ),
-    awful.key({}, "XF86AudioLowerVolume", function() os.execute("pamixer -d 3")  end ),
-    awful.key({}, "XF86AudioMute",  function() os.execute("pamixer -t") end),
-    awful.key({}, "Print",  function() awful.util.spawn("scrot") end),
+    awful.key({}, "XF86AudioRaiseVolume", function() awful.spawn("pamixer -i 3" )    end   ),
+    awful.key({}, "XF86AudioLowerVolume", function() awful.spawn("pamixer -d 3")  end ),
+    awful.key({}, "XF86AudioMute",  function() awful.spawn("pamixer -t") end),
+   
+    awful.key({}, "Print",  function() awful.spawn.with_shell("~/.bin/shoot") end),
+    awful.key({ modkey, }, "Print",  function() awful.spawn.with_shell("~/.bin/shoot selnp") end),
+    awful.key({ modkey, shift }, "Print",  function() awful.spawn.with_shell("~/.bin/shoot sel") end),
+
    
     --Brightness
-    awful.key({}, "XF86MonBrightnessUp", function() os.execute("xbacklight -inc 10" )    end   ),
-    awful.key({}, "XF86MonBrightnessDown", function() os.execute("xbacklight -dec 10" )    end   ),
+    awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("xbacklight -inc 10" )    end   ),
+    awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("xbacklight -dec 10" )    end   ),
 
     -- Standard program
     awful.key({ modkey,           }, "t", function () awful.spawn(terminal) end,

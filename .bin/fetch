@@ -1,42 +1,20 @@
 #!/bin/bash
 
 ## WM Name
-windowManagerName () {
-    local window=$(
-        xprop -root -notype
-    )
-
-    local identifier=$(
-        echo "${window}" |
-        awk '$1=="_NET_SUPPORTING_WM_CHECK:"{print $5}'
-    )
-
-    local attributes=$(
-        xprop -id "${identifier}" -notype -f _NET_WM_NAME 8t
-    )
-
-    local name=$(
-        echo "${attributes}" |
-        grep "_NET_WM_NAME = " |
-        cut --delimiter=' ' --fields=3 |
-        cut --delimiter='"' --fields=2
-    )
-
-    echo "${name}"
-}
+id_bloat=$(xprop -root _NET_SUPPORTING_WM_CHECK)
+id=${id_bloat##* }
+wm_bloat=$(xprop -id "$id" _NET_WM_NAME)
 
 ## Get system info
-user="${USER}@$(hostname)"
-distro='Arch'
-kernel="$(uname -sr | sed 's/-.*//')"
-uptime="$(uptime -p | sed 's/up //')"
+#user="${USER}@$(hostname)"
+distro=$(. /etc/{os-release,*-release,*_version} ; echo "${ID}")
+#kernel="$(uname -sr | sed 's/-.*//')"
+#uptime="$(uptime -p | sed 's/up //')"
 shell="$(basename ${SHELL})"
 packages="$(pacman -Qq | wc -l)"
+wm="$(echo $wm_bloat | cut -d'"' -f 2)"
+term="$(pstree -As $$ | awk -F "---" '{print $2}')"
 
-if [ -z "${WM}" ]; then
-		envtype='WM'
-        WM="$(windowManagerName)"
-fi
 
 ## Define Colours
 if [[ $1 = "--red" ]]; then
@@ -63,8 +41,10 @@ else
 fi
 
 bold="$(tput bold)"
+#white="$(tput setab 7)$(tput setaf 8)"
+blue_oof="$(tput setab 4)$(tput setaf 8)"
 white="$(tput setaf 7)"
-yellow="$(tput setaf 3)"
+yellow="$(tput setaf 12)"
 red="$(tput setaf 1)"
 blue="$(tput setaf 4)"
 green="$(tput setaf 2)"
@@ -81,13 +61,11 @@ c1="${reset}${accent}"
 
 cat <<EOF
 
-${c0}${white}       /\       ${c0}${white}    USER${reset}       ${c0}${violet}${user}${reset}
-${c0}${white}      /  \      ${c0}${white}    DISTRO     ${c0}${red}${distro}${reset}
-${c0}${white}     /\   \     ${c0}${white}    KERNEL     ${c0}${yellow}${kernel}${reset}
-${c0}${white}    /      \    ${c0}${white}    UPTIME     ${c0}${cyan}${uptime}${reset}
-${c0}${white}   /   ,,   \   ${c0}${white}    ${envtype}         ${c0}${orange}${WM}${reset}
-${c0}${white}  /   |  |  -\  ${c0}${white}    SHELL      ${c0}${green}${shell}${reset}
-${c0}${white} /_-''    ''-_\ ${c0}${white}    PACKAGES   ${c0}${blue}${packages}${reset}
+${c0}${cyan}      ----      ${c0}${blue}${c0}${yellow}  ${reset}${c0}${blue}  ${cr}${white}${distro}${reset} 
+${c0}${cyan}     / O O\     ${c0}${blue}${c0}${yellow} 缾${reset}${c0}${blue}  ${cr}${white}${wm}${reset}
+${c0}${cyan}    |      |    ${c0}${blue}${c0}${yellow}  ${reset}${c0}${blue}  ${cr}${white}${term}${reset}
+${c0}${cyan}    |/\/\/\|    ${c0}${blue}${c0}${yellow}  ${reset}${c0}${blue}  ${cr}${white}${packages}${reset}
+${c0}${orange}   ----------   ${c0}${blue}${c0}${yellow}  ${reset}${c0}${blue}  ${cr}${white}${shell}${reset}
 EOF
 
 f=3 b=4

@@ -19,13 +19,7 @@ end
 
 -- Network Manager Applet
 run_once("nm-applet")
--- Phisch's Picom + Ibhagwan Fork (includes transitions & antialiased corners)
-run_once("~/.bin/phicom2")
--- Power Manager
-run_once("xfce4-power-manager")
--- Disable System Bell
-run_once("xset -b")
--- WallPaper
-run_once ("feh --bg-fill /home/javacafe01/Pictures/wallpapers/wall.png")
+-- Autostart Script
+run_once("~/.config/autostart/autostart")
 
 return autostart

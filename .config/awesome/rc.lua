@@ -24,6 +24,8 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 screen_width = awful.screen.focused().geometry.width
 screen_height = awful.screen.focused().geometry.height
 
+
+
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -33,8 +35,14 @@ local helpers = require("helpers")
 -- Listeners
 require("ears")
 
+awful.spawn.with_shell("~/.config/awesome/wipe-wipe.sh")
+
 
 local autostart = require("autostart")
+
+
+
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -60,15 +68,20 @@ do
 end
 -- }}}
 
+
+
+
+
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/theme.lua")
 require("bloat.exitscreen")
 require("bloat.sidebar")
-require("bloat.wibar")
+require("notifs.notifs")
+local wibar = require("bloat.wibar")
 -- local bar = require("widgets.statusbar")
 -- This is used later as the default terminal and editor to run.
-terminal = "kitty"
+terminal = "alacritty"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 browser = "firefox"
@@ -159,8 +172,8 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Each screen has its own tag table.
-    --awful.tag({ "", "龜", "", "" }, s, awful.layout.layouts[1])
-    awful.tag({"A", "W", "E", "S", "O", "M", "E"}, s, awful.layout.layouts[1])
+    awful.tag({ "", "", "", "", "ﱘ" }, s, awful.layout.layouts[1])
+    --awful.tag({"A", "W", "E", "S", "O", "M", "E"}, s, awful.layout.layouts[1])
 end)
 
 -- }}}
@@ -262,38 +275,7 @@ require("keys")
 
 
 
--- {{{ Enable THICC Title Bars only while Floating
-client.connect_signal("property::floating", function(c)
-    local b = false;
-    if c.first_tag ~= nil then
-        b = c.first_tag.layout.name == "floating"
-    end
-    if c.floating or b then
-        awful.titlebar.show(c)
-    else
-        awful.titlebar.hide(c)
-    end
-end)
 
-client.connect_signal("manage", function(c)
-    if c.floating or c.first_tag.layout.name == "floating" then
-        awful.titlebar.show(c)
-    else
-        awful.titlebar.hide(c)
-    end
-end)
-
-tag.connect_signal("property::layout", function(t)
-    local clients = t:clients()
-    for k,c in pairs(clients) do
-        if c.floating or c.first_tag.layout.name == "floating" then
-            awful.titlebar.show(c)
-        else
-            awful.titlebar.hide(c)
-        end
-    end
-end)
--- }}}
 
 
 
@@ -345,10 +327,10 @@ awful.rules.rules = {
         }
       }, properties = { floating = true }},
 
-    -- Add titlebars to normal clients and dialogs
-    --{ rule_any = {type = { "normal", "dialog" }
-    --  }, properties = { titlebars_enabled = true }
-    --},
+    -- Add titlebars to normal clients and dialogs (UNCOMMENT FOR DOUBLE BORDERS)
+    { rule_any = {type = { "normal", "dialog" }
+      }, properties = { titlebars_enabled = true }
+    },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
 --   { rule = { class = "Firefox" },
@@ -391,78 +373,8 @@ client.connect_signal("manage", function (c)
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
-
-  -- Rounded Corners
-    if not c.fullscreen and not c.maximized then
-        c.shape = helpers.rrect(beautiful.border_radius)
-    end
 end)
 
--- Don't add those curves on full clients
-local function no_round_corners (c)
-    if c.fullscreen or c.maximized then
-        c.shape = gears.shape.rectangle
-    else
-        c.shape = helpers.rrect(beautiful.border_radius)
-    end
-end
-
-client.connect_signal("property::fullscreen", no_round_corners)
-client.connect_signal("property::maximized", no_round_corners)
-
--- Add a titlebar if titlebars_enabled is set to true in the rules.
-client.connect_signal("request::titlebars", function(c)
-    -- buttons for the titlebar
-    local buttons = gears.table.join(
-        awful.button({ }, 1, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-          if c.maximized == true then   c.maximized = false end 
-            awful.mouse.client.move(c)
-        end),
-        awful.button({ }, 3, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-            awful.mouse.client.resize(c)
-        end)
-    )   
-    local borderbuttons = gears.table.join(
-	awful.button({ }, 3, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-            awful.mouse.client.resize(c)
-        end),
-
-        awful.button({ }, 1, function()
-            c:emit_signal("request::activate", "titlebar", {raise = true})
-            awful.mouse.client.resize(c)
-        end)
-    )
-
-    awful.titlebar(c,{size = beautiful.titlebar_size}) : setup {
-        { -- Left
---          awful.titlebar.widget.iconwidget     (c),
---          awful.titlebar.widget.ontopbutton    (c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
-        },
-        { -- Middle
-            --{ -- Title
-                --align  = "center",
-                --widget = awful.titlebar.widget.titlewidget(c)
-            --},
-            --buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
-        },
-        { -- Right
---          awful.titlebar.widget.floatingbutton (c),
---          awful.titlebar.widget.maximizedbutton(c),
---          awful.titlebar.widget.stickybutton   (c),
---          awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.minimizebutton (c),
-            awful.titlebar.widget.closebutton    (c),
-            layout = wibox.layout.fixed.horizontal()
-        },
-        layout = wibox.layout.align.horizontal
-    }
-end)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
@@ -472,3 +384,35 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+
+require("smart_borders"){
+	show_button_tooltips = false,
+	layout = "fixed",
+    button_size = dpi(40),
+    button_maximize_size = dpi(5),
+    buttons = {"floating", "minimize", "close", "maximize"},
+	align_horizontal = "right",
+	border_width = dpi(5),
+    color_normal = beautiful.xcolor0,
+    color_focus = beautiful.xcolor0,
+    color_floating_focus = beautiful.xcolor5,
+    color_floating_hover = beautiful.xcolor13,
+    color_floating_normal = beautiful.xcolor0,
+    color_minimize_normal = beautiful.xcolor0,
+    color_minimize_focus = beautiful.xcolor2,
+    color_minimize_hover = beautiful.xcolor10,
+    color_maximize_normal = beautiful.xcolor0,
+    color_maximize_focus = beautiful.xcolor0,
+    color_maximize_hover = beautiful.xcolor0,
+    color_close_normal = beautiful.xcolor0,
+    color_close_focus = beautiful.xcolor1,
+    color_close_hover = beautiful.xcolor9,
+    button_positions = { "top" },
+    -- custom control example:
+	button_back = function(c)
+		-- set client as master
+		c:swap(awful.client.getmaster())
+    end
+
+}

@@ -14,7 +14,6 @@ local helpers = require("helpers")
 local pad = helpers.pad
 local dpi = require("beautiful").xresources.apply_dpi
 
-
 -- Set up icons
 local icon_theme = "sheet"
 local icons = require("icons")
@@ -198,7 +197,7 @@ local fancy_time = {
 
 --- {{{ Date
 
-local fancy_date_widget = wibox.widget.textclock('%A %d')
+local fancy_date_widget = wibox.widget.textclock('%A %B %d, %Y')
 fancy_date_widget.markup = "<span foreground='" .. beautiful.xcolor12 .."'>" .. fancy_date_widget.text .. "</span>"
 fancy_date_widget:connect_signal("widget::redraw_needed", function () 
     fancy_date_widget.markup = "<span foreground='" .. beautiful.xcolor12 .."'>" .. fancy_date_widget.text .. "</span>"
@@ -208,7 +207,7 @@ fancy_date_widget.valign = "center"
 fancy_date_widget.font = "Iosevka Extended 15"
 local fancy_date_decoration = wibox.widget.textbox()
 -- local decoration_string = "------------------------"
-local decoration_string = "──────  ──────"
+local decoration_string = "──────  ──────"
 fancy_date_decoration.markup = "<span foreground='" .. beautiful.xcolor2 .."'>"..decoration_string.."</span>"
 fancy_date_decoration.font = "Iosevka Extended 18"
 fancy_date_decoration.align = "center"
@@ -221,8 +220,6 @@ local fancy_date = {
 }
 
 ---}}}
-
-
 
 local mpd = require("widgets.mpd")
 local mpd_area = wibox.layout.align.vertical()
@@ -254,6 +251,9 @@ sidebar:setup {
     },
         layout = wibox.layout.align.vertical,
 }
+
+sidebar.border_width = dpi(5)
+sidebar.border_color = beautiful.xcolor0
 
 
 return sidebar
