@@ -17,6 +17,7 @@ set mouse=a
 set ruler
 set laststatus=2
 set nostartofline
+"set cursorline
 " set nowrap
 
 "set relativenumber

@@ -13,12 +13,12 @@ function! Gitbranchname() abort
   if has_key(b:, 'gitbranch_path') && filereadable(b:gitbranch_path)
     let branch = get(readfile(b:gitbranch_path), 0, '')
     if branch =~# '^ref: '
-      hi MyStatuslineGit guifg=#3b3e4b gui=none guibg=none
-      hi MyStatuslineGitBody guifg=#c0c0c0 gui=none guibg=#3b3e4b
+      hi MyStatuslineGit guifg=#585e74 gui=none guibg=none
+      hi MyStatuslineGitBody guifg=#c0c0c0 gui=none guibg=#585e74
       return substitute(branch, '^ref: \%(refs/\%(heads/\|remotes/\|tags/\)\=\)\=', '', '')
     elseif branch =~# '^\x\{20\}'
-      hi MyStatuslineGit guifg=#3b3e4b gui=none guibg=none
-      hi MyStatuslineGitBody guifg=#c0c0c0 gui=none guibg=#3b3e4b
+      hi MyStatuslineGit guifg=#585e74 gui=none guibg=none
+      hi MyStatuslineGitBody guifg=#c0c0c0 gui=none guibg=#585e74
       return branch[:6]
     endif
   endif
@@ -65,24 +65,24 @@ endfunction
 function! RedrawModeColors(mode) " {{{
   " Normal mode
   if a:mode == 'n'
-    hi MyStatuslineAccent guifg=#3b3e4b gui=none guibg=none
-    hi MyStatuslineFilename guifg=#c0c0c0 gui=none guibg=#3b3e4b
-    hi MyStatuslineAccentBody guibg=#3b3e4b gui=none guifg=#7ed491
+    hi MyStatuslineAccent guifg=#292b34 gui=none guibg=none
+    hi MyStatuslineFilename guifg=#c0c0c0 gui=none guibg=#585e74
+    hi MyStatuslineAccentBody guibg=#292b34 gui=none guifg=#7ed491
   " Insert mode
   elseif a:mode == 'i'
-    hi MyStatuslineAccent guifg=#3b3e4b gui=none guibg=none
-    hi MyStatuslineFilename guifg=#c0c0c0 gui=none guibg=#3b3e4b
-    hi MyStatuslineAccentBody guibg=#3b3e4b gui=none guifg=#f9929b
+    hi MyStatuslineAccent guifg=#292b34 gui=none guibg=none
+    hi MyStatuslineFilename guifg=#c0c0c0 gui=none guibg=#585e74
+    hi MyStatuslineAccentBody guibg=#292b34 gui=none guifg=#f9929b
   " Replace mode
   elseif a:mode == 'R'
-    hi MyStatuslineAccent guifg=#3b3e4b gui=none guibg=none
-    hi MyStatuslineFilename guifg=#c0c0c0 gui=none guibg=#3b3e4b
-    hi MyStatuslineAccentBody guibg=#3b3e4b gui=none guifg=#fbdf90
+    hi MyStatuslineAccent guifg=#292b34 gui=none guibg=none
+    hi MyStatuslineFilename guifg=#c0c0c0 gui=none guibg=#585e74
+    hi MyStatuslineAccentBody guibg=#292b34 gui=none guifg=#fbdf90
   " Visual mode
   elseif a:mode == 'v' || a:mode == 'V' || a:mode == '^V'
-    hi MyStatuslineAccent guifg=#3b3e4b gui=none guibg=none
-    hi MyStatuslineFilename guifg=#c0c0c0 gui=none guibg=#3b3e4b
-    hi MyStatuslineAccentBody guibg=#3b3e4b gui=none guifg=#a3b8ef
+    hi MyStatuslineAccent guifg=#292b34 gui=none guibg=none
+    hi MyStatuslineFilename guifg=#c0c0c0 gui=none guibg=#585e74
+    hi MyStatuslineAccentBody guibg=#292b34 gui=none guifg=#a3b8ef
   endif
   " Return empty string so as not to display anything in the statusline
   return ''
@@ -108,7 +108,7 @@ set statusline=%{RedrawModeColors(mode())}
 " Left side items
 " =======================
 set statusline+=%#MyStatuslineAccent#
-set statusline+=%#MyStatuslineAccentBody#\ 
+set statusline+=%#MyStatuslineAccentBody#\ 
 " Filename
 set statusline+=%#MyStatuslineFilename#\ %.20f
 set statusline+=%#MyStatuslineSeparator#\ 
@@ -143,15 +143,15 @@ set statusline+=%#MyStatuslineFiletype#
 hi StatusLine          guifg=none       guibg=#3b3e4b  gui=NONE
 hi StatusLineNC        guifg=#c0c0c0    guibg=none     gui=bold
 
-hi MyStatuslineSeparator guifg=#3b3e4b gui=none guibg=none
+hi MyStatuslineSeparator guifg=#585e74 gui=none guibg=none
 
-hi MyStatuslineModified  guifg=#3b3e4b gui=none guibg=none
+hi MyStatuslineModified  guifg=#585e74 gui=none guibg=none
 
-hi MyStatuslineFiletype guibg=NONE gui=NONE guifg=#3b3e4b
-hi MyStatuslineFiletypeBody guifg=#ccaced gui=bold guibg=#3b3e4b
+hi MyStatuslineFiletype guibg=NONE gui=NONE guifg=#585e74
+hi MyStatuslineFiletypeBody guifg=#ccaced gui=bold guibg=#585e74
 
-hi MyStatuslinePercentage guifg=#3b3e4b gui=NONE guibg=NONE
-hi MyStatuslinePercentageBody guibg=#3b3e4b gui=none guifg=#c0c0c0
+hi MyStatuslinePercentage guifg=#585e74 gui=NONE guibg=NONE
+hi MyStatuslinePercentageBody guibg=#585e74 gui=none guifg=#c0c0c0
 
-hi MyStatuslineLineCol guifg=#3b3e4b gui=NONE guibg=NONE
-hi MyStatuslineLineColBody guibg=#3b3e4b gui=none guifg=#c0c0c0
+hi MyStatuslineLineCol guifg=#585e74 gui=NONE guibg=NONE
+hi MyStatuslineLineColBody guibg=#585e74 gui=none guifg=#c0c0c0
