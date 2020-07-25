@@ -55,7 +55,7 @@ If you want to use a more stable picom, grab the original or any fork you like. 
 
 ## Setup
 
-I use the regular packaged version of [awesome](https://www.archlinux.org/packages/?name=awesome), not the git version.
+I use `awesome-git`, not the regular packaged version.
 Some of my keybinds use tools from [lain](https://github.com/lcpz/lain), a great toolset for awesome.
 
 For the titlebars and slidebar, I use these two amazing plugins: [smart_borders](https://github.com/intrntbrn/smart_borders) and [awesome-wm-slidebar](https://github.com/mut-ex/awesome-wm-slidebar).
