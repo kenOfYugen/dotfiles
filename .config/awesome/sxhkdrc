@@ -1,0 +1,8 @@
+Print
+    ~/.bin/shoot
+
+super + Print
+    ~/.bin/shoot selnp
+
+super + shift + Print
+    ~/.bin/shoot sel

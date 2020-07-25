@@ -15,6 +15,7 @@ local dpi = xresources.apply_dpi
 local helpers = require("helpers")
 local icon_theme = "sheet"
 local icons = require("icons")
+local slidebar = require('slidebar')
 
 local systray_margin = (beautiful.wibar_height-beautiful.systray_icon_size)/2
 
@@ -36,7 +37,6 @@ local function rounded_bar(color)
         widget        = wibox.widget.progressbar,
     }
 end
-
 
 -- Helper function that changes the appearance of progress bars and their icons
 -- Create horizontal rounded bars
@@ -149,13 +149,40 @@ local tasklist_buttons = gears.table.join(
 
 --- }}}
 
-
 awful.screen.connect_for_each_screen(function(s)
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, ontop = true })
+    --s.mywibox = awful.wibar({ position = "top", screen = s, ontop = true })
+
+
+    
+
+    s.myslidebar = slidebar {
+        bg = beautiful.bg_normal,
+        position = "top",
+        size = beautiful.wibar_height,
+        -- size_activator = 1
+        -- show_delay = 0.25,
+        hide_delay = 5,
+        -- easing = 2,
+
+        screen = s
+    }
+
+
+
+    -- Remove wibar on full screen
+    local function remove_wibar (c)
+        if c.fullscreen or c.maximized then
+            s.myslidebar.visible = false
+        else
+            s.myslidebar.visible = true
+        end
+    end
+
+    client.connect_signal("property::fullscreen", remove_wibar)
 
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
@@ -192,14 +219,46 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create a tasklist widget
+
     s.mytasklist = awful.widget.tasklist {
-        screen  = s,
-        filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons,
+        screen   = s,
+        filter   = awful.widget.tasklist.filter.currenttags,
+        buttons  = tasklist_buttons,
+        style    = {
+            shape        = gears.shape.rounded_bar,
+        },
+        layout   = {
+            spacing = 10,
+            layout  = wibox.layout.flex.horizontal
+        },
+        -- Notice that there is *NO* wibox.wibox prefix, it is a template,
+        -- not a widget instance.
+        widget_template = {
+            {
+                {
+                    {
+                        id     = 'text_role',
+                        widget = wibox.widget.textbox,
+                    },
+                    layout = wibox.layout.flex.horizontal,
+                },
+                left  = 10,
+                right = 10,
+                widget = wibox.container.margin
+            },
+            id     = 'background_role',
+            widget = wibox.container.background,
+        },
     }
 
+
+
+
+
+
+
     -- Add widgets to the wibox
-    s.mywibox:setup {
+    s.myslidebar:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
@@ -210,7 +269,7 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         {
             { -- Right widgets
-                layout = wibox.layout.fixed.horizontal,
+                layout = wibox.layout.align.horizontal,
                 spacing = beautiful.wibar_spacing,
                 --ram_bar,
                 battery,

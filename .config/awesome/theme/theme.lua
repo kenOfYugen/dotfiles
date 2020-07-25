@@ -40,7 +40,7 @@ theme.xcolor13 =     xrdb.color13     or  "#a6809f"
 theme.xcolor14 =     xrdb.color14     or  "#7dbba8" 
 theme.xcolor15 =     xrdb.color15     or  "#d1d5dc" 
 theme.font          = "Iosevka Extended 9"
-theme.font1 	    = "Font Awesome 5 Free 8"
+theme.font1 	    = "Nerd Fonts Symbols 15"
 theme.bg_dark       = theme.xcolor0
 theme.bg_normal     = theme.xbackground
 theme.bg_focus      = theme.xcolor8
@@ -48,16 +48,16 @@ theme.bg_urgent     = theme.xcolor8
 theme.bg_minimize   = theme.xcolor8
 theme.bg_systray    = theme.xcolor8
 
-theme.fg_normal     = theme.xcolor8
+theme.fg_normal     = theme.xcolor7
 theme.fg_focus      = theme.xcolor4
 theme.fg_urgent     = theme.xcolor3
 theme.fg_minimize   = theme.xcolor8
 
 -- Borders
-theme.border_width  = dpi(0)
+theme.border_width  = dpi(8)
 -- theme.border_color = theme.xcolor0
 theme.border_normal = theme.xbackground
-theme.border_focus  = theme.xcolor0
+theme.border_focus  = theme.xbackground
 -- Rounded corners
 theme.border_radius = dpi(0)
 
@@ -94,7 +94,8 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- menu_[border_color|border_width]
 
 -- Taglist
-theme.taglist_font = "awesomewm-font 10"
+--theme.taglist_font = "awesomewm-font 10"
+theme.taglist_font = theme.font1
 theme.taglist_bg = theme.xbackground
 --theme.taglist_shape = gears.shape.triagle
 theme.taglist_bg_focus = theme.xbackground
@@ -107,6 +108,7 @@ theme.taglist_bg_empty = transparent
 theme.taglist_fg_empty = theme.xcolor8
 theme.taglist_bg_volatile = transparent
 theme.taglist_fg_volatile = theme.xcolor11
+theme.taglist_disable_icon = true
  --Tasklist
 theme.tasklist_font = "Iosevka Extended 9"
 theme.tasklist_disable_icon = true
@@ -127,39 +129,12 @@ theme.tasklist_align = "center"
 
 
 -- Titlebars
-theme.titlebar_size = dpi(35)
-theme.titlebar_bg_focus = theme.xcolor0
+theme.titlebar_size = dpi(0)
+theme.titlebar_bg_focus = theme.xcolor8
 theme.titlebar_bg_normal = theme.xcolor0 
-theme.titlebar_fg_focus = theme.xcolor4
-theme.titlebar_fg_normal = theme.xcolor4
+theme.titlebar_fg_focus = theme.xcolor8
+theme.titlebar_fg_normal = theme.xcolor0
 
-
--- You can add as many variables as
--- you wish and access them by using
--- beautiful.variable in your rc.lua
---theme.bg_widget = "#cc0000"
--- Notifications
--- Position: bottom_left, bottom_right, bottom_middle,
---         top_left, top_right, top_middle
--- BUG: some notifications (e.g. by notify-send) appear at top_right regardless of this setting
-theme.notification_position = "top_left" 
-theme.notification_border_color = theme.xbackground
-theme.notification_bg = theme.xbackground
-theme.notification_fg = theme.xforeground
-theme.notification_icon_size = dpi(60)
---theme.notification_height = dpi(80)
---theme.notification_width = dpi(300)
-theme.notification_margin = dpi(10)
-theme.notification_opacity = 1
-theme.notification_font = theme.font
-theme.notification_padding = dpi(6)
-theme.notification_spacing = dpi(6)
-
-local curvy_shape = function(cr, width, height)
-    gears.shape.rounded_rect(cr, width, height, theme.border_radius)
-end
-
-theme.notification_shape = curvy_shape
 
 -- Edge snap
 theme.snap_bg = theme.xcolor4
@@ -231,13 +206,13 @@ theme.sidebar_width = 325
 theme.sidebar_height = 600
 theme.sidebar_border_radius = 6
 theme.exit_screen_fg = theme.xforeground
-theme.layoutlist_border_color = theme.xbackground
-theme.layoutlist_border_width = dpi(0)
+theme.layoutlist_border_color = theme.xcolor8
+theme.layoutlist_border_width = dpi(3)
 theme.systray_icon_spacing = dpi(3)
 
 theme.bg_systray = xbackground
 
-theme.wibar_height = dpi(27)
+theme.wibar_height = dpi(30)
 theme.wibar_margin = dpi(15)
 theme.wibar_spacing = dpi(15)
 theme.wibar_bg = theme.background

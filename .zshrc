@@ -120,4 +120,4 @@ export TERM="xterm-256color"
       tic -x -
   fi
 
-clear; pastlogin; fetch
+clear; fetch
