@@ -20,6 +20,12 @@ local naughty = require("naughty")
 
 local helpers = {}
 
+helpers.resize_gaps = function(amt)
+    local t = awful.screen.focused().selected_tag
+    t.gap = t.gap + tonumber(amt)
+    awful.layout.arrange(awful.screen.focused())
+end
+
 -- Create rounded rectangle shape (in one line)
 helpers.rrect = function(radius)
     return function(cr, width, height)

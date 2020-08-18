@@ -10,7 +10,6 @@
 local gears = require("gears")
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
-local lain = require("lain")
 local helpers = require("helpers")
 
 local popup = require("notifs.notif-center.notif_popup")
@@ -177,8 +176,8 @@ clientkeys = gears.table.join(
     
 
     -- On the fly useless gaps change
-    awful.key({ modkey,  }, "=", function () lain.util.useless_gaps_resize(5) end),
-    awful.key({ modkey,  }, "-", function () lain.util.useless_gaps_resize(-5) end),
+    awful.key({ modkey,  }, "=", function () helpers.resize_gaps(5) end),
+    awful.key({ modkey,  }, "-", function () helpers.resize_gaps(-5) end),
 
 
     -- Single tap: Center client 
