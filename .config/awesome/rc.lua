@@ -77,15 +77,17 @@ end
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/theme.lua")
 require("bloat.exitscreen")
 require("bloat.sidebar")
+
 require("notifs.notifs")
 local wibar = require("bloat.wibar")
 -- local bar = require("widgets.statusbar")
 -- This is used later as the default terminal and editor to run.
-terminal = "alacritty"
+terminal = "st"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 browser = "firefox"
-filemanager= "thunar"
+filemanager = "thunar"
+discord = "/home/javacafe01/code/Lightcord/Lightcord"
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -97,7 +99,9 @@ shift = "Shift"
 ctrl = "Control"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.tile,
+        awful.layout.suit.tile,
+awful.layout.suit.spiral.dwindle,
+
     awful.layout.suit.floating,
 --awful.layout.suit.tile.left,
 --  awful.layout.suit.tile.bottom,
@@ -105,7 +109,7 @@ awful.layout.layouts = {
 ---  awful.layout.suit.fair,
  -- awful.layout.suit.fair.horizontal,
    -- awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
+    
    awful.layout.suit.max,
   --awful.layout.suit.max.fullscreen,
   awful.layout.suit.magnifier,
@@ -172,7 +176,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Each screen has its own tag table.
-    awful.tag({ "", "", "", "", "ﱘ" }, s, awful.layout.layouts[1])
+    awful.tag({ "TERM", "FILE", "WEBS", "MUSI", "CHAT" }, s, awful.layout.layouts[1])
     --awful.tag({"A", "W", "E", "S", "O", "M", "E"}, s, awful.layout.layouts[1])
 end)
 
@@ -276,6 +280,45 @@ require("keys")
 
 
 
+--[[
+-- {{{ Enable THICC Title Bars only while Floating
+client.connect_signal("property::floating", function(c)
+    local b = false;
+   if c.first_tag ~= nil then
+        b = c.first_tag.layout.name == "floating"
+    end
+    if c.floating or b then
+        awful.titlebar.show(c)
+    else
+        awful.titlebar.hide(c)
+    end
+end)
+
+client.connect_signal("manage", function(c)
+    if c.floating or c.first_tag.layout.name == "floating" then
+        awful.titlebar.show(c)
+    else
+        awful.titlebar.hide(c)
+    end
+end)
+
+tag.connect_signal("property::layout", function(t)
+   local clients = t:clients()
+    for k,c in pairs(clients) do
+        if c.floating or c.first_tag.layout.name == "floating" then
+            awful.titlebar.show(c)
+        else
+            awful.titlebar.hide(c)
+        end
+    end
+end)
+-- }}}
+--]]
+
+
+
+
+
 
 
 
@@ -292,7 +335,7 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.centered + awful.placement.no_overlap+awful.placement.no_offscreen
+                     placement = awful.placement.centered + awful.placement.no_overlap + awful.placement.no_offscreen
      }
     },
 { rule = { }, properties = { }, callback = awful.client.setslave }, -- so items in tasklist have the right order 
@@ -360,6 +403,9 @@ awful.rules.rules = {
 }
 -- }}}
 
+
+
+
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
@@ -373,46 +419,22 @@ client.connect_signal("manage", function (c)
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
-end)
 
+
+end)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = false})
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c) 
+    c.border_color = beautiful.border_focus
+end)
+
+client.connect_signal("unfocus", function(c) 
+    c.border_color = beautiful.border_normal
+end)
 -- }}}
-
-
-require("smart_borders"){
-	show_button_tooltips = false,
-	layout = "fixed",
-    button_size = dpi(40),
-    button_maximize_size = dpi(5),
-    buttons = {"floating", "minimize", "close", "maximize"},
-	align_horizontal = "right",
-	border_width = dpi(5),
-    color_normal = beautiful.xcolor0,
-    color_focus = beautiful.xcolor0,
-    color_floating_focus = beautiful.xcolor5,
-    color_floating_hover = beautiful.xcolor13,
-    color_floating_normal = beautiful.xcolor0,
-    color_minimize_normal = beautiful.xcolor0,
-    color_minimize_focus = beautiful.xcolor2,
-    color_minimize_hover = beautiful.xcolor10,
-    color_maximize_normal = beautiful.xcolor0,
-    color_maximize_focus = beautiful.xcolor0,
-    color_maximize_hover = beautiful.xcolor0,
-    color_close_normal = beautiful.xcolor0,
-    color_close_focus = beautiful.xcolor1,
-    color_close_hover = beautiful.xcolor9,
-    button_positions = { "top" },
-    -- custom control example:
-	button_back = function(c)
-		-- set client as master
-		c:swap(awful.client.getmaster())
-    end
-
-}
+--
+require("bloat.tb")

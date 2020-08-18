@@ -34,7 +34,7 @@ local function emit_info()
                 paused = true
             end
 
-            awesome.emit_signal("evil::mpd", artist, title, paused)
+            awesome.emit_signal("ears::mpd", artist, title, paused)
         end
     )
 end
@@ -64,7 +64,7 @@ end)
 local function emit_volume_info()
     awful.spawn.easy_async_with_shell("mpc volume | awk '{print substr($2, 1, length($2)-1)}'",
         function(stdout)
-            awesome.emit_signal("evil::mpd_volume", tonumber(stdout))
+            awesome.emit_signal("ears::mpd_volume", tonumber(stdout))
         end
     )
 end
@@ -102,7 +102,7 @@ local function emit_options_info()
         function(stdout)
             local loop = stdout:match('repeat: (.*)')
             local random = stdout:match('random: (.*)')
-            awesome.emit_signal("evil::mpd_options", loop:sub(1, 2) == "on", random:sub(1, 2) == "on")
+            awesome.emit_signal("ears::mpd_options", loop:sub(1, 2) == "on", random:sub(1, 2) == "on")
         end
     )
 end

@@ -24,7 +24,7 @@ local volume_adjust = wibox({
    height = offsety,
    shape = gears.shape.rect,
    visible = false,
-   border_width = 5,
+   border_width = 0,
    border_color = beautiful.xcolor0,
    ontop = true
 })

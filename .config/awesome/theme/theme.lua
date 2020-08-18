@@ -19,6 +19,13 @@ local helpers = require("helpers")
 local theme = dofile(themes_path.."default/theme.lua")
 -- Titlebar icon path
 local tip = "~/.config/awesome/theme/icons/titlebar/"
+local icon_path = "~/.config/awesome/theme/icons/"
+
+theme.clear_icon = icon_path.."clear.png"
+theme.clear_grey_icon = icon_path.."clear_grey.png"
+theme.notification_icon = icon_path.."notification.png"
+theme.delete_icon = icon_path.."delete.png"
+theme.delete_grey_icon = icon_path.."delete_grey.png"
 -- theme.wallpaper = gears.filesystem.get_configuration_dir() .. "theme/wall.png"
 -- Load ~/.Xresources colors and set fallback colors
 theme.xbackground =  xrdb.background  or  "#2f343f" 
@@ -39,22 +46,23 @@ theme.xcolor12 =     xrdb.color12     or  "#7191b1"
 theme.xcolor13 =     xrdb.color13     or  "#a6809f" 
 theme.xcolor14 =     xrdb.color14     or  "#7dbba8" 
 theme.xcolor15 =     xrdb.color15     or  "#d1d5dc" 
-theme.font          = "Iosevka Extended 9"
-theme.font1 	    = "Nerd Fonts Symbols 15"
+theme.font          = "JetBrains Mono 9"
+theme.font1 	    = "FiraCode Nerd Font Mono 12"
 theme.bg_dark       = theme.xcolor0
 theme.bg_normal     = theme.xbackground
 theme.bg_focus      = theme.xcolor8
 theme.bg_urgent     = theme.xcolor8
 theme.bg_minimize   = theme.xcolor8
-theme.bg_systray    = theme.xcolor8
 
 theme.fg_normal     = theme.xcolor7
 theme.fg_focus      = theme.xcolor4
 theme.fg_urgent     = theme.xcolor3
 theme.fg_minimize   = theme.xcolor8
 
+theme.button_close = theme.xcolor1
+
 -- Borders
-theme.border_width  = dpi(8)
+theme.border_width  = dpi(9)
 -- theme.border_color = theme.xcolor0
 theme.border_normal = theme.xbackground
 theme.border_focus  = theme.xbackground
@@ -95,10 +103,10 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 
 -- Taglist
 --theme.taglist_font = "awesomewm-font 10"
-theme.taglist_font = theme.font1
+theme.taglist_font = "JetBrains Mono Bold 9"
 theme.taglist_bg = theme.xbackground
 --theme.taglist_shape = gears.shape.triagle
-theme.taglist_bg_focus = theme.xbackground
+theme.taglist_bg_focus = theme.xcolor8
 theme.taglist_fg_focus = theme.xcolor4
 theme.taglist_bg_urgent = theme.xbackground
 theme.taglist_fg_urgent = theme.xcolor1
@@ -110,15 +118,15 @@ theme.taglist_bg_volatile = transparent
 theme.taglist_fg_volatile = theme.xcolor11
 theme.taglist_disable_icon = true
  --Tasklist
-theme.tasklist_font = "Iosevka Extended 9"
+theme.tasklist_font = theme.font
 theme.tasklist_disable_icon = true
 theme.tasklist_plain_task_name = true
 theme.tasklist_bg_focus = theme.xbackground
-theme.tasklist_fg_focus = theme.xforeground
+theme.tasklist_fg_focus = theme.xbackground
 theme.tasklist_bg_minimize = theme.xcolor0 .. "77"
 theme.tasklist_fg_minimize = theme.xforeground .."77"
 theme.tasklist_bg_normal = theme.xbackground
-theme.tasklist_fg_normal = theme.xforeground .."77"
+theme.tasklist_fg_normal = theme.xbackground
 theme.tasklist_disable_task_name = false
 theme.tasklist_disable_icon = true 
 -- theme.tasklist_font_minimized = "sans italic 8"
@@ -129,11 +137,11 @@ theme.tasklist_align = "center"
 
 
 -- Titlebars
-theme.titlebar_size = dpi(0)
+theme.titlebar_size = dpi(4)
 theme.titlebar_bg_focus = theme.xcolor8
-theme.titlebar_bg_normal = theme.xcolor0 
+theme.titlebar_bg_normal = theme.xcolor0
 theme.titlebar_fg_focus = theme.xcolor8
-theme.titlebar_fg_normal = theme.xcolor0
+theme.titlebar_fg_normal = theme.xbackground
 
 
 -- Edge snap
@@ -154,7 +162,7 @@ theme.tooltip_opacity = 1
 theme.tooltip_align = "left"
 
 -- Menu
-theme.menu_font = "Iosevka Extended 8"
+theme.menu_font = theme.font
 theme.menu_bg_focus = theme.xcolor4
 theme.menu_fg_focus = theme.xcolor7
 theme.menu_bg_normal = theme.xbackground
@@ -166,25 +174,30 @@ theme.menu_border_color  = "#0000000"
 --theme.menu_border_color  = theme.xbackground
 theme.menu_border_width  = dpi(0)
 -- pop up
-theme.hotkeys_font = "Iosevka Extended 8"
+theme.hotkeys_font = theme.font
 -- Recolor Layout icons:
 theme = theme_assets.recolor_layout(theme, theme.xforeground)
 -- Titlebar buttons: Define the images to load
-theme.titlebar_close_button_normal = tip .. "close_normal.svg"
+theme.titlebar_close_button_normal = tip .. "empty.png"
 theme.titlebar_close_button_focus  = tip .. "close_focus.svg"
-theme.titlebar_minimize_button_normal = tip .. "minimize_normal.svg"
-theme.titlebar_minimize_button_focus  = tip .. "minimize_focus.svg"
+theme.titlebar_floating_button_normal_inactive = tip .. "empty.png"
+theme.titlebar_floating_button_focus_inactive  = tip .. "floating_focus.svg"
+theme.titlebar_floating_button_focus_inactive_hover  = tip .. "floating_focus_active.svg"
+theme.titlebar_floating_button_normal_active = tip .. "empty.png"
+theme.titlebar_floating_button_focus_active  = tip .. "floating_focus.svg"
+theme.titlebar_floating_button_focus_active_hover  = tip .. "floating_focus_active.svg"
+--theme.titlebar_minimize_button_normal = tip .. "minimize_normal.svg"
+--theme.titlebar_minimize_button_focus  = tip .. "minimize_focus.svg"
 --theme.titlebar_maximized_button_normal_inactive = tip .. empty
 --theme.titlebar_maximized_button_focus_inactive  = tip .. empty
 --theme.titlebar_maximized_button_normal_active = tip .. empty
 --theme.titlebar_maximized_button_focus_active  = tip .. empty
 --- (hover)
-theme.titlebar_close_button_normal_hover = tip .. "close_normal_hover.svg"
+theme.titlebar_close_button_normal_hover = tip .. "empty.png"
 theme.titlebar_close_button_focus_hover  = tip .. "close_focus_hover.svg"
-theme.titlebar_minimize_button_normal_hover = tip .. "minimize_normal_hover.svg"
-theme.titlebar_minimize_button_focus_hover  = tip .. "minimize_focus_hover.svg"
+--theme.titlebar_minimize_button_normal_hover = tip .. "minimize_normal_hover.svg"
+--theme.titlebar_minimize_button_focus_hover  = tip .. "minimize_focus_hover.svg"
 --theme.titlebar_sticky_button_normal_inactive_hover = tip .. "sticky_normal_inactive_hover.svg"
---theme.titlebar_floating_button_normal_inactive_hover = tip .. "floating_normal_inactive_hover.svg"
 --theme.titlebar_maximized_button_normal_inactive_hover = tip .. "maximized_normal_inactive_hover.svg"
 --theme.titlebar_maximized_button_focus_inactive_hover  = tip .. "maximized_focus_inactive_hover.svg"
 --theme.titlebar_maximized_button_normal_active_hover = tip .. "maximized_normal_active_hover.svg"
@@ -207,12 +220,12 @@ theme.sidebar_height = 600
 theme.sidebar_border_radius = 6
 theme.exit_screen_fg = theme.xforeground
 theme.layoutlist_border_color = theme.xcolor8
-theme.layoutlist_border_width = dpi(3)
-theme.systray_icon_spacing = dpi(3)
+theme.layoutlist_border_width = dpi(0)
+theme.systray_icon_spacing = dpi(5)
 
-theme.bg_systray = xbackground
+theme.bg_systray = xcolor0
 
-theme.wibar_height = dpi(30)
+theme.wibar_height = dpi(27)
 theme.wibar_margin = dpi(15)
 theme.wibar_spacing = dpi(15)
 theme.wibar_bg = theme.background

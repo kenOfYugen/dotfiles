@@ -19,15 +19,15 @@
   <sodipodi:namedview
      inkscape:document-rotation="0"
      inkscape:window-maximized="0"
-     inkscape:window-y="47"
+     inkscape:window-y="20"
      inkscape:window-x="20"
-     inkscape:window-height="1013"
-     inkscape:window-width="1880"
+     inkscape:window-height="940"
+     inkscape:window-width="1780"
      showgrid="false"
      inkscape:current-layer="layer1"
      inkscape:document-units="mm"
      inkscape:cy="30.265893"
-     inkscape:cx="-11.895218"
+     inkscape:cx="-13.410447"
      inkscape:zoom="3.959798"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -54,17 +54,7 @@
     <path
        inkscape:connector-curvature="0"
        id="path817"
-       d="M -8.4863203,66.513663 58.486311,133.48632"
-       style="fill:none;stroke:#ea6962;stroke-width:40.88542557;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <path
-       inkscape:connector-curvature="0"
-       id="path817-3"
-       d="M 58.486311,66.513682 -8.4863203,133.48634"
-       style="fill:none;stroke:#ea6962;stroke-width:40.88542557;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <path
-       transform="matrix(6,0,0,6,-95,-50)"
-       id="path832"
-       d="m 13.358725,33.643981 c -1.511328,-0.602648 -2.46722,-2.297594 -2.138872,-3.792552 0.110559,-0.503373 0.895565,-1.543281 2.156343,-2.856537 l 1.982496,-2.065014 -1.891861,-1.877679 c -2.163064,-2.146848 -2.625985,-3.148328 -2.138308,-4.626005 0.440272,-1.334036 1.662373,-2.176168 3.158053,-2.176168 1.169839,0 1.271178,0.06306 3.328396,2.071058 l 2.12182,2.071057 1.824799,-1.790299 c 2.097988,-2.058322 2.578779,-2.351816 3.852672,-2.351816 1.77992,0 3.149159,1.369239 3.149159,3.149159 0,1.273893 -0.293494,1.754684 -2.351816,3.852672 l -1.790299,1.824799 2.071057,2.12182 c 1.954576,2.002484 2.071005,2.18392 2.070114,3.225964 -0.0012,1.431788 -0.759312,2.667 -1.939446,3.160092 -1.577794,0.659244 -2.450427,0.302027 -4.753371,-1.945821 l -2.042652,-1.993783 -1.745264,1.758741 c -2.351149,2.369304 -3.401194,2.847147 -4.92302,2.240312 z"
-       style="fill:#f9929b;stroke-width:0.252538;fill-opacity:1" />
+       d="m 103.27484,105.46853 -120.143042,0.0509"
+       style="fill:none;stroke:#f9929b;stroke-width:51.8626;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
   </g>
 </svg>

@@ -13,6 +13,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 local lain = require("lain")
 local helpers = require("helpers")
 
+local popup = require("notifs.notif-center.notif_popup")
 
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "F1",      hotkeys_popup.show_help,
@@ -35,7 +36,7 @@ globalkeys = gears.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
-    awful.key({ modkey,   shift  }, "w", function () mymainmenu:show() end,
+    awful.key({ modkey,   shift  }, "w", function () popup.visible = not popup.visible end,
               {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
@@ -76,13 +77,18 @@ globalkeys = gears.table.join(
     awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("xbacklight -inc 10" )    end   ),
     awful.key({}, "XF86MonBrightnessDown", function() awful.spawn("xbacklight -dec 10" )    end   ),
 
+    --ColorPicker
+    awful.key({ modkey, }, "p", function() awful.spawn("farge --notify") end ),
+
     -- Standard program
     awful.key({ modkey,           }, "t", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey,           }, "f", function () awful.spawn(filemanager) end,
-              {description = "open a terminal", group = "launcher"}),
+              {description = "open file browser", group = "launcher"}),
+    awful.key({ modkey,           }, "v", function () awful.spawn(discord) end,
+              {description = "open discord", group = "launcher"}),
     awful.key({ modkey,           }, "w", function () awful.spawn(browser) end,
-              {description = "open a terminal", group = "launcher"}),
+              {description = "open firefox", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
