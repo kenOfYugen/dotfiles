@@ -14,14 +14,14 @@ naughty.config.defaults.icon_size = dpi(32)
 naughty.config.defaults.screen = awful.screen.focused()
 naughty.config.defaults.timeout = 3
 naughty.config.defaults.title = "System Notification"
-naughty.config.defaults.margin = dpi(15)
+naughty.config.defaults.margin = dpi(20)
 naughty.config.defaults.border_width = 0
 naughty.config.defaults.border_color = beautiful.xcolor0
 naughty.config.defaults.position = "top_right"
 naughty.config.defaults.shape = gears.shape.rectangle
 
-naughty.config.padding = dpi(7)
-naughty.config.spacing = dpi(7)
+naughty.config.padding = dpi(10)
+naughty.config.spacing = dpi(10)
 naughty.config.icon_dirs = {
    "/usr/share/icons/Papirus-Dark",
    "/usr/share/pixmaps/"
@@ -47,7 +47,7 @@ naughty.config.presets.low = {
 }
 
 naughty.config.presets.critical = {
-   font = "SF Display Bold 10",
+   font = "JetBrains Mono Bold 10",
    fg = "#ffffff",
    bg = "#ff0000",
    position = "top_right",
@@ -57,3 +57,18 @@ naughty.config.presets.critical = {
 naughty.config.presets.ok = naughty.config.presets.normal
 naughty.config.presets.info = naughty.config.presets.normal
 naughty.config.presets.warn = naughty.config.presets.critical
+
+local icons = require('icons')
+
+awesome.connect_signal("ears::battery", function(value)
+    if value < 11 then
+        naughty.notification({title="Battery Status", text="Running low at " .. value .. "%", image=icons.battery})
+    end
+end)
+
+awesome.connect_signal("ears::charger", function(plugged)
+    if plugged then
+        naughty.notification({title="Battery Status", text="Charging", image=icons.battery_charging})
+    end
+
+end)

@@ -26,8 +26,8 @@ sidebar_show_on_mouse_screen_edge = true
 sidebar = wibox ({visible = false , ontop = true , type = "sidebar" })
 sidebar.bg = beautiful.sidebar_bg or beautiful.xbackground  or "#FFFFFFF"
 sidebar.fg = beautiful.sidebar_fg or beautiful.xforeground or "#1111111"
-sidebar.opacity = 1
-sidebar.height = beautiful.sidebar_height or awful.screen.focused().geometry.height
+sidebar.opacity = 0.95
+sidebar.height = 600
 sidebar.width = beautiful.sidebar_width or 300
 sidebar.y = beautiful.sidebar_y or 0
 local radius = beautiful.border_radius or 0
@@ -184,7 +184,7 @@ fancy_time_widget:connect_signal("widget::redraw_needed", function ()
 end)
 fancy_time_widget.align = "center"
 fancy_time_widget.valign = "center"
-fancy_time_widget.font = "Iosevka Extended 55"
+fancy_time_widget.font = "JetBrains Mono 55"
 
 
 local fancy_time = {
@@ -204,12 +204,12 @@ fancy_date_widget:connect_signal("widget::redraw_needed", function ()
 end)
 fancy_date_widget.align = "center"
 fancy_date_widget.valign = "center"
-fancy_date_widget.font = "Iosevka Extended 15"
+fancy_date_widget.font = "JetBrains Mono 15"
 local fancy_date_decoration = wibox.widget.textbox()
 -- local decoration_string = "------------------------"
 local decoration_string = "──────  ──────"
 fancy_date_decoration.markup = "<span foreground='" .. beautiful.xcolor2 .."'>"..decoration_string.."</span>"
-fancy_date_decoration.font = "Iosevka Extended 18"
+fancy_date_decoration.font = "FiraCode Nerd Font Mono 18"
 fancy_date_decoration.align = "center"
 fancy_date_decoration.valign = "top"
 
@@ -252,7 +252,7 @@ sidebar:setup {
         layout = wibox.layout.align.vertical,
 }
 
-sidebar.border_width = dpi(5)
+sidebar.border_width = dpi(0)
 sidebar.border_color = beautiful.xcolor0
 
 

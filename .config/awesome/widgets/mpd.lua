@@ -35,7 +35,7 @@ local artist_bg
 local seek_state = false
 
 -- Control icons
-local icon_font_nerd = "Font Awesome 5 18"
+local icon_font_nerd = "FiraCode Nerd Font Mono 18"
 
 local icons = require("icons")
 icons.init("sheets")
@@ -98,7 +98,7 @@ local mpd_title = wibox.widget.textbox("Title")
 local mpd_artist = wibox.widget.textbox("Artist")
 mpd_title:set_font(beautiful.font)
 mpd_title:set_valign("top")
-mpd_artist:set_font("Iosevka Extended 14")
+mpd_artist:set_font("JetBrains Mono 14")
 mpd_artist:set_valign("top")
 
 local text_area = wibox.layout.fixed.vertical()
@@ -259,8 +259,8 @@ local function update_widget()
       local status = stdout:match('%[(.*)%]')
       status = string.gsub(status, '^%s*(.-)%s*$', '%1')
 
-      local artist_span = "-->   "  .. artist .. "    "
-      local title_span = "-->   " .. title .. "    "
+      local artist_span = "|   "  .. artist .. "    "
+      local title_span = "|   " .. title .. "    "
 
       if status == "paused" then
         bar_timer:stop()

@@ -15,7 +15,7 @@ local dpi = xresources.apply_dpi
 local helpers = require("helpers")
 local icon_theme = "sheet"
 local icons = require("icons")
-local slidebar = require('slidebar')
+--local slidebar = require('slidebar')
 
 local systray_margin = (beautiful.wibar_height-beautiful.systray_icon_size)/2
 
@@ -95,6 +95,9 @@ local mysystray_container = {
     mysystray,
     top = systray_margin,
     bottom = systray_margin,
+    style = {
+        shape = helpers.rrect(5),
+    },
     widget = wibox.container.margin
 }
 
@@ -154,31 +157,31 @@ awful.screen.connect_for_each_screen(function(s)
     s.mypromptbox = awful.widget.prompt()
 
     -- Create the wibox
-    --s.mywibox = awful.wibar({ position = "top", screen = s, ontop = true })
+    s.mywibox = awful.wibar({ position = "top", screen = s, ontop = true })
 
 
     
 
-    s.myslidebar = slidebar {
-        bg = beautiful.bg_normal,
-        position = "top",
-        size = beautiful.wibar_height,
+    --s.myslidebar = slidebar {
+    --    bg = beautiful.bg_normal,
+    --    position = "top",
+    --    size = beautiful.wibar_height,
         -- size_activator = 1
         -- show_delay = 0.25,
-        hide_delay = 5,
+        -- hide_delay = 5,
         -- easing = 2,
 
-        screen = s
-    }
+     --   screen = s
+   -- }
 
 
 
     -- Remove wibar on full screen
     local function remove_wibar (c)
         if c.fullscreen or c.maximized then
-            s.myslidebar.visible = false
+            s.mywibox.visible = false
         else
-            s.myslidebar.visible = true
+            s.mywibox.visible = true
         end
     end
 
@@ -250,15 +253,9 @@ awful.screen.connect_for_each_screen(function(s)
             widget = wibox.container.background,
         },
     }
-
-
-
-
-
-
-
+ 
     -- Add widgets to the wibox
-    s.myslidebar:setup {
+    s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
@@ -273,6 +270,7 @@ awful.screen.connect_for_each_screen(function(s)
                 spacing = beautiful.wibar_spacing,
                 --ram_bar,
                 battery,
+                helpers.horizontal_pad(15),
                 mysystray_container
             },
             left = beautiful.wibar_margin,
