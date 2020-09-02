@@ -17,21 +17,16 @@ set mouse=a
 set ruler
 set laststatus=2
 set nostartofline
-"set cursorline
+set cursorline
 " set nowrap
 
-"set relativenumber
+set relativenumber
 " Remove Tildas
 let &fcs='eob: '
 
+
 " Notes
 let g:notes_directories = ['~/Documents/notes']
-
-"set background=dark
-
-"let g:gruvbox_material_background = 'medium'
-
-colorscheme wal
 
 
 " Start Page
@@ -49,38 +44,16 @@ let g:startify_custom_header = [
 " Java Autocomplete
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
-
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-
-
-"Credit joshdick
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
+set termguicolors
 
 let g:tex_flavor  = 'latex'
-let g:tex_conceal = ''
 let g:vimtex_fold_manual = 1
 let g:vimtex_latexmk_continuous = 1
 let g:vimtex_compiler_progname = 'nvr'
+set conceallevel=1
+let g:tex_conceal='abdmg'
+let g:vimtex_quickfix_mode=0
 
-" This is new style
-call deoplete#custom#var('omni', 'input_patterns', {
-      \ 'tex': g:vimtex#re#deoplete
-      \})
 
 let g:vimtex_view_general_viewer = 'zathura'
 
@@ -88,6 +61,28 @@ let g:vimtex_view_general_viewer = 'zathura'
 let &t_ZH = "\e[3m"
 let &t_ZR = "\e[23m"
 
-" Format Lua on Save
-autocmd FileType lua nnoremap <buffer> <c-k> :call LuaFormat()<cr>
-autocmd BufWrite *.lua call LuaFormat()
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=1
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif

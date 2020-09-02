@@ -3,7 +3,7 @@ local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 
 local notif_header = wibox.widget {
-	markup   = '<span underline="single"><b>Notification Center</b></span>',
+	markup   = '<b>Notification Center</b>',
 	font   = "JetBrains Mono 12",
 	align  = 'center',
 	valign = 'center',

@@ -18,7 +18,7 @@ local function run_once(cmd)
 end
 
 -- Network Manager Applet
-run_once("nm-applet")
+--run_once("nm-applet")
 -- Autostart Script
 run_once("~/.config/autostart/autostart")
 
