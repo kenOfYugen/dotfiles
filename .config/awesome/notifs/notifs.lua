@@ -23,7 +23,7 @@ naughty.config.defaults.shape = gears.shape.rectangle
 naughty.config.padding = dpi(10)
 naughty.config.spacing = dpi(10)
 naughty.config.icon_dirs = {
-   "/usr/share/icons/Papirus-Dark",
+   "/usr/share/icons/Papirus-Dark/24x24/apps/",
    "/usr/share/pixmaps/"
 }
 naughty.config.icon_formats = {"png", "svg"}
@@ -60,15 +60,23 @@ naughty.config.presets.warn = naughty.config.presets.critical
 
 local icons = require('icons')
 
+local display = true
+
 awesome.connect_signal("ears::battery", function(value)
     if value < 11 then
         naughty.notification({title="Battery Status", text="Running low at " .. value .. "%", image=icons.battery})
+    end
+
+    if (value > 94 and display )then
+        naughty.notification({title="Battery Status", text="Running high at " .. value .. "%", image=icons.battery})
+        display = false
     end
 end)
 
 awesome.connect_signal("ears::charger", function(plugged)
     if plugged then
         naughty.notification({title="Battery Status", text="Charging", image=icons.battery_charging})
+        display = true
     end
 
 end)

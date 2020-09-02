@@ -59,7 +59,7 @@ globalkeys = gears.table.join(
         {description = "go back", group = "client"}),
     awful.key({ modkey, }, "x", function() exit_screen_show() end,
            {description = "show exit screen", group = "awesome"}),
-    awful.key({ modkey,  }, "d", function() awful.spawn.with_shell("~/.config/rofi/launchers/launcher.sh")  end,
+    awful.key({ modkey,  }, "d", function() awful.spawn("dmenu_run")  end,
            {description = "show rofi ", group = "launcher"}),
     
     --Volume control
@@ -68,9 +68,7 @@ globalkeys = gears.table.join(
     awful.key({}, "XF86AudioMute",  function() awful.spawn("pamixer -t") end),
    
     awful.key({}, "Print",  function() awful.spawn.with_shell("~/.bin/shoot") end),
-    awful.key({ modkey, }, "Print",  function() awful.spawn.with_shell("~/.bin/shoot selnp") end),
-    awful.key({ modkey, shift }, "Print",  function() awful.spawn.with_shell("~/.bin/shoot sel") end),
-
+    awful.key({ modkey, }, "Print",  function() awful.spawn.with_shell("~/.bin/shoot sel") end),
    
     --Brightness
     awful.key({}, "XF86MonBrightnessUp", function() awful.spawn("xbacklight -inc 10" )    end   ),

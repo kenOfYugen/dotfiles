@@ -4,7 +4,15 @@ local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 
 -- Set colors
-local active_color_1 = beautiful.xcolor6
+local active_color_1 = {
+  type = 'linear',
+  from = { 0, 0 },
+  to = { 200, 50 }, -- replace with w,h later
+  stops = {
+    { 0, beautiful.xcolor6 },
+    { 0.75, beautiful.xcolor4 }
+  }
+} 
 local background_color_1 = beautiful.xcolor0
 
 local brightness_bar = wibox.widget{

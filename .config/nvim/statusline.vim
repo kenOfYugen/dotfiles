@@ -4,90 +4,35 @@
 " 2. disable any statusline plugins, as they will override this.
 " ====================================================================
 
-" Special thanks to Elenapen 
 
-function! Gitbranchname() abort
-  if get(b:, 'gitbranch_pwd', '') !=# expand('%:p:h') || !has_key(b:, 'gitbranch_path')
-    call Gitbranchdetect(expand('%:p:h'))
-  endif
-  if has_key(b:, 'gitbranch_path') && filereadable(b:gitbranch_path)
-    let branch = get(readfile(b:gitbranch_path), 0, '')
-    if branch =~# '^ref: '
-      hi MyStatuslineGit guifg=#585e74 gui=none guibg=none
-      hi MyStatuslineGitBody guifg=#c0c0c0 gui=none guibg=#585e74
-      return substitute(branch, '^ref: \%(refs/\%(heads/\|remotes/\|tags/\)\=\)\=', '', '')
-    elseif branch =~# '^\x\{20\}'
-      hi MyStatuslineGit guifg=#585e74 gui=none guibg=none
-      hi MyStatuslineGitBody guifg=#c0c0c0 gui=none guibg=#585e74
-      return branch[:6]
-    endif
-  endif
-  hi MyStatuslineGit guifg=#30333d gui=none guibg=#30333d
-  hi MyStatuslineGitBody guifg=#30333d gui=none guibg=#30333d
-  return ''
-endfunction
-
-function! Gitbranchdir(path) abort
-  let path = a:path
-  let prev = ''
-  while path !=# prev
-    let dir = path . '/.git'
-    let type = getftype(dir)
-    if type ==# 'dir' && isdirectory(dir.'/objects') && isdirectory(dir.'/refs') && getfsize(dir.'/HEAD') > 10
-      return dir
-    elseif type ==# 'file'
-      let reldir = get(readfile(dir), 0, '')
-      if reldir =~# '^gitdir: '
-        return simplify(path . '/' . reldir[8:])
-      endif
-    endif
-    let prev = path
-    let path = fnamemodify(path, ':h')
-  endwhile
-  return ''
-endfunction
-
-function! Gitbranchdetect(path) abort
-  unlet! b:gitbranch_path
-  let b:gitbranch_pwd = expand('%:p:h')
-  let dir = Gitbranchdir(a:path)
-  if dir !=# ''
-    let path = dir . '/HEAD'
-    if filereadable(path)
-      let b:gitbranch_path = path
-    endif
-  endif
-endfunction
+let g:wintabs_ui_sep_inbetween = ""
+let g:wintabs_ui_sep_rightmost = ""
+let g:DevIconsEnableFolderExtensionPatternMatching = 1
 
 
 " ~~~~ Statusline configuration ~~~~
-" ':help statusline' is not my friend!
 function! RedrawModeColors(mode) " {{{
   " Normal mode
   if a:mode == 'n'
-    hi MyStatuslineAccent guifg=#292b34 gui=none guibg=none
-    hi MyStatuslineFilename guifg=#c0c0c0 gui=none guibg=#585e74
-    hi MyStatuslineAccentBody guibg=#292b34 gui=none guifg=#7ed491
+    hi MyStatuslineAccent guifg=#585e74 gui=none guibg=#292b34
+    hi MyStatuslineAccentBody guifg=#585e74 gui=none guibg=#9ce5c0
   " Insert mode
   elseif a:mode == 'i'
-    hi MyStatuslineAccent guifg=#292b34 gui=none guibg=none
-    hi MyStatuslineFilename guifg=#c0c0c0 gui=none guibg=#585e74
+    hi MyStatuslineAccent guifg=#292b34 gui=none guibg=#292b34
     hi MyStatuslineAccentBody guibg=#292b34 gui=none guifg=#f9929b
   " Replace mode
   elseif a:mode == 'R'
-    hi MyStatuslineAccent guifg=#292b34 gui=none guibg=none
-    hi MyStatuslineFilename guifg=#c0c0c0 gui=none guibg=#585e74
+    hi MyStatuslineAccent guifg=#292b34 gui=none guibg=#292b34
     hi MyStatuslineAccentBody guibg=#292b34 gui=none guifg=#fbdf90
   " Visual mode
   elseif a:mode == 'v' || a:mode == 'V' || a:mode == '^V'
-    hi MyStatuslineAccent guifg=#292b34 gui=none guibg=none
-    hi MyStatuslineFilename guifg=#c0c0c0 gui=none guibg=#585e74
+    hi MyStatuslineAccent guifg=#292b34 gui=none guibg=#292b34
     hi MyStatuslineAccentBody guibg=#292b34 gui=none guifg=#a3b8ef
   endif
-  " Return empty string so as not to display anything in the statusline
   return ''
 endfunction
 " }}}
+
 
 function! SetFiletype(filetype) " {{{
   if a:filetype == ''
@@ -98,60 +43,61 @@ function! SetFiletype(filetype) " {{{
 endfunction
 " }}}
 
+
 " Statusbar items
 " ====================================================================
-
 " This will not be displayed, but the function RedrawModeColors will be
 " called every time the mode changes, thus updating the colors used for the
 " components.
 set statusline=%{RedrawModeColors(mode())}
 " Left side items
 " =======================
-set statusline+=%#MyStatuslineAccent#
-set statusline+=%#MyStatuslineAccentBody#\ 
+set statusline+=%#MyStatuslineAccent#
+set statusline+=%#MyStatuslineAccentBody#\ \ 
 " Filename
+set statusline+=%#MyStatuslineSeparator#
 set statusline+=%#MyStatuslineFilename#\ %.20f
-set statusline+=%#MyStatuslineSeparator#\ 
-" Git Status
-set statusline+=%#MyStatuslineGit#
-set statusline+=%#MyStatuslineGitBody#\ %{Gitbranchname()}
-set statusline+=%#MyStatuslineGit#
+set statusline+=%#MyStatuslineSeparator#\ %#reset#
+
+
 " Right side items
 " =======================
 set statusline+=%=
 " Line and Column
-set statusline+=%#MyStatuslineLineCol#
-set statusline+=%#MyStatuslineLineColBody#\ %2l
+set statusline+=%#MyStatuslineLineCol#
+set statusline+=%#MyStatuslineLineColBody#\ %2l
 set statusline+=\/%#MyStatuslineLineColBody#%2c
-set statusline+=%#MyStatuslineLineCol#
+set statusline+=%#MyStatuslineLineCol#
 " Padding
 set statusline+=\ 
 " Current scroll percentage and total lines of the file
-set statusline+=%#MyStatuslinePercentage#
-set statusline+=%#MyStatuslinePercentageBody#☰\ %P
+set statusline+=%#MyStatuslinePercentage#\|
+set statusline+=%#MyStatuslinePercentageBody#\ %P
 set statusline+=\/\%#MyStatuslinePercentageBody#%L
-set statusline+=%#MyStatuslinePercentage#
+set statusline+=%#MyStatuslinePercentage#
 " Padding
 set statusline+=\ 
 " Filetype
-set statusline+=%#MyStatuslineFiletype#
-set statusline+=%#MyStatuslineFiletypeBody#%{SetFiletype(&filetype)}
-set statusline+=%#MyStatuslineFiletype#
+set statusline+=%#MyStatuslineFiletype#
+set statusline+=%#MyStatuslineFiletypeBody#\ %{WebDevIconsGetFileTypeSymbol()}\ %{SetFiletype(&filetype)}\ 
+set statusline+=%#MyStatuslineFiletype#
 
+
+hi MyStatuslineFilename guifg=#9ce5c0 gui=none guibg=#585e74
 
 " Setup the colors
-hi StatusLine          guifg=none       guibg=#3b3e4b  gui=NONE
-hi StatusLineNC        guifg=#c0c0c0    guibg=none     gui=bold
+hi StatusLine          guifg=none       guibg=#30333d  gui=NONE
+hi StatusLineNC        guifg=#c0c0c0    guibg=#9ce5c0  gui=none
 
-hi MyStatuslineSeparator guifg=#585e74 gui=none guibg=none
+hi MyStatuslineSeparator guifg=#585e74 gui=none guibg=#585e74
 
-hi MyStatuslineModified  guifg=#585e74 gui=none guibg=none
+hi reset guibg=#30333d
 
-hi MyStatuslineFiletype guibg=NONE gui=NONE guifg=#585e74
-hi MyStatuslineFiletypeBody guifg=#ccaced gui=bold guibg=#585e74
+hi MyStatuslineFiletype guibg=#292b34 gui=NONE guifg=#585e74
+hi MyStatuslineFiletypeBody guibg=#9ce5c0 gui=none guifg=#585e74
 
-hi MyStatuslinePercentage guifg=#585e74 gui=NONE guibg=NONE
-hi MyStatuslinePercentageBody guibg=#585e74 gui=none guifg=#c0c0c0
+hi MyStatuslinePercentage guibg=#585e74 gui=NONE guifg=#30333d
+hi MyStatuslinePercentageBody guibg=#585e74 gui=none guifg=#9ce5c0
 
-hi MyStatuslineLineCol guifg=#585e74 gui=NONE guibg=NONE
-hi MyStatuslineLineColBody guibg=#585e74 gui=none guifg=#c0c0c0
+hi MyStatuslineLineCol guibg=#585e74 gui=NONE guifg=#30333d
+hi MyStatuslineLineColBody guibg=#585e74 gui=none guifg=#9ce5c0

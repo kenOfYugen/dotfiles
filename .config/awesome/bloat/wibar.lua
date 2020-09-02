@@ -70,15 +70,15 @@ end
 
 -- {{{ Battery Bar Widget
 
-local battery_icon = wibox.widget.imagebox(icons.battery)
+local battery_icon = wibox.widget.imagebox(nil)
 
-awesome.connect_signal("ears::charger", function(plugged)
+--[[awesome.connect_signal("ears::charger", function(plugged)
     if plugged then
         battery_icon.image = icons.battery_charging
     else
         battery_icon.image = icons.battery
     end
-end)
+end)]]--
 
 local battery_bar = require("widgets.battery_bar")
 local battery = format_progress_bar(battery_bar, battery_icon)
@@ -152,12 +152,21 @@ local tasklist_buttons = gears.table.join(
 
 --- }}}
 
+local slidebar = require('slidebar')
+
 awful.screen.connect_for_each_screen(function(s)
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, ontop = true })
+    s.mywibox = awful.wibar({ 
+        position = "top", 
+        type = "wibar",
+        screen = s, 
+        ontop = true,
+        bg = beautiful.xbackground,
+        size = beautiful.wibar_height
+    })
 
 
     

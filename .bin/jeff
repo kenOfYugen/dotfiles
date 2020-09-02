@@ -1,9 +1,0 @@
-#!/bin/bash
-
-file="$HOME/Pictures/screenshots/gif_$(date '+%Y-%m-%d%H:%M:%S').gif"
-
-if [ "$2" == "sel" ]; then
-    giph -p 20 -s -t $1 $file
-else 
-    giph -g "1980x1080+0+0" -t $1 $file
-fi

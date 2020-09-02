@@ -4,7 +4,16 @@ local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 
 -- Set colors
-local active_color = beautiful.xcolor4
+local active_color = {
+  type = 'linear',
+  from = { 0, 0 },
+  to = { 200, 50 }, -- replace with w,h later
+  stops = {
+    { 0, beautiful.xcolor6 },
+    { 0.75, beautiful.xcolor4 }
+  }
+} 
+
 local muted_color = beautiful.xcolor0
 local active_background_color = beautiful.xcolor0
 local muted_background_color = beautiful.xcolor0
