@@ -18,10 +18,10 @@ This rice was heavily ~~stolen from~~ inspired by [elenapan](https://github.com/
 
 + **OS**: Arch
 + **Shell**: zsh
-+ **Terminal**: [st](https://github.com/JavaCafe01/st)
++ **Terminal**: [st](https://github.com/JavaCafe01/suckless)
 + **Editor**: nvim
 + **File Manager**: thunar
-+ **Launcher**: [dmenu](https://github.com/JavaCafe01/dmenu)
++ **Launcher**: [dmenu](https://github.com/JavaCafe01/suckless)
 + **Browser**: firefox
 + **Color Scheme**: custom
 + **GTK Theme**: [phocus](https://github.com/phocus/gtk)
