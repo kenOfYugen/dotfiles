@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+#   double borders (on) any wm by tutrle dude
+#   requries core and opt from wmutils
+#
+
+outer='0x30333d'   # outer
+inner1='0x585e74'  # focused
+inner2='0x292b34'  # normal
+
+chwb -s 10
+
+draw() { chwb2 -I "$i" -O "$o" -i "4" -o "9" $@ 2> /dev/null; }
+
+# initial draw, and then subscribe to events
+{ echo; wew; } |
+	while read -r _; do
+		i=$inner2 o=$outer draw "$(lsw)"
+		i=$inner1 o=$outer draw "$(pfw)"
+	done
