@@ -15,7 +15,6 @@ local dpi = xresources.apply_dpi
 local helpers = require("helpers")
 local icon_theme = "sheet"
 local icons = require("icons")
---local slidebar = require('slidebar')
 
 local systray_margin = (beautiful.wibar_height-beautiful.systray_icon_size)/2
 
@@ -152,7 +151,6 @@ local tasklist_buttons = gears.table.join(
 
 --- }}}
 
-local slidebar = require('slidebar')
 
 awful.screen.connect_for_each_screen(function(s)
     -- Create a promptbox for each screen
@@ -166,24 +164,7 @@ awful.screen.connect_for_each_screen(function(s)
         ontop = true,
         bg = beautiful.xbackground,
         size = beautiful.wibar_height
-    })
-
-
-    
-
-    --s.myslidebar = slidebar {
-    --    bg = beautiful.bg_normal,
-    --    position = "top",
-    --    size = beautiful.wibar_height,
-        -- size_activator = 1
-        -- show_delay = 0.25,
-        -- hide_delay = 5,
-        -- easing = 2,
-
-     --   screen = s
-   -- }
-
-
+    }) 
 
     -- Remove wibar on full screen
     local function remove_wibar (c)
