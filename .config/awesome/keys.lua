@@ -217,7 +217,7 @@ end, {description = "(un)maximize horizontally", group = "client"}),
                               awful.key({modkey}, "c", function(c)
     awful.placement.centered(c, {honor_workarea = true, honor_padding = true})
     helpers.single_double_tap(nil, function()
-        helpers.float_and_resize(c, screen_width * 0.65, screen_height * 0.9)
+        helpers.float_and_resize(c, screen_width * 0.25, screen_height * 0.28)
     end)
 end))
 
