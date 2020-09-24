@@ -25,7 +25,7 @@ This rice was heavily ~~stolen from~~ inspired by [elenapan](https://github.com/
 + **Browser**: firefox
 + **Color Scheme**: custom
 + **GTK Theme**: [phocus](https://github.com/phocus/gtk)
-+ **Wallpaper**: [here](https://imgur.com/FVn0pA3)
++ **Wallpaper**: [here](https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/bg.png)
 
 ### Fonts
 
