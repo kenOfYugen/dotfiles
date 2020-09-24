@@ -1,11 +1,3 @@
--- THIS WORK IS NOT ALL MINE
--- Special thanks to eredarion, who also based their work off of elenapan
---
--- https://github.com/Eredarion/dotfiles
--- NOTE:
--- This widget runs a script in the background
--- When awesome restarts, its process will remain alive!
--- Don't worry though! The cleanup script that runs in rc.lua takes care of it :)
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
@@ -30,7 +22,7 @@ local artist_bg
 local seek_state = false
 
 -- Control icons
-local icon_font_nerd = "FiraCode Nerd Font Mono 18"
+local icon_font_nerd = beautiful.icon_font
 
 local icons = require("icons")
 icons.init("sheets")
@@ -71,6 +63,7 @@ local bar_timer = gears.timer {
         end)
     end
 }
+
 ------------------------------------------------------------
 
 -- Poster (image)
@@ -79,7 +72,6 @@ local box_image = wibox.widget {
     shape = helpers.rrect(dpi(10)),
     widget = wibox.widget.imagebox
 }
-box_image.image = beautiful.music_icon
 local image_cont = wibox.widget {
     box_image,
     shape = helpers.rrect(dpi(6)),
@@ -249,8 +241,8 @@ local function update_widget()
         local status = stdout:match('%[(.*)%]')
         status = string.gsub(status, '^%s*(.-)%s*$', '%1')
 
-        local artist_span = "|   " .. artist .. "    "
-        local title_span = "|   " .. title .. "    "
+        local artist_span = "> " .. artist .. ""
+        local title_span = "" .. title .. ""
 
         if status == "paused" then
             bar_timer:stop()
@@ -266,17 +258,17 @@ local function update_widget()
             play_button.markup = "<span font=\"" .. icon_font_nerd ..
                                      "\" color=\"" .. btn_color ..
                                      "\"></span>"
-            if sidebar.visible == false then
-                -- bar_timer:stop()
-                send_notification(artist_span, title_span, cover_path)
-            end
+            -- if sidebar.visible == false then
+            -- bar_timer:stop()
+            send_notification(artist_span, title_span, cover_path)
+            -- end
 
         end
 
         -- Escape &'s
         title = string.gsub(title, "&", "&amp;")
         artist = string.gsub(artist, "&", "&amp;")
-        box_image:set_image(cover_path)
+        box_image:set_image(gears.surface.load_uncached(cover_path))
 
         mpd_title.markup = "<span foreground='" .. title_fg .. "'>" .. title ..
                                "</span>"

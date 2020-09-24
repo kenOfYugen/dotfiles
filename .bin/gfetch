@@ -37,7 +37,6 @@ wm="$(echo $wm_bloat | cut -d'"' -f 2)"
 
 
 bold="$(tput bold)"
-blue_oof="$(tput setab 4)$(tput setaf 8)"
 white="$(tput setaf 7)"
 yellow="$(tput setaf 12)"
 red="$(tput setaf 1)"
