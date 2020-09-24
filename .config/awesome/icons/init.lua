@@ -24,6 +24,9 @@ local icons = {}
 
 -- Available icons
 local icon_names = {
+    "notif",
+    "awesome",
+    "awesome_menu",
     "playerctl_toggle",
     "playerctl_prev",
     "playerctl_next",

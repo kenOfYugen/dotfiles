@@ -2,41 +2,29 @@
 -- | '__/ __|
 -- | | | (__ 
 -- |_|  \___|
--- If LuaRocks is installed, make sure that packages installed through it are
--- found (e.g. lgi). If LuaRocks is not installed, do nothing.
+--
 pcall(require, "luarocks.loader")
-
--- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
--- Widget and layout library
 local wibox = require("wibox")
--- Theme handling library
 local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
--- Notification library
 local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup")
-screen_width = awful.screen.focused().geometry.width
-screen_height = awful.screen.focused().geometry.height
-
--- Enable hotkeys help widget for VIM and other apps
--- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
-
 local helpers = require("helpers")
 
--- Listeners
-require("ears")
-
-awful.spawn.with_shell("~/.config/awesome/wipe-wipe.sh")
+-- {{{ Autostart
 
 local autostart = require("autostart")
+
+-- }}}
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
+
 if awesome.startup_errors then
     naughty.notify({
         preset = naughty.config.presets.critical,
@@ -61,24 +49,21 @@ do
         in_error = false
     end)
 end
+
 -- }}}
 
--- {{{ Variable definitions
--- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/theme.lua")
-require("bloat.exitscreen")
-require("bloat.sidebar")
+-- {{{ Variables
 
-require("notifs.notifs")
-local wibar = require("bloat.wibar")
--- local bar = require("widgets.statusbar")
--- This is used later as the default terminal and editor to run.
+theme = "ghosts"
+screen_width = awful.screen.focused().geometry.width
+screen_height = awful.screen.focused().geometry.height
 terminal = "st"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 browser = "firefox"
 filemanager = "thunar"
 discord = "discord"
+music = "spotterm -c music -e spt"
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -88,28 +73,39 @@ modkey = "Mod4"
 altkey = "Mod1"
 shift = "Shift"
 ctrl = "Control"
--- Table of layouts to cover with awful.layout.inc, order matters.
-awful.layout.layouts = {
-    awful.layout.suit.spiral.dwindle, awful.layout.suit.tile,
-    awful.layout.suit.floating, -- awful.layout.suit.tile.left,
-    --  awful.layout.suit.tile.bottom,
-    --  awful.layout.suit.tile.top,
-    awful.layout.suit.fair, -- awful.layout.suit.fair.horizontal,
-    -- awful.layout.suit.spiral,
-    awful.layout.suit.max, -- awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
-    ---  awful.layout.suit.corner.nw,
-    -- awful.layout.suit.corner.ne,
-    -- awful.layout.suit.corner.sw,
-    -- awful.layout.suit.corner.se,
-}
+
 -- }}}
 
-icons = require("icons")
-icons.init("sheet")
+-- Set Theme
+beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. theme ..
+                   "/theme.lua")
+
+-- {{{ Import Daemons and Widgets
+
+require("ears")
+require("bloat.exitscreen.exitscreen")
+require("notifs.notifs")
+require("bloat.bar.wibar")
+
+-- }}}
+
+-- {{{ Layouts Table
+-- Order matters.
+
+awful.layout.layouts = {
+    awful.layout.suit.spiral.dwindle, awful.layout.suit.tile,
+    awful.layout.suit.floating, awful.layout.suit.fair, awful.layout.suit.max,
+    awful.layout.suit.magnifier
+}
+
+-- }}}
 
 -- {{{ Menu
--- Create a launcher widget and a main menu
+-- Create a main menu
+
+local icons = require("icons")
+icons.init("sheet")
+
 myawesomemenu = {
     {
         "hotkeys",
@@ -117,49 +113,30 @@ myawesomemenu = {
     }, {"edit config", editor_cmd .. " " .. awesome.conffile},
     {"restart", awesome.restart}, {"quit", function() awesome.quit() end}
 }
+
 mymainmenu = awful.menu({
     items = {
-
-        {"Terminal Emulator", terminal}, {"Web Browser", browser},
-        {"File Manager", filemanager}, {"Search ", "rofia "},
-        {"awesome", myawesomemenu}
+        {"awesome", myawesomemenu, icons.awesome_menu}, {"Terminal", terminal},
+        {"Web Browser", browser}, {"File Manager", filemanager}
     }
 })
 
-mylauncher = awful.widget.launcher({
-    image = beautiful.awesome_icon,
-    menu = mymainmenu
-})
+-- }}}
 
--- Keyboard map indicator and switcher
-
--- {{{ Wibar
-
-local function set_wallpaper(s)
-    -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then wallpaper = wallpaper(s) end
-        gears.wallpaper.maximized(wallpaper, s, true)
-    end
-end
-
--- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", set_wallpaper)
+-- {{{ Screen Stuff
 
 awful.screen.connect_for_each_screen(function(s)
-    -- Do not set wallpaper, we are using feh instead
-    -- set_wallpaper(s)
+    -- Screen padding
     screen[s].padding = {left = 0, right = 0, top = 0, bottom = 0}
 
     -- Each screen has its own tag table.
     awful.tag({"TERM", "FILE", "WEBS", "MUSI", "CHAT"}, s,
               awful.layout.layouts[1])
-    -- awful.tag({"A", "W", "E", "S", "O", "M", "E"}, s, awful.layout.layouts[1])
 end)
 
 -- }}}
+
+-- {{{ LayoutList Widget
 
 local ll = awful.widget.layoutlist {
     source = awful.widget.layoutlist.source.default_layouts, -- DOC_HIDE
@@ -178,12 +155,12 @@ local ll = awful.widget.layoutlist {
                 widget = wibox.widget.imagebox
             },
             margins = dpi(24),
+
             widget = wibox.container.margin
         },
         id = 'background_role',
         forced_width = dpi(68),
         forced_height = dpi(68),
-        shape = helpers.rrect(beautiful.border_radius),
         widget = wibox.container.background
     }
 }
@@ -197,15 +174,19 @@ local layout_popup = awful.popup {
     border_color = beautiful.layoutlist_border_color,
     border_width = beautiful.layoutlist_border_width,
     placement = awful.placement.centered,
-    shape = helpers.rrect(beautiful.border_radius),
     ontop = true,
     visible = false,
     bg = beautiful.bg_normal
 }
 
+-- }}{
+
+-- {{{ Key Bindings
+
+-- LayoutList
+
 -- Make sure you remove the default `Mod4+Space` and `Mod4+Shift+Space`
 -- keybindings before adding this.
-
 function gears.table.iterate_value(t, value, step_size, filter, start_at)
     local k = gears.table.hasitem(t, value, true, start_at)
     if not k then return end
@@ -247,53 +228,22 @@ awful.keygrabber {
     }
 }
 
--- {{{ Mouse bindings
+-- Mouse bindings
+
 root.buttons(gears.table.join(awful.button({}, 3,
                                            function() mymainmenu:toggle() end),
                               awful.button({}, 4, awful.tag.viewnext),
                               awful.button({}, 5, awful.tag.viewprev)))
--- }}}
 
 -- Key bindings
+
 require("keys")
 
---[[
--- {{{ Enable THICC Title Bars only while Floating
-client.connect_signal("property::floating", function(c)
-    local b = false;
-   if c.first_tag ~= nil then
-        b = c.first_tag.layout.name == "floating"
-    end
-    if c.floating or b then
-        awful.titlebar.show(c)
-    else
-        awful.titlebar.hide(c)
-    end
-end)
-
-client.connect_signal("manage", function(c)
-    if c.floating or c.first_tag.layout.name == "floating" then
-        awful.titlebar.show(c)
-    else
-        awful.titlebar.hide(c)
-    end
-end)
-
-tag.connect_signal("property::layout", function(t)
-   local clients = t:clients()
-    for k,c in pairs(clients) do
-        if c.floating or c.first_tag.layout.name == "floating" then
-            awful.titlebar.show(c)
-        else
-            awful.titlebar.hide(c)
-        end
-    end
-end)
 -- }}}
---]]
 
 -- {{{ Rules
 -- Rules to apply to new clients (through the "manage" signal).
+
 awful.rules.rules = {
     -- All clients will match this rule.
     {
@@ -370,10 +320,12 @@ awful.rules.rules = {
         end
     }
 }
+
 -- }}}
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
+
 client.connect_signal("manage", function(c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
@@ -397,6 +349,9 @@ client.connect_signal("focus",
 
 client.connect_signal("unfocus",
                       function(c) c.border_color = beautiful.border_normal end)
+
 -- }}}
---
-require("bloat.tb")
+
+-- Titlebar related widgets
+require("bloat.titlebars.tb")
+require("bloat.titlebars.spot-tui")

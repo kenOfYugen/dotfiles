@@ -8,19 +8,23 @@ file2="$HOME/Videos/vid_$(date '+%Y-%m-%d%H:%M:%S').mp4"
 
 case $1 in
     "sel")
-        giph -y -s -b 4 -c '0.61,0.9,0.75,1' -p 16 $file
+        giph -y -s -b 2 -c '0.61,0.9,0.75,1' -p 22 $file
         ;;
 
     "selnp")
-        giph -y -s -b 4 -c '0.61,0.9,0.75,1' -p -4 $file
+        giph -y -s -b 2 -c '0.61,0.9,0.75,1' -p -2 $file
         ;;
 
     "selmp4")
-        giph -y -s -f 30 -b 4 -c '0.61,0.9,0.75,1' -p 16 $file2
+        giph -y -s -f 30 -b 2 -c '0.61,0.9,0.75,1' -p 22 $file2
         ;;
     
     "selnpmp4")
-        giph -y -s -f 30 -b 4 -c '0.61,0.9,0.75,1' -p -4 $file2
+        giph -y -s -f 30 -b 2 -c '0.61,0.9,0.75,1' -p -2 $file2
+        ;;
+
+    "mp4")
+        giph -y -g "1920x1080+0+0" -f 30 $file2 
         ;;
 
     *)

@@ -9,18 +9,9 @@ local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local helpers = require("helpers")
 
-local popup = require("notifs.notif-center.notif_popup")
-
-local stopped = false
-local function stopper(cmd, stopcmd)
-    if not needstopped then
-        awful.spawn.with_shell(cmd)
-        needstopped = true
-    else
-        awful.spawn.with_shell(stopcmd)
-        needstopped = false
-    end
-end
+local notifPop = require("bloat.pop.notif")
+local panelPop = require("bloat.pop.panel")
+local calPop = require("bloat.pop.cal")
 
 globalkeys = gears.table.join(
                  awful.key({modkey}, "F1", hotkeys_popup.show_help,
@@ -37,9 +28,13 @@ globalkeys = gears.table.join(
         group = "client"
     }), awful.key({modkey}, "k", function() awful.client.focus.byidx(-1) end,
                   {description = "focus previous by index", group = "client"}),
-                 awful.key({modkey, shift}, "w",
-                           function() popup.visible = not popup.visible end,
-                           {description = "show main menu", group = "awesome"}),
+                 awful.key({modkey, shift}, "w", function()
+        notifPop.visible = not notifPop.visible
+    end, {description = "show notifs", group = "awesome"}),
+                 awful.key({modkey, shift}, "d", function()
+        panelPop.visible = not panelPop.visible
+        calPop.visible = not calPop.visible
+    end, {description = "show panel", group = "awesome"}),
 
     -- Layout manipulation
                  awful.key({modkey, "Shift"}, "j",
@@ -98,6 +93,9 @@ globalkeys = gears.table.join(
     -- Standard program
                  awful.key({modkey}, "t", function() awful.spawn(terminal) end,
                            {description = "open a terminal", group = "launcher"}),
+                 awful.key({modkey}, "s", function() awful.spawn(music) end,
+                           {description = "open spot-tui", group = "launcher"}),
+
                  awful.key({modkey}, "f",
                            function() awful.spawn(filemanager) end, {
         description = "open file browser",
