@@ -9,7 +9,7 @@
 ## Preview
 
 <p align="center">
-<img src="https://imgur.com/nmYd5bl.png" alt="img" width="900px">
+<img src="https://imgur.com/GvWqC9t.png" alt="img" width="900px">
 </p>
 
 This rice was heavily ~~stolen from~~ inspired by [elenapan](https://github.com/elenapan/dotfiles/tree/master/config/awesome) and [Eredarion](https://github.com/Eredarion/dotfiles/tree/master/.config/awesome).
