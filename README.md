@@ -35,7 +35,7 @@ This rice was heavily ~~stolen from~~ inspired by [elenapan](https://github.com/
 
 ### Discord
 
-Here is my discord [theme](https://gist.github.com/JavaCafe01/ff090411cd9e2e5409d9d13216ef034b). Use whatever you want t0 inject it.
+Here is my discord [theme](https://gist.github.com/JavaCafe01/ff090411cd9e2e5409d9d13216ef034b). Use whatever you want to inject it.
 
 > ### Screenshot
 
