@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <b> My Dots </b>
+  <b>  </b>
 </p>
 
 ## Preview
