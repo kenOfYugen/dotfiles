@@ -6,6 +6,7 @@
 pcall(require, "luarocks.loader")
 local gears = require("gears")
 local awful = require("awful")
+require("collision")()
 require("awful.autofocus")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
@@ -18,6 +19,7 @@ local helpers = require("helpers")
 -- {{{ Autostart
 
 local autostart = require("autostart")
+awesome.register_xproperty("WM_NAME", "string")
 
 -- }}}
 
@@ -57,13 +59,13 @@ end
 theme = "ghosts"
 screen_width = awful.screen.focused().geometry.width
 screen_height = awful.screen.focused().geometry.height
-terminal = "st"
+terminal = "termite"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
-browser = "firefox"
+browser = "chromium"
 filemanager = "thunar"
 discord = "discord"
-music = "spotterm -c music -e spt"
+music = terminal .. " -e ncspot --class music"
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -80,25 +82,8 @@ ctrl = "Control"
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. theme ..
                    "/theme.lua")
 
--- {{{ Import Daemons and Widgets
-
-require("ears")
-require("bloat.exitscreen.exitscreen")
-require("notifs.notifs")
-require("bloat.bar.wibar")
-
--- }}}
-
--- {{{ Layouts Table
--- Order matters.
-
-awful.layout.layouts = {
-    awful.layout.suit.spiral.dwindle, awful.layout.suit.tile,
-    awful.layout.suit.floating, awful.layout.suit.fair, awful.layout.suit.max,
-    awful.layout.suit.magnifier
-}
-
--- }}}
+-- Layouts
+require("layouts")
 
 -- {{{ Menu
 -- Create a main menu
@@ -130,8 +115,7 @@ awful.screen.connect_for_each_screen(function(s)
     screen[s].padding = {left = 0, right = 0, top = 0, bottom = 0}
 
     -- Each screen has its own tag table.
-    awful.tag({"TERM", "FILE", "WEBS", "MUSI", "CHAT"}, s,
-              awful.layout.layouts[1])
+    awful.tag({"", "", "", "", "ﭮ"}, s, awful.layout.layouts[1])
 end)
 
 -- }}}
@@ -272,7 +256,7 @@ awful.rules.rules = {
             class = {
                 "Arandr", "Blueman-manager", "Gpick", "Kruler", "MessageWin", -- kalarm.
                 "Sxiv", "fzfmenu", "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
-                "Wpa_gui", "veromix", "xtightvncviewer"
+                "Wpa_gui", "veromix", "xtightvncviewer", "Steam"
             },
 
             -- Note that the name property shown in xprop might be set slightly after creation of the client
@@ -293,6 +277,9 @@ awful.rules.rules = {
     {
         rule_any = {type = {"normal", "dialog"}},
         properties = {titlebars_enabled = true}
+    }, {
+        rule_any = {class = {"Steam"}},
+        properties = {titlebars_enabled = false, ontop = true}
     }, -- Set Firefox to always map on the tag named "2" on screen 1.
     --   { rule = { class = "Firefox" },
     --     properties = {  tag = 2 } },
@@ -352,6 +339,8 @@ client.connect_signal("unfocus",
 
 -- }}}
 
--- Titlebar related widgets
-require("bloat.titlebars.tb")
-require("bloat.titlebars.spot-tui")
+-- Import Daemons and Widgets
+
+require("ears")
+require("notifs")
+require("bloat")

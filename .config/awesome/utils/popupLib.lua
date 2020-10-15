@@ -17,7 +17,7 @@ popupLib.create = function(x, y, height, width, widget)
     local popupWidget = awful.popup {
         widget = widgetContainer,
         shape = function(cr, width, height)
-            gears.shape.rounded_rect(cr, width, height, dpi(0))
+            gears.shape.rounded_rect(cr, width, height, beautiful.border_radius)
         end,
         visible = false,
         ontop = true,

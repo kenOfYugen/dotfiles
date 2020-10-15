@@ -2,6 +2,7 @@ local gears = require("gears")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
+local helpers = require("helpers")
 
 local active_color = {
     type = 'linear',
@@ -19,10 +20,10 @@ local battery_bar = wibox.widget {
     max_value = 100,
     value = 50,
     forced_height = dpi(10),
-    margins = {top = dpi(8), bottom = dpi(8)},
+    margins = {top = dpi(10), bottom = dpi(10)},
     forced_width = dpi(200),
-    shape = gears.shape.rounded_bar,
-    bar_shape = gears.shape.rounded_bar,
+    shape = helpers.rrect(beautiful.border_radius),
+    bar_shape = helpers.rrect(beautiful.border_radius),
     color = active_color,
     background_color = background_color,
     border_width = 0,
@@ -43,14 +44,13 @@ local g = gears.timer {
         battery_bar.color = {
             type = 'linear',
             from = {0, 0},
-            to = {75 - (100 - q), 20}, -- replace with w,h later
+            to = {75 - (100 - q), 20},
             stops = {
                 {1 + (q) / 100, beautiful.xcolor10},
-                {0.75 - (q / 100), beautiful.xcolor9},
+                {0.75 - (q / 100), beautiful.xcolor1},
                 {1 - (q) / 100, beautiful.xcolor10}
             }
         }
-
     end
 }
 
@@ -65,7 +65,7 @@ awesome.connect_signal("ears::charger", function(plugged)
             battery_bar.color = {
                 type = 'linear',
                 from = {0, 0},
-                to = {75 - (100 - value), 20}, -- replace with w,h later
+                to = {75 - (100 - value), 20},
                 stops = {
                     {1 + (value) / 100, beautiful.xcolor10},
                     {0.75 - (value / 100), beautiful.xcolor9},

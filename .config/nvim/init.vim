@@ -9,6 +9,6 @@ source $HOME/.config/nvim/keys/mappings.vim
 
 
 "--- Theme Stuff ---"
-source $HOME/.config/nvim/colors/javacafe.vim
+"source $HOME/.config/nvim/colors/javacafe.vim
 
 source $HOME/.config/nvim/statusline.vim

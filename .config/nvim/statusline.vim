@@ -5,11 +5,6 @@
 " ====================================================================
 
 
-let g:wintabs_ui_sep_inbetween = ""
-let g:wintabs_ui_sep_rightmost = ""
-let g:DevIconsEnableFolderExtensionPatternMatching = 1
-
-
 " ~~~~ Statusline configuration ~~~~
 function! RedrawModeColors(mode) " {{{
   " Normal mode
@@ -101,3 +96,4 @@ hi MyStatuslinePercentageBody guibg=#585e74 gui=none guifg=#9ce5c0
 
 hi MyStatuslineLineCol guibg=#585e74 gui=NONE guifg=#30333d
 hi MyStatuslineLineColBody guibg=#585e74 gui=none guifg=#9ce5c0
+
