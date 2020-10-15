@@ -1,8 +1,5 @@
---           _ _                
--- __      _(_) |__   __ _ _ __ 
--- \ \ /\ / / | '_ \ / _` | '__|
---  \ V  V /| | |_) | (_| | |   
---   \_/\_/ |_|_.__/ \__,_|_|  
+-- Wibar (top bar)
+-- Widgets: panel, taglist, tasklist, battery, systray, and notifs panel
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
@@ -35,11 +32,10 @@ local function format_progress_bar(bar, icon)
     return w
 end
 
--- {{{ Menu Icon
+-- Awesome Panel -----------------------------------------------------------
 
--- Init Music
+-- Init music, panel, and cal
 local mpd = require("widgets.mpd")
-
 local panelPop = require('bloat.pop.panel')
 local calPop = require('bloat.pop.cal')
 local awesome_icon = wibox.widget {
@@ -54,51 +50,45 @@ panelPop:connect_signal("mouse::leave", function()
     calPop.visible = false
 end)
 
--- }}}
+-------------------------------------------------------------------------------
 
--- {{{ Notifs Icon
+-- Notifs Panel ---------------------------------------------------------------
 
 local notifPop = require("bloat.pop.notif")
 local notif_icon = wibox.widget {
-    {
-        widget = wibox.widget.imagebox,
-        image = icons.notif,
-        forced_height = 23,
-        forced_width = 23,
-        resize = true
-    },
-    layout = wibox.container.margin(awesome_icon, 0, 10, 3)
+    widget = wibox.widget.imagebox,
+    image = icons.notif,
+    resize = true
 }
 
 notif_icon:connect_signal("mouse::enter", function() notifPop.visible = true end)
 notifPop:connect_signal("mouse::leave", function() notifPop.visible = false end)
 
--- }}}
+-------------------------------------------------------------------------------
 
--- {{{ Battery Bar Widget
+-- Battery Bar Widget ---------------------------------------------------------
 
 local battery_icon = wibox.widget.imagebox(nil)
 local battery_bar = require("widgets.battery_bar")
 local battery = format_progress_bar(battery_bar, battery_icon)
 
--- }}}
+-------------------------------------------------------------------------------
 
--- {{{ Systray Widget
+-- Systray Widget -------------------------------------------------------------
 
 local mysystray = wibox.widget.systray()
 mysystray:set_base_size(beautiful.systray_icon_size)
 
 local mysystray_container = {
     mysystray,
-    top = systray_margin,
-    bottom = systray_margin,
-    style = {shape = helpers.rrect(5)},
+    left = dpi(8),
+    right = dpi(8),
     widget = wibox.container.margin
 }
 
--- }}}
+-------------------------------------------------------------------------------
 
--- {{{ Taglist Widget
+-- Taglist Widget -------------------------------------------------------------
 
 local taglist_buttons = gears.table.join(
                             awful.button({}, 1, function(t) t:view_only() end),
@@ -112,9 +102,9 @@ local taglist_buttons = gears.table.join(
         awful.tag.viewprev(t.screen)
     end))
 
--- }}}
+-------------------------------------------------------------------------------
 
--- {{{ Tasklist Widget
+-- Tasklist Widget ------------------------------------------------------------
 
 local tasklist_buttons = gears.table.join(
                              awful.button({}, 1, function(c)
@@ -130,7 +120,9 @@ local tasklist_buttons = gears.table.join(
         awful.client.focus.byidx(-1)
     end))
 
--- }}}
+-------------------------------------------------------------------------------
+
+-- Create the Wibar -----------------------------------------------------------
 
 awful.screen.connect_for_each_screen(function(s)
     -- Create a promptbox for each screen
@@ -141,9 +133,10 @@ awful.screen.connect_for_each_screen(function(s)
         position = "top",
         screen = s,
         ontop = true,
-        bg = beautiful.xbackground,
+        bg = beautiful.wibar_bg,
         size = beautiful.wibar_height
     })
+    s.mywibox:set_xproperty("WM_NAME", "wibar")
 
     -- Remove wibar on full screen
     local function remove_wibar(c)
@@ -160,13 +153,7 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytaglist = awful.widget.taglist {
         screen = s,
         filter = awful.widget.taglist.filter.all,
-        style = {
-            -- bg_focus = beautiful.xbackground,
-            -- fg_focus = beautiful.xcolor4,
-            -- fg_occupied = beautiful.xcolor6,
-            shape = gears.shape.rectangle
-            -- font = "Iosevka 8"
-        },
+        style = {shape = gears.shape.rectangle},
         layout = {spacing = 0, layout = wibox.layout.fixed.horizontal},
         widget_template = {
             {
@@ -185,23 +172,20 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create a tasklist widget
-
     s.mytasklist = awful.widget.tasklist {
         screen = s,
         filter = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons,
-        style = {shape = gears.shape.rounded_bar},
-        layout = {spacing = 10, layout = wibox.layout.flex.horizontal},
-        -- Notice that there is *NO* wibox.wibox prefix, it is a template,
-        -- not a widget instance.
+        style = {shape = helpers.rrect(beautiful.border_radius)},
+        layout = {spacing = 10, layout = wibox.layout.fixed.horizontal},
         widget_template = {
             {
                 {
                     {id = 'text_role', widget = wibox.widget.textbox},
                     layout = wibox.layout.flex.horizontal
                 },
-                left = 10,
-                right = 10,
+                left = dpi(12),
+                right = dpi(12),
                 widget = wibox.container.margin
             },
             id = 'background_role',
@@ -212,20 +196,67 @@ awful.screen.connect_for_each_screen(function(s)
     -- Add widgets to the wibox
     s.mywibox:setup{
         layout = wibox.layout.align.horizontal,
+        expand = "none",
         {
             layout = wibox.layout.fixed.horizontal,
-            awesome_icon,
-            s.mytaglist,
+            {
+                {
+                    awesome_icon,
+                    shape = helpers.rrect(beautiful.border_radius),
+                    bg = beautiful.xcolor0,
+                    widget = wibox.container.background
+                },
+                margins = dpi(5),
+                widget = wibox.container.margin
+            },
+            {
+                {
+                    s.mytaglist,
+                    shape = helpers.rrect(beautiful.border_radius),
+                    bg = beautiful.xbackground,
+                    widget = wibox.container.background
+                },
+                margins = dpi(5),
+                widget = wibox.container.margin
+            },
             s.mypromptbox
         },
-        s.mytasklist,
+        {s.mytasklist, margins = dpi(5), widget = wibox.container.margin},
         {
             battery,
             helpers.horizontal_pad(15),
-            mysystray_container,
-            helpers.horizontal_pad(15),
-            notif_icon,
+            {
+                {
+                    {
+                        mysystray_container,
+                        top = dpi(4),
+                        layout = wibox.container.margin
+                    },
+                    shape = helpers.rrect(beautiful.border_radius),
+                    bg = beautiful.xcolor0,
+                    widget = wibox.container.background
+                },
+                margins = dpi(5),
+                widget = wibox.container.margin
+            },
+            helpers.horizontal_pad(0),
+            {
+                {
+                    {
+                        notif_icon,
+                        margins = dpi(2),
+                        widget = wibox.container.margin
+                    },
+                    shape = helpers.rrect(beautiful.border_radius),
+                    bg = beautiful.xcolor0,
+                    widget = wibox.container.background
+                },
+                margins = dpi(5),
+                widget = wibox.container.margin
+            },
             layout = wibox.layout.fixed.horizontal
         }
     }
 end)
+
+-- EOF ------------------------------------------------------------------------

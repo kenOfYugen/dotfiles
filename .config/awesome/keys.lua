@@ -16,10 +16,10 @@ local calPop = require("bloat.pop.cal")
 globalkeys = gears.table.join(
                  awful.key({modkey}, "F1", hotkeys_popup.show_help,
                            {description = "show help", group = "awesome"}),
-                 awful.key({modkey}, "Left", awful.tag.viewprev,
-                           {description = "view previous", group = "tag"}),
-                 awful.key({modkey}, "Right", awful.tag.viewnext,
-                           {description = "view next", group = "tag"}),
+    -- awful.key({modkey}, "Left", awful.tag.viewprev,
+    --          {description = "view previous", group = "tag"}),
+    -- awful.key({modkey}, "Right", awful.tag.viewnext,
+    --          {description = "view next", group = "tag"}),
                  awful.key({modkey}, "Escape", awful.tag.history.restore,
                            {description = "go back", group = "tag"}),
                  awful.key({modkey}, "j",
@@ -36,7 +36,8 @@ globalkeys = gears.table.join(
         calPop.visible = not calPop.visible
     end, {description = "show panel", group = "awesome"}),
 
-    -- Layout manipulation
+                 awful.key({"Mod1"}, "Tab", function() end),
+                 awful.key({"Mod1", "Shift"}, "Tab", function() end), -- Layout manipulation
                  awful.key({modkey, "Shift"}, "j",
                            function() awful.client.swap.byidx(1) end, {
         description = "swap with next client by index",
@@ -62,8 +63,11 @@ globalkeys = gears.table.join(
                  awful.key({modkey}, "x", function() exit_screen_show() end, {
         description = "show exit screen",
         group = "awesome"
-    }), awful.key({modkey}, "d", function() awful.spawn("dmenu_run") end,
+    }), awful.key({modkey}, "d", function() awful.spawn("rofi -show drun") end,
                   {description = "show rofi ", group = "launcher"}),
+                 awful.key({modkey}, "e", function()
+        awful.spawn("/home/javacafe01/.bin/rofi-emoji.sh")
+    end, {description = "show rofi emoji", group = "launcher"}),
 
     -- Volume control
                  awful.key({}, "XF86AudioRaiseVolume",
@@ -180,8 +184,8 @@ end, {description = "move to master", group = "client"}),
 --            {description = "toggle keep on top", group = "client"}),
                               awful.key({modkey, shift}, "b", function(c)
     c.floating = not c.floating
-    c.width = dpi(400)
-    c.height = dpi(200)
+    c.width = 400
+    c.height = 200
     awful.placement.bottom_right(c)
     c.sticky = not c.sticky
 end, {description = "toggle keep on top", group = "client"}),

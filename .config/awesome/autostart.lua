@@ -18,7 +18,7 @@ end
 -- run_once("nm-applet")
 
 -- Compositor
-run_once("~/.bin/phicom2")
+run_once("~/.bin/phicom")
 
 -- Disable Bell
 run_once("xset -b")
@@ -27,5 +27,13 @@ run_once("xset -b")
 run_once([[
     ps aux | grep "mpc idleloop player" | grep -v grep | awk '{print $2}' | xargs kill
     ]])
+
+-- For bitmap
+run_once([[
+    xset +fp /home/javacafe01/.local/share/fonts; xset fp rehash
+]])
+
+run_once("blueman-applet")
+run_once("nm-applet")
 
 return autostart

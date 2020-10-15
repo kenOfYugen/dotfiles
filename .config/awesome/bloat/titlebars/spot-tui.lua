@@ -9,13 +9,13 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
 local toolbar_position = "bottom"
-local toolbar_size = dpi(80)
+local toolbar_size = dpi(100)
 local toolbar_bg = beautiful.xcolor0
 local toolbar_enabled_initially = true
 
-local terminal_has_to_move_after_resizing = {["spotterm"] = true}
+local terminal_has_to_move_after_resizing = {["termite"] = true}
 
-local music_client = "spotterm -c music -e spt"
+local music_client = "termite -e ncspot --class music"
 local update_interval = 15
 
 local music_client_terminal = music_client:match("(%w+)(.+)")
@@ -149,22 +149,31 @@ local spot_create_decoration = function(c)
                     layout = wibox.layout.fixed.horizontal
                 },
                 {
-                    spot_prev_symbol,
-                    spot_play_symbol,
-                    spot_next_symbol,
-                    spacing = dpi(60),
-                    layout = wibox.layout.fixed.horizontal
+                    {
+                        {
+                            spot_prev_symbol,
+                            spot_play_symbol,
+                            spot_next_symbol,
+                            spacing = dpi(60),
+                            layout = wibox.layout.fixed.horizontal
+                        },
+                        margins = dpi(6),
+                        widget = wibox.container.margin
+                    },
+                    bg = beautiful.xcolor0,
+                    shape = helpers.rrect(beautiful.border_radius),
+                    widget = wibox.container.background
                 },
                 expand = "outside",
                 layout = wibox.layout.align.horizontal
             },
-            bg = beautiful.xcolor0,
-            shape = helpers.rrect(dpi(6)),
+            bg = beautiful.xbackground,
+            shape = helpers.rrect(beautiful.border_radius),
             widget = wibox.container.background
         },
-        left = dpi(15),
-        right = dpi(15),
-        bottom = dpi(15),
+        left = dpi(40),
+        right = dpi(40),
+        bottom = dpi(40),
         top = dpi(0),
         layout = wibox.container.margin
     }

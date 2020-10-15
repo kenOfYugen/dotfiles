@@ -20,6 +20,16 @@ set nostartofline
 set cursorline
 " set nowrap
 
+
+augroup AutoGroup
+    autocmd!
+augroup END
+
+command! -nargs=* Autocmd autocmd AutoGroup <args>
+
+Autocmd BufNewFile,BufRead *.rasi set filetype=css
+
+
 set relativenumber
 " Remove Tildas
 let &fcs='eob: '
@@ -45,6 +55,8 @@ let g:startify_custom_header = [
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 set termguicolors
+
+colorscheme javacafe
 
 let g:tex_flavor  = 'latex'
 let g:vimtex_fold_manual = 1

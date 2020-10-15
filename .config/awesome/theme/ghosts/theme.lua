@@ -24,7 +24,7 @@ local icon_path = gears.filesystem.get_configuration_dir() .. "icons/"
 -- Set Wallpaper (tiled with offset, might have to change offset depending on resolution)
 
 gears.wallpaper.tiled(gears.filesystem.get_configuration_dir() ..
-                          "images/bg.png", nil, {x = 0, y = 597})
+                          "images/bg.png", nil, {x = 0, y = 0})
 
 -- Icons for Notif Center
 
@@ -59,7 +59,8 @@ theme.xcolor15 = xrdb.color15 or "#d1d5dc"
 
 theme.font = "JetBrains Mono 9"
 theme.icon_font = "FiraCode Nerd Font Mono 18"
-theme.font_taglist = "JetBrains Mono Bold 9"
+theme.font_taglist = "FiraCode Nerd Font Mono 13"
+theme.max_font = "FiraCode Nerd Font Mono 10"
 
 -- Background Colors
 
@@ -81,9 +82,8 @@ theme.button_close = theme.xcolor1
 -- X11 Borders
 
 theme.border_width = dpi(0)
--- theme.border_color = theme.xcolor0
-theme.border_normal = theme.xbackground
-theme.border_focus = theme.xbackground
+theme.border_normal = theme.xcolor0
+theme.border_focus = theme.xcolor8
 theme.border_radius = dpi(6)
 
 -- Taglist
@@ -98,11 +98,11 @@ theme.taglist_font = theme.font_taglist
 theme.taglist_bg = theme.xbackground
 theme.taglist_bg_focus = theme.xcolor8
 theme.taglist_fg_focus = theme.xcolor4
-theme.taglist_bg_urgent = theme.xbackground
+theme.taglist_bg_urgent = theme.xcolor0
 theme.taglist_fg_urgent = theme.xcolor1
-theme.taglist_bg_occupied = transparent
+theme.taglist_bg_occupied = theme.xcolor0
 theme.taglist_fg_occupied = theme.xcolor6
-theme.taglist_bg_empty = transparent
+theme.taglist_bg_empty = theme.xcolor0
 theme.taglist_fg_empty = theme.xcolor8
 theme.taglist_bg_volatile = transparent
 theme.taglist_fg_volatile = theme.xcolor11
@@ -111,18 +111,17 @@ theme.taglist_disable_icon = true
 -- Tasklist
 
 theme.tasklist_font = theme.font
-theme.tasklist_disable_icon = true
 theme.tasklist_plain_task_name = true
-theme.tasklist_bg_focus = theme.xbackground
-theme.tasklist_fg_focus = theme.xbackground
-theme.tasklist_bg_minimize = theme.xcolor0 .. "77"
-theme.tasklist_fg_minimize = theme.xforeground .. "77"
-theme.tasklist_bg_normal = theme.xbackground
-theme.tasklist_fg_normal = theme.xbackground
+theme.tasklist_bg_focus = theme.xcolor0
+theme.tasklist_fg_focus = theme.xcolor6
+theme.tasklist_bg_minimize = theme.xcolor0 .. "70"
+theme.tasklist_fg_minimize = theme.xforeground .. "70"
+theme.tasklist_bg_normal = theme.xcolor0
+theme.tasklist_fg_normal = theme.xforeground
 theme.tasklist_disable_task_name = false
 theme.tasklist_disable_icon = true
-theme.tasklist_bg_urgent = theme.xbackground
-theme.tasklist_fg_urgent = theme.xcolor3
+theme.tasklist_bg_urgent = theme.xcolor0
+theme.tasklist_fg_urgent = theme.xcolor1
 theme.tasklist_spacing = dpi(5)
 theme.tasklist_align = "center"
 
@@ -189,15 +188,50 @@ theme.exit_screen_fg = theme.xforeground
 
 -- Systray
 
-theme.systray_icon_spacing = dpi(5)
-theme.bg_systray = xcolor0
-theme.systray_icon_size = dpi(20)
+theme.systray_icon_spacing = dpi(8)
+theme.bg_systray = theme.xcolor0
+theme.systray_icon_size = dpi(15)
 
 -- Wibar
 
-theme.wibar_height = dpi(27)
+theme.wibar_height = dpi(33)
 theme.wibar_margin = dpi(15)
 theme.wibar_spacing = dpi(15)
-theme.wibar_bg = theme.xcolor0
+theme.wibar_bg = theme.xbackground
+
+-- Collision
+
+theme.collision_focus_bg = theme.xcolor8
+theme.collision_focus_fg = theme.xcolor6
+theme.collision_focus_shape = helpers.rrect(theme.border_radius)
+theme.collision_focus_border_width = theme.border_width
+theme.collision_focus_border_color = theme.border_normal
+
+theme.collision_focus_bg_center = theme.xcolor8
+theme.collision_shape_width = dpi(50)
+theme.collision_shape_height = dpi(50)
+theme.collision_focus_shape_center = gears.shape.circle
+
+theme.collision_max_bg = theme.xbackground
+theme.collision_max_fg = theme.xcolor8
+theme.collision_max_shape = helpers.rrect(theme.border_radius)
+theme.bg_urgent = theme.xcolor1
+
+theme.collision_resize_width = dpi(20)
+theme.collision_resize_shape = theme.collision_focus_shape
+theme.collision_resize_border_width = theme.collision_focus_border_width
+theme.collision_resize_border_color = theme.collision_focus_border_color
+theme.collision_resize_padding = dpi(5)
+theme.collision_resize_bg = theme.collision_focus_bg
+theme.collision_resize_fg = theme.collision_focus_fg
+
+theme.collision_screen_shape = theme.collision_focus_shape
+theme.collision_screen_border_width = theme.collision_focus_border_width
+theme.collision_screen_border_color = theme.collision_focus_border_color
+theme.collision_screen_padding = dpi(5)
+theme.collision_screen_bg = theme.xbackground
+theme.collision_screen_fg = theme.xcolor4
+theme.collision_screen_bg_focus = theme.xcolor8
+theme.collision_screen_fg_focus = theme.xcolor4
 
 return theme

@@ -98,18 +98,16 @@ client.connect_signal("request::titlebars", function(c)
     floating:connect_signal("button::press",
                             function() c.floating = not c.floating end)
 
-    awful.titlebar(c, {position = "top", size = beautiful.titlebar_size}):setup{
-        { -- Left
-            --            awful.titlebar.widget.iconwidget(c),
-            layout = wibox.layout.fixed.horizontal
-        },
-        { -- Middle
-            buttons = buttons,
-            layout = wibox.layout.flex.horizontal
-        },
-        { -- Right
-            layout = wibox.layout.fixed.horizontal()
-        },
-        layout = wibox.layout.align.horizontal
+    local active_color_1 = {
+        type = 'linear',
+        from = {0, 0},
+        to = {c.width, 20}, -- replace with w,h later
+        stops = {{0, beautiful.xcolor6}, {0.75, beautiful.xcolor4}}
     }
+
+    awful.titlebar(c, {
+        position = "top",
+        size = beautiful.titlebar_size,
+        bg_focus = active_color_1
+    })
 end)
