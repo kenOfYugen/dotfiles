@@ -4,6 +4,7 @@ local gears = require("gears")
 local wibox = require("wibox")
 local awful = require("awful")
 local dpi = beautiful.xresources.apply_dpi
+local helpers = require("helpers")
 
 require("notifs.brightness")
 require("notifs.volume")
@@ -18,7 +19,7 @@ naughty.config.defaults.margin = dpi(20)
 naughty.config.defaults.border_width = 0
 naughty.config.defaults.border_color = beautiful.xcolor0
 naughty.config.defaults.position = "top_right"
-naughty.config.defaults.shape = gears.shape.rectangle
+naughty.config.defaults.shape = helpers.rrect(beautiful.border_radius)
 
 naughty.config.padding = dpi(10)
 naughty.config.spacing = dpi(10)

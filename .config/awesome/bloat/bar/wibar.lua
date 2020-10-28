@@ -50,8 +50,6 @@ panelPop:connect_signal("mouse::leave", function()
     calPop.visible = false
 end)
 
--------------------------------------------------------------------------------
-
 -- Notifs Panel ---------------------------------------------------------------
 
 local notifPop = require("bloat.pop.notif")
@@ -64,15 +62,11 @@ local notif_icon = wibox.widget {
 notif_icon:connect_signal("mouse::enter", function() notifPop.visible = true end)
 notifPop:connect_signal("mouse::leave", function() notifPop.visible = false end)
 
--------------------------------------------------------------------------------
-
 -- Battery Bar Widget ---------------------------------------------------------
 
 local battery_icon = wibox.widget.imagebox(nil)
 local battery_bar = require("widgets.battery_bar")
 local battery = format_progress_bar(battery_bar, battery_icon)
-
--------------------------------------------------------------------------------
 
 -- Systray Widget -------------------------------------------------------------
 
@@ -85,8 +79,6 @@ local mysystray_container = {
     right = dpi(8),
     widget = wibox.container.margin
 }
-
--------------------------------------------------------------------------------
 
 -- Taglist Widget -------------------------------------------------------------
 
@@ -101,8 +93,6 @@ local taglist_buttons = gears.table.join(
                             awful.button({}, 5, function(t)
         awful.tag.viewprev(t.screen)
     end))
-
--------------------------------------------------------------------------------
 
 -- Tasklist Widget ------------------------------------------------------------
 
@@ -119,8 +109,6 @@ local tasklist_buttons = gears.table.join(
                              awful.button({}, 5, function()
         awful.client.focus.byidx(-1)
     end))
-
--------------------------------------------------------------------------------
 
 -- Create the Wibar -----------------------------------------------------------
 

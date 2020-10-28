@@ -12,14 +12,28 @@ local helpers = require("helpers")
 local notifPop = require("bloat.pop.notif")
 local panelPop = require("bloat.pop.panel")
 local calPop = require("bloat.pop.cal")
+-- local bling = require("bling")
 
-globalkeys = gears.table.join(
+-- bling.module.flash_focus.enable()
+
+globalkeys = gears.table.join( -- Focus client by direction (arrow keys)
+                 awful.key({modkey}, "Down", function()
+        awful.client.focus.bydirection("down")
+    end, {description = "focus down", group = "client"}),
+                 awful.key({modkey}, "Up",
+                           function() awful.client.focus.bydirection("up") end,
+                           {description = "focus up", group = "client"}),
+                 awful.key({modkey}, "Left", function()
+        awful.client.focus.bydirection("left")
+
+    end, {description = "focus left", group = "client"}),
+                 awful.key({modkey}, "Right", function()
+        awful.client.focus.bydirection("right")
+
+    end, {description = "focus right", group = "client"}),
+
                  awful.key({modkey}, "F1", hotkeys_popup.show_help,
                            {description = "show help", group = "awesome"}),
-    -- awful.key({modkey}, "Left", awful.tag.viewprev,
-    --          {description = "view previous", group = "tag"}),
-    -- awful.key({modkey}, "Right", awful.tag.viewnext,
-    --          {description = "view next", group = "tag"}),
                  awful.key({modkey}, "Escape", awful.tag.history.restore,
                            {description = "go back", group = "tag"}),
                  awful.key({modkey}, "j",
@@ -88,15 +102,31 @@ globalkeys = gears.table.join(
     awful.key({}, "XF86MonBrightnessUp",
               function() awful.spawn("xbacklight -inc 10") end),
                  awful.key({}, "XF86MonBrightnessDown",
-                           function() awful.spawn("xbacklight -dec 10") end),
-
-    -- ColorPicker
+                           function() awful.spawn("xbacklight -dec 10") end), -- ColorPicker
                  awful.key({modkey}, "p",
                            function() awful.spawn("farge --notify") end),
 
     -- Standard program
                  awful.key({modkey}, "t", function() awful.spawn(terminal) end,
                            {description = "open a terminal", group = "launcher"}),
+                 awful.key({modkey, shift}, "t", function()
+        awful.spawn.easy_async_with_shell(
+            "slop -b 2 -c '0.61,0.9,0.75,1' -p -2", function(out)
+                local mywidth, myheight, myx, myy =
+                    string.match(out, "(.*)x(.*)+(.*)+(.*)")
+
+                awful.spawn(terminal, {
+                    geometry = {
+                        x = myx,
+                        y = myy,
+                        height = myheight,
+                        width = mywidth
+                    },
+                    floating = true
+                })
+
+            end)
+    end, {description = "open a terminal", group = "launcher"}),
                  awful.key({modkey}, "s", function() awful.spawn(music) end,
                            {description = "open spot-tui", group = "launcher"}),
 
@@ -106,7 +136,8 @@ globalkeys = gears.table.join(
         group = "launcher"
     }), awful.key({modkey}, "v", function() awful.spawn(discord) end,
                   {description = "open discord", group = "launcher"}),
-                 awful.key({modkey}, "w", function() awful.spawn(browser) end,
+                 awful.key({modkey}, "w",
+                           function() awful.spawn.with_shell(browser) end,
                            {description = "open firefox", group = "launcher"}),
                  awful.key({modkey, "Control"}, "r", awesome.restart,
                            {description = "reload awesome", group = "awesome"}),
@@ -136,13 +167,11 @@ globalkeys = gears.table.join(
                   function() awful.tag.incncol(-1, nil, true) end, {
         description = "decrease the number of columns",
         group = "layout"
-    }),
-    --  awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
-    --            {description = "select next", group = "layout"}),
-    --  awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
-    --            {description = "select previous", group = "layout"}),
-
-    -- Set Layout 
+    }), awful.key({modkey}, "space", function() awful.layout.inc(1) end,
+                  {description = "select next", group = "layout"}),
+                 awful.key({modkey, "Shift"}, "space",
+                           function() awful.layout.inc(-1) end,
+                           {description = "select previous", group = "layout"}), -- Set Layout 
                  awful.key({modkey, "Control"}, "w", function()
         awful.layout.set(awful.layout.suit.max)
     end, {description = "set max layout", group = "tag"}),

@@ -20,20 +20,13 @@ local function create_boxed_widget(widget_to_be_boxed, width, height, bg_color)
     box_container.forced_height = height
     box_container.forced_width = width
     box_container.shape = helpers.rrect(box_radius)
-    -- box_container.shape = helpers.prrect(20, true, true, true, true)
-    -- box_container.shape = helpers.prrect(30, true, true, false, true)
 
     local boxed_widget = wibox.widget {
-        -- Add margins
         {
-            -- Add background color
             {
-                -- Center widget_to_be_boxed horizontally
                 nil,
                 {
-                    -- Center widget_to_be_boxed vertically
                     nil,
-                    -- The actual widget goes here
                     widget_to_be_boxed,
                     layout = wibox.layout.align.vertical,
                     expand = "none"
@@ -46,7 +39,6 @@ local function create_boxed_widget(widget_to_be_boxed, width, height, bg_color)
         color = "#FF000000",
         widget = wibox.container.margin
     }
-
     return boxed_widget
 end
 
@@ -150,30 +142,6 @@ fancy_time_widget.font = "JetBrains Mono 55"
 
 local fancy_time = {fancy_time_widget, layout = wibox.layout.fixed.vertical}
 
---- }}}
-
---- {{{ Date
-
-local fancy_date_widget = wibox.widget.textclock('%A %B %d, %Y')
-fancy_date_widget.markup = "<span foreground='" .. beautiful.xcolor12 .. "'>" ..
-                               fancy_date_widget.text .. "</span>"
-fancy_date_widget:connect_signal("widget::redraw_needed", function()
-    fancy_date_widget.markup = "<span foreground='" .. beautiful.xcolor12 ..
-                                   "'>" .. fancy_date_widget.text .. "</span>"
-end)
-fancy_date_widget.align = "center"
-fancy_date_widget.valign = "center"
-fancy_date_widget.font = "JetBrains Mono 15"
-local fancy_date_decoration = wibox.widget.textbox()
--- local decoration_string = "------------------------"
-local decoration_string = "──────  ──────"
-fancy_date_decoration.markup =
-    "<span foreground='" .. beautiful.xcolor2 .. "'>" .. decoration_string ..
-        "</span>"
-fancy_date_decoration.font = "FiraCode Nerd Font Mono 18"
-fancy_date_decoration.align = "center"
-fancy_date_decoration.valign = "top"
-
 local calPop = require('bloat.pop.cal')
 
 fancy_time_widget:connect_signal("mouse::enter",
@@ -181,12 +149,6 @@ fancy_time_widget:connect_signal("mouse::enter",
 
 fancy_time_widget:connect_signal("mouse::leave",
                                  function() calPop.visible = false end)
-
-local fancy_date = {
-    fancy_date_widget,
-    fancy_date_decoration,
-    layout = wibox.layout.fixed.vertical
-}
 
 ---}}}
 
@@ -237,43 +199,49 @@ info_area:set_bottom(nil)
 
 ---}}}
 
+local sys = wibox.widget {
+    nil,
+    {
+        volume,
+        brightness,
+        cpu,
+        ram,
+        forced_num_cols = 2,
+        forced_num_rows = 2,
+        homogeneous = true,
+        expand = false,
+        spacing = 50,
+        layout = wibox.layout.grid
+    },
+    nil,
+    expand = "outside",
+    layout = wibox.layout.align.horizontal
+}
+local sys_box = create_boxed_widget(sys, 400, 350, beautiful.xcolor0)
+local sys_area = wibox.layout.align.vertical()
+sys_area:set_top(nil)
+sys_area:set_middle(wibox.container.margin(sys_box, dpi(5), dpi(5), 0, 0))
+sys_area:set_bottom(nil)
+
+local time = wibox.widget {
+    fancy_time,
+    top = dpi(10),
+    left = dpi(20),
+    right = dpi(20),
+    bottom = dpi(10),
+    widget = wibox.container.margin
+}
+
+local time_box = create_boxed_widget(time, 400, 125, beautiful.xcolor0)
+local time_area = wibox.layout.align.vertical()
+time_area:set_top(nil)
+time_area:set_middle(wibox.container.margin(time_box, dpi(5), dpi(5), 0, 0))
+time_area:set_bottom(nil)
+
 local panelWidget = wibox.widget {
     info_area,
-    { ----------- TOP GROUP -----------
-        fancy_time,
-        top = dpi(10),
-        left = dpi(20),
-        right = dpi(20),
-        bottom = dpi(10),
-        widget = wibox.container.margin
-    },
-    { ----------- MIDDLE GROUP -----------
-        fancy_date_decoration,
-        helpers.vertical_pad(30),
-        {
-            nil,
-            {
-                volume,
-                brightness,
-                cpu,
-                ram,
-                forced_num_cols = 2,
-                forced_num_rows = 2,
-                homogeneous = true,
-                expand = false,
-                spacing = 50,
-                layout = wibox.layout.grid
-            },
-            nil,
-            expand = "outside",
-            layout = wibox.layout.align.horizontal
-        },
-        helpers.vertical_pad(40),
-        nord_area,
-        mpd_area,
-        layout = wibox.layout.fixed.vertical
-    },
-
+    time_area,
+    {sys_area, nord_area, mpd_area, layout = wibox.layout.fixed.vertical},
     layout = wibox.layout.align.vertical
 }
 

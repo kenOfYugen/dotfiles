@@ -1,3 +1,4 @@
+local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
@@ -31,6 +32,16 @@ local battery_bar = wibox.widget {
     widget = wibox.widget.progressbar
 }
 
+local battery_tooltip = awful.tooltip {}
+battery_tooltip:add_to_object(battery_bar)
+battery_tooltip.text = 'Not Updated'
+
+awesome.connect_signal("ears::battery", function(value)
+    battery_bar:connect_signal('mouse::enter', function()
+        battery_tooltip.text = value .. '%'
+    end)
+end)
+
 local q = 0
 local g = gears.timer {
     timeout = 0.03,
@@ -56,11 +67,11 @@ local g = gears.timer {
 
 awesome.connect_signal("ears::charger", function(plugged)
 
-    if plugged then
-        g:start()
-    else
-        g:stop()
-        awesome.connect_signal("ears::battery", function(value)
+    awesome.connect_signal("ears::battery", function(value)
+        if plugged then
+            g:start()
+        else
+            g:stop()
             battery_bar.value = value
             battery_bar.color = {
                 type = 'linear',
@@ -72,9 +83,9 @@ awesome.connect_signal("ears::charger", function(plugged)
                     {1 - (value) / 100, beautiful.xcolor10}
                 }
             }
-        end)
 
-    end
+        end
+    end)
 
 end)
 

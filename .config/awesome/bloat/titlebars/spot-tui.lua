@@ -13,9 +13,9 @@ local toolbar_size = dpi(100)
 local toolbar_bg = beautiful.xcolor0
 local toolbar_enabled_initially = true
 
-local terminal_has_to_move_after_resizing = {["termite"] = true}
+local terminal_has_to_move_after_resizing = {["st"] = true}
 
-local music_client = "termite -e ncspot --class music"
+local music_client = "st -c music -e ncspot"
 local update_interval = 15
 
 local music_client_terminal = music_client:match("(%w+)(.+)")
