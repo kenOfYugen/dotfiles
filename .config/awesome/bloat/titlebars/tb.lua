@@ -8,6 +8,8 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
 
+local helpers = require("helpers")
+
 -- {{{ Enable THICC Title Bars only while Floating
 client.connect_signal("property::floating", function(c)
     local b = false;

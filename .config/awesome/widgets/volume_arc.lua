@@ -13,6 +13,13 @@ local active_color = {
     stops = {{0, beautiful.xcolor6}, {0.75, beautiful.xcolor4}}
 }
 
+local text = {
+    markup = "<b>VOL</b>",
+    align = 'center',
+    font = "Jetbrains Mono 15",
+    widget = wibox.widget.textbox
+}
+
 local icon = {
     id = "icon",
     image = icons.volume,
@@ -28,7 +35,7 @@ local volume_arc = wibox.widget {
     forced_height = 100,
     rounded_edge = true,
     forced_width = 100,
-    bg = beautiful.xcolor0,
+    bg = beautiful.xbackground,
     paddings = 10,
     colors = {active_color},
     widget = wibox.container.arcchart
@@ -38,7 +45,7 @@ awesome.connect_signal("ears::volume", function(volume, muted)
     if muted then
         volume_arc.bg = beautiful.xcolor1
     else
-        volume_arc.bg = beautiful.xcolor0
+        volume_arc.bg = beautiful.xbackground
     end
 
     volume_arc.value = volume

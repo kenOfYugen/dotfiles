@@ -29,7 +29,7 @@ local volume_adjust = wibox({
     y = (screen.geometry.height / 2) - (offsety / 2),
     width = dpi(48),
     height = offsety,
-    shape = helpers.rrect(dpi(0)),
+    shape = helpers.rrect(beautiful.border_radius),
     visible = false,
     border_width = 0,
     border_color = beautiful.xcolor0,
@@ -41,7 +41,7 @@ local volume_bar = wibox.widget {
     shape = gears.shape.rounded_bar,
     bar_shape = gears.shape.rounded_bar,
     color = active_color_1,
-    background_color = beautiful.bg_focus,
+    background_color = beautiful.xcolor0,
     max_value = 100,
     value = 0
 }

@@ -23,8 +23,8 @@ local icon_path = gears.filesystem.get_configuration_dir() .. "icons/"
 
 -- Set Wallpaper (tiled with offset, might have to change offset depending on resolution)
 
-gears.wallpaper.tiled(gears.filesystem.get_configuration_dir() ..
-                          "images/bg.png", nil, {x = 0, y = 0})
+-- gears.wallpaper.tiled(gears.filesystem.get_configuration_dir() ..
+--                          "images/bg.png", nil, {x = 0, y = 0})
 
 -- Icons for Notif Center
 
@@ -233,5 +233,12 @@ theme.collision_screen_bg = theme.xbackground
 theme.collision_screen_fg = theme.xcolor4
 theme.collision_screen_bg_focus = theme.xcolor8
 theme.collision_screen_fg_focus = theme.xcolor4
+
+-- Tabs
+
+theme.mstab_bar_height = dpi(40)
+theme.mstab_bar_padding = dpi(20)
+theme.mstab_tabbar_orientation = "bottom"
+theme.mstab_border_radius = dpi(6)
 
 return theme
