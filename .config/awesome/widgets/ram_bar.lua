@@ -6,33 +6,27 @@ local dpi = beautiful.xresources.apply_dpi
 
 -- Set colors
 local active_color = {
-  type = 'linear',
-  from = { 0, 0 },
-  to = { 200, 50 }, -- replace with w,h later
-  stops = {
-    { 0, beautiful.xcolor6 },
-    { 0.75, beautiful.xcolor4 }
-  }
-} 
+    type = 'linear',
+    from = {0, 0},
+    to = {200, 50}, -- replace with w,h later
+    stops = {{0, beautiful.xcolor11}, {0.75, beautiful.xcolor3}}
+}
 
-local background_color = beautiful.xcolor0
+local background_color = beautiful.xbackground
 
-local ram_bar = wibox.widget{
-    max_value     = 100,
-    value         = 50,
+local ram_bar = wibox.widget {
+    max_value = 100,
+    value = 50,
     forced_height = dpi(10),
-    margins       = {
-        top = dpi(8),
-        bottom = dpi(8),
-    },
-    forced_width  = dpi(200),
-    shape         = gears.shape.rounded_bar,
-    bar_shape     = gears.shape.rounded_bar,
-    color         = active_color,
+    margins = {top = dpi(8), bottom = dpi(8)},
+    forced_width = dpi(200),
+    shape = gears.shape.rounded_bar,
+    bar_shape = gears.shape.rounded_bar,
+    color = active_color,
     background_color = background_color,
-    border_width  = 0,
-    border_color  = beautiful.border_color,
-    widget        = wibox.widget.progressbar,
+    border_width = 0,
+    border_color = beautiful.border_color,
+    widget = wibox.widget.progressbar
 }
 
 local update_interval = 20
@@ -46,14 +40,13 @@ local ram_script = [[
   "]]
 
 -- Periodically get ram info
---awful.widget.watch(ram_script, update_interval, function(widget, stdout)
+-- awful.widget.watch(ram_script, update_interval, function(widget, stdout)
 --    local available = stdout:match('(.*)@@')
- --   local total = stdout:match('@@(.*)@')
-  --  local used = tonumber(total) - tonumber(available)
- --   local used_ram_percentage = (used / total) * 100
- --   ram_bar.value = used_ram_percentage
---end)
-
+--   local total = stdout:match('@@(.*)@')
+--  local used = tonumber(total) - tonumber(available)
+--   local used_ram_percentage = (used / total) * 100
+--   ram_bar.value = used_ram_percentage
+-- end)
 
 awesome.connect_signal("ears::ram", function(used, total)
     local used_ram_percentage = (used / total) * 100

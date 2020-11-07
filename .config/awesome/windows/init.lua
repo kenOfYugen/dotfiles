@@ -5,27 +5,25 @@ local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
 local helpers = require("helpers")
 
--- local bling = require("bling")
+local bling = require("bling")
 
-client.connect_signal("manage", function(c)
-    c.shape = helpers.rrect(beautiful.border_radius)
-end)
+client.connect_signal("manage", function(c) c.shape = helpers.rrect(0) end)
 
 -- Custom Layouts -------------------------------------------------------------
---[[
+
 local mstab = bling.layout.mstab
 local centered = bling.layout.centered
 local vertical = bling.layout.vertical
 local horizontal = bling.layout.horizontal
-]] --
 
 -- Set the layouts
-awful.layout.layouts = {
-    awful.layout.suit.tile -- awful.layout.suit.floating
 
-    --[[centered, mstab,
-    vertical, horizontal]] --
-}
+tag.connect_signal("request::default_layouts", function()
+    awful.layout.append_default_layouts({
+        awful.layout.suit.tile, awful.layout.suit.floating, centered, mstab,
+        vertical, horizontal
+    })
+end)
 
 -- Layout List Widget ---------------------------------------------------------
 
@@ -60,7 +58,7 @@ local ll = awful.widget.layoutlist {
 -- Popup
 local layout_popup = awful.popup {
     widget = wibox.widget {
-        -- ll,
+        ll,
         margins = dpi(24),
         widget = wibox.container.margin
     },

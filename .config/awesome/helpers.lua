@@ -1,9 +1,4 @@
---  _          _                     
--- | |__   ___| |_ __   ___ _ __ ___ 
--- | '_ \ / _ \ | '_ \ / _ \ '__/ __|
--- | | | |  __/ | |_) |  __/ |  \__ \
--- |_| |_|\___|_| .__/ \___|_|  |___/
---              |_| 
+-- helpers.lua
 -- Functions that you use more than once and in different files would
 -- be nice to define here.
 local awful = require("awful")
@@ -440,3 +435,5 @@ function helpers.pad(size)
 end
 
 return helpers
+
+-- EOF ------------------------------------------------------------------------

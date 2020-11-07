@@ -1,3 +1,5 @@
+-- notif.lua
+-- Notification Popup Widget
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
@@ -12,10 +14,12 @@ local popupWidget = wibox.widget {
 }
 
 local width = 400
-local margin = 10
+local margin = 4
 
-local popup = popupLib.create(awful.screen.focused().geometry.width - width - 5,
-                              beautiful.wibar_height + 5, nil, width,
-                              popupWidget)
+local popup = popupLib.create(awful.screen.focused().geometry.width - width -
+                                  margin, beautiful.wibar_height + margin, nil,
+                              width, popupWidget)
 
 return popup
+
+-- EOF ------------------------------------------------------------------------

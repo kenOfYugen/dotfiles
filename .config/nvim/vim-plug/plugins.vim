@@ -7,23 +7,20 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
+    Plug 'Yggdroot/indentLine'
 
+    Plug 'vim-airline/vim-airline'
+
+    Plug 'ludovicchabant/vim-gutentags'
     Plug 'udalov/kotlin-vim'
 
     Plug 'co1ncidence/javacafe'
     Plug 'majutsushi/tagbar'
-    Plug 'neovimhaskell/haskell-vim'
     Plug 'ap/vim-css-color'
 
     " Format
     Plug 'andrejlevkovitch/vim-lua-format'
-
-    " --------- adding the following three plugins for Latex ---------
-    Plug 'lervag/vimtex'
-    Plug 'Konfekt/FastFold'
-    Plug 'matze/vim-tex-fold'    
-    " --------- "
-    Plug 'VundleVim/Vundle.vim'
+  
     Plug 'preservim/nerdtree'
     Plug 'mhinz/vim-startify'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}

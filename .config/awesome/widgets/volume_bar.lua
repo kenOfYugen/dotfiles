@@ -9,12 +9,12 @@ local active_color = {
     type = 'linear',
     from = {0, 0},
     to = {200, 50}, -- replace with w,h later
-    stops = {{0, beautiful.xcolor6}, {0.75, beautiful.xcolor4}}
+    stops = {{0, beautiful.xcolor10}, {0.75, beautiful.xcolor2}}
 }
 
-local muted_color = beautiful.xcolor0
-local active_background_color = beautiful.xcolor0
-local muted_background_color = beautiful.xcolor0
+local muted_color = active_color
+local active_background_color = beautiful.xbackground
+local muted_background_color = beautiful.xcolor1
 
 local volume_bar = wibox.widget {
     max_value = 100,

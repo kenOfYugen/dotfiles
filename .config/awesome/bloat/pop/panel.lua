@@ -1,3 +1,5 @@
+-- panel.lua
+-- Panel Widget
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
@@ -44,10 +46,17 @@ end
 
 -- Helper function that changes the appearance of progress bars and their icons
 -- Create horizontal rounded bars
-local function format_progress_bar(bar, icon)
-    icon.forced_height = dpi(36)
-    icon.forced_width = dpi(36)
-    icon.resize = true
+local function format_progress_bar(bar, markup)
+    local text = wibox.widget {
+        markup = markup,
+        align = 'center',
+        valign = 'center',
+        font = 'JetBrains Mono 12',
+        widget = wibox.widget.textbox
+    }
+    text.forced_height = dpi(36)
+    text.forced_width = dpi(36)
+    text.resize = true
     bar.forced_width = dpi(215)
     bar.shape = gears.shape.rounded_bar
     bar.bar_shape = gears.shape.rounded_bar
@@ -59,7 +68,7 @@ local function format_progress_bar(bar, icon)
 
     local w = wibox.widget {
         nil,
-        {icon, bar, spacing = dpi(10), layout = wibox.layout.fixed.horizontal},
+        {text, bar, spacing = dpi(10), layout = wibox.layout.fixed.horizontal},
         expand = "none",
         layout = wibox.layout.align.horizontal
     }
@@ -68,58 +77,54 @@ end
 
 --- {{{ Volume Widget
 
--- local volume_icon = wibox.widget.imagebox(icons.volume)
+local volume_bar = require("widgets.volume_bar")
+local volume = format_progress_bar(volume_bar, "<span foreground='" ..
+                                       beautiful.xcolor10 ..
+                                       "'><b>VOL</b></span>")
 
--- awesome.connect_signal("ears::volume", function(volume, muted)
---    if muted then
---        volume_icon.image = icons.muted
---    else
---        volume_icon.image = icons.volume
---    end
--- end)
+apps_volume = function()
+    helpers.run_or_raise({class = 'Pavucontrol'}, true, "pavucontrol")
+end
 
-local volume = require("widgets.volume_arc")
--- local volume = format_progress_bar(volume_bar, volume_icon)
+volume:buttons(gears.table.join( -- Left click - Mute / Unmute
+                   awful.button({}, 1, function() helpers.volume_control(0) end),
+    -- Scroll - Increase / Decrease volume
+                   awful.button({}, 4, function() helpers.volume_control(5) end),
+                   awful.button({}, 5, function() helpers.volume_control(-5) end)))
 
--- apps_volume = function()
---    helpers.run_or_raise({class = 'Pavucontrol'}, true, "pavucontrol")
--- end
-
--- volume:buttons(gears.table.join( -- Left click - Mute / Unmute
--- awful.button({}, 1, function() helpers.volume_control(0) end),
--- Scroll - Increase / Decrease volume
--- awful.button({}, 4, function() helpers.volume_control(5) end),
--- awful.button({}, 5, function() helpers.volume_control(-5) end)))
-
---- }}}
+-- }}}
 --
 --- {{{ Brightness Widget
 
--- local brightness_icon = wibox.widget.imagebox(icons.brightness)
--- local brightness_bar = require("widgets.brightness_bar")
--- local brightness = format_progress_bar(brightness_bar, brightness_icon)
+local brightness_icon = wibox.widget.imagebox(icons.brightness)
+local brightness_bar = require("widgets.brightness_bar")
+local brightness = format_progress_bar(brightness_bar, "<span foreground='" ..
+                                           beautiful.xcolor12 ..
+                                           "'><b>SUN</b></span>")
 
-local brightness = require("widgets.brightness_arc")
+-- local brightness = require("widgets.brightness_arc")
 
 --- }}}
 
 --- {{{ Ram Widget
 
-local ram = require("widgets.ram_arc")
+-- local ram = require("widgets.ram_arc")
 
--- local ram_icon = wibox.widget.imagebox(icons.ram)
--- local ram_bar = require("widgets.ram_bar")
--- local ram = format_progress_bar(ram_bar, ram_icon)
+local ram_icon = wibox.widget.imagebox(icons.ram)
+local ram_bar = require("widgets.ram_bar")
+local ram = format_progress_bar(ram_bar, "<span foreground='" ..
+                                    beautiful.xcolor11 .. "'><b>RAM</b></span>")
 
 --- }}}
 
 --- {{{ Cpu Widget
 
-local cpu = require("widgets.cpu_arc")
+-- local cpu = require("widgets.cpu_arc")
 
--- local cpu_icon = wibox.widget.imagebox(icons.cpu)
--- local cpu_bar = require("widgets.cpu_bar")
--- local cpu = format_progress_bar(cpu_bar, cpu_icon)
+local cpu_icon = wibox.widget.imagebox(icons.cpu)
+local cpu_bar = require("widgets.cpu_bar")
+local cpu = format_progress_bar(cpu_bar, "<span foreground='" ..
+                                    beautiful.xcolor13 .. "'><b>CPU</b></span>")
 
 --- }}}
 
@@ -142,6 +147,29 @@ fancy_time_widget.font = "JetBrains Mono 55"
 
 local fancy_time = {fancy_time_widget, layout = wibox.layout.fixed.vertical}
 
+local fancy_date_widget = wibox.widget.textclock("%m/%d/%Y")
+fancy_date_widget.markup = fancy_date_widget.text:sub(1, 3) ..
+                               "<span foreground='" .. beautiful.xcolor12 ..
+                               "'>" .. fancy_date_widget.text:sub(4, 6) ..
+                               "</span>" .. "<span foreground='" ..
+                               beautiful.xcolor6 .. "'>" ..
+                               fancy_date_widget.text:sub(7, 10) .. "</span>"
+fancy_date_widget:connect_signal("widget::redraw_needed", function()
+    fancy_date_widget.markup = fancy_date_widget.text:sub(1, 3) ..
+                                   "<span foreground='" .. beautiful.xcolor12 ..
+                                   "'>" .. fancy_date_widget.text:sub(4, 6) ..
+                                   "</span>" .. "<span foreground='" ..
+                                   beautiful.xcolor6 .. "'>" ..
+                                   fancy_date_widget.text:sub(7, 10) ..
+                                   "</span>"
+
+end)
+fancy_date_widget.align = "center"
+fancy_date_widget.valign = "center"
+fancy_date_widget.font = "JetBrains Mono 12"
+
+local fancy_date = {fancy_date_widget, layout = wibox.layout.fixed.vertical}
+
 local calPop = require('bloat.pop.cal')
 
 fancy_time_widget:connect_signal("mouse::enter",
@@ -154,6 +182,7 @@ fancy_time_widget:connect_signal("mouse::leave",
 
 -- {{{ Music Widget
 
+--[[
 local mpd = require("widgets.mpd")
 local mpd_box = create_boxed_widget(mpd, 400, 125, beautiful.xcolor0)
 local mpd_area = {
@@ -169,11 +198,28 @@ local mpd_area = {
     nil,
     layout = wibox.layout.align.vertical
 }
+--]]
+
+local spot = require("widgets.spot")
+local spot_box = create_boxed_widget(spot, 400, 320, beautiful.xcolor0)
+local spot_area = {
+    nil,
+    {
+        spot_box,
+        left = dpi(5),
+        right = dpi(5),
+        top = dpi(0),
+        bottom = dpi(0),
+        layout = wibox.container.margin
+    },
+    nil,
+    layout = wibox.layout.align.vertical
+}
 
 -- }}}
 
 local nord = require("widgets.nord")
-local nord_box = create_boxed_widget(nord, 400, 125, beautiful.xcolor0)
+local nord_box = create_boxed_widget(nord, 400, 135, beautiful.xcolor0)
 local nord_area = {
     nil,
     {
@@ -200,31 +246,20 @@ info_area:set_bottom(nil)
 ---}}}
 
 local sys = wibox.widget {
-    nil,
-    {
-        volume,
-        brightness,
-        cpu,
-        ram,
-        forced_num_cols = 2,
-        forced_num_rows = 2,
-        homogeneous = true,
-        expand = false,
-        spacing = 50,
-        layout = wibox.layout.grid
-    },
-    nil,
-    expand = "outside",
-    layout = wibox.layout.align.horizontal
+    volume,
+    brightness,
+    cpu,
+    ram,
+    layout = wibox.layout.flex.vertical
 }
-local sys_box = create_boxed_widget(sys, 400, 350, beautiful.xcolor0)
+local sys_box = create_boxed_widget(sys, 400, 225, beautiful.xcolor0)
 local sys_area = wibox.layout.align.vertical()
 sys_area:set_top(nil)
 sys_area:set_middle(wibox.container.margin(sys_box, dpi(5), dpi(5), 0, 0))
 sys_area:set_bottom(nil)
 
 local time = wibox.widget {
-    fancy_time,
+    {fancy_time, fancy_date, layout = wibox.layout.align.vertical},
     top = dpi(10),
     left = dpi(20),
     right = dpi(20),
@@ -232,7 +267,7 @@ local time = wibox.widget {
     widget = wibox.container.margin
 }
 
-local time_box = create_boxed_widget(time, 400, 125, beautiful.xcolor0)
+local time_box = create_boxed_widget(time, 400, 159, beautiful.xcolor0)
 local time_area = wibox.layout.align.vertical()
 time_area:set_top(nil)
 time_area:set_middle(wibox.container.margin(time_box, dpi(5), dpi(5), 0, 0))
@@ -241,14 +276,18 @@ time_area:set_bottom(nil)
 local panelWidget = wibox.widget {
     info_area,
     time_area,
-    {sys_area, nord_area, mpd_area, layout = wibox.layout.fixed.vertical},
+    {sys_area, nord_area, spot_area, layout = wibox.layout.align.vertical},
     layout = wibox.layout.align.vertical
 }
 
 local width = 400
-local margin = 5
+local margin = 4
 
-local panelPop = popupLib.create(margin, beautiful.wibar_height + margin, nil,
-                                 width, panelWidget)
+local panelPop = popupLib.create(margin, beautiful.wibar_height + margin,
+                                 awful.screen.focused().geometry.height - margin -
+                                     margin - beautiful.wibar_height, width,
+                                 panelWidget)
 
 return panelPop
+
+-- EOF ------------------------------------------------------------------------

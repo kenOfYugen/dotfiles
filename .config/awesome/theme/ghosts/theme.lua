@@ -85,6 +85,7 @@ theme.border_width = dpi(0)
 theme.border_normal = theme.xcolor0
 theme.border_focus = theme.xcolor8
 theme.border_radius = dpi(6)
+theme.client_radius = dpi(6)
 
 -- Taglist
 
@@ -127,9 +128,9 @@ theme.tasklist_align = "center"
 
 -- Titlebars
 
-theme.titlebar_size = dpi(30)
-theme.titlebar_bg_focus = theme.xcolor8
-theme.titlebar_bg_normal = theme.xcolor0
+theme.titlebar_size = dpi(35)
+theme.titlebar_bg_focus = theme.xcolor0
+theme.titlebar_bg_normal = theme.xbackground
 theme.titlebar_fg_focus = theme.xcolor8
 theme.titlebar_fg_normal = theme.xbackground
 
@@ -180,7 +181,7 @@ theme = theme_assets.recolor_layout(theme, theme.xforeground)
 
 -- Gaps
 
-theme.useless_gap = dpi(10)
+theme.useless_gap = dpi(2)
 
 -- Exit Screen
 
@@ -200,6 +201,7 @@ theme.wibar_spacing = dpi(15)
 theme.wibar_bg = theme.xbackground
 
 -- Collision
+--[[
 
 theme.collision_focus_bg = theme.xcolor8
 theme.collision_focus_fg = theme.xcolor6
@@ -233,12 +235,13 @@ theme.collision_screen_bg = theme.xbackground
 theme.collision_screen_fg = theme.xcolor4
 theme.collision_screen_bg_focus = theme.xcolor8
 theme.collision_screen_fg_focus = theme.xcolor4
+]] --
 
 -- Tabs
 
 theme.mstab_bar_height = dpi(40)
-theme.mstab_bar_padding = dpi(20)
-theme.mstab_tabbar_orientation = "bottom"
-theme.mstab_border_radius = dpi(6)
+theme.mstab_bar_padding = dpi(0)
+theme.mstab_tabbar_orientation = "top"
+theme.mstab_border_radius = dpi(0)
 
 return theme

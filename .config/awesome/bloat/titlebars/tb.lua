@@ -1,3 +1,5 @@
+-- tb.lua
+-- Regular Titlebars
 local awful = require("awful")
 local gears = require("gears")
 
@@ -44,7 +46,10 @@ end)
 -- {{ Helper to create mult tb buttons
 local function create_title_button(c, color_focus, color_unfocus)
     local tb_color = wibox.widget {
+        forced_width = dpi(8),
+        forced_height = dpi(8),
         bg = color_focus,
+        shape = gears.shape.circle,
         widget = wibox.container.background
     }
 
@@ -75,6 +80,7 @@ end
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)
     -- buttons for the titlebar
+
     local buttons = gears.table.join(awful.button({}, 1, function()
         c:emit_signal("request::activate", "titlebar", {raise = true})
         if c.maximized == true then c.maximized = false end
@@ -100,16 +106,35 @@ client.connect_signal("request::titlebars", function(c)
     floating:connect_signal("button::press",
                             function() c.floating = not c.floating end)
 
-    local active_color_1 = {
-        type = 'linear',
-        from = {0, 0},
-        to = {c.width, 20}, -- replace with w,h later
-        stops = {{0, beautiful.xcolor6}, {0.75, beautiful.xcolor4}}
-    }
+    local min = create_title_button(c, beautiful.xcolor3, beautiful.xcolor0)
+    min:connect_signal("button::press", function() c.minimized = true end)
 
-    awful.titlebar(c, {
-        position = "top",
-        size = beautiful.titlebar_size,
-        bg_focus = active_color_1
-    })
+    awful.titlebar(c, {position = "top", size = beautiful.titlebar_size}):setup{
+        nil,
+        nil,
+        {
+            {
+                {
+                    {
+                        min,
+                        floating,
+                        close,
+                        layout = wibox.layout.fixed.horizontal
+                    },
+                    margins = dpi(8),
+                    widget = wibox.container.margin
+                },
+                bg = beautiful.xbackground,
+                shape = helpers.prrect(beautiful.border_radius, true, true,
+                                       false, false),
+                widget = wibox.container.background
+            },
+            top = dpi(8),
+            right = dpi(8),
+            widget = wibox.container.margin
+        },
+        layout = wibox.layout.align.horizontal
+    }
 end)
+
+-- EOF ------------------------------------------------------------------------

@@ -19,10 +19,10 @@ naughty.config.defaults.margin = dpi(20)
 naughty.config.defaults.border_width = 0
 naughty.config.defaults.border_color = beautiful.xcolor0
 naughty.config.defaults.position = "top_right"
-naughty.config.defaults.shape = helpers.rrect(beautiful.border_radius)
+naughty.config.defaults.shape = helpers.rrect(beautiful.client_radius)
 
-naughty.config.padding = dpi(10)
-naughty.config.spacing = dpi(10)
+naughty.config.padding = dpi(4)
+naughty.config.spacing = dpi(4)
 naughty.config.icon_dirs = {
     "/usr/share/icons/Papirus-Dark/24x24/apps/", "/usr/share/pixmaps/"
 }
