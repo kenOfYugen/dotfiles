@@ -32,12 +32,7 @@ Autocmd BufNewFile,BufRead *.rasi set filetype=css
 
 set relativenumber
 " Remove Tildas
-let &fcs='eob: '
-
-
-" Notes
-let g:notes_directories = ['~/Documents/notes']
-
+let &fcs='eob' 
 
 " Start Page
 let g:startify_custom_header = [
@@ -58,20 +53,12 @@ set termguicolors
 
 colorscheme javacafe
 
-let g:tex_flavor  = 'latex'
-let g:vimtex_fold_manual = 1
-let g:vimtex_latexmk_continuous = 1
-let g:vimtex_compiler_progname = 'nvr'
-set conceallevel=1
-let g:tex_conceal='abdmg'
-let g:vimtex_quickfix_mode=0
-
-
-let g:vimtex_view_general_viewer = 'zathura'
-
 " Enable Italics
 let &t_ZH = "\e[3m"
 let &t_ZR = "\e[23m"
+highlight Comment gui=italic
+
+" My coc stuff
 
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -98,3 +85,9 @@ if has("patch-8.1.1564")
 else
   set signcolumn=yes
 endif
+
+
+let g:indentLine_color_gui = '#585e74'
+
+"let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+

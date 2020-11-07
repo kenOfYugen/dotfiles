@@ -1,5 +1,5 @@
+-- wibar.lua
 -- Wibar (top bar)
--- Widgets: panel, taglist, tasklist, battery, systray, and notifs panel
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
@@ -25,7 +25,7 @@ local function format_progress_bar(bar, icon)
 
     local w = wibox.widget {
         nil,
-        {icon, bar, spacing = dpi(5), layout = wibox.layout.fixed.horizontal},
+        {icon, bar, layout = wibox.layout.fixed.horizontal},
         expand = "none",
         layout = wibox.layout.align.horizontal
     }
@@ -35,7 +35,7 @@ end
 -- Awesome Panel -----------------------------------------------------------
 
 -- Init music, panel, and cal
-local mpd = require("widgets.mpd")
+-- local mpd = require("widgets.mpd")
 local panelPop = require('bloat.pop.panel')
 local calPop = require('bloat.pop.cal')
 local awesome_icon = wibox.widget {
@@ -77,6 +77,7 @@ local mysystray_container = {
     mysystray,
     left = dpi(8),
     right = dpi(8),
+    screen = 1,
     widget = wibox.container.margin
 }
 
@@ -115,6 +116,15 @@ local tasklist_buttons = gears.table.join(
 awful.screen.connect_for_each_screen(function(s)
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
+
+    -- Create layoutbox widget
+    s.mylayoutbox = awful.widget.layoutbox(s)
+
+    if s.index == 1 then
+        mysystray_container.visible = true
+    else
+        mysystray_container.visible = false
+    end
 
     -- Create the wibox
     s.mywibox = awful.wibar({
@@ -211,8 +221,8 @@ awful.screen.connect_for_each_screen(function(s)
         },
         {s.mytasklist, margins = dpi(5), widget = wibox.container.margin},
         {
-            battery,
-            helpers.horizontal_pad(15),
+            {battery, right = dpi(5), widget = wibox.container.margin},
+            helpers.horizontal_pad(0),
             {
                 {
                     {
@@ -242,6 +252,22 @@ awful.screen.connect_for_each_screen(function(s)
                 margins = dpi(5),
                 widget = wibox.container.margin
             },
+
+            {
+                {
+                    {
+                        s.mylayoutbox,
+                        margins = dpi(4),
+                        widget = wibox.container.margin
+                    },
+                    shape = helpers.rrect(beautiful.border_radius),
+                    bg = beautiful.xcolor0,
+                    widget = wibox.container.background
+                },
+                margins = dpi(5),
+                widget = wibox.container.margin
+            },
+
             layout = wibox.layout.fixed.horizontal
         }
     }

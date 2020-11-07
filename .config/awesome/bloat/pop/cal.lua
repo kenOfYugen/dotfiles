@@ -1,3 +1,5 @@
+-- cal.lua
+-- Calendar Widget
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
@@ -107,3 +109,5 @@ local popup = popupLib.create(400 + 5 * 2, beautiful.wibar_height + 5 + 200,
                               nil, width, popupWidget)
 
 return popup
+
+-- EOF ------------------------------------------------------------------------

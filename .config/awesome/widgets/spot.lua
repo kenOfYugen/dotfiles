@@ -1,47 +1,17 @@
--- spot-tui.lua
--- Titlebars for ncspot
 -- Special thanks to elenapan
 local gears = require("gears")
 local awful = require("awful")
 local wibox = require("wibox")
 local helpers = require("helpers")
-local keys = require("keys")
 local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
-local toolbar_position = "bottom"
-local toolbar_size = dpi(100)
-local toolbar_bg = beautiful.xcolor0
-local toolbar_enabled_initially = true
-
-local terminal_has_to_move_after_resizing = {["st"] = true}
-
-local music_client = "st -c music -e ncspot"
-local update_interval = 15
-
-local music_client_terminal = music_client:match("(%w+)(.+)")
-local terminal_has_to_move =
-    terminal_has_to_move_after_resizing[music_client_terminal]
-
-local spot_toolbar_toggle = function(c)
-    if c.toolbar_enabled then
-        c.toolbar_enabled = false
-        awful.titlebar.hide(c, toolbar_position)
-        c.width = c.width + toolbar_size
-        if terminal_has_to_move then c.x = c.x - toolbar_size end
-    else
-        c.toolbar_enabled = true
-        awful.titlebar.show(c, toolbar_position)
-        c.width = c.width - toolbar_size
-        if terminal_has_to_move then c.x = c.x + toolbar_size end
-    end
-end
+local update_interval = 5
 
 local art = wibox.widget {
     image = gears.filesystem.get_configuration_dir() .. "images/default.png",
     clip_shape = helpers.rrect(dpi(6)),
-    resize = true,
     widget = wibox.widget.imagebox
 }
 
@@ -88,6 +58,14 @@ local create_button = function(symbol, color, command, playpause)
 
 end
 
+local title_widget = wibox.widget {
+    markup = 'This <i>is</i> a <b>textbox</b>!!!',
+    align = 'center',
+    valign = 'center',
+    widget = wibox.widget.textbox
+
+}
+
 local art_script = [[
 bash -c '
 
@@ -116,6 +94,9 @@ awful.widget.watch(song_title_cmd, update_interval, function(widget, stdout)
         end)
         song_title = stdout
     end
+
+    title_widget:set_markup_silently(stdout)
+
 end, art)
 
 local play_command =
@@ -131,66 +112,41 @@ local spot_prev_symbol = create_button("玲", beautiful.xcolor4, prev_command,
 local spot_next_symbol = create_button("怜", beautiful.xcolor4, next_command,
                                        false)
 
-local spot_create_decoration = function(c)
-    awful.titlebar(c, {
-        position = toolbar_position,
-        size = toolbar_size,
-        bg = beautiful.xbackground
-    }):setup{
+local spot = wibox.widget {
+    {
+        nil,
+        {
+            art,
+            left = dpi(90),
+            right = dpi(90),
+            bottom = dpi(10),
+            top = dpi(20),
+            layout = wibox.container.margin
+        },
+        nil,
+        expand = "outside",
+        layout = wibox.layout.align.horizontal
+    },
+    title_widget,
+    {
+        nil,
         {
             {
-                {
-                    {
-                        art,
-                        left = dpi(0),
-                        right = dpi(0),
-                        bottom = dpi(0),
-                        top = dpi(0),
-                        layout = wibox.container.margin
-                    },
-                    layout = wibox.layout.fixed.horizontal
-                },
-                {
-                    {
-                        {
-                            spot_prev_symbol,
-                            spot_play_symbol,
-                            spot_next_symbol,
-                            spacing = dpi(60),
-                            layout = wibox.layout.fixed.horizontal
-                        },
-                        margins = dpi(6),
-                        widget = wibox.container.margin
-                    },
-                    bg = beautiful.xcolor0,
-                    shape = helpers.rrect(beautiful.border_radius),
-                    widget = wibox.container.background
-                },
-                expand = "outside",
-                layout = wibox.layout.align.horizontal
+                spot_prev_symbol,
+                spot_play_symbol,
+                spot_next_symbol,
+                spacing = dpi(60),
+                layout = wibox.layout.fixed.horizontal
             },
-            bg = beautiful.xbackground,
-            shape = helpers.rrect(beautiful.border_radius),
-            widget = wibox.container.background
+            bottom = dpi(7),
+            widget = wibox.container.margin
         },
-        left = dpi(40),
-        right = dpi(40),
-        bottom = dpi(40),
-        top = dpi(0),
-        layout = wibox.container.margin
-    }
+        nil,
+        expand = "none",
+        layout = wibox.layout.align.horizontal
+    },
+    expand = "none",
+    layout = wibox.layout.fixed.vertical
+}
 
-    if not toolbar_enabled_initially then
-        awful.titlebar.hide(c, toolbar_position)
-    end
-
-    c.custom_decoration = {bottom = true}
-end
-
-table.insert(awful.rules.rules, {
-    rule_any = {class = {"music"}, instance = {"music"}},
-    properties = {},
-    callback = spot_create_decoration
-})
-
--- EOF ------------------------------------------------------------------------
+return spot

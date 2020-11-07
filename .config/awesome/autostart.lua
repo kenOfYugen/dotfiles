@@ -1,8 +1,5 @@
---             _            _             _   
---   __ _ _   _| |_ ___  ___| |_ __ _ _ __| |_ 
---  / _` | | | | __/ _ \/ __| __/ _` | '__| __|
--- | (_| | |_| | || (_) \__ \ || (_| | |  | |_ 
---  \__,_|\__,_|\__\___/|___/\__\__,_|_|   \__|
+-- autostart.lua
+-- Autostart Stuff Here
 local awful = require("awful")
 
 local function run_once(cmd)
@@ -15,7 +12,7 @@ local function run_once(cmd)
 end
 
 -- Network Manager Applet
--- run_once("nm-applet")
+run_once("nm-applet")
 
 -- Compositor
 run_once("~/.bin/phicom")
@@ -33,7 +30,9 @@ run_once([[
     xset +fp /home/javacafe01/.local/share/fonts; xset fp rehash
 ]])
 
+-- Bluetooth
 run_once("blueman-applet")
-run_once("nm-applet")
 
 return autostart
+
+-- EOF ------------------------------------------------------------------------

@@ -1,3 +1,5 @@
+-- dual_tb.lua
+-- Dual Titlebar Theme
 local awful = require("awful")
 local gears = require("gears")
 
@@ -131,3 +133,5 @@ client.connect_signal("request::titlebars", function(c)
         layout = wibox.layout.align.horizontal
     }
 end)
+
+-- EOF ------------------------------------------------------------------------

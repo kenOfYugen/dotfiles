@@ -1,35 +1,32 @@
---  _                  
--- | | _____ _   _ ___ 
--- | |/ / _ \ | | / __|
--- |   <  __/ |_| \__ \
--- |_|\_\___|\__, |___/
---           |___/ 
+-- keys.lua
+-- Contains Global Keys
 local gears = require("gears")
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local helpers = require("helpers")
 
+-- Custom modules
 local notifPop = require("bloat.pop.notif")
 local panelPop = require("bloat.pop.panel")
 local calPop = require("bloat.pop.cal")
--- local bling = require("bling")
-
--- bling.module.flash_focus.enable()
+local bling = require("bling")
 
 globalkeys = gears.table.join( -- Focus client by direction (arrow keys)
                  awful.key({modkey}, "Down", function()
         awful.client.focus.bydirection("down")
+        bling.module.flash_focus.flashfocus(client.focus)
     end, {description = "focus down", group = "client"}),
-                 awful.key({modkey}, "Up",
-                           function() awful.client.focus.bydirection("up") end,
-                           {description = "focus up", group = "client"}),
+                 awful.key({modkey}, "Up", function()
+        awful.client.focus.bydirection("up")
+        bling.module.flash_focus.flashfocus(client.focus)
+    end, {description = "focus up", group = "client"}),
                  awful.key({modkey}, "Left", function()
         awful.client.focus.bydirection("left")
-
+        bling.module.flash_focus.flashfocus(client.focus)
     end, {description = "focus left", group = "client"}),
                  awful.key({modkey}, "Right", function()
         awful.client.focus.bydirection("right")
-
+        bling.module.flash_focus.flashfocus(client.focus)
     end, {description = "focus right", group = "client"}),
 
                  awful.key({modkey}, "F1", hotkeys_popup.show_help,
@@ -300,3 +297,5 @@ end))
 
 -- Set keys
 root.keys(globalkeys)
+
+-- EOF ------------------------------------------------------------------------

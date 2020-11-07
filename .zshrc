@@ -59,6 +59,8 @@ alias xdisp='DISPLAY=:1 '
 alias fetish="info='n os wm sh cpu mem kern term pkgs col n' accent=4 separator='  ' fet.sh"
 alias grep='grep --color=auto'
 
+alias firefox='MOZ_X11_EGL=1 firefox'
+alias aurelian='yay'
 
 
 # window titles

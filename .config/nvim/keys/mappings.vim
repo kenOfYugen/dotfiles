@@ -8,6 +8,9 @@ autocmd BufWrite *.lua call LuaFormat()
 " TagBar
 nnoremap <silent> <C-K><C-T> :TagbarToggle<CR>
 
+" VimTex
+nnoremap <silent> <C-T><C-R> :VimtexCompile<CR>
+
 " Split navigation mappings
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>

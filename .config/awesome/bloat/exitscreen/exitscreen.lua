@@ -1,3 +1,5 @@
+-- exitscreen.lua
+-- Exit Screen Widget
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
@@ -124,11 +126,11 @@ function exit_screen_show()
 end
 
 exit_screen:buttons(gears.table.join( -- Left click - Hide exit_screen
-awful.button({}, 1, function() exit_screen_hide() end),
--- Middle click - Hide exit_screen
-awful.button({}, 2, function() exit_screen_hide() end),
--- Right click - Hide exit_screen
-awful.button({}, 3, function() exit_screen_hide() end)))
+                        awful.button({}, 1, function() exit_screen_hide() end),
+    -- Middle click - Hide exit_screen
+                        awful.button({}, 2, function() exit_screen_hide() end),
+    -- Right click - Hide exit_screen
+                        awful.button({}, 3, function() exit_screen_hide() end)))
 
 -- Item placement
 exit_screen:setup{
@@ -150,3 +152,5 @@ exit_screen:setup{
     expand = "none",
     layout = wibox.layout.align.vertical
 }
+
+-- EOF ------------------------------------------------------------------------

@@ -1,12 +1,8 @@
---  _ __ ___ 
--- | '__/ __|
--- | | | (__ 
--- |_|  \___|
---
+-- rc.lua
+-- Main Config
 pcall(require, "luarocks.loader")
 local gears = require("gears")
 local awful = require("awful")
--- require("collision")()
 require("awful.autofocus")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
@@ -14,19 +10,17 @@ local dpi = require("beautiful.xresources").apply_dpi
 local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
+
+-- Custom imports
 local helpers = require("helpers")
 
--- {{{ Autostart
+-- Autostart and Errors -------------------------------------------------------
 
 local autostart = require("autostart")
 awesome.register_xproperty("WM_NAME", "string")
 
--- }}}
-
--- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
-
 if awesome.startup_errors then
     naughty.notify({
         preset = naughty.config.presets.critical,
@@ -52,9 +46,7 @@ do
     end)
 end
 
--- }}}
-
--- {{{ Variables
+-- Variables & Inits ----------------------------------------------------------
 
 theme = "ghosts"
 screen_width = awful.screen.focused().geometry.width
@@ -76,8 +68,6 @@ altkey = "Mod1"
 shift = "Shift"
 ctrl = "Control"
 
--- }}}
-
 -- Set Theme
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. theme ..
                    "/theme.lua")
@@ -85,12 +75,10 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. theme ..
 -- Layouts
 require("windows")
 
--- {{{ Menu
--- Create a main menu
-
 local icons = require("icons")
 icons.init("sheet")
 
+-- Menu
 myawesomemenu = {
     {
         "hotkeys",
@@ -106,11 +94,10 @@ mymainmenu = awful.menu({
     }
 })
 
--- }}}
+-- Screen Stuff ---------------------------------------------------------------
 
--- {{{ Screen Stuff
-
--- local bling = require("bling")
+-- Bling module for wallpaper
+local bling = require("bling")
 awful.screen.connect_for_each_screen(function(s)
     -- Screen padding
     screen[s].padding = {left = 0, right = 0, top = 0, bottom = 0}
@@ -118,7 +105,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
     awful.tag({"", "", "", "", "ﭮ"}, s, awful.layout.layouts[1])
 
-    --[[  bling.module.tiled_wallpaper("", s, {
+    bling.module.tiled_wallpaper("", s, {
         fg = beautiful.xcolor8,
         bg = beautiful.xcolor0,
         offset_y = beautiful.wibar_height + 5,
@@ -127,12 +114,10 @@ awful.screen.connect_for_each_screen(function(s)
         font_size = 12,
         padding = 60,
         zickzack = true
-    }) ]] --
+    })
 end)
 
--- }}}
-
--- Mouse bindings
+-- Keys -----------------------------------------------------------------------
 
 root.buttons(gears.table.join(awful.button({}, 3,
                                            function() mymainmenu:toggle() end),
@@ -140,14 +125,11 @@ root.buttons(gears.table.join(awful.button({}, 3,
                               awful.button({}, 5, awful.tag.viewprev)))
 
 -- Key bindings
-
 require("keys")
 
--- }}}
+-- Rules ----------------------------------------------------------------------
 
--- {{{ Rules
 -- Rules to apply to new clients (through the "manage" signal).
-
 awful.rules.rules = {
     -- All clients will match this rule.
     {
@@ -228,11 +210,9 @@ awful.rules.rules = {
     }
 }
 
--- }}}
+-- Signals & Imports ----------------------------------------------------------
 
--- {{{ Signals
 -- Signal function to execute when a new client appears.
-
 client.connect_signal("manage", function(c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
@@ -257,10 +237,9 @@ client.connect_signal("focus",
 client.connect_signal("unfocus",
                       function(c) c.border_color = beautiful.border_normal end)
 
--- }}}
-
 -- Import Daemons and Widgets
-
 require("ears")
 require("notifs")
 require("bloat")
+
+-- EOF ------------------------------------------------------------------------

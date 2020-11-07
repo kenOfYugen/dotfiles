@@ -3,6 +3,7 @@ local gears = require("gears")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local dpi = require('beautiful').xresources.apply_dpi
+local helpers = require('helpers')
 
 local popupLib = {}
 
@@ -16,9 +17,7 @@ popupLib.create = function(x, y, height, width, widget)
 
     local popupWidget = awful.popup {
         widget = widgetContainer,
-        shape = function(cr, width, height)
-            gears.shape.rounded_rect(cr, width, height, beautiful.border_radius)
-        end,
+        shape = helpers.rrect(beautiful.client_radius),
         visible = false,
         ontop = true,
         x = x,
