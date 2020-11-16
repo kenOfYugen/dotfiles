@@ -1,2 +1,2 @@
-require("bloat.titlebars.tb")
--- require("bloat.titlebars.spot-tui")
+-- require("bloat.titlebars.tb")
+require("bloat.titlebars.emacs-padding")

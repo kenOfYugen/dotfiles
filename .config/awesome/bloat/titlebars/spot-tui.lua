@@ -183,8 +183,6 @@ local spot_create_decoration = function(c)
     if not toolbar_enabled_initially then
         awful.titlebar.hide(c, toolbar_position)
     end
-
-    c.custom_decoration = {bottom = true}
 end
 
 table.insert(awful.rules.rules, {
