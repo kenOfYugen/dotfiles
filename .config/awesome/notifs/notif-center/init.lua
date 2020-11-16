@@ -19,14 +19,8 @@ return wibox.widget {
         spacing = dpi(10),
         layout = wibox.layout.align.horizontal
     },
-    {
-        require('notifs.notif-center.build-notifbox'),
-        max_size = 600,
-        step_function = wibox.container.scroll.step_functions
-            .waiting_nonlinear_back_and_forth,
-        speed = 100,
-        layout = wibox.container.scroll.vertical
-    },
+    require('notifs.notif-center.build-notifbox'),
+
     spacing = dpi(10),
     layout = wibox.layout.fixed.vertical
 }

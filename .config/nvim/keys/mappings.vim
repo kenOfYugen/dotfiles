@@ -6,7 +6,7 @@ autocmd FileType lua nnoremap <buffer> <c-p> :call LuaFormat()<cr>
 autocmd BufWrite *.lua call LuaFormat()
 
 " TagBar
-nnoremap <silent> <C-K><C-T> :TagbarToggle<CR>
+"nnoremap <silent> <C-K><C-T> :TagbarToggle<CR>
 
 " VimTex
 nnoremap <silent> <C-T><C-R> :VimtexCompile<CR>

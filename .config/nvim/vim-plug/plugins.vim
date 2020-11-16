@@ -11,11 +11,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
     Plug 'vim-airline/vim-airline'
 
-    Plug 'ludovicchabant/vim-gutentags'
     Plug 'udalov/kotlin-vim'
 
     Plug 'co1ncidence/javacafe'
-    Plug 'majutsushi/tagbar'
     Plug 'ap/vim-css-color'
 
     " Format
