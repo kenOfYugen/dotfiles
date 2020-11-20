@@ -8,7 +8,7 @@ local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 
-local padding = dpi(30)
+local padding = dpi(20)
 
 local emacs_create_decoration = function(c)
     awful.titlebar(c, {
