@@ -21,11 +21,6 @@ local theme = dofile(themes_path .. "default/theme.lua")
 
 local icon_path = gears.filesystem.get_configuration_dir() .. "icons/"
 
--- Set Wallpaper (tiled with offset, might have to change offset depending on resolution)
-
--- gears.wallpaper.tiled(gears.filesystem.get_configuration_dir() ..
---                          "images/bg.png", nil, {x = 0, y = 0})
-
 -- Icons for Notif Center
 
 theme.clear_icon = icon_path .. "notif-center/clear.png"
@@ -181,7 +176,7 @@ theme = theme_assets.recolor_layout(theme, theme.xforeground)
 
 -- Gaps
 
-theme.useless_gap = dpi(2)
+theme.useless_gap = dpi(10)
 
 -- Exit Screen
 

@@ -14,9 +14,6 @@ end
 -- Network Manager Applet
 run_once("nm-applet")
 
--- Compositor
-run_once("~/.bin/phicom")
-
 -- Disable Bell
 run_once("xset -b")
 
@@ -32,6 +29,13 @@ run_once([[
 
 -- Bluetooth
 run_once("blueman-applet")
+
+-- For Dual Monitors
+run_once(
+    "if xrandr | grep DP-1-0; then xrandr --auto --output DP-1-0 --mode 1920x1080 --right-of eDP1; fi")
+
+-- Compositor
+run_once("~/.bin/phicom2")
 
 return autostart
 

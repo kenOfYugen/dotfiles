@@ -105,7 +105,8 @@ awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
     awful.tag({"", "", "", "", "ﭮ"}, s, awful.layout.layouts[1])
 
-    bling.module.tiled_wallpaper("", s, {
+    -- Set Wallpaper
+    --[[ bling.module.tiled_wallpaper("", s, {
         fg = beautiful.xcolor8,
         bg = beautiful.xcolor0,
         offset_y = beautiful.wibar_height + 5,
@@ -114,7 +115,11 @@ awful.screen.connect_for_each_screen(function(s)
         font_size = 12,
         padding = 60,
         zickzack = true
-    })
+    }) --]]
+
+    gears.wallpaper.fit(gears.filesystem.get_configuration_dir() ..
+                            "images/bg_img.png", s, nil)
+
 end)
 
 -- Keys -----------------------------------------------------------------------
