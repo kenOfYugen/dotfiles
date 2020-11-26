@@ -19,7 +19,7 @@ client.connect_signal("property::floating", function(c)
     if c.floating or b then
         awful.titlebar.show(c)
     else
-        awful.titlebar.hide(c)
+        if not c.bling_tabbed then awful.titlebar.hide(c) end
     end
 end)
 
@@ -27,7 +27,7 @@ client.connect_signal("manage", function(c)
     if c.floating or c.first_tag.layout.name == "floating" then
         awful.titlebar.show(c)
     else
-        awful.titlebar.hide(c)
+        if not c.bling_tabbed then awful.titlebar.hide(c) end
     end
 end)
 
@@ -37,7 +37,7 @@ tag.connect_signal("property::layout", function(t)
         if c.floating or c.first_tag.layout.name == "floating" then
             awful.titlebar.show(c)
         else
-            awful.titlebar.hide(c)
+            if not c.bling_tabbed then awful.titlebar.hide(c) end
         end
     end
 end)
@@ -71,6 +71,11 @@ local function create_title_button(c, color_focus, color_unfocus)
     update()
     c:connect_signal("focus", update)
     c:connect_signal("unfocus", update)
+
+    tb:connect_signal("mouse::enter",
+                      function() tb_color.bg = color_focus .. "70" end)
+
+    tb:connect_signal("mouse::leave", function() tb_color.bg = color_focus end)
 
     tb.visible = true
     return tb
@@ -109,29 +114,85 @@ client.connect_signal("request::titlebars", function(c)
     local min = create_title_button(c, beautiful.xcolor3, beautiful.xcolor0)
     min:connect_signal("button::press", function() c.minimized = true end)
 
+    local l_reverse_corner = wibox.widget {
+        bg = beautiful.xcolor0,
+        shape = helpers.prrect(6, false, false, true, false),
+        widget = wibox.container.background
+    }
+
+    local r_reverse_corner = wibox.widget {
+        bg = beautiful.xcolor0,
+        shape = helpers.prrect(6, false, false, false, true),
+        widget = wibox.container.background
+    }
+
+    local function update()
+        if client.focus == c then
+            l_reverse_corner.bg = beautiful.xcolor0
+            r_reverse_corner.bg = beautiful.xcolor0
+        else
+            l_reverse_corner.bg = beautiful.xbackground
+            r_reverse_corner.bg = beautiful.xbackground
+        end
+    end
+
+    update()
+    c:connect_signal("focus", update)
+    c:connect_signal("unfocus", update)
+
     awful.titlebar(c, {position = "top", size = beautiful.titlebar_size}):setup{
         nil,
         nil,
         {
             {
                 {
-                    {
-                        min,
-                        floating,
-                        close,
-                        layout = wibox.layout.fixed.horizontal
-                    },
-                    margins = dpi(8),
-                    widget = wibox.container.margin
+                    l_reverse_corner,
+                    bg = beautiful.xbackground,
+                    shape = gears.rectangle,
+                    widget = wibox.container.background
                 },
-                bg = beautiful.xbackground,
-                shape = helpers.prrect(beautiful.border_radius, true, true,
-                                       false, false),
-                widget = wibox.container.background
+                width = 10,
+                height = 40,
+                strategy = "exact",
+                layout = wibox.layout.constraint
             },
-            top = dpi(8),
-            right = dpi(8),
-            widget = wibox.container.margin
+            {
+                {
+                    {
+                        {
+                            min,
+                            floating,
+                            close,
+                            layout = wibox.layout.fixed.horizontal
+                        },
+                        margins = dpi(10),
+                        widget = wibox.container.margin
+                    },
+                    bg = beautiful.xbackground,
+                    shape = helpers.prrect(beautiful.border_radius, true, true,
+                                           false, false),
+                    widget = wibox.container.background
+                },
+                top = dpi(8),
+                widget = wibox.container.margin
+            },
+            {
+                {
+                    r_reverse_corner,
+                    bg = beautiful.xbackground,
+                    shape = gears.rectangle,
+                    widget = wibox.container.background
+                },
+                width = 10,
+                height = 40,
+                strategy = "exact",
+                layout = wibox.layout.constraint
+            },
+
+            -- top = dpi(8),
+            -- right = dpi(5),
+            -- widget = wibox.container.margin
+            layout = wibox.layout.fixed.horizontal
         },
         layout = wibox.layout.align.horizontal
     }

@@ -12,7 +12,17 @@ local calPop = require("bloat.pop.cal")
 local bling = require("bling")
 
 globalkeys = gears.table.join( -- Focus client by direction (arrow keys)
-                 awful.key({modkey}, "Down", function()
+                 awful.key({"Mod1"}, "a",
+                           function() bling.module.tabbed.pick() end, {
+        description = "pick a client to add to tabbing group",
+        group = "Tabs"
+    }), awful.key({"Mod1"}, "s", function() bling.module.tabbed.iter() end, {
+        description = "iterate through tabbing group",
+        group = "Tabs"
+    }), awful.key({"Mod1"}, "d", function() bling.module.tabbed.pop() end, {
+        description = "remove focused client from tabbing group",
+        group = "Tabs"
+    }), awful.key({modkey}, "Down", function()
         awful.client.focus.bydirection("down")
         bling.module.flash_focus.flashfocus(client.focus)
     end, {description = "focus down", group = "client"}),

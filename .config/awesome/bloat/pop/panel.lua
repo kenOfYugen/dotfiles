@@ -170,14 +170,6 @@ fancy_date_widget.font = "JetBrains Mono 12"
 
 local fancy_date = {fancy_date_widget, layout = wibox.layout.fixed.vertical}
 
-local calPop = require('bloat.pop.cal')
-
-fancy_time_widget:connect_signal("mouse::enter",
-                                 function() calPop.visible = true end)
-
-fancy_time_widget:connect_signal("mouse::leave",
-                                 function() calPop.visible = false end)
-
 ---}}}
 
 -- {{{ Music Widget
@@ -281,12 +273,14 @@ local panelWidget = wibox.widget {
 }
 
 local width = 400
-local margin = 4
+local margin = 10
 
 local panelPop = popupLib.create(margin, beautiful.wibar_height + margin,
                                  awful.screen.focused().geometry.height - margin -
                                      margin - beautiful.wibar_height, width,
                                  panelWidget)
+
+-- panelPop:set_xproperty("WM_NAME", "panel")
 
 return panelPop
 

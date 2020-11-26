@@ -33,7 +33,7 @@ popupLib.create = function(x, y, height, width, widget)
         end
     }
 
-    popupWidget:connect_signal("mouse::leave", function()
+    --[[ popupWidget:connect_signal("mouse::leave", function()
         if popupWidget.visible then
             mouseInPopup = false
             timer:again()
@@ -42,7 +42,7 @@ popupLib.create = function(x, y, height, width, widget)
 
     popupWidget:connect_signal("mouse::enter",
                                function() mouseInPopup = true end)
-
+--]]
     return popupWidget
 end
 

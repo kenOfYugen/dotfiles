@@ -14,7 +14,7 @@ local popupWidget = wibox.widget {
 }
 
 local width = 400
-local margin = 4
+local margin = 10
 
 local popup = popupLib.create(awful.screen.focused().geometry.width - width -
                                   margin, beautiful.wibar_height + margin, nil,

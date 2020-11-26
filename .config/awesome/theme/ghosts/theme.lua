@@ -92,7 +92,7 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
                                   taglist_square_size, theme.fg_normal)
 theme.taglist_font = theme.font_taglist
 theme.taglist_bg = theme.xbackground
-theme.taglist_bg_focus = theme.xcolor8
+theme.taglist_bg_focus = theme.xcolor0
 theme.taglist_fg_focus = theme.xcolor4
 theme.taglist_bg_urgent = theme.xcolor0
 theme.taglist_fg_urgent = theme.xcolor1
@@ -123,7 +123,7 @@ theme.tasklist_align = "center"
 
 -- Titlebars
 
-theme.titlebar_size = dpi(35)
+theme.titlebar_size = dpi(40)
 theme.titlebar_bg_focus = theme.xcolor0
 theme.titlebar_bg_normal = theme.xbackground
 theme.titlebar_fg_focus = theme.xcolor8
@@ -176,7 +176,7 @@ theme = theme_assets.recolor_layout(theme, theme.xforeground)
 
 -- Gaps
 
-theme.useless_gap = dpi(10)
+theme.useless_gap = dpi(5)
 
 -- Exit Screen
 
@@ -237,6 +237,10 @@ theme.collision_screen_fg_focus = theme.xcolor4
 theme.mstab_bar_height = dpi(40)
 theme.mstab_bar_padding = dpi(0)
 theme.mstab_tabbar_orientation = "top"
-theme.mstab_border_radius = dpi(0)
+theme.mstab_border_radius = dpi(6)
+theme.tabbar_style = "modern"
+theme.tabbar_bg_focus = theme.xbackground
+theme.tabbar_bg_normal = theme.xcolor0
+theme.mstab_bar_ontop = true
 
 return theme
