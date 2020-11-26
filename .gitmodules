@@ -1,4 +1,4 @@
 [submodule ".config/awesome/bling"]
 	path = .config/awesome/bling
-    url = https://github.com/JavaCafe01/bling.git
-    branch = mstab-modern
+    url = https://github.com/Nooo37/bling
+    branch = master
