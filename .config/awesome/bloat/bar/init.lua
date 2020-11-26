@@ -1,1 +1,1 @@
-require("bloat.bar.wibar")
+require("bloat.bar.trans_bar")

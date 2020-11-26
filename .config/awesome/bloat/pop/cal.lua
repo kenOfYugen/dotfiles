@@ -105,7 +105,7 @@ local popupWidget = wibox.widget {
 
 local width = 250
 
-local popup = popupLib.create(400 + 5 * 2, beautiful.wibar_height + 5 + 200,
+local popup = popupLib.create(400 + 5 * 2 + 5, beautiful.wibar_height + 5 + 200,
                               nil, width, popupWidget)
 
 return popup
