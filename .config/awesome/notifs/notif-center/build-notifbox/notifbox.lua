@@ -88,9 +88,9 @@ notifbox.create = function(icon, title, message, width)
             layout = wibox.layout.align.horizontal
         },
         shape = function(cr, width, height)
-            gears.shape.rounded_rect(cr, width, height, beautiful.border_radius)
+            gears.shape.rounded_rect(cr, width, height, beautiful.client_radius)
         end,
-        bg = beautiful.xcolor0,
+        bg = beautiful.xcolor0 .. "80",
         forced_width = width,
         widget = wibox.container.background
     }

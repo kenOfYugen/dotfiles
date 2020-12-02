@@ -128,8 +128,9 @@ client.connect_signal("request::titlebars", function(c)
 
     local function update()
         if client.focus == c then
-            l_reverse_corner.bg = beautiful.xcolor0
-            r_reverse_corner.bg = beautiful.xcolor0
+            -- Changed This
+            l_reverse_corner.bg = beautiful.xbackground
+            r_reverse_corner.bg = beautiful.xbackground
         else
             l_reverse_corner.bg = beautiful.xbackground
             r_reverse_corner.bg = beautiful.xbackground

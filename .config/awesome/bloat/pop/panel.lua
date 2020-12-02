@@ -13,8 +13,8 @@ local popupLib = require("utils.popupLib")
 
 icons.init(icon_theme)
 
-local box_radius = beautiful.border_radius
-local box_gap = dpi(6)
+local box_radius = beautiful.client_radius
+local box_gap = dpi(8)
 
 local function create_boxed_widget(widget_to_be_boxed, width, height, bg_color)
     local box_container = wibox.container.background()
@@ -193,23 +193,11 @@ local mpd_area = {
 --]]
 
 local spot = require("widgets.spot")
-local spot_box = create_boxed_widget(spot, 400, 320, beautiful.xcolor0)
-local spot_area = {
-    nil,
-    {
-        spot_box,
-        left = dpi(5),
-        right = dpi(5),
-        top = dpi(0),
-        bottom = dpi(0),
-        layout = wibox.container.margin
-    },
-    nil,
-    layout = wibox.layout.align.vertical
-}
+local spot_box = create_boxed_widget(spot, 400, nil, beautiful.xcolor0)
 
 -- }}}
 
+--[[
 local nord = require("widgets.nord")
 local nord_box = create_boxed_widget(nord, 400, 135, beautiful.xcolor0)
 local nord_area = {
@@ -225,15 +213,11 @@ local nord_area = {
     nil,
     layout = wibox.layout.align.vertical
 }
-
+-]]
 -- {{{ Info Widget
 
 local info = require("widgets.info")
 local info_box = create_boxed_widget(info, 400, 125, beautiful.xcolor0)
-local info_area = wibox.layout.align.vertical()
-info_area:set_top(nil)
-info_area:set_middle(wibox.container.margin(info_box, dpi(5), dpi(5), 0, 0))
-info_area:set_bottom(nil)
 
 ---}}}
 
@@ -245,10 +229,6 @@ local sys = wibox.widget {
     layout = wibox.layout.flex.vertical
 }
 local sys_box = create_boxed_widget(sys, 400, 225, beautiful.xcolor0)
-local sys_area = wibox.layout.align.vertical()
-sys_area:set_top(nil)
-sys_area:set_middle(wibox.container.margin(sys_box, dpi(5), dpi(5), 0, 0))
-sys_area:set_bottom(nil)
 
 local time = wibox.widget {
     {fancy_time, fancy_date, layout = wibox.layout.align.vertical},
@@ -260,27 +240,21 @@ local time = wibox.widget {
 }
 
 local time_box = create_boxed_widget(time, 400, 159, beautiful.xcolor0)
-local time_area = wibox.layout.align.vertical()
-time_area:set_top(nil)
-time_area:set_middle(wibox.container.margin(time_box, dpi(5), dpi(5), 0, 0))
-time_area:set_bottom(nil)
 
 local panelWidget = wibox.widget {
-    info_area,
-    time_area,
-    {sys_area, nord_area, spot_area, layout = wibox.layout.align.vertical},
+    info_box,
+    time_box,
+    {sys_box, spot_box, layout = wibox.layout.align.vertical},
     layout = wibox.layout.align.vertical
 }
 
 local width = 400
 local margin = 10
 
-local panelPop = popupLib.create(margin, beautiful.wibar_height + margin,
-                                 awful.screen.focused().geometry.height - margin -
-                                     margin - beautiful.wibar_height, width,
-                                 panelWidget)
+local panelPop = popupLib.create(margin, beautiful.wibar_height + margin, nil,
+                                 width, panelWidget)
 
--- panelPop:set_xproperty("WM_NAME", "panel")
+panelPop:set_xproperty("WM_NAME", "panel")
 
 return panelPop
 

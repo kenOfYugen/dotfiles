@@ -29,10 +29,7 @@ local volume_adjust = wibox({
     y = (screen.geometry.height / 2) - (offsety / 2),
     width = dpi(48),
     height = offsety,
-    shape = helpers.rrect(beautiful.client_radius),
     visible = false,
-    border_width = 0,
-    border_color = beautiful.xcolor0,
     ontop = true
 })
 
@@ -47,17 +44,28 @@ local volume_bar = wibox.widget {
 }
 
 volume_adjust:setup{
-    layout = wibox.layout.align.vertical,
     {
-        wibox.container.margin(volume_bar, dpi(14), dpi(20), dpi(20), dpi(20)),
-        forced_height = offsety * 0.75,
-        direction = "east",
-        layout = wibox.container.rotate
+        {
+            layout = wibox.layout.align.vertical,
+            {
+                wibox.container.margin(volume_bar, dpi(14), dpi(20), dpi(20),
+                                       dpi(20)),
+                forced_height = offsety * 0.75,
+                direction = "east",
+                layout = wibox.container.rotate
+            },
+            wibox.container.margin(wibox.widget {
+                image = volume_icon,
+                widget = wibox.widget.imagebox
+            }, dpi(7), dpi(7), dpi(14), dpi(14))
+        },
+        shape = helpers.rrect(beautiful.client_radius),
+        border_width = beautiful.widget_border_width,
+        border_color = beautiful.widget_border_color,
+        widget = wibox.container.background
     },
-    wibox.container.margin(wibox.widget {
-        image = volume_icon,
-        widget = wibox.widget.imagebox
-    }, dpi(7), dpi(7), dpi(14), dpi(14))
+    bg = beautiful.xbackground .. "00",
+    widget = wibox.container.background
 }
 
 -- create a 3 second timer to hide the volume adjust

@@ -121,8 +121,7 @@ awful.screen.connect_for_each_screen(function(s)
         position = "top",
         screen = s,
         ontop = true,
-        bg = beautiful.wibar_bg .. "00",
-        height = beautiful.wibar_height
+        bg = beautiful.wibar_bg .. "00"
     })
     s.mywibox:set_xproperty("WM_NAME", "panel")
 
@@ -165,7 +164,11 @@ awful.screen.connect_for_each_screen(function(s)
         screen = s,
         filter = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons,
-        style = {shape = helpers.rrect(beautiful.border_radius)},
+        style = {
+            shape = helpers.rrect(beautiful.border_radius),
+            shape_border_width = beautiful.widget_border_width,
+            shape_border_color = beautiful.widget_border_color
+        },
         layout = {spacing = 10, layout = wibox.layout.fixed.horizontal},
         widget_template = {
             {
@@ -192,7 +195,9 @@ awful.screen.connect_for_each_screen(function(s)
                 {
                     awesome_icon,
                     shape = helpers.rrect(beautiful.border_radius),
-                    bg = beautiful.xcolor0,
+                    bg = beautiful.xbackground,
+                    border_width = beautiful.widget_border_width,
+                    border_color = beautiful.widget_border_color,
                     widget = wibox.container.background
                 },
                 top = 5,
@@ -204,7 +209,8 @@ awful.screen.connect_for_each_screen(function(s)
                 {
                     s.mytaglist,
                     shape = helpers.rrect(beautiful.border_radius),
-                    bg = beautiful.xbackground,
+                    border_width = beautiful.widget_border_width,
+                    border_color = beautiful.widget_border_color,
                     widget = wibox.container.background
                 },
                 top = 5,
@@ -232,7 +238,9 @@ awful.screen.connect_for_each_screen(function(s)
                         widget = wibox.container.margin
                     },
                     shape = helpers.rrect(beautiful.border_radius),
-                    bg = beautiful.xcolor0,
+                    bg = beautiful.xbackground,
+                    border_width = beautiful.widget_border_width,
+                    border_color = beautiful.widget_border_color,
                     widget = wibox.container.background
                 },
                 top = 5,
@@ -250,7 +258,10 @@ awful.screen.connect_for_each_screen(function(s)
                         layout = wibox.container.margin
                     },
                     shape = helpers.rrect(beautiful.border_radius),
-                    bg = beautiful.xcolor0,
+                    bg = beautiful.xbackground,
+                    border_width = beautiful.widget_border_width,
+                    border_color = beautiful.widget_border_color,
+
                     widget = wibox.container.background
                 },
                 top = 5,
@@ -267,7 +278,9 @@ awful.screen.connect_for_each_screen(function(s)
                         widget = wibox.container.margin
                     },
                     shape = helpers.rrect(beautiful.border_radius),
-                    bg = beautiful.xcolor0,
+                    bg = beautiful.xbackground,
+                    border_width = beautiful.widget_border_width,
+                    border_color = beautiful.widget_border_color,
                     widget = wibox.container.background
                 },
                 top = 5,
@@ -284,7 +297,9 @@ awful.screen.connect_for_each_screen(function(s)
                         widget = wibox.container.margin
                     },
                     shape = helpers.rrect(beautiful.border_radius),
-                    bg = beautiful.xcolor0,
+                    bg = beautiful.xbackground,
+                    border_width = beautiful.widget_border_width,
+                    border_color = beautiful.widget_border_color,
                     widget = wibox.container.background
                 },
                 top = 5,

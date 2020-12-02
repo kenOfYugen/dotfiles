@@ -15,13 +15,22 @@ popupLib.create = function(x, y, height, width, widget)
         layout = wibox.layout.fixed.vertical
     }
 
-    local popupWidget = awful.popup {
-        widget = widgetContainer,
+    local widgetBG = wibox.widget {
+        widgetContainer,
+        bg = beautiful.xbackground,
+        border_color = beautiful.widget_border_color,
+        border_width = dpi(beautiful.widget_border_width),
         shape = helpers.rrect(beautiful.client_radius),
+        widget = wibox.container.background
+    }
+
+    local popupWidget = awful.popup {
+        widget = widgetBG,
         visible = false,
         ontop = true,
         x = x,
-        y = y
+        y = y,
+        bg = beautiful.xbackground .. "00"
     }
 
     local mouseInPopup = false
@@ -33,7 +42,7 @@ popupLib.create = function(x, y, height, width, widget)
         end
     }
 
-    --[[ popupWidget:connect_signal("mouse::leave", function()
+    popupWidget:connect_signal("mouse::leave", function()
         if popupWidget.visible then
             mouseInPopup = false
             timer:again()
@@ -42,7 +51,7 @@ popupLib.create = function(x, y, height, width, widget)
 
     popupWidget:connect_signal("mouse::enter",
                                function() mouseInPopup = true end)
---]]
+
     return popupWidget
 end
 

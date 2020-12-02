@@ -10,6 +10,7 @@ local dpi = require("beautiful.xresources").apply_dpi
 local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
+require("collision")()
 
 -- Custom imports
 local helpers = require("helpers")
@@ -118,7 +119,7 @@ awful.screen.connect_for_each_screen(function(s)
     }) --]]
 
     gears.wallpaper.fit(gears.filesystem.get_configuration_dir() ..
-                            "images/bg_img.png", s, nil)
+                            "images/bg.png", s, nil)
 
 end)
 
