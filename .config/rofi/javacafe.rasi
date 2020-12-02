@@ -47,6 +47,9 @@
 #window {
     background-color: @background;
     padding: 30;
+    border-color: @javacafe0;
+    border: 2px 2px 2px;
+    border-radius: 10px;
 }
 
 #mainbox {

@@ -20,6 +20,8 @@ local popup = popupLib.create(awful.screen.focused().geometry.width - width -
                                   margin, beautiful.wibar_height + margin, nil,
                               width, popupWidget)
 
+popup:set_xproperty("WM_NAME", "panel")
+
 return popup
 
 -- EOF ------------------------------------------------------------------------

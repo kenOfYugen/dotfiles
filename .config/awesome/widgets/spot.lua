@@ -11,7 +11,9 @@ local update_interval = 5
 
 local art = wibox.widget {
     image = gears.filesystem.get_configuration_dir() .. "images/default.png",
-    clip_shape = helpers.rrect(dpi(6)),
+    resize = true,
+    forced_height = dpi(80),
+    forced_width = dpi(80),
     widget = wibox.widget.imagebox
 }
 
@@ -27,8 +29,8 @@ local create_button = function(symbol, color, command, playpause)
 
     local button = wibox.widget {
         icon,
-        forced_height = dpi(40),
-        forced_width = dpi(40),
+        forced_height = dpi(30),
+        forced_width = dpi(30),
         widget = wibox.container.background
     }
 
@@ -63,7 +65,6 @@ local title_widget = wibox.widget {
     align = 'center',
     valign = 'center',
     widget = wibox.widget.textbox
-
 }
 
 local art_script = [[
@@ -95,7 +96,8 @@ awful.widget.watch(song_title_cmd, update_interval, function(widget, stdout)
         song_title = stdout
     end
 
-    title_widget:set_markup_silently(stdout)
+    title_widget:set_markup_silently(
+        '<span foreground="' .. beautiful.xcolor5 .. '">' .. stdout .. '</span>')
 
 end, art)
 
@@ -113,40 +115,30 @@ local spot_next_symbol = create_button("怜", beautiful.xcolor4, next_command,
                                        false)
 
 local spot = wibox.widget {
+    {art, margins = dpi(0), layout = wibox.container.margin},
     {
-        nil,
         {
-            art,
-            left = dpi(90),
-            right = dpi(90),
-            bottom = dpi(10),
-            top = dpi(20),
-            layout = wibox.container.margin
-        },
-        nil,
-        expand = "outside",
-        layout = wibox.layout.align.horizontal
-    },
-    title_widget,
-    {
-        nil,
-        {
+            title_widget,
             {
-                spot_prev_symbol,
-                spot_play_symbol,
-                spot_next_symbol,
-                spacing = dpi(60),
-                layout = wibox.layout.fixed.horizontal
+                nil,
+                {
+                    spot_prev_symbol,
+                    spot_play_symbol,
+                    spot_next_symbol,
+                    spacing = dpi(60),
+                    layout = wibox.layout.fixed.horizontal
+                },
+                nil,
+                expand = "none",
+                layout = wibox.layout.align.horizontal
             },
-            bottom = dpi(7),
-            widget = wibox.container.margin
+            layout = wibox.layout.align.vertical
         },
-        nil,
-        expand = "none",
-        layout = wibox.layout.align.horizontal
+        top = dpi(5),
+        bottom = dpi(5),
+        widget = wibox.container.margin
     },
-    expand = "none",
-    layout = wibox.layout.fixed.vertical
+    layout = wibox.layout.align.horizontal
 }
 
 return spot
