@@ -31,6 +31,9 @@ popupLib.create = function(x, y, height, width, widget)
         x = x,
         y = y,
         bg = beautiful.xbackground .. "00"
+        -- shape = helpers.rrect(beautiful.client_radius),
+        -- border_width = beautiful.widget_border_width,
+        -- border_color = beautiful.widget_border_color
     }
 
     local mouseInPopup = false

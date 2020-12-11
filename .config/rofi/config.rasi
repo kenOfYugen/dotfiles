@@ -3,7 +3,7 @@
 configuration {
     modi:               "drun,window,run,combi";
     cycle:              true;
-    show-icons:         false;
+    show-icons:         true;
     display-drun: 		" ";
     matching:           "glob";
     lines:              8;

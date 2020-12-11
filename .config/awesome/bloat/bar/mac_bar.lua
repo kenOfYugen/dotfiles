@@ -31,32 +31,58 @@ end
 local panelPop = require('bloat.pop.panel')
 local calPop = require('bloat.pop.cal')
 local awesome_icon = wibox.widget {
-    {widget = wibox.widget.imagebox, image = icons.awesome, resize = true},
-    margins = 7,
-    layout = wibox.container.margin
+    {
+        {widget = wibox.widget.imagebox, image = icons.awesome, resize = true},
+        margins = 7,
+        widget = wibox.container.margin
+    },
+    bg = beautiful.xcolor0,
+    widget = wibox.container.background
 }
 
-awesome_icon:connect_signal("mouse::enter",
-                            function() panelPop.visible = true end)
+-- awesome_icon:connect_signal("mouse::enter",
+--                            function() panelPop.visible = true end)
 
-panelPop:connect_signal("mouse::leave", function() panelPop.visible = false end)
+awesome_icon:buttons(gears.table.join(awful.button({}, 1, function()
+    panelPop.visible = true
+    awesome_icon.bg = beautiful.xbackground
+end)))
+
+panelPop:connect_signal("mouse::leave", function()
+    panelPop.visible = false
+    awesome_icon.bg = beautiful.xcolor0
+end)
 
 -- Notifs Panel ---------------------------------------------------------------
 
 local notifPop = require("bloat.pop.notif")
 local notif_icon = wibox.widget {
-    widget = wibox.widget.imagebox,
-    image = icons.notif,
-    resize = true
+    {
+        {widget = wibox.widget.imagebox, image = icons.notif, resize = true},
+        margins = dpi(4),
+        widget = wibox.container.margin
+    },
+    bg = beautiful.xcolor0,
+    widget = wibox.container.background
 }
 
-notif_icon:connect_signal("mouse::enter", function() notifPop.visible = true end)
-notifPop:connect_signal("mouse::leave", function() notifPop.visible = false end)
+-- notif_icon:connect_signal("mouse::enter", function() notifPop.visible = true end)
+-- notifPop:connect_signal("mouse::leave", function() notifPop.visible = false end)
+
+notif_icon:buttons(gears.table.join(awful.button({}, 1, function()
+    notifPop.visible = true
+    notif_icon.bg = beautiful.xbackground
+end)))
+
+notifPop:connect_signal("mouse::leave", function()
+    notifPop.visible = false
+    notif_icon.bg = beautiful.xcolor0
+end)
 
 -- Battery Bar Widget ---------------------------------------------------------
 
---local battery_bar = require("widgets.battery_bar")
---local battery = format_progress_bar(battery_bar)
+local battery_bar = require("widgets.battery_bar")
+local battery = format_progress_bar(battery_bar)
 
 -- Systray Widget -------------------------------------------------------------
 
@@ -117,12 +143,7 @@ awful.screen.connect_for_each_screen(function(s)
     end
 
     -- Create the wibox
-    s.mywibox = awful.wibar({
-        position = "top",
-        screen = s,
-        ontop = true,
-        bg = beautiful.wibar_bg .. "00"
-    })
+    s.mywibox = awful.wibar({position = "top", screen = s, ontop = true})
     s.mywibox:set_xproperty("WM_NAME", "panel")
 
     -- Remove wibar on full screen
@@ -165,16 +186,18 @@ awful.screen.connect_for_each_screen(function(s)
         filter = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons,
         style = {
-            shape = helpers.rrect(beautiful.border_radius),
-            shape_border_width = beautiful.widget_border_width,
-            shape_border_color = beautiful.widget_border_color
+            -- shape = helpers.rrect(beautiful.border_radius),
+            -- shape_border_width = beautiful.widget_border_width,
+            -- shape_border_color = beautiful.widget_border_color
         },
         layout = {spacing = 10, layout = wibox.layout.fixed.horizontal},
         widget_template = {
             {
                 {
+                    nil,
                     {id = 'text_role', widget = wibox.widget.textbox},
-                    layout = wibox.layout.flex.horizontal
+                    nil,
+                    layout = wibox.layout.fixed.horizontal
                 },
                 left = dpi(12),
                 right = dpi(12),
@@ -192,28 +215,15 @@ awful.screen.connect_for_each_screen(function(s)
         {
             layout = wibox.layout.fixed.horizontal,
             {
-                {
-                    awesome_icon,
-                    shape = helpers.rrect(beautiful.border_radius),
-                    bg = beautiful.xbackground,
-                    border_width = beautiful.widget_border_width,
-                    border_color = beautiful.widget_border_color,
-                    widget = wibox.container.background
-                },
-                top = 5,
+                awesome_icon,
+                top = 0,
                 right = 5,
                 left = 10,
                 widget = wibox.container.margin
             },
             {
-                {
-                    s.mytaglist,
-                    shape = helpers.rrect(beautiful.border_radius),
-                    border_width = beautiful.widget_border_width,
-                    border_color = beautiful.widget_border_color,
-                    widget = wibox.container.background
-                },
-                top = 5,
+                s.mytaglist,
+                top = 0,
                 right = 5,
                 left = 5,
                 widget = wibox.container.margin
@@ -222,68 +232,30 @@ awful.screen.connect_for_each_screen(function(s)
         },
         {
             s.mytasklist,
-            top = 5,
+            top = 0,
             right = 5,
             left = 5,
             widget = wibox.container.margin
         },
         {
-            -- On desktop, no need for battery
-            --[[{
-                {
-                    {
-                        battery,
-                        right = 13,
-                        left = 13,
-                        widget = wibox.container.margin
-                    },
-                    shape = helpers.rrect(beautiful.border_radius),
-                    bg = beautiful.xbackground,
-                    border_width = beautiful.widget_border_width,
-                    border_color = beautiful.widget_border_color,
-                    widget = wibox.container.background
-                },
-                top = 5,
-                right = 5,
-                left = 5,
-                widget = wibox.container.margin
-            }, --]]
+            {battery, right = 13, left = 13, widget = wibox.container.margin},
             nil,
             helpers.horizontal_pad(0),
             {
                 {
-                    {
-                        mysystray_container,
-                        top = dpi(6),
-                        layout = wibox.container.margin
-                    },
-                    shape = helpers.rrect(beautiful.border_radius),
-                    bg = beautiful.xbackground,
-                    border_width = beautiful.widget_border_width,
-                    border_color = beautiful.widget_border_color,
-
-                    widget = wibox.container.background
+                    mysystray_container,
+                    top = dpi(6),
+                    layout = wibox.container.margin
                 },
-                top = 5,
+                top = 0,
                 right = 5,
                 left = 5,
                 widget = wibox.container.margin
             },
             helpers.horizontal_pad(0),
             {
-                {
-                    {
-                        notif_icon,
-                        margins = dpi(4),
-                        widget = wibox.container.margin
-                    },
-                    shape = helpers.rrect(beautiful.border_radius),
-                    bg = beautiful.xbackground,
-                    border_width = beautiful.widget_border_width,
-                    border_color = beautiful.widget_border_color,
-                    widget = wibox.container.background
-                },
-                top = 5,
+                notif_icon,
+                top = 0,
                 right = 5,
                 left = 5,
                 widget = wibox.container.margin
@@ -291,18 +263,11 @@ awful.screen.connect_for_each_screen(function(s)
 
             {
                 {
-                    {
-                        s.mylayoutbox,
-                        margins = dpi(7),
-                        widget = wibox.container.margin
-                    },
-                    shape = helpers.rrect(beautiful.border_radius),
-                    bg = beautiful.xbackground,
-                    border_width = beautiful.widget_border_width,
-                    border_color = beautiful.widget_border_color,
-                    widget = wibox.container.background
+                    s.mylayoutbox,
+                    margins = dpi(7),
+                    widget = wibox.container.margin
                 },
-                top = 5,
+                top = 0,
                 right = 10,
                 left = 5,
                 widget = wibox.container.margin

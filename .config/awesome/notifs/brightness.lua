@@ -29,11 +29,9 @@ local bright_adjust = wibox({
     y = (screen.geometry.height / 2) - (offsety / 2),
     width = dpi(48),
     height = offsety,
-    shape = helpers.rrect(beautiful.client_radius),
     visible = false,
-    border_width = 0,
-    border_color = beautiful.xcolor0,
-    ontop = true
+    ontop = true,
+    bg = beautiful.xbackground
 })
 
 local bright_bar = wibox.widget {
@@ -48,26 +46,22 @@ local bright_bar = wibox.widget {
 
 bright_adjust:setup{
     {
+        layout = wibox.layout.align.vertical,
         {
-            layout = wibox.layout.align.vertical,
-            {
-                wibox.container.margin(bright_bar, dpi(14), dpi(20), dpi(20),
-                                       dpi(20)),
-                forced_height = offsety * 0.75,
-                direction = "east",
-                layout = wibox.container.rotate
-            },
-            wibox.container.margin(wibox.widget {
-                image = bright_icon,
-                widget = wibox.widget.imagebox
-            }, dpi(7), dpi(7), dpi(14), dpi(14))
+            wibox.container.margin(bright_bar, dpi(14), dpi(20), dpi(20),
+                                   dpi(20)),
+            forced_height = offsety * 0.75,
+            direction = "east",
+            layout = wibox.container.rotate
         },
-        shape = helpers.rrect(beautiful.client_radius),
-        border_width = beautiful.widget_border_width,
-        border_color = beautiful.widget_border_color,
-        widget = wibox.container.background
+        wibox.container.margin(wibox.widget {
+            image = bright_icon,
+            widget = wibox.widget.imagebox
+        }, dpi(7), dpi(7), dpi(14), dpi(14))
     },
-    bg = beautiful.xbackground .. "00",
+    shape = helpers.rrect(beautiful.client_radius),
+    border_width = beautiful.widget_border_width,
+    border_color = beautiful.widget_border_color,
     widget = wibox.container.background
 }
 

@@ -30,7 +30,8 @@ local volume_adjust = wibox({
     width = dpi(48),
     height = offsety,
     visible = false,
-    ontop = true
+    ontop = true,
+    bg = beautiful.xbackground .. "00"
 })
 
 local volume_bar = wibox.widget {
@@ -45,26 +46,23 @@ local volume_bar = wibox.widget {
 
 volume_adjust:setup{
     {
+        layout = wibox.layout.align.vertical,
         {
-            layout = wibox.layout.align.vertical,
-            {
-                wibox.container.margin(volume_bar, dpi(14), dpi(20), dpi(20),
-                                       dpi(20)),
-                forced_height = offsety * 0.75,
-                direction = "east",
-                layout = wibox.container.rotate
-            },
-            wibox.container.margin(wibox.widget {
-                image = volume_icon,
-                widget = wibox.widget.imagebox
-            }, dpi(7), dpi(7), dpi(14), dpi(14))
+            wibox.container.margin(volume_bar, dpi(14), dpi(20), dpi(20),
+                                   dpi(20)),
+            forced_height = offsety * 0.75,
+            direction = "east",
+            layout = wibox.container.rotate
         },
-        shape = helpers.rrect(beautiful.client_radius),
-        border_width = beautiful.widget_border_width,
-        border_color = beautiful.widget_border_color,
-        widget = wibox.container.background
+        wibox.container.margin(wibox.widget {
+            image = volume_icon,
+            widget = wibox.widget.imagebox
+        }, dpi(7), dpi(7), dpi(14), dpi(14))
     },
-    bg = beautiful.xbackground .. "00",
+    shape = helpers.rrect(beautiful.client_radius),
+    bg = beautiful.xbackground,
+    border_width = beautiful.widget_border_width,
+    border_color = beautiful.widget_border_color,
     widget = wibox.container.background
 }
 
