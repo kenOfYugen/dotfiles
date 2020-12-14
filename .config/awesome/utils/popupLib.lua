@@ -25,12 +25,16 @@ popupLib.create = function(x, y, height, width, widget)
     }
 
     local popupWidget = awful.popup {
+        screen = screen[1],
         widget = widgetBG,
         visible = false,
         ontop = true,
         x = x,
         y = y,
         bg = beautiful.xbackground .. "00"
+        -- shape = helpers.rrect(beautiful.client_radius),
+        -- border_width = beautiful.widget_border_width,
+        -- border_color = beautiful.widget_border_color
     }
 
     local mouseInPopup = false

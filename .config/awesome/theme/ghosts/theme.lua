@@ -79,7 +79,7 @@ theme.button_close = theme.xcolor1
 theme.border_width = dpi(2)
 theme.border_normal = theme.xcolor0
 theme.border_focus = theme.xcolor0
-theme.border_radius = dpi(6)
+theme.border_radius = dpi(10)
 theme.client_radius = dpi(10)
 theme.widget_border_width = dpi(2)
 theme.widget_border_color = theme.xcolor0
@@ -93,14 +93,14 @@ theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
 theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
                                   taglist_square_size, theme.fg_normal)
 theme.taglist_font = theme.font_taglist
-theme.taglist_bg = theme.xbackground
-theme.taglist_bg_focus = theme.xbackground
+theme.taglist_bg = theme.wibar_bg
+theme.taglist_bg_focus = theme.xbackground .. "00"
 theme.taglist_fg_focus = theme.xcolor4
-theme.taglist_bg_urgent = theme.xbackground
+theme.taglist_bg_urgent = theme.wibar_bg
 theme.taglist_fg_urgent = theme.xcolor1
-theme.taglist_bg_occupied = theme.xbackground
+theme.taglist_bg_occupied = theme.wibar_bg
 theme.taglist_fg_occupied = theme.xcolor6
-theme.taglist_bg_empty = theme.xbackground
+theme.taglist_bg_empty = theme.wibar_bg
 theme.taglist_fg_empty = theme.xcolor8
 theme.taglist_bg_volatile = transparent
 theme.taglist_fg_volatile = theme.xcolor11
@@ -110,15 +110,15 @@ theme.taglist_disable_icon = true
 
 theme.tasklist_font = theme.font
 theme.tasklist_plain_task_name = true
-theme.tasklist_bg_focus = theme.xbackground
+theme.tasklist_bg_focus = theme.xbackground .. "00"
 theme.tasklist_fg_focus = theme.xcolor6
 theme.tasklist_bg_minimize = theme.xbackground .. "70"
 theme.tasklist_fg_minimize = theme.xforeground .. "70"
-theme.tasklist_bg_normal = theme.xbackground
+theme.tasklist_bg_normal = theme.xbackground .. "00"
 theme.tasklist_fg_normal = theme.xforeground
 theme.tasklist_disable_task_name = false
 theme.tasklist_disable_icon = true
-theme.tasklist_bg_urgent = theme.xbackground
+theme.tasklist_bg_urgent = theme.xbackground .. "00"
 theme.tasklist_fg_urgent = theme.xcolor1
 theme.tasklist_spacing = dpi(5)
 theme.tasklist_align = "center"
@@ -185,18 +185,18 @@ theme.useless_gap = dpi(5)
 
 theme.exit_screen_fg = theme.xforeground
 
+-- Wibar
+
+theme.wibar_height = dpi(28)
+theme.wibar_margin = dpi(15)
+theme.wibar_spacing = dpi(15)
+theme.wibar_bg = theme.xcolor0
+
 -- Systray
 
 theme.systray_icon_spacing = dpi(8)
-theme.bg_systray = theme.xbackground
+theme.bg_systray = theme.wibar_bg
 theme.systray_icon_size = dpi(15)
-
--- Wibar
-
-theme.wibar_height = dpi(33)
-theme.wibar_margin = dpi(15)
-theme.wibar_spacing = dpi(15)
-theme.wibar_bg = theme.xbackground
 
 -- Collision
 
@@ -243,5 +243,7 @@ theme.tabbar_style = "modern"
 theme.tabbar_bg_focus = theme.xbackground
 theme.tabbar_bg_normal = theme.xcolor0
 theme.mstab_bar_ontop = true
+
+theme.notification_spacing = 10
 
 return theme

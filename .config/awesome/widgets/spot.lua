@@ -34,7 +34,7 @@ local create_button = function(symbol, color, command, playpause)
         widget = wibox.container.background
     }
 
-    awful.widget.watch("playerctl status", update_interval,
+    awful.widget.watch("playerctl -a status", update_interval,
                        function(widget, stdout)
         if playpause then
             if stdout:find("Playing") then

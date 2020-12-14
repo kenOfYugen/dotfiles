@@ -11,15 +11,15 @@ require("notifs.volume")
 require("notifs.battery")
 
 naughty.config.defaults.ontop = true
-naughty.config.defaults.icon_size = dpi(32)
+-- naughty.config.defaults.icon_size = dpi(32)
 naughty.config.defaults.screen = awful.screen.focused()
 naughty.config.defaults.timeout = 3
 naughty.config.defaults.title = "System Notification"
-naughty.config.defaults.margin = dpi(20)
-naughty.config.defaults.border_width = beautiful.widget_border_width
-naughty.config.defaults.border_color = beautiful.widget_border_color
-naughty.config.defaults.position = "top_right"
-naughty.config.defaults.shape = helpers.rrect(0)
+-- naughty.config.defaults.margin = dpi(20)
+naughty.config.defaults.border_width = 0
+-- naughty.config.defaults.border_color = beautiful.widget_border_color
+naughty.config.defaults.position = "top_middle"
+-- naughty.config.defaults.shape = helpers.rrect(beautiful.client_radius)
 
 naughty.config.padding = dpi(10)
 naughty.config.spacing = dpi(5)
@@ -35,22 +35,19 @@ naughty.config.presets.critical.timeout = 0
 naughty.config.presets.normal = {
     font = beautiful.font,
     fg = beautiful.fg_normal,
-    bg = beautiful.bg_normal,
-    position = "top_right"
+    bg = beautiful.bg_normal
 }
 
 naughty.config.presets.low = {
     font = beautiful.font,
     fg = beautiful.fg_normal,
-    bg = beautiful.bg_normal,
-    position = "top_right"
+    bg = beautiful.bg_normal
 }
 
 naughty.config.presets.critical = {
     font = "JetBrains Mono Bold 10",
     fg = "#ffffff",
     bg = "#ff0000",
-    position = "top_right",
     timeout = 0
 }
 
@@ -58,23 +55,56 @@ naughty.config.presets.ok = naughty.config.presets.normal
 naughty.config.presets.info = naughty.config.presets.normal
 naughty.config.presets.warn = naughty.config.presets.critical
 
---[[ naughty.connect_signal("request::display", function(n)
+naughty.connect_signal("request::display", function(n)
+
+    n.timeout = 3
+
+    local appicon = n.icon or n.app_icon
+    if not appicon then appicon = beautiful.notification_icon end
 
     naughty.layout.box {
         notification = n,
         type = "notification",
+        bg = beautiful.xbackground .. "00",
         widget_template = {
             {
                 {
                     {
                         {
                             {
-                                naughty.widget.icon,
                                 {
-                                    naughty.widget.title,
-                                    naughty.widget.message,
-                                    spacing = 4,
-                                    layout = wibox.layout.fixed.vertical
+                                    {
+                                        nil,
+                                        {
+                                            {
+                                                image = appicon,
+                                                forced_width = 35,
+                                                forced_height = 35,
+                                                resize = true,
+                                                widget = wibox.widget.imagebox
+                                            },
+                                            margins = 10,
+                                            widget = wibox.container.margin
+                                        },
+                                        nil,
+                                        expand = "outside",
+                                        -- margins = 10,
+                                        layout = wibox.layout.align.vertical
+                                    },
+                                    bg = beautiful.xcolor8,
+                                    widget = wibox.container.background
+                                },
+                                {
+                                    {
+                                        naughty.widget.title,
+                                        naughty.widget.message,
+                                        layout = wibox.layout.align.vertical
+                                    },
+                                    top = dpi(10),
+                                    bottom = dpi(10),
+                                    left = dpi(10),
+                                    right = dpi(10),
+                                    widget = wibox.container.margin
                                 },
                                 fill_space = true,
                                 spacing = 4,
@@ -82,9 +112,9 @@ naughty.config.presets.warn = naughty.config.presets.critical
                             },
                             naughty.list.actions,
                             spacing = 10,
-                            layout = wibox.layout.fixed.vertical
+                            layout = wibox.layout.align.vertical
                         },
-                        margins = 10,
+                        margins = 0,
                         widget = wibox.container.margin
                     },
                     id = "background_role",
@@ -97,10 +127,9 @@ naughty.config.presets.warn = naughty.config.presets.critical
             },
             bg = beautiful.xbackground,
             border_color = beautiful.widget_border_color,
-            border_width = beautiful.widget_border_width,
+            border_width = beautiful.border_width,
             shape = helpers.rrect(beautiful.client_radius),
             widget = wibox.container.background
         }
     }
 end)
---]]

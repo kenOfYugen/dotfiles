@@ -53,7 +53,7 @@ alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
-alias cat='bat'
+alias cat='bat --color always --plain'
 alias xwin='Xephyr -br -ac -noreset -screen 1400x800 :1'
 alias xdisp='DISPLAY=:1 '
 alias fetish="info='n os wm sh cpu mem kern term pkgs col n' accent=4 separator='  ' fet.sh"
@@ -67,6 +67,31 @@ alias aurelian='yay'
 precmd() {
     printf '\033]0;%s\007' "$(dirs)"
 }
+
+source ~/.zsh-plugins/fzf-tab/fzf-tab.plugin.zsh
+
+# Solarized colors
+export FZF_DEFAULT_OPTS='
+--color fg:#ffffff,bg:#30333d,hl:#A3BE8C,fg+:#D8DEE9,bg+:#30333d,hl+:#A3BE8C,border:#585e74
+--color pointer:#f9929b,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#9ce5c0,marker:#EBCB8B
+'
+
+FZF_TAB_COMMAND=(
+    fzf
+    --ansi
+    --expect='$continuous_trigger' # For continuous completion
+    --nth=2,3 --delimiter='\x00'  # Don't search prefix
+    --layout=reverse --height="''${FZF_TMUX_HEIGHT:=50%}"
+    --tiebreak=begin -m --bind=tab:down,btab:up,change:top,ctrl-space:toggle --cycle
+    '--query=$query'   # $query will be expanded to query string at runtime.
+    '--header-lines=$#headers' # $#headers will be expanded to lines of headers at runtime
+)
+zstyle ':fzf-tab:*' command $FZF_TAB_COMMAND
+
+zstyle ':completion:complete:*:options' sort false
+zstyle ':fzf-tab:complete:_zlua:*' query-string input
+
+zstyle ':fzf-tab:complete:*:*' fzf-preview '/home/javacafe01/.bin/preview.sh $realpath'
 
 # Set PATH so it includes user's private bin directories
 export PATH="${HOME}/.bin:${HOME}/.local/bin:${PATH}"

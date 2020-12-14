@@ -182,10 +182,8 @@ awful.rules.rules = {
     },
 
     -- Add titlebars to normal clients and dialogs (UNCOMMENT FOR DOUBLE BORDERS)
+    {rule_any = {type = {"dialog"}}, properties = {titlebars_enabled = false}},
     {
-        rule_any = {type = {"normal", "dialog"}},
-        properties = {titlebars_enabled = true}
-    }, {
         rule_any = {class = {"Steam"}},
         properties = {titlebars_enabled = false, ontop = true}
     }, -- Set Firefox to always map on the tag named "2" on screen 1.
