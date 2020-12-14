@@ -40,16 +40,22 @@ toolbox#navigator-toolbox  {
 	border-radius: 0px !important;
 }
 .tabbrowser-tab > .tab-stack > .tab-background:not([selected="true"]) {
-	background-color: var(--base_color3)  !important;
+	background-color: var(--base_color2)  !important;
 }
 .tabbrowser-tab:hover > .tab-stack > .tab-background:not([selected="true"]) {
-    background-color: var(--base_color3) !important;
+    background-color: var(--base_color2) !important;
+}
+.tab-content {
+	color: var(--base_color3) !important;
 }
 
 tab[selected="true"] .tab-content {
 	color: var(--outer_color3) !important;
-
 }
+
+
+
+
 tab[selected="true"] .tab-background {
 	background: var(--base_color4) !important;
     

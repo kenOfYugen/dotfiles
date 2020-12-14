@@ -144,6 +144,14 @@ client.connect_signal("request::titlebars", function(c)
     local min = create_title_button(c, beautiful.xcolor3, beautiful.xcolor0)
     min:connect_signal("button::press", function() c.minimized = true end)
 
+    local top_bg = beautiful.xbackground
+
+    if c.class == "firefox" then
+        top_bg = beautiful.xcolor0
+    else
+        top_bg = beautiful.xbackground
+    end
+
     awful.titlebar(c, {
         position = "top",
         size = beautiful.titlebar_size,
@@ -171,7 +179,7 @@ client.connect_signal("request::titlebars", function(c)
                     },
                     layout = wibox.layout.align.horizontal
                 },
-                bg = beautiful.xbackground,
+                bg = top_bg,
                 shape = helpers.prrect(beautiful.client_radius, true, true,
                                        false, false),
                 widget = wibox.container.background
