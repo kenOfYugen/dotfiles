@@ -7,3 +7,8 @@
 	path = .config/awesome/collision
     url = https://github.com/Elv13/collision
     branch = master
+
+[submodule ".zsh-plugins/fzf-tab"]
+	path = .zsh-plugins/fzf-tab
+    url = https://github.com/Aloxaf/fzf-tab
+    branch = master
