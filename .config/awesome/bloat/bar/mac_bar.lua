@@ -81,8 +81,8 @@ end)
 
 -- Battery Bar Widget ---------------------------------------------------------
 
-local battery_bar = require("widgets.battery_bar")
-local battery = format_progress_bar(battery_bar)
+-- local battery_bar = require("widgets.battery_bar")
+-- local battery = format_progress_bar(battery_bar)
 
 -- Systray Widget -------------------------------------------------------------
 
@@ -186,7 +186,8 @@ awful.screen.connect_for_each_screen(function(s)
         filter = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons,
         style = {
-            -- shape = helpers.rrect(beautiful.border_radius),
+            bg = beautiful.xbackground,
+            shape = helpers.rrect(beautiful.border_radius)
             -- shape_border_width = beautiful.widget_border_width,
             -- shape_border_color = beautiful.widget_border_color
         },
@@ -222,8 +223,14 @@ awful.screen.connect_for_each_screen(function(s)
                 widget = wibox.container.margin
             },
             {
-                s.mytaglist,
-                top = 0,
+                {
+                    s.mytaglist,
+                    bg = beautiful.xbackground,
+                    shape = helpers.rrect(beautiful.border_radius),
+                    widget = wibox.container.background
+                },
+                top = 3,
+                bottom = 3,
                 right = 5,
                 left = 5,
                 widget = wibox.container.margin
@@ -232,41 +239,56 @@ awful.screen.connect_for_each_screen(function(s)
         },
         {
             s.mytasklist,
-            top = 0,
+            top = 3,
+            bottom = 3,
             right = 5,
             left = 5,
             widget = wibox.container.margin
         },
         {
-            {battery, right = 13, left = 13, widget = wibox.container.margin},
+            -- {battery, right = 13, left = 13, widget = wibox.container.margin},
             nil,
-            helpers.horizontal_pad(0),
+            nil,
             {
                 {
-                    mysystray_container,
-                    top = dpi(6),
-                    layout = wibox.container.margin
+                    {
+                        mysystray_container,
+                        top = dpi(4),
+                        layout = wibox.container.margin
+                    },
+                    bg = beautiful.xbackground,
+                    shape = helpers.rrect(beautiful.border_radius),
+                    widget = wibox.container.background
                 },
-                top = 0,
+                top = 3,
+                bottom = 3,
                 right = 5,
                 left = 5,
                 widget = wibox.container.margin
             },
-            helpers.horizontal_pad(0),
             {
-                notif_icon,
-                top = 0,
+                {
+                    {
+                        s.mylayoutbox,
+                        top = dpi(4),
+                        bottom = dpi(4),
+                        right = dpi(7),
+                        left = dpi(7),
+                        widget = wibox.container.margin
+                    },
+                    bg = beautiful.xbackground,
+                    shape = helpers.rrect(beautiful.border_radius),
+                    widget = wibox.container.background
+                },
+                top = 3,
+                bottom = 3,
                 right = 5,
                 left = 5,
                 widget = wibox.container.margin
             },
 
             {
-                {
-                    s.mylayoutbox,
-                    margins = dpi(7),
-                    widget = wibox.container.margin
-                },
+                notif_icon,
                 top = 0,
                 right = 10,
                 left = 5,

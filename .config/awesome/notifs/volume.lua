@@ -5,8 +5,8 @@ local beautiful = require("beautiful")
 local helpers = require("helpers")
 local dpi = beautiful.xresources.apply_dpi
 
-local offsetx = dpi(56)
-local offsety = dpi(300)
+local width = dpi(200)
+local height = dpi(200)
 local screen = awful.screen.focused()
 
 local icon_theme = "sheet"
@@ -25,10 +25,10 @@ local active_color_1 = {
 -- create the volume_adjust component
 local volume_adjust = wibox({
     screen = awful.screen.focused(),
-    x = screen.geometry.width - offsetx - 8,
-    y = (screen.geometry.height / 2) - (offsety / 2),
-    width = dpi(48),
-    height = offsety,
+    x = screen.geometry.width / 2 - width / 2,
+    y = screen.geometry.height / 2 - height / 2 + 300,
+    width = width,
+    height = height,
     visible = false,
     ontop = true,
     bg = beautiful.xbackground .. "00"
@@ -48,16 +48,22 @@ volume_adjust:setup{
     {
         layout = wibox.layout.align.vertical,
         {
-            wibox.container.margin(volume_bar, dpi(14), dpi(20), dpi(20),
-                                   dpi(20)),
-            forced_height = offsety * 0.75,
-            direction = "east",
-            layout = wibox.container.rotate
+            {image = volume_icon, widget = wibox.widget.imagebox},
+            top = dpi(30),
+            left = dpi(50),
+            right = dpi(50),
+            bottom = dpi(0),
+            widget = wibox.container.margin
         },
-        wibox.container.margin(wibox.widget {
-            image = volume_icon,
-            widget = wibox.widget.imagebox
-        }, dpi(7), dpi(7), dpi(14), dpi(14))
+        {
+            volume_bar,
+            top = dpi(20),
+            left = dpi(25),
+            right = dpi(25),
+            bottom = dpi(30),
+            widget = wibox.container.margin
+        }
+
     },
     shape = helpers.rrect(beautiful.client_radius),
     bg = beautiful.xbackground,
