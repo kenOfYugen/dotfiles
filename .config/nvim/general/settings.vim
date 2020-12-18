@@ -18,6 +18,7 @@ set ruler
 set laststatus=2
 set nostartofline
 set cursorline
+set showtabline=2
 " set nowrap
 
 
