@@ -146,7 +146,7 @@ client.connect_signal("request::titlebars", function(c)
 
     local top_bg = beautiful.xbackground
 
-    if c.class == "firefox" then
+    if c.class == "firefox" or c.class == "Thunar" then
         top_bg = beautiful.xcolor0
     else
         top_bg = beautiful.xbackground

@@ -187,7 +187,7 @@ theme.exit_screen_fg = theme.xforeground
 
 -- Wibar
 
-theme.wibar_height = dpi(28)
+theme.wibar_height = dpi(30)
 theme.wibar_margin = dpi(15)
 theme.wibar_spacing = dpi(15)
 theme.wibar_bg = theme.xcolor0

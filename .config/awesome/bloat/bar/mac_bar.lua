@@ -20,7 +20,6 @@ local function format_progress_bar(bar)
     bar.shape = gears.shape.rounded_bar
     bar.bar_shape = gears.shape.rounded_bar
     bar.background_color = beautiful.xcolor8
-
     return bar
 end
 
@@ -81,8 +80,8 @@ end)
 
 -- Battery Bar Widget ---------------------------------------------------------
 
--- local battery_bar = require("widgets.battery_bar")
--- local battery = format_progress_bar(battery_bar)
+local battery_bar = require("widgets.battery_bar")
+local battery = format_progress_bar(battery_bar)
 
 -- Systray Widget -------------------------------------------------------------
 
@@ -187,7 +186,7 @@ awful.screen.connect_for_each_screen(function(s)
         buttons = tasklist_buttons,
         style = {
             bg = beautiful.xbackground,
-            shape = helpers.rrect(beautiful.border_radius)
+            shape = helpers.rrect(beautiful.border_radius - 3)
             -- shape_border_width = beautiful.widget_border_width,
             -- shape_border_color = beautiful.widget_border_color
         },
@@ -226,11 +225,11 @@ awful.screen.connect_for_each_screen(function(s)
                 {
                     s.mytaglist,
                     bg = beautiful.xbackground,
-                    shape = helpers.rrect(beautiful.border_radius),
+                    shape = helpers.rrect(beautiful.border_radius - 3),
                     widget = wibox.container.background
                 },
-                top = 3,
-                bottom = 3,
+                top = 4,
+                bottom = 4,
                 right = 5,
                 left = 5,
                 widget = wibox.container.margin
@@ -239,14 +238,33 @@ awful.screen.connect_for_each_screen(function(s)
         },
         {
             s.mytasklist,
-            top = 3,
-            bottom = 3,
+            top = 4,
+            bottom = 4,
             right = 5,
             left = 5,
             widget = wibox.container.margin
         },
         {
-            -- {battery, right = 13, left = 13, widget = wibox.container.margin},
+            {
+                {
+                    {
+                        battery,
+                        top = 0,
+                        bottom = 0,
+                        right = 13,
+                        left = 13,
+                        widget = wibox.container.margin
+                    },
+                    bg = beautiful.xbackground,
+                    shape = helpers.rrect(beautiful.border_radius - 3),
+                    widget = wibox.container.background
+                },
+                top = 4,
+                bottom = 4,
+                right = 5,
+                left = 5,
+                widget = wibox.container.margin
+            },
             nil,
             nil,
             {
@@ -257,11 +275,11 @@ awful.screen.connect_for_each_screen(function(s)
                         layout = wibox.container.margin
                     },
                     bg = beautiful.xbackground,
-                    shape = helpers.rrect(beautiful.border_radius),
+                    shape = helpers.rrect(beautiful.border_radius - 3),
                     widget = wibox.container.background
                 },
-                top = 3,
-                bottom = 3,
+                top = 4,
+                bottom = 4,
                 right = 5,
                 left = 5,
                 widget = wibox.container.margin
@@ -277,11 +295,11 @@ awful.screen.connect_for_each_screen(function(s)
                         widget = wibox.container.margin
                     },
                     bg = beautiful.xbackground,
-                    shape = helpers.rrect(beautiful.border_radius),
+                    shape = helpers.rrect(beautiful.border_radius - 3),
                     widget = wibox.container.background
                 },
-                top = 3,
-                bottom = 3,
+                top = 4,
+                bottom = 4,
                 right = 5,
                 left = 5,
                 widget = wibox.container.margin
