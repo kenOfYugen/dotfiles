@@ -12,7 +12,7 @@ Bling brings extra utilities to AwesomeWM such as tabs, swallowing, layouts, and
 ### [collision](https://github.com/Elv13/collision)
 Collision is great for window navigation. It is created by one of the AwesomeWM devs, and is a great utility for your configuration. Give this one a star as well!
 
-<img src="https://github.com/JavaCafe01/awesome-config/blob/master/images/rice.png" alt="img" align="right" width="600px">
+<img src="https://github.com/JavaCafe01/awesome-config/blob/master/images/rice.png" alt="img" align="right" width="500px">
 
 ## System Info
 + **OS**: Endeavour
