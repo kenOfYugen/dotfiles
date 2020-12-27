@@ -1,14 +1,9 @@
 [submodule ".config/awesome/bling"]
-	path = .config/awesome/bling
+	path = bling
     url = https://github.com/Nooo37/bling
     branch = master
 
 [submodule ".config/awesome/collision"]
-	path = .config/awesome/collision
+	path = collision
     url = https://github.com/Elv13/collision
-    branch = master
-
-[submodule ".zsh-plugins/fzf-tab"]
-	path = .zsh-plugins/fzf-tab
-    url = https://github.com/Aloxaf/fzf-tab
     branch = master
