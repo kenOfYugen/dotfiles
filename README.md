@@ -23,5 +23,29 @@ Collision is great for window navigation. It is created by one of the AwesomeWM 
 + **File Manager**: Thunar
 + **Color Scheme**: [javacafe](https://github.com/JavaCafe01/javacafe.vim)
 
+## Common Questions
+
 ### Where did I steal `ears` from?
 It was taken from [elenapan](https://github.com/elenapan/dotfiles).
+
+### How are you getting rounded corners?
+To start off, I do not round any corners with picom or any other fork. I round with AwesomeWM. If you round a widget and lay that ontop of another widget, the corners or anti-aliased (AA). Using this fact, all my panels and notifications are widgets that are ontop of transparent rectangles. For the clients, you do the same thing but with titlebars. But how did I get shadows? Usually, when you add shadows, it shadows the transparent widget as well, like this: 
+
+<img src="https://github.com/JavaCafe01/awesome-config/blob/master/images/round_transparent.png" alt="img">
+
+In picom, if you edit the wintypes option by adding `full-shadow = true` for every window type you need, you will fix that problem:
+
+```
+wintypes:
+{
+# ...
+    normal = {full-shadow = true;};
+# ...
+};
+```
+
+Here is the result:
+
+<img src="https://github.com/JavaCafe01/awesome-config/blob/master/images/round_shadow.png" alt="img">
+
+Currently I don't have shadows, but I can easily just enable it in picom and still retain my AA corners.
