@@ -19,6 +19,9 @@ Collision is great for window navigation. It is created by one of the AwesomeWM 
 + **Terminal**: Termite
 + **Browser**: Firefox
 + **Music**: Ncspot
-+ **GTK Theme**: Phocus
++ **GTK Theme**: [Phocus](https://github.com/JavaCafe01/phocus)
 + **File Manager**: Thunar
-+ **Color Scheme**: javacafe
++ **Color Scheme**: [javacafe](https://github.com/JavaCafe01/javacafe.vim)
+
+### Where did I steal `ears` from?
+It was taken from [elenapan](https://github.com/elenapan/dotfiles).
