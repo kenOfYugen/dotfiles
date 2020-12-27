@@ -11,7 +11,7 @@ local popupLib = require("utils.popupLib")
 
 local popupWidget = wibox.widget {
     {
-        require("notifs.notif-center"),
+        require("bloat.notifs.notif-center"),
         margins = dpi(8),
         widget = wibox.container.margin
     },

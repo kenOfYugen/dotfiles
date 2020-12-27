@@ -78,7 +78,7 @@ end
 
 --- {{{ Volume Widget
 
-local volume_bar = require("widgets.volume_bar")
+local volume_bar = require("bloat.widgets.volume_bar")
 local volume = format_progress_bar(volume_bar, "<span foreground='" ..
                                        beautiful.xcolor10 ..
                                        "'><b>VOL</b></span>")
@@ -98,21 +98,21 @@ volume:buttons(gears.table.join( -- Left click - Mute / Unmute
 --- {{{ Brightness Widget
 
 local brightness_icon = wibox.widget.imagebox(icons.brightness)
-local brightness_bar = require("widgets.brightness_bar")
+local brightness_bar = require("bloat.widgets.brightness_bar")
 local brightness = format_progress_bar(brightness_bar, "<span foreground='" ..
                                            beautiful.xcolor12 ..
                                            "'><b>SUN</b></span>")
 
--- local brightness = require("widgets.brightness_arc")
+-- local brightness = require("bloat.widgets.brightness_arc")
 
 --- }}}
 
 --- {{{ Ram Widget
 
--- local ram = require("widgets.ram_arc")
+-- local ram = require("bloat.widgets.ram_arc")
 
 local ram_icon = wibox.widget.imagebox(icons.ram)
-local ram_bar = require("widgets.ram_bar")
+local ram_bar = require("bloat.widgets.ram_bar")
 local ram = format_progress_bar(ram_bar, "<span foreground='" ..
                                     beautiful.xcolor11 .. "'><b>RAM</b></span>")
 
@@ -120,10 +120,10 @@ local ram = format_progress_bar(ram_bar, "<span foreground='" ..
 
 --- {{{ Cpu Widget
 
--- local cpu = require("widgets.cpu_arc")
+-- local cpu = require("bloat.widgets.cpu_arc")
 
 local cpu_icon = wibox.widget.imagebox(icons.cpu)
-local cpu_bar = require("widgets.cpu_bar")
+local cpu_bar = require("bloat.widgets.cpu_bar")
 local cpu = format_progress_bar(cpu_bar, "<span foreground='" ..
                                     beautiful.xcolor13 .. "'><b>CPU</b></span>")
 
@@ -176,7 +176,7 @@ local fancy_date = {fancy_date_widget, layout = wibox.layout.fixed.vertical}
 -- {{{ Music Widget
 
 --[[
-local mpd = require("widgets.mpd")
+local mpd = require("bloat.widgets.mpd")
 local mpd_box = create_boxed_widget(mpd, 400, 125, beautiful.xcolor0)
 local mpd_area = {
     nil,
@@ -193,13 +193,13 @@ local mpd_area = {
 }
 --]]
 
-local spot = require("widgets.spot")
+local spot = require("bloat.widgets.spot")
 local spot_box = create_boxed_widget(spot, 400, nil, beautiful.xcolor0)
 
 -- }}}
 
 --[[
-local nord = require("widgets.nord")
+local nord = require("bloat.widgets.nord")
 local nord_box = create_boxed_widget(nord, 400, 135, beautiful.xcolor0)
 local nord_area = {
     nil,
@@ -217,7 +217,7 @@ local nord_area = {
 -]]
 -- {{{ Info Widget
 
-local info = require("widgets.info")
+local info = require("bloat.widgets.info")
 local info_box = create_boxed_widget(info, 400, 125, beautiful.xcolor0)
 
 -- }}}

@@ -6,9 +6,9 @@ local awful = require("awful")
 local dpi = beautiful.xresources.apply_dpi
 local helpers = require("helpers")
 
-require("notifs.brightness")
-require("notifs.volume")
-require("notifs.battery")
+require("bloat.notifs.brightness")
+require("bloat.notifs.volume")
+require("bloat.notifs.battery")
 
 naughty.config.defaults.ontop = true
 -- naughty.config.defaults.icon_size = dpi(32)

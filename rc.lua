@@ -74,7 +74,7 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. theme ..
                    "/theme.lua")
 
 -- Layouts
-require("windows")
+require("window")
 
 local icons = require("icons")
 icons.init("sheet")
@@ -251,7 +251,6 @@ client.connect_signal("unfocus",
 
 -- Import Daemons and Widgets
 require("ears")
-require("notifs")
 require("bloat")
 
 -- EOF ------------------------------------------------------------------------

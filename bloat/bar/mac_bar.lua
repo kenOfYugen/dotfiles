@@ -25,8 +25,6 @@ end
 
 -- Awesome Panel -----------------------------------------------------------
 
--- Init music, panel, and cal
--- local mpd = require("widgets.mpd")
 local panelPop = require('bloat.pop.panel')
 local calPop = require('bloat.pop.cal')
 local awesome_icon = wibox.widget {
@@ -94,7 +92,7 @@ end)
 
 -- Battery Bar Widget ---------------------------------------------------------
 
-local battery_bar = require("widgets.battery_bar")
+local battery_bar = require("bloat.widgets.battery_bar")
 local battery = format_progress_bar(battery_bar)
 
 -- Systray Widget -------------------------------------------------------------
