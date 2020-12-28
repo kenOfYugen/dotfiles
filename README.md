@@ -1,9 +1,9 @@
-NOTICE: My configuration for AwesomeWM only works on the latest git master branch. On Arch based distros, all you would have todo is install `awesome-git` from the AUR. On others, you will have to build it manually.
+NOTICE: My configuration for AwesomeWM only works on the latest git master branch. On Arch based distros, all you would have to do is install `awesome-git` from the AUR. On others, you will have to build it manually.
 
 ## Setup
 This repository has submodules, so make sure you clone it correctly:
 ```bash
-git clone --recurse-submodules git@github.com:JavaCafe01/awesome-config.git ~/.config/awesome
+git clone --recurse-submodules https://github.com/JavaCafe01/awesome-config.git/awesome-config.git ~/.config/awesome
 ```
 ## Modules
 ### :star: [bling](https://github.com/Nooo37/bling) :star:
@@ -29,7 +29,9 @@ Collision is great for window navigation. It is created by one of the AwesomeWM 
 It was taken from [elenapan](https://github.com/elenapan/dotfiles).
 
 ### How are you getting anti-aliased rounded corners?
-To start off, I do not round any corners with picom or any other fork. I round with AwesomeWM. If you round a widget and lay that ontop of another widget, the corners or anti-aliased (AA). Using this fact, all my panels and notifications are widgets that are ontop of transparent rectangles. For the clients, you do the same thing but with titlebars. But how did I get shadows? Usually, when you add shadows, it shadows the transparent widget as well, like this: 
+To start off, I do not round any corners with picom or any other fork. I round with AwesomeWM. If you round a widget and lay that ontop of another widget, the corners or anti-aliased (AA). Using this fact, all my panels and notifications are rounded widgets which contain a bottom transparent layer. For the clients, you do the same thing but with titlebars. 
+
+But how did I get shadows? Usually, when you add shadows, it shadows the transparent widget as well, like this: 
 
 <img src="https://github.com/JavaCafe01/awesome-config/blob/master/images/round_transparent.png" alt="img">
 
