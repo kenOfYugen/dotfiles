@@ -18,6 +18,7 @@ Collision is great for window navigation. It is created by one of the AwesomeWM 
 + **OS**: Endeavour
 + **Terminal**: Termite
 + **Browser**: Firefox
+    + [firefox-css](https://github.com/JavaCafe01/firefox-css)
 + **Music**: Ncspot
 + **GTK Theme**: [Phocus](https://github.com/JavaCafe01/phocus)
 + **File Manager**: Thunar
