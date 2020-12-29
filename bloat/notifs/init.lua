@@ -81,6 +81,7 @@ naughty.connect_signal("request::display", function(n)
                                                 forced_width = 35,
                                                 forced_height = 35,
                                                 resize = true,
+                                                clip_shape = gears.shape.circle,
                                                 widget = wibox.widget.imagebox
                                             },
                                             margins = 10,

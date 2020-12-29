@@ -218,7 +218,7 @@ local nord_area = {
 -- {{{ Info Widget
 
 local info = require("bloat.widgets.info")
-local info_box = create_boxed_widget(info, 400, 125, beautiful.xcolor0)
+local info_box = create_boxed_widget(info, 400, 125, beautiful.xbackground)
 
 -- }}}
 
@@ -290,7 +290,7 @@ local time = wibox.widget {
 local time_box = create_boxed_widget(time, 400, 159, beautiful.xcolor0)
 
 local panelWidget = wibox.widget {
-    info_box,
+    info,
     time_box,
     {sys_box, app_launcher_box, spot_box, layout = wibox.layout.align.vertical},
     layout = wibox.layout.align.vertical
@@ -300,9 +300,9 @@ local width = 400
 local margin = 10
 
 local panelPop = popupLib.create(0, beautiful.wibar_height -
-                                     beautiful.widget_border_width + margin * 2,
-                                 nil, width, panelWidget, dpi(25), false, true,
-                                 false, false)
+                                     beautiful.widget_border_width + margin * 2 +
+                                     41, nil, width, panelWidget, dpi(25),
+                                 false, true, false, false)
 
 panelPop:set_xproperty("WM_NAME", "panel")
 
