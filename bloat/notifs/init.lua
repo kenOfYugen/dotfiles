@@ -101,7 +101,7 @@ naughty.connect_signal("request::display", function(n)
                                         naughty.widget.message,
                                         layout = wibox.layout.align.vertical
                                     },
-                                    top = dpi(10),
+                                    top = dpi(12),
                                     bottom = dpi(10),
                                     left = dpi(10),
                                     right = dpi(10),

@@ -46,12 +46,13 @@ notifbox.create = function(icon, title, message, width)
                     nil,
                     {
                         {
-                            font = "JetBrains Mono Bold 10",
+                            font = "Comic Mono 10",
+
                             markup = title,
                             widget = wibox.widget.textbox
                         },
                         {
-                            font = "JetBrains Mono Regular 8",
+                            font = "Comic Mono 8",
                             markup = message,
                             widget = wibox.widget.textbox
                         },
@@ -67,7 +68,7 @@ notifbox.create = function(icon, title, message, width)
             {
                 {
                     {
-                        font = "JetBrains Mono Regular 8",
+                        font = "Comic Mono 8",
                         markup = time,
                         widget = wibox.widget.textbox
                     },

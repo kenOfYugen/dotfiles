@@ -32,19 +32,17 @@ box_image:set_image(gears.filesystem.get_configuration_dir() .. "images/me.png")
 -- Text lines
 ------------------------------------------------------------
 local user = wibox.widget {
-    markup = "<span foreground='" .. beautiful.xcolor6 ..
-        "'><b>JavaCafe01</b></span>",
+    markup = "<span foreground='" .. beautiful.xcolor6 .. "'>JavaCafe01</span>",
     widget = wibox.widget.textbox
 }
 local name = wibox.widget {
-    markup = "<span foreground='" .. beautiful.xcolor4 ..
-        "'><b>Gokul Swami</b></span>",
+    markup = "<span foreground='" .. beautiful.xcolor4 .. "'>Gokul Swami</span>",
     widget = wibox.widget.textbox
 }
 
 user:set_font(beautiful.font)
 user:set_valign("top")
-name:set_font("JetBrains Mono 14")
+name:set_font("Comic Mono 14")
 name:set_valign("top")
 
 local text_area = wibox.layout.fixed.vertical()

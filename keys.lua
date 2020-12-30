@@ -85,7 +85,7 @@ globalkeys = gears.table.join( -- Focus client by direction (arrow keys)
                   {description = "show rofi ", group = "launcher"}),
                  awful.key({modkey}, "e", function()
         awful.spawn(gears.filesystem.get_configuration_dir() ..
-                        "scripts/rofi-emoji.sh")
+                        "scripts/rofi-emoji")
     end, {description = "show rofi emoji", group = "launcher"}),
 
     -- Volume control

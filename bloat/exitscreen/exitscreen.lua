@@ -16,22 +16,24 @@ local reboot_text_icon = ""
 local suspend_text_icon = ""
 local exit_text_icon = ""
 local lock_text_icon = ""
-local exitscreen_bg = beautiful.xbackground .. "95"
+local exitscreen_bg = beautiful.xbackground .. "80"
 
 local button_bg = beautiful.xcolor0
 local button_size = dpi(120)
+
+local lock_screen = require("bloat.lockscreen")
+lock_screen.init()
 
 -- Commands
 local poweroff_command =
     function() awful.spawn.with_shell("systemctl poweroff") end
 local reboot_command = function() awful.spawn.with_shell("systemctl reboot") end
-local suspend_command =
-    function() awful.spawn.with_shell("systemctl hibernate") end
-local exit_command = function() awesome.quit() end
-local lock_command = function()
-    awful.spawn.with_shell(gears.filesystem.get_configuration_dir() ..
-                               "scripts/lock")
+local suspend_command = function()
+    lock_screen_show()
+    awful.spawn.with_shell("systemctl hibernate")
 end
+local exit_command = function() awesome.quit() end
+local lock_command = function() lock_screen_show() end
 
 -- Helper function that generates the clickable buttons
 local create_button = function(symbol, hover_color, text, command)
@@ -89,7 +91,7 @@ local lock = create_button(lock_text_icon, beautiful.xcolor5, "Lock",
                            lock_command)
 
 -- Create the exit screen wibox
-exit_screen = wibox({visible = false, ontop = true})
+exit_screen = wibox({visible = false, ontop = true, type = "splash"})
 awful.placement.maximize(exit_screen)
 
 exit_screen.bg = beautiful.exit_screen_bg or exitscreen_bg or "#111111"

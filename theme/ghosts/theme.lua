@@ -52,7 +52,7 @@ theme.xcolor15 = xrdb.color15 or "#eaeaea"
 
 -- Fonts
 
-theme.font = "JetBrains Mono 9"
+theme.font = "Comic Mono 9"
 theme.icon_font = "FiraCode Nerd Font Mono 18"
 theme.font_taglist = "FiraCode Nerd Font Mono 13"
 theme.max_font = "FiraCode Nerd Font Mono 10"
@@ -105,7 +105,7 @@ theme.taglist_fg_empty = theme.xcolor8
 theme.taglist_bg_volatile = transparent
 theme.taglist_fg_volatile = theme.xcolor11
 theme.taglist_disable_icon = true
-theme.taglist_shape_focus = helpers.rrect(theme.border_radius)
+theme.taglist_shape_focus = helpers.rrect(theme.border_radius - 3)
 
 -- Tasklist
 
