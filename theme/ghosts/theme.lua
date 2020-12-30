@@ -52,7 +52,7 @@ theme.xcolor15 = xrdb.color15 or "#eaeaea"
 
 -- Fonts
 
-theme.font = "Comic Mono 9"
+theme.font = "Comic Sans MS 9"
 theme.icon_font = "FiraCode Nerd Font Mono 18"
 theme.font_taglist = "FiraCode Nerd Font Mono 13"
 theme.max_font = "FiraCode Nerd Font Mono 10"

@@ -42,7 +42,7 @@ local name = wibox.widget {
 
 user:set_font(beautiful.font)
 user:set_valign("top")
-name:set_font("Comic Mono 14")
+name:set_font("Comic Sans MS 14")
 name:set_valign("top")
 
 local text_area = wibox.layout.fixed.vertical()

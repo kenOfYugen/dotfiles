@@ -23,7 +23,7 @@ local empty_notifbox = wibox.widget {
         },
         {
             markup = 'You have no notifs!',
-            font = 'Comic Mono 10',
+            font = 'Comic Sans MS 10',
             align = 'center',
             valign = 'center',
             widget = wibox.widget.textbox

@@ -61,7 +61,7 @@ end
 
 -- Items
 local day_of_the_week = wibox.widget {
-    font = "Comic Mono 80",
+    font = "Comic Sans MS 80",
     forced_width = dpi(1000),
     align = "center",
     valign = "center",
@@ -70,7 +70,7 @@ local day_of_the_week = wibox.widget {
 }
 
 local month = wibox.widget {
-    font = "Comic Mono 100",
+    font = "Comic Sans MS 100",
     align = "center",
     valign = "center",
     widget = wibox.widget.textclock("%B %d")

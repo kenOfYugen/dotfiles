@@ -52,7 +52,7 @@ local function format_progress_bar(bar, markup)
         markup = markup,
         align = 'center',
         valign = 'center',
-        font = 'Comic Mono 12',
+        font = 'Comic Sans MS 12',
         widget = wibox.widget.textbox
     }
     text.forced_height = dpi(36)
@@ -144,7 +144,7 @@ fancy_time_widget:connect_signal("widget::redraw_needed", function()
 end)
 fancy_time_widget.align = "center"
 fancy_time_widget.valign = "center"
-fancy_time_widget.font = "Comic Mono 55"
+fancy_time_widget.font = "Comic Sans MS 55"
 
 local fancy_time = {fancy_time_widget, layout = wibox.layout.fixed.vertical}
 
@@ -167,7 +167,7 @@ fancy_date_widget:connect_signal("widget::redraw_needed", function()
 end)
 fancy_date_widget.align = "center"
 fancy_date_widget.valign = "center"
-fancy_date_widget.font = "Comic Mono 12"
+fancy_date_widget.font = "Comic Sans MS 12"
 
 local fancy_date = {fancy_date_widget, layout = wibox.layout.fixed.vertical}
 
@@ -280,7 +280,7 @@ local sys_box = create_boxed_widget(sys, 400, 225, beautiful.xcolor0)
 
 local time = wibox.widget {
     {fancy_time, fancy_date, layout = wibox.layout.align.vertical},
-    top = dpi(10),
+    top = dpi(0),
     left = dpi(20),
     right = dpi(20),
     bottom = dpi(10),
