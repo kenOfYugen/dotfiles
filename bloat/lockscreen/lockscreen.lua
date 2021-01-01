@@ -51,7 +51,7 @@ awful.screen.connect_for_each_screen(function(s)
     else
         s.mylockscreen = helpers.screen_mask(s, beautiful.lock_screen_bg or
                                                  beautiful.exit_screen_bg or
-                                                 x.background)
+                                                 beautiful.xbackground)
     end
 end)
 
