@@ -3,7 +3,7 @@ NOTICE: My configuration for AwesomeWM only works on the latest git master branc
 ## Setup
 This repository has submodules, so make sure you clone it correctly:
 ```bash
-git clone --recurse-submodules https://github.com/JavaCafe01/awesome-config.git/awesome-config.git ~/.config/awesome
+git clone --recurse-submodules https://github.com/JavaCafe01/awesome-config.git ~/.config/awesome
 ```
 ## Modules
 ### :star: [bling](https://github.com/Nooo37/bling) :star:
