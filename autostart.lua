@@ -23,6 +23,8 @@ run_once([[
     ps aux | grep "mpc idleloop player" | grep -v grep | awk '{print $2}' | xargs kill
     ]])
 
+run_once("~/.screenlayout/layout.sh")
+
 -- Bluetooth
 run_once("blueman-applet")
 

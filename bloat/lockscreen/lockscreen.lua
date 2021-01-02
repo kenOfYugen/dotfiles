@@ -49,9 +49,10 @@ awful.screen.connect_for_each_screen(function(s)
     if s == screen.primary then
         s.mylockscreen = lock_screen_box
     else
-        s.mylockscreen = helpers.screen_mask(s, beautiful.lock_screen_bg or
+        s.mylockscreen = helpers.screen_mask(s,
+                                             beautiful.lock_screen_bg or
                                                  beautiful.exit_screen_bg or
-                                                 beautiful.xbackground)
+                                                 beautiful.xbackground .. "80")
     end
 end)
 

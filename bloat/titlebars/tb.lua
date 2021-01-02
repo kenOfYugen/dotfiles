@@ -31,6 +31,23 @@ client.connect_signal("property::floating", function(c)
             c.border_width = dpi(beautiful.border_width)
         end
     end
+
+    if c.type == "dialog" then
+        awful.titlebar.hide(c, "top")
+        awful.titlebar.hide(c, "bottom")
+        awful.titlebar.hide(c, "right")
+        awful.titlebar.hide(c, "left")
+        c.border_width = dpi(0)
+    end
+
+    if c.instance == "Toolkit" then
+        awful.titlebar.hide(c, "top")
+        awful.titlebar.hide(c, "bottom")
+        awful.titlebar.hide(c, "right")
+        awful.titlebar.hide(c, "left")
+        c.border_width = dpi(beautiful.border_width)
+    end
+
 end)
 
 client.connect_signal("manage", function(c)
@@ -49,6 +66,23 @@ client.connect_signal("manage", function(c)
             c.border_width = dpi(beautiful.border_width)
         end
     end
+
+    if c.type == "dialog" then
+        awful.titlebar.hide(c, "top")
+        awful.titlebar.hide(c, "bottom")
+        awful.titlebar.hide(c, "right")
+        awful.titlebar.hide(c, "left")
+        c.border_width = dpi(0)
+    end
+
+    if c.instance == "Toolkit" then
+        awful.titlebar.hide(c, "top")
+        awful.titlebar.hide(c, "bottom")
+        awful.titlebar.hide(c, "right")
+        awful.titlebar.hide(c, "left")
+        c.border_width = dpi(beautiful.border_width)
+    end
+
 end)
 
 tag.connect_signal("property::layout", function(t)
@@ -70,6 +104,23 @@ tag.connect_signal("property::layout", function(t)
             end
         end
     end
+
+    if c.type == "dialog" then
+        awful.titlebar.hide(c, "top")
+        awful.titlebar.hide(c, "bottom")
+        awful.titlebar.hide(c, "right")
+        awful.titlebar.hide(c, "left")
+        c.border_width = dpi(0)
+    end
+
+    if c.instance == "Toolkit" then
+        awful.titlebar.hide(c, "top")
+        awful.titlebar.hide(c, "bottom")
+        awful.titlebar.hide(c, "right")
+        awful.titlebar.hide(c, "left")
+        c.border_width = dpi(beautiful.border_width)
+    end
+
 end)
 -- }}}
 

@@ -26,7 +26,7 @@ local popup = popupLib.create(awful.screen.focused().geometry.width - width,
                               beautiful.wibar_height, nil, width, popupWidget,
                               dpi(25), false, false, false, true)
 
-popup:set_xproperty("WM_NAME", "notif-center")
+popup:set_xproperty("WM_NAME", "panel")
 
 return popup
 
