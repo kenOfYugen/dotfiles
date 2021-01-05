@@ -9,12 +9,12 @@ local active_color = {
     type = 'linear',
     from = {0, 0},
     to = {200, 50}, -- replace with w,h later
-    stops = {{0, beautiful.xcolor4}, {0.75, beautiful.xcolor12}}
+    stops = {{0, beautiful.xcolor1}, {0.75, beautiful.xcolor9}}
 }
 
 local background_color = beautiful.xbackground
 
-local cpu_bar = wibox.widget {
+local temp_bar = wibox.widget {
     max_value = 100,
     value = 50,
     forced_height = dpi(10),
@@ -29,11 +29,6 @@ local cpu_bar = wibox.widget {
     widget = wibox.widget.progressbar
 }
 
-awesome.connect_signal("ears::cpu", function(value)
-    -- Use this if you want to display usage percentage
-    cpu_bar.value = value
-    -- Use this if you want to display idle percentage
-    -- cpu_bar.value = tonumber(100 - value)
-end)
+awesome.connect_signal("ears::temp", function(temp) temp_bar.value = temp end)
 
-return cpu_bar
+return temp_bar

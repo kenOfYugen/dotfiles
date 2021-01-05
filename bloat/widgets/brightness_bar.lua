@@ -8,7 +8,7 @@ local active_color_1 = {
     type = 'linear',
     from = {0, 0},
     to = {200, 50}, -- replace with w,h later
-    stops = {{0, beautiful.xcolor12}, {0.75, beautiful.xcolor4}}
+    stops = {{0, beautiful.xcolor5}, {0.75, beautiful.xcolor13}}
 }
 local background_color_1 = beautiful.xbackground
 

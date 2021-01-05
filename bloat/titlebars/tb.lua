@@ -103,22 +103,22 @@ tag.connect_signal("property::layout", function(t)
                 c.border_width = dpi(beautiful.border_width)
             end
         end
-    end
+        if c.type == "dialog" then
+            awful.titlebar.hide(c, "top")
+            awful.titlebar.hide(c, "bottom")
+            awful.titlebar.hide(c, "right")
+            awful.titlebar.hide(c, "left")
+            c.border_width = dpi(0)
+        end
 
-    if c.type == "dialog" then
-        awful.titlebar.hide(c, "top")
-        awful.titlebar.hide(c, "bottom")
-        awful.titlebar.hide(c, "right")
-        awful.titlebar.hide(c, "left")
-        c.border_width = dpi(0)
-    end
+        if c.instance == "Toolkit" then
+            awful.titlebar.hide(c, "top")
+            awful.titlebar.hide(c, "bottom")
+            awful.titlebar.hide(c, "right")
+            awful.titlebar.hide(c, "left")
+            c.border_width = dpi(beautiful.border_width)
+        end
 
-    if c.instance == "Toolkit" then
-        awful.titlebar.hide(c, "top")
-        awful.titlebar.hide(c, "bottom")
-        awful.titlebar.hide(c, "right")
-        awful.titlebar.hide(c, "left")
-        c.border_width = dpi(beautiful.border_width)
     end
 
 end)

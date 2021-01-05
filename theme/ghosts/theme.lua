@@ -51,8 +51,8 @@ theme.xcolor14 = xrdb.color14 or "#c7e5d6"
 theme.xcolor15 = xrdb.color15 or "#eaeaea"
 
 -- Fonts
-
-theme.font = "Comic Sans MS 9"
+theme.font_name = "Jetbrains Mono "
+theme.font = theme.font_name .. "9"
 theme.icon_font = "FiraCode Nerd Font Mono 18"
 theme.font_taglist = "FiraCode Nerd Font Mono 13"
 theme.max_font = "FiraCode Nerd Font Mono 10"
@@ -97,7 +97,7 @@ theme.taglist_bg = theme.wibar_bg
 theme.taglist_bg_focus = theme.xxolor8
 theme.taglist_fg_focus = theme.xcolor4
 theme.taglist_bg_urgent = theme.wibar_bg
-theme.taglist_fg_urgent = theme.xcolor3
+theme.taglist_fg_urgent = theme.xcolor6
 theme.taglist_bg_occupied = theme.wibar_bg
 theme.taglist_fg_occupied = theme.xcolor6
 theme.taglist_bg_empty = theme.wibar_bg
@@ -106,6 +106,7 @@ theme.taglist_bg_volatile = transparent
 theme.taglist_fg_volatile = theme.xcolor11
 theme.taglist_disable_icon = true
 theme.taglist_shape_focus = helpers.rrect(theme.border_radius - 3)
+theme.taglist_shape_urgent = helpers.rrect(theme.border_radius - 3)
 
 -- Tasklist
 
@@ -238,7 +239,7 @@ theme.collision_screen_fg_focus = theme.xcolor4
 
 theme.mstab_bar_height = dpi(40)
 theme.mstab_bar_padding = dpi(0)
-theme.mstab_tabbar_orientation = "top"
+theme.mstab_tabbar_orientation = "bottom"
 theme.mstab_border_radius = dpi(6)
 theme.tabbar_style = "modern"
 theme.tabbar_bg_focus = theme.xbackground
@@ -246,5 +247,9 @@ theme.tabbar_bg_normal = theme.xcolor0
 theme.mstab_bar_ontop = true
 
 theme.notification_spacing = 20
+
+-- Weather
+
+theme.weather_city = "San_Diego"
 
 return theme

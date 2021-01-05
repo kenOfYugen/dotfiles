@@ -52,7 +52,7 @@ local function format_progress_bar(bar, markup)
         markup = markup,
         align = 'center',
         valign = 'center',
-        font = 'Comic Sans MS 12',
+        font = beautiful.font_name .. '12',
         widget = wibox.widget.textbox
     }
     text.forced_height = dpi(36)
@@ -80,7 +80,7 @@ end
 
 local volume_bar = require("bloat.widgets.volume_bar")
 local volume = format_progress_bar(volume_bar, "<span foreground='" ..
-                                       beautiful.xcolor10 ..
+                                       beautiful.xcolor6 ..
                                        "'><b>VOL</b></span>")
 
 apps_volume = function()
@@ -100,7 +100,7 @@ volume:buttons(gears.table.join( -- Left click - Mute / Unmute
 local brightness_icon = wibox.widget.imagebox(icons.brightness)
 local brightness_bar = require("bloat.widgets.brightness_bar")
 local brightness = format_progress_bar(brightness_bar, "<span foreground='" ..
-                                           beautiful.xcolor12 ..
+                                           beautiful.xcolor5 ..
                                            "'><b>SUN</b></span>")
 
 -- local brightness = require("bloat.widgets.brightness_arc")
@@ -114,7 +114,23 @@ local brightness = format_progress_bar(brightness_bar, "<span foreground='" ..
 local ram_icon = wibox.widget.imagebox(icons.ram)
 local ram_bar = require("bloat.widgets.ram_bar")
 local ram = format_progress_bar(ram_bar, "<span foreground='" ..
-                                    beautiful.xcolor11 .. "'><b>RAM</b></span>")
+                                    beautiful.xcolor3 .. "'><b>RAM</b></span>")
+
+--- }}}
+
+--- {{{ Disk Widget
+
+local disk_bar = require("bloat.widgets.disk_bar")
+local disk = format_progress_bar(disk_bar, "<span foreground='" ..
+                                     beautiful.xcolor2 .. "'><b>DIS</b></span>")
+
+--- }}}
+
+--- {{{ Temp Widget
+
+local temp_bar = require("bloat.widgets.temp_bar")
+local temp = format_progress_bar(temp_bar, "<span foreground='" ..
+                                     beautiful.xcolor1 .. "'><b>TEM</b></span>")
 
 --- }}}
 
@@ -125,7 +141,7 @@ local ram = format_progress_bar(ram_bar, "<span foreground='" ..
 local cpu_icon = wibox.widget.imagebox(icons.cpu)
 local cpu_bar = require("bloat.widgets.cpu_bar")
 local cpu = format_progress_bar(cpu_bar, "<span foreground='" ..
-                                    beautiful.xcolor13 .. "'><b>CPU</b></span>")
+                                    beautiful.xcolor4 .. "'><b>CPU</b></span>")
 
 --- }}}
 
@@ -144,7 +160,7 @@ fancy_time_widget:connect_signal("widget::redraw_needed", function()
 end)
 fancy_time_widget.align = "center"
 fancy_time_widget.valign = "center"
-fancy_time_widget.font = "Comic Sans MS 55"
+fancy_time_widget.font = beautiful.font_name .. "55"
 
 local fancy_time = {fancy_time_widget, layout = wibox.layout.fixed.vertical}
 
@@ -167,7 +183,7 @@ fancy_date_widget:connect_signal("widget::redraw_needed", function()
 end)
 fancy_date_widget.align = "center"
 fancy_date_widget.valign = "center"
-fancy_date_widget.font = "Comic Sans MS 12"
+fancy_date_widget.font = beautiful.font_name .. "12"
 
 local fancy_date = {fancy_date_widget, layout = wibox.layout.fixed.vertical}
 
@@ -196,31 +212,19 @@ local mpd_area = {
 local spot = require("bloat.widgets.spot")
 local spot_box = create_boxed_widget(spot, 400, nil, beautiful.xcolor0)
 
--- }}}
-
---[[
-local nord = require("bloat.widgets.nord")
-local nord_box = create_boxed_widget(nord, 400, 135, beautiful.xcolor0)
-local nord_area = {
-    nil,
-    {
-        nord_box,
-        left = dpi(5),
-        right = dpi(5),
-        top = dpi(0),
-        bottom = dpi(0),
-        layout = wibox.container.margin
-    },
-    nil,
-    layout = wibox.layout.align.vertical
-}
--]]
 -- {{{ Info Widget
 
 local info = require("bloat.widgets.info")
 local info_box = create_boxed_widget(info, 400, 125, beautiful.xbackground)
 
 -- }}}
+
+-- {{ Weather
+
+local weather = require("bloat.widgets.weather")
+local weather_box = create_boxed_widget(weather, 400, 125, beautiful.xcolor0)
+
+-- }}
 
 local function create_launcher(app_name, app_icon, color)
 
@@ -273,10 +277,13 @@ local sys = wibox.widget {
     volume,
     brightness,
     cpu,
-    ram,
     layout = wibox.layout.flex.vertical
 }
-local sys_box = create_boxed_widget(sys, 400, 225, beautiful.xcolor0)
+
+local sys2 = wibox.widget {ram, disk, temp, layout = wibox.layout.flex.vertical}
+
+local sys_box = create_boxed_widget(sys, 400, 200, beautiful.xcolor0)
+local sys_box2 = create_boxed_widget(sys2, 400, 200, beautiful.xcolor0)
 
 local time = wibox.widget {
     {fancy_time, fancy_date, layout = wibox.layout.align.vertical},
@@ -290,9 +297,8 @@ local time = wibox.widget {
 local time_box = create_boxed_widget(time, 400, 159, beautiful.xcolor0)
 
 local panelWidget = wibox.widget {
-    info,
-    time_box,
-    {sys_box, app_launcher_box, spot_box, layout = wibox.layout.align.vertical},
+    {info, time_box, weather_box, layout = wibox.layout.align.vertical},
+    {sys_box, sys_box2, spot_box, layout = wibox.layout.align.vertical},
     layout = wibox.layout.align.vertical
 }
 
@@ -301,7 +307,7 @@ local margin = 10
 
 local panelPop = popupLib.create(0, beautiful.wibar_height -
                                      beautiful.widget_border_width + margin * 2 +
-                                     41, nil, width, panelWidget, dpi(25),
+                                     66, nil, width, panelWidget, dpi(25),
                                  false, true, false, false)
 
 panelPop:set_xproperty("WM_NAME", "panel")

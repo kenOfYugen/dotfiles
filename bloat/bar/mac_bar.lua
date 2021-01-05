@@ -92,8 +92,8 @@ end)
 
 -- Battery Bar Widget ---------------------------------------------------------
 
-local battery_bar = require("bloat.widgets.battery_bar")
-local battery = format_progress_bar(battery_bar)
+-- local battery_bar = require("bloat.widgets.battery_bar")
+-- local battery = format_progress_bar(battery_bar)
 
 -- Systray Widget -------------------------------------------------------------
 
@@ -104,7 +104,6 @@ local mysystray_container = {
     mysystray,
     left = dpi(8),
     right = dpi(8),
-    screen = 1,
     widget = wibox.container.margin
 }
 
@@ -258,7 +257,7 @@ awful.screen.connect_for_each_screen(function(s)
             widget = wibox.container.margin
         },
         {
-            {
+            --[[ {
                 {
                     {
                         battery,
@@ -277,7 +276,7 @@ awful.screen.connect_for_each_screen(function(s)
                 right = 5,
                 left = 5,
                 widget = wibox.container.margin
-            },
+            },]] --
             nil,
             nil,
             {

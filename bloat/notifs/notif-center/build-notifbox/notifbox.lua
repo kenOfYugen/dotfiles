@@ -46,12 +46,12 @@ notifbox.create = function(icon, title, message, width)
                     nil,
                     {
                         {
-                            font = "Comic Sans MS 10",
+                            font = beautiful.font_name .. "10",
                             markup = title,
                             widget = wibox.widget.textbox
                         },
                         {
-                            font = "Comic Sans MS 8",
+                            font = beautiful.font_name .. "8",
                             markup = message,
                             widget = wibox.widget.textbox
                         },
@@ -67,7 +67,7 @@ notifbox.create = function(icon, title, message, width)
             {
                 {
                     {
-                        font = "Comic Sans MS 8",
+                        font = beautiful.font_name .. "8",
                         markup = time,
                         widget = wibox.widget.textbox
                     },

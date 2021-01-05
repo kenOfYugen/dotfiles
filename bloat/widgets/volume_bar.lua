@@ -9,7 +9,7 @@ local active_color = {
     type = 'linear',
     from = {0, 0},
     to = {200, 50}, -- replace with w,h later
-    stops = {{0, beautiful.xcolor10}, {0.75, beautiful.xcolor2}}
+    stops = {{0, beautiful.xcolor6}, {0.75, beautiful.xcolor14}}
 }
 
 local muted_color = active_color

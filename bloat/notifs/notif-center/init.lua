@@ -4,7 +4,7 @@ local dpi = beautiful.xresources.apply_dpi
 
 local notif_header = wibox.widget {
     markup = 'Notification Center',
-    font = "Comic Sans MS 12",
+    font = beautiful.font_name .. "12",
     align = 'center',
     valign = 'center',
     widget = wibox.widget.textbox
