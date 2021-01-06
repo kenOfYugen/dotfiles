@@ -17,8 +17,8 @@ local systray_margin = (beautiful.wibar_height - beautiful.systray_icon_size) /
 -- Create horizontal rounded bars
 local function format_progress_bar(bar)
     bar.forced_width = dpi(100)
-    bar.shape = gears.shape.rounded_bar
-    bar.bar_shape = gears.shape.rounded_bar
+    bar.shape = helpers.rrect(2)
+    bar.bar_shape = helpers.rrect(2)
     bar.background_color = beautiful.xcolor8
     return bar
 end
@@ -30,10 +30,11 @@ local calPop = require('bloat.pop.cal')
 local awesome_icon = wibox.widget {
     {
         {widget = wibox.widget.imagebox, image = icons.awesome, resize = true},
-        margins = 7,
+        margins = 5,
         widget = wibox.container.margin
     },
-    bg = beautiful.xcolor0,
+    bg = beautiful.xcolor8,
+    shape = helpers.rrect(2),
     widget = wibox.container.background
 }
 
@@ -61,7 +62,7 @@ end)))
 
 panelPop:connect_signal("mouse::leave", function()
     panelPop.visible = false
-    awesome_icon.bg = beautiful.xcolor0
+    awesome_icon.bg = beautiful.xcolor8
 end)
 
 -- Notifs Panel ---------------------------------------------------------------
@@ -70,10 +71,11 @@ local notifPop = require("bloat.pop.notif")
 local notif_icon = wibox.widget {
     {
         {widget = wibox.widget.imagebox, image = icons.notif, resize = true},
-        margins = dpi(4),
+        margins = dpi(1),
         widget = wibox.container.margin
     },
-    bg = beautiful.xcolor0,
+    bg = beautiful.xcolor8,
+    shape = helpers.rrect(2),
     widget = wibox.container.background
 }
 
@@ -87,13 +89,13 @@ end)))
 
 notifPop:connect_signal("mouse::leave", function()
     notifPop.visible = false
-    notif_icon.bg = beautiful.xcolor0
+    notif_icon.bg = beautiful.xcolor8
 end)
 
 -- Battery Bar Widget ---------------------------------------------------------
 
--- local battery_bar = require("bloat.widgets.battery_bar")
--- local battery = format_progress_bar(battery_bar)
+local battery_bar = require("bloat.widgets.battery_bar")
+local battery = format_progress_bar(battery_bar)
 
 -- Systray Widget -------------------------------------------------------------
 
@@ -172,15 +174,15 @@ awful.screen.connect_for_each_screen(function(s)
         screen = s,
         filter = awful.widget.taglist.filter.all,
         style = {shape = gears.shape.rectangle},
-        layout = {spacing = 0, layout = wibox.layout.fixed.horizontal},
+        layout = {spacing = 5, layout = wibox.layout.fixed.horizontal},
         widget_template = {
             {
                 {
                     {id = 'text_role', widget = wibox.widget.textbox},
                     layout = wibox.layout.fixed.horizontal
                 },
-                left = 11,
-                right = 11,
+                left = 6,
+                right = 6,
                 top = 1,
                 widget = wibox.container.margin
             },
@@ -197,11 +199,11 @@ awful.screen.connect_for_each_screen(function(s)
         buttons = tasklist_buttons,
         style = {
             bg = beautiful.xbackground,
-            shape = helpers.rrect(beautiful.border_radius - 3)
+            shape = helpers.rrect(2)
             -- shape_border_width = beautiful.widget_border_width,
             -- shape_border_color = beautiful.widget_border_color
         },
-        layout = {spacing = 10, layout = wibox.layout.fixed.horizontal},
+        layout = {spacing = 5, layout = wibox.layout.fixed.horizontal},
         widget_template = {
             {
                 {
@@ -228,16 +230,16 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             {
                 awesome_icon,
-                top = 0,
-                right = 5,
-                left = 10,
+                top = 5,
+                left = 5,
+                bottom = 5,
                 widget = wibox.container.margin
             },
             {
                 {
                     s.mytaglist,
                     bg = beautiful.xbackground,
-                    shape = helpers.rrect(beautiful.border_radius - 3),
+                    shape = helpers.rrect(2),
                     widget = wibox.container.background
                 },
                 top = 5,
@@ -257,18 +259,18 @@ awful.screen.connect_for_each_screen(function(s)
             widget = wibox.container.margin
         },
         {
-            --[[ {
+            {
                 {
                     {
                         battery,
                         top = 0,
                         bottom = 0,
-                        right = 13,
-                        left = 13,
+                        right = 0,
+                        left = 0,
                         widget = wibox.container.margin
                     },
-                    bg = beautiful.xbackground,
-                    shape = helpers.rrect(beautiful.border_radius - 3),
+                    bg = beautiful.xcolor8,
+                    shape = helpers.rrect(2),
                     widget = wibox.container.background
                 },
                 top = 5,
@@ -276,7 +278,7 @@ awful.screen.connect_for_each_screen(function(s)
                 right = 5,
                 left = 5,
                 widget = wibox.container.margin
-            },]] --
+            },
             nil,
             nil,
             {
@@ -286,13 +288,12 @@ awful.screen.connect_for_each_screen(function(s)
                         top = dpi(4),
                         layout = wibox.container.margin
                     },
-                    bg = beautiful.xbackground,
-                    shape = helpers.rrect(beautiful.border_radius - 3),
+                    bg = beautiful.bg_systray,
+                    shape = helpers.rrect(2),
                     widget = wibox.container.background
                 },
                 top = 5,
                 bottom = 5,
-                right = 5,
                 left = 5,
                 widget = wibox.container.margin
             },
@@ -300,30 +301,23 @@ awful.screen.connect_for_each_screen(function(s)
                 {
                     {
                         s.mylayoutbox,
-                        top = dpi(4),
-                        bottom = dpi(4),
-                        right = dpi(7),
-                        left = dpi(7),
+                        top = dpi(5),
+                        bottom = dpi(5),
+                        right = dpi(6),
+                        left = dpi(6),
                         widget = wibox.container.margin
                     },
-                    bg = beautiful.xbackground,
-                    shape = helpers.rrect(beautiful.border_radius - 3),
+                    bg = beautiful.xcolor8,
+                    shape = helpers.rrect(2),
                     widget = wibox.container.background
                 },
                 top = 5,
                 bottom = 5,
-                right = 5,
                 left = 5,
                 widget = wibox.container.margin
             },
 
-            {
-                notif_icon,
-                top = 0,
-                right = 10,
-                left = 5,
-                widget = wibox.container.margin
-            },
+            {notif_icon, margins = 5, widget = wibox.container.margin},
 
             layout = wibox.layout.fixed.horizontal
         }
