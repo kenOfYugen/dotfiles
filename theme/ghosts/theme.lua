@@ -181,7 +181,7 @@ theme = theme_assets.recolor_layout(theme, theme.xforeground)
 
 -- Gaps
 
-theme.useless_gap = dpi(10)
+theme.useless_gap = dpi(0)
 
 -- Exit Screen
 
