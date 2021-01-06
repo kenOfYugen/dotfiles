@@ -20,8 +20,8 @@ local background_color = beautiful.xcolor0
 local battery_bar = wibox.widget {
     max_value = 100,
     value = 50,
-    forced_height = dpi(10),
-    margins = {top = dpi(8), bottom = dpi(8)},
+    -- forced_height = dpi(10),
+    -- margins = {top = dpi(8), bottom = dpi(8)},
     forced_width = dpi(200),
     shape = helpers.rrect(beautiful.border_radius),
     bar_shape = helpers.rrect(beautiful.border_radius),
