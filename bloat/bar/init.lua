@@ -1,1 +1,1 @@
-require("bloat.bar.mac_bar")
+require("bloat.bar.round_bar")

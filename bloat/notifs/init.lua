@@ -18,7 +18,7 @@ naughty.config.defaults.title = "System Notification"
 -- naughty.config.defaults.margin = dpi(20)
 naughty.config.defaults.border_width = 0
 -- naughty.config.defaults.border_color = beautiful.widget_border_color
-naughty.config.defaults.position = "top_middle"
+naughty.config.defaults.position = "top_right"
 -- naughty.config.defaults.shape = helpers.rrect(beautiful.client_radius)
 
 naughty.config.padding = dpi(10)
@@ -95,7 +95,7 @@ naughty.connect_signal("request::display", function(n)
                                     bg = beautiful.xcolor8,
                                     widget = wibox.container.background
                                 },
-                                {
+                                --[[{
                                     {
                                         naughty.widget.title,
                                         naughty.widget.message,
@@ -106,12 +106,12 @@ naughty.connect_signal("request::display", function(n)
                                     left = dpi(10),
                                     right = dpi(10),
                                     widget = wibox.container.margin
-                                },
+                                }, --]]
                                 fill_space = true,
                                 spacing = 4,
                                 layout = wibox.layout.fixed.horizontal
                             },
-                            naughty.list.actions,
+                            -- naughty.list.actions,
                             spacing = 10,
                             layout = wibox.layout.align.vertical
                         },

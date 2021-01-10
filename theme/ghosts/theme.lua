@@ -105,21 +105,21 @@ theme.taglist_fg_empty = theme.xcolor8
 theme.taglist_bg_volatile = transparent
 theme.taglist_fg_volatile = theme.xcolor11
 theme.taglist_disable_icon = true
-theme.taglist_shape_focus = helpers.rrect(2)
+theme.taglist_shape_focus = helpers.rrect(theme.border_radius - 3)
 
 -- Tasklist
 
 theme.tasklist_font = theme.font
 theme.tasklist_plain_task_name = true
-theme.tasklist_bg_focus = theme.xcolor8
+theme.tasklist_bg_focus = theme.xbackground
 theme.tasklist_fg_focus = theme.xcolor6
-theme.tasklist_bg_minimize = theme.xcolor8 .. "70"
+theme.tasklist_bg_minimize = theme.xbackground .. "70"
 theme.tasklist_fg_minimize = theme.xforeground .. "70"
-theme.tasklist_bg_normal = theme.xcolor8
+theme.tasklist_bg_normal = theme.xbackground
 theme.tasklist_fg_normal = theme.xforeground
 theme.tasklist_disable_task_name = false
 theme.tasklist_disable_icon = true
-theme.tasklist_bg_urgent = theme.xcolor8
+theme.tasklist_bg_urgent = theme.xbackground
 theme.tasklist_fg_urgent = theme.xcolor1
 theme.tasklist_spacing = dpi(5)
 theme.tasklist_align = "center"
@@ -196,7 +196,7 @@ theme.wibar_bg = theme.xcolor0
 -- Systray
 
 theme.systray_icon_spacing = dpi(10)
-theme.bg_systray = theme.xcolor8
+theme.bg_systray = theme.xbackground
 theme.systray_icon_size = dpi(15)
 
 -- Collision
@@ -245,7 +245,7 @@ theme.tabbar_bg_focus = theme.xbackground
 theme.tabbar_bg_normal = theme.xcolor0
 theme.mstab_bar_ontop = true
 
-theme.notification_spacing = 20
+theme.notification_spacing = 10
 
 -- Weather
 
