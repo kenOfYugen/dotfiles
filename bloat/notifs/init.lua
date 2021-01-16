@@ -6,6 +6,8 @@ local awful = require("awful")
 local dpi = beautiful.xresources.apply_dpi
 local helpers = require("helpers")
 
+local apply_borders = require("utils.borders")
+
 require("bloat.notifs.brightness")
 require("bloat.notifs.volume")
 require("bloat.notifs.battery")
@@ -18,7 +20,7 @@ naughty.config.defaults.title = "System Notification"
 -- naughty.config.defaults.margin = dpi(20)
 naughty.config.defaults.border_width = 0
 -- naughty.config.defaults.border_color = beautiful.widget_border_color
-naughty.config.defaults.position = "top_right"
+naughty.config.defaults.position = "bottom_right"
 -- naughty.config.defaults.shape = helpers.rrect(beautiful.client_radius)
 
 naughty.config.padding = dpi(10)
@@ -62,75 +64,102 @@ naughty.connect_signal("request::display", function(n)
     local appicon = n.icon or n.app_icon
     if not appicon then appicon = beautiful.notification_icon end
 
+    local action_widget = {
+        {
+            {
+                id = 'text_role',
+                align = "center",
+                valign = "center",
+                font = beautiful.font_name .. "6",
+                widget = wibox.widget.textbox
+            },
+            left = dpi(6),
+            right = dpi(6),
+            widget = wibox.container.margin
+        },
+        bg = beautiful.xcolor0,
+        forced_height = dpi(19),
+        forced_width = dpi(20),
+        shape = helpers.rrect(dpi(4)),
+        widget = wibox.container.background
+    }
+
+    local actions = wibox.widget {
+        notification = n,
+        base_layout = wibox.widget {
+            spacing = dpi(8),
+            layout = wibox.layout.flex.horizontal
+        },
+        widget_template = action_widget,
+        style = {underline_normal = false, underline_selected = true},
+        widget = naughty.list.actions
+    }
+
     naughty.layout.box {
         notification = n,
         type = "notification",
         bg = beautiful.xbackground .. "00",
-        widget_template = {
+        widget_template = apply_borders({
             {
                 {
                     {
                         {
-                            {
-                                {
-                                    {
-                                        nil,
-                                        {
-                                            {
-                                                image = appicon,
-                                                forced_width = 35,
-                                                forced_height = 35,
-                                                resize = true,
-                                                clip_shape = gears.shape.circle,
-                                                widget = wibox.widget.imagebox
-                                            },
-                                            margins = 10,
-                                            widget = wibox.container.margin
-                                        },
-                                        nil,
-                                        expand = "outside",
-                                        -- margins = 10,
-                                        layout = wibox.layout.align.vertical
-                                    },
-                                    bg = beautiful.xcolor8,
-                                    widget = wibox.container.background
-                                },
-                                --[[{
-                                    {
-                                        naughty.widget.title,
-                                        naughty.widget.message,
-                                        layout = wibox.layout.align.vertical
-                                    },
-                                    top = dpi(11),
-                                    bottom = dpi(10),
-                                    left = dpi(10),
-                                    right = dpi(10),
-                                    widget = wibox.container.margin
-                                }, --]]
-                                fill_space = true,
-                                spacing = 4,
-                                layout = wibox.layout.fixed.horizontal
-                            },
-                            -- naughty.list.actions,
-                            spacing = 10,
-                            layout = wibox.layout.align.vertical
+                            image = appicon,
+                            forced_width = 35,
+                            forced_height = 35,
+                            resize = true,
+                            clip_shape = helpers.rrect(beautiful.border_radius),
+                            widget = wibox.widget.imagebox
                         },
-                        margins = 0,
+                        top = dpi(15),
+                        left = dpi(15),
+                        right = dpi(5),
+                        bottom = dpi(15),
                         widget = wibox.container.margin
                     },
-                    id = "background_role",
-                    widget = naughty.container.background
+                    forced_width = dpi(64),
+                    bg = beautiful.bg_normal,
+                    widget = wibox.container.background
                 },
-                strategy = "max",
-                width = beautiful.notification_max_width or
-                    beautiful.xresources.apply_dpi(500),
-                widget = wibox.container.constraint
+                {
+                    {
+                        nil,
+                        {
+                            {
+                                text = n.title,
+                                font = beautiful.font,
+                                align = "left",
+                                visible = title_visible,
+                                widget = wibox.widget.textbox
+                                -- widget = naughty.widget.title,
+                            },
+                            {
+                                text = n.message,
+                                align = "left",
+                                font = beautiful.font,
+                                -- wrap = "char",
+                                widget = wibox.widget.textbox
+                            },
+                            {
+                                actions,
+                                visible = n.actions and #n.actions > 0,
+                                layout = wibox.layout.fixed.vertical,
+                                forced_width = dpi(220)
+                            },
+                            spacing = dpi(3),
+                            layout = wibox.layout.fixed.vertical
+                        },
+                        nil,
+                        expand = "none",
+                        layout = wibox.layout.align.vertical
+                    },
+                    margins = dpi(8),
+                    widget = wibox.container.margin
+                },
+                layout = wibox.layout.fixed.horizontal
             },
-            bg = beautiful.xbackground,
-            border_color = beautiful.widget_border_color,
-            border_width = beautiful.border_width,
-            shape = helpers.rrect(beautiful.client_radius),
+            bg = beautiful.bg_normal,
             widget = wibox.container.background
-        }
+        }, 300, 75, beautiful.border_radius)
     }
 end)

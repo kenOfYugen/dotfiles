@@ -185,7 +185,9 @@ awful.rules.rules = {
     {
         rule_any = {type = {"dialog", "utility"}},
         properties = {titlebars_enabled = false}
-    }, {
+    },
+    {rule_any = {type = {"normal"}}, properties = {titlebars_enabled = true}},
+    {
         rule_any = {class = {"Steam"}},
         properties = {titlebars_enabled = false, ontop = true}
     }, -- Set Firefox to always map on the tag named "2" on screen 1.

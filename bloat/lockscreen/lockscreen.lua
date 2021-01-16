@@ -67,7 +67,8 @@ local day_of_the_week = wibox.widget {
     align = "center",
     valign = "center",
     widget = wibox.widget.textclock(helpers.colorize_text("%A",
-                                                          beautiful.xcolor3))
+                                                          beautiful.xcolor4 ..
+                                                              "70"))
 }
 
 local month = wibox.widget {
@@ -79,26 +80,32 @@ local month = wibox.widget {
 
 local function update_month()
     month.markup = helpers.colorize_text(month.text:upper(),
-                                         beautiful.xforeground .. "25")
+                                         beautiful.xcolor6 .. "70")
 end
 
 update_month()
 month:connect_signal("widget::redraw_needed", function() update_month() end)
-
--- Month + Day of the week stacked on top of each other
-local fancy_date = wibox.widget {
-    month,
-    day_of_the_week,
-    -- Set forced width in order to keep it from getting cut off
-    forced_width = dpi(1000),
-    layout = wibox.layout.stack
-}
 
 local time = {
     {font = "sans bold 16", widget = wibox.widget.textclock("%H")},
     {font = "sans 16", widget = wibox.widget.textclock("%M")},
     spacing = dpi(2),
     layout = wibox.layout.fixed.horizontal
+}
+
+local me_pic = wibox.widget {
+    nil,
+    {
+        image = beautiful.me,
+        resize = true,
+        -- forced_height = dpi(35),
+        -- forced_width = dpi(35),
+        clip_shape = gears.shape.circle,
+        widget = wibox.widget.imagebox
+    },
+    nil,
+    expand = "none",
+    layout = wibox.layout.align.horizontal
 }
 
 -- Lock animation
@@ -120,7 +127,10 @@ local lock_animation_arc = wibox.widget {
 
 local lock_animation_widget = {
     {lock_animation_arc, widget = lock_animation_widget_rotate},
-    lock_animation_icon,
+    {me_pic, margins = dpi(10), widget = wibox.container.margin},
+    forced_height = dpi(200),
+    forced_width = dpi(200),
+
     layout = wibox.layout.stack
 }
 
@@ -234,7 +244,12 @@ lock_screen_box:setup{
         {
             {
                 {
-                    {month, day_of_the_week, layout = wibox.layout.stack},
+                    {
+                        lock_animation_widget,
+                        month,
+                        day_of_the_week,
+                        layout = wibox.layout.align.vertical
+                    },
                     {
                         nil,
                         {
@@ -243,7 +258,7 @@ lock_screen_box:setup{
                                 forced_height = dpi(5),
                                 forced_width = dpi(5),
                                 shape = gears.shape.circle,
-                                bg = beautiful.xcolor3,
+                                bg = beautiful.xcolor6,
                                 widget = wibox.container.background
                             },
                             time,
@@ -252,7 +267,7 @@ lock_screen_box:setup{
                                 forced_height = dpi(5),
                                 forced_width = dpi(5),
                                 shape = gears.shape.circle,
-                                bg = beautiful.xcolor3,
+                                bg = beautiful.xcolor6,
                                 widget = wibox.container.background
                             },
                             spacing = dpi(4),
@@ -265,7 +280,6 @@ lock_screen_box:setup{
                     -- spacing = dpi(10),
                     layout = wibox.layout.fixed.vertical
                 },
-                lock_animation_widget,
                 spacing = dpi(40),
                 layout = wibox.layout.fixed.vertical
 

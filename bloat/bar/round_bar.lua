@@ -159,9 +159,9 @@ awful.screen.connect_for_each_screen(function(s)
     -- Remove wibar on full screen
     local function remove_wibar(c)
         if c.fullscreen or c.maximized then
-            s.mywibox.visible = false
+            c.screen.mywibox.visible = false
         else
-            s.mywibox.visible = true
+            c.screen.mywibox.visible = true
         end
     end
 

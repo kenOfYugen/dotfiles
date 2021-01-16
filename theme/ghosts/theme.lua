@@ -21,6 +21,8 @@ local theme = dofile(themes_path .. "default/theme.lua")
 
 local icon_path = gears.filesystem.get_configuration_dir() .. "icons/"
 
+theme.me = gears.filesystem.get_configuration_dir() .. "images/me.png"
+
 -- Icons for Notif Center
 
 theme.clear_icon = icon_path .. "notif-center/clear.png"
@@ -76,7 +78,7 @@ theme.button_close = theme.xcolor1
 
 -- Borders
 
-theme.border_width = dpi(2)
+theme.border_width = dpi(0)
 theme.border_normal = theme.xcolor0
 theme.border_focus = theme.xcolor0
 theme.border_radius = dpi(12)
@@ -127,6 +129,7 @@ theme.tasklist_align = "center"
 -- Titlebars
 
 theme.titlebar_size = dpi(40)
+theme.titlebar_height = dpi(40)
 theme.titlebar_bg_focus = theme.xbackground
 theme.titlebar_bg_normal = theme.xbackground
 theme.titlebar_fg_focus = theme.xbackground
@@ -180,7 +183,7 @@ theme = theme_assets.recolor_layout(theme, theme.xforeground)
 
 -- Gaps
 
-theme.useless_gap = dpi(0)
+theme.useless_gap = dpi(10)
 
 -- Exit Screen
 
