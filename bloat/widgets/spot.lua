@@ -124,13 +124,14 @@ local spot = wibox.widget {
                     {
                         step_function = wibox.container.scroll.step_functions
                             .waiting_nonlinear_back_and_forth,
-                        speed = 75,
+                        speed = 50,
                         {
                             title_widget,
                             left = 5,
                             right = 5,
                             widget = wibox.container.margin
                         },
+                        -- forced_width = dpi(100),
                         widget = wibox.container.scroll.horizontal
                     },
                     nil,

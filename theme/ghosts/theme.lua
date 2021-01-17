@@ -79,6 +79,7 @@ theme.button_close = theme.xcolor1
 -- Borders
 
 theme.border_width = dpi(0)
+theme.oof_border_width = dpi(1)
 theme.border_normal = theme.xcolor0
 theme.border_focus = theme.xcolor0
 theme.border_radius = dpi(12)
@@ -183,7 +184,7 @@ theme = theme_assets.recolor_layout(theme, theme.xforeground)
 
 -- Gaps
 
-theme.useless_gap = dpi(10)
+theme.useless_gap = dpi(15)
 
 -- Exit Screen
 
@@ -246,6 +247,7 @@ theme.mstab_border_radius = dpi(6)
 theme.tabbar_style = "modern"
 theme.tabbar_bg_focus = theme.xbackground
 theme.tabbar_bg_normal = theme.xcolor0
+theme.tabbar_orientation = "bottom"
 theme.mstab_bar_ontop = true
 
 theme.notification_spacing = 10

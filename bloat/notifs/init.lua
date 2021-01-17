@@ -47,9 +47,9 @@ naughty.config.presets.low = {
 }
 
 naughty.config.presets.critical = {
-    font = "JetBrains Mono Bold 10",
-    fg = "#ffffff",
-    bg = "#ff0000",
+    font = beautiful.font_name .. "10",
+    fg = beautiful.xcolor1,
+    bg = beautiful.bg_normal,
     timeout = 0
 }
 
@@ -59,7 +59,7 @@ naughty.config.presets.warn = naughty.config.presets.critical
 
 naughty.connect_signal("request::display", function(n)
 
-    n.timeout = 3
+    n.timeout = 6
 
     local appicon = n.icon or n.app_icon
     if not appicon then appicon = beautiful.notification_icon end
@@ -70,7 +70,7 @@ naughty.connect_signal("request::display", function(n)
                 id = 'text_role',
                 align = "center",
                 valign = "center",
-                font = beautiful.font_name .. "6",
+                font = beautiful.font_name .. "8",
                 widget = wibox.widget.textbox
             },
             left = dpi(6),
@@ -78,7 +78,7 @@ naughty.connect_signal("request::display", function(n)
             widget = wibox.container.margin
         },
         bg = beautiful.xcolor0,
-        forced_height = dpi(19),
+        forced_height = dpi(25),
         forced_width = dpi(20),
         shape = helpers.rrect(dpi(4)),
         widget = wibox.container.background
@@ -108,17 +108,17 @@ naughty.connect_signal("request::display", function(n)
                             forced_width = 35,
                             forced_height = 35,
                             resize = true,
-                            clip_shape = helpers.rrect(beautiful.border_radius),
+                            clip_shape = helpers.rrect(dpi(6)),
                             widget = wibox.widget.imagebox
                         },
-                        top = dpi(15),
-                        left = dpi(15),
-                        right = dpi(5),
-                        bottom = dpi(15),
+                        top = dpi(20),
+                        left = dpi(20),
+                        right = dpi(10),
+                        bottom = dpi(20),
                         widget = wibox.container.margin
                     },
-                    forced_width = dpi(64),
-                    bg = beautiful.bg_normal,
+                    forced_width = dpi(80),
+                    bg = beautiful.xcolor0,
                     widget = wibox.container.background
                 },
                 {
@@ -126,19 +126,34 @@ naughty.connect_signal("request::display", function(n)
                         nil,
                         {
                             {
-                                text = n.title,
-                                font = beautiful.font,
-                                align = "left",
-                                visible = title_visible,
-                                widget = wibox.widget.textbox
-                                -- widget = naughty.widget.title,
+                                step_function = wibox.container.scroll
+                                    .step_functions
+                                    .waiting_nonlinear_back_and_forth,
+                                speed = 50,
+                                {
+                                    text = n.title,
+                                    font = beautiful.font,
+                                    align = "left",
+                                    visible = title_visible,
+                                    widget = wibox.widget.textbox
+                                },
+                                forced_width = dpi(204),
+                                widget = wibox.container.scroll.horizontal
                             },
                             {
-                                text = n.message,
-                                align = "left",
-                                font = beautiful.font,
-                                -- wrap = "char",
-                                widget = wibox.widget.textbox
+                                step_function = wibox.container.scroll
+                                    .step_functions
+                                    .waiting_nonlinear_back_and_forth,
+                                speed = 50,
+                                {
+                                    text = n.message,
+                                    align = "left",
+                                    font = beautiful.font,
+                                    -- wrap = "char",
+                                    widget = wibox.widget.textbox
+                                },
+                                forced_width = dpi(204),
+                                widget = wibox.container.scroll.horizontal
                             },
                             {
                                 actions,
@@ -158,8 +173,8 @@ naughty.connect_signal("request::display", function(n)
                 },
                 layout = wibox.layout.fixed.horizontal
             },
-            bg = beautiful.bg_normal,
+            bg = beautiful.xcolor0,
             widget = wibox.container.background
-        }, 300, 75, beautiful.border_radius)
+        }, 300, 85, beautiful.border_radius)
     }
 end)

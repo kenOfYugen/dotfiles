@@ -14,7 +14,7 @@ local shapes = require("utils.shapes")
 local get_border_colors = require("utils.colors")
 
 local apply_borders = function(widget, width, height, radius)
-    local args = get_border_colors(beautiful.bg_normal)
+    local args = get_border_colors(beautiful.xcolor0)
 
     local top_edge = shapes.create_edge_top_middle {
         color = args.client_color,

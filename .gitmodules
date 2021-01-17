@@ -2,8 +2,3 @@
 	path = bling
     url = https://github.com/Nooo37/bling
     branch = master
-
-[submodule ".config/awesome/collision"]
-	path = collision
-    url = https://github.com/Elv13/collision
-    branch = master
