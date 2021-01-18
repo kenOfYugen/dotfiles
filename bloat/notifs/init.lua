@@ -108,12 +108,12 @@ naughty.connect_signal("request::display", function(n)
                             forced_width = 35,
                             forced_height = 35,
                             resize = true,
-                            clip_shape = helpers.rrect(dpi(6)),
+                            clip_shape = helpers.rrect(beautiful.border_radius),
                             widget = wibox.widget.imagebox
                         },
-                        top = dpi(20),
-                        left = dpi(20),
-                        right = dpi(10),
+                        top = dpi(15),
+                        left = dpi(15),
+                        right = dpi(15),
                         bottom = dpi(20),
                         widget = wibox.container.margin
                     },
