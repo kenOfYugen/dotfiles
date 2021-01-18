@@ -114,7 +114,7 @@ naughty.connect_signal("request::display", function(n)
                         top = dpi(15),
                         left = dpi(15),
                         right = dpi(15),
-                        bottom = dpi(20),
+                        bottom = dpi(15),
                         widget = wibox.container.margin
                     },
                     forced_width = dpi(80),
@@ -175,6 +175,6 @@ naughty.connect_signal("request::display", function(n)
             },
             bg = beautiful.xcolor0,
             widget = wibox.container.background
-        }, 300, 85, beautiful.border_radius)
+        }, 300, 80, beautiful.border_radius)
     }
 end)
