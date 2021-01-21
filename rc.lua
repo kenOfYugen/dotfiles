@@ -10,7 +10,6 @@ local dpi = require("beautiful.xresources").apply_dpi
 local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
-require("collision")()
 
 -- Custom imports
 local helpers = require("helpers")

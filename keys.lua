@@ -21,7 +21,7 @@ globalkeys = gears.table.join( -- Focus client by direction (arrow keys)
     }), awful.key({"Mod1"}, "d", function() bling.module.tabbed.pop() end, {
         description = "remove focused client from tabbing group",
         group = "Tabs"
-    }), --[[ awful.key({modkey}, "Down", function()
+    }), awful.key({modkey}, "Down", function()
         awful.client.focus.bydirection("down")
         bling.module.flash_focus.flashfocus(client.focus)
     end, {description = "focus down", group = "client"}),
@@ -36,9 +36,9 @@ globalkeys = gears.table.join( -- Focus client by direction (arrow keys)
                  awful.key({modkey}, "Right", function()
         awful.client.focus.bydirection("right")
         bling.module.flash_focus.flashfocus(client.focus)
-    end, {description = "focus right", group = "client"}), --]] awful.key(
-                     {modkey}, "F1", hotkeys_popup.show_help,
-                     {description = "show help", group = "awesome"}),
+    end, {description = "focus right", group = "client"}),
+                 awful.key({modkey}, "F1", hotkeys_popup.show_help,
+                           {description = "show help", group = "awesome"}),
                  awful.key({modkey}, "Escape", awful.tag.history.restore,
                            {description = "go back", group = "tag"}),
                  awful.key({modkey}, "j",
