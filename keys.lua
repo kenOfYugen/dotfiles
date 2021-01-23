@@ -95,7 +95,13 @@ globalkeys = gears.table.join( -- Focus client by direction (arrow keys)
                            function() awful.spawn("pamixer -d 3") end),
                  awful.key({}, "XF86AudioMute",
                            function() awful.spawn("pamixer -t") end),
-
+    --Media Control
+                 awful.key({},"XF86AudioPlay",
+                           function() awful.spawn("playerctl play-pause")end),
+                 awful.key({},"XF86AudioPrev",
+                           function() awful.spawn("playerctl previous")end),
+                 awful.key({},"XF86AudioNext",
+                           function() awful.spawn("playerctl next")end),
     -- Screen Shots/Vids
                  awful.key({}, "Print", function()
         awful.spawn.with_shell(gears.filesystem.get_configuration_dir() ..
