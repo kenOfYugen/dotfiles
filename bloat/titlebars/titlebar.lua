@@ -88,7 +88,7 @@ local get_titlebar = function(c)
 
     local right = {
         {min, floating, close, layout = wibox.layout.fixed.horizontal},
-        right = 0,
+        right = dpi(5),
         top = dpi(15),
         bottom = dpi(13),
         widget = wibox.container.margin

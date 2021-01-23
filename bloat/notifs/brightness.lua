@@ -25,6 +25,7 @@ local active_color_1 = {
 -- create the bright_adjust component
 local bright_adjust = wibox({
     screen = screen.primary,
+    type = "notification",
     x = screen.geometry.width / 2 - width / 2,
     y = screen.geometry.height / 2 - height / 2 + 300,
     width = width,

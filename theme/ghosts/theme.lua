@@ -108,7 +108,7 @@ theme.taglist_fg_empty = theme.xcolor8
 theme.taglist_bg_volatile = transparent
 theme.taglist_fg_volatile = theme.xcolor11
 theme.taglist_disable_icon = true
-theme.taglist_shape_focus = helpers.rrect(theme.border_radius - 3)
+theme.taglist_shape_focus = helpers.rrect(theme.border_radius)
 
 -- Tasklist
 
@@ -184,7 +184,7 @@ theme = theme_assets.recolor_layout(theme, theme.xforeground)
 
 -- Gaps
 
-theme.useless_gap = dpi(15)
+theme.useless_gap = dpi(10)
 
 -- Exit Screen
 
@@ -240,7 +240,7 @@ theme.collision_screen_fg_focus = theme.xcolor4
 
 -- Tabs
 
-theme.mstab_bar_height = dpi(40)
+theme.mstab_bar_height = dpi(60)
 theme.mstab_bar_padding = dpi(0)
 theme.mstab_tabbar_orientation = "bottom"
 theme.mstab_border_radius = dpi(6)

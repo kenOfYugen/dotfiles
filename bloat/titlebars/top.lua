@@ -1,68 +1,49 @@
 local wibox = require("wibox")
 local awful = require("awful")
 local beautiful = require("beautiful")
-
+local helpers = require("helpers")
 local get_titlebar = require("bloat.titlebars.titlebar")
-local shapes = require("utils.shapes")
 
 local titlebar
 
-local get_titlebar = function(c, height, corner_top_left_img, top_edge,
-                              corner_top_right_img)
-    titlebar = awful.titlebar(c, {size = height, bg = "transparent"})
-
-    titlebar:setup{
-        wibox.widget.imagebox(corner_top_left_img, false),
+local get_titlebar = function(c, height, color)
+    awful.titlebar(c, {size = height, bg = "transparent"}):setup{
+        nil,
         {
-            get_titlebar(c),
-            bgimage = top_edge,
+            {
+                {
+                    get_titlebar(c),
+                    bg = color,
+                    shape = helpers.prrect(beautiful.border_radius, true, true,
+                                           false, false),
+                    widget = wibox.container.background
+                },
+                top = beautiful.widget_border_width,
+                left = beautiful.widget_border_width,
+                right = beautiful.widget_border_width,
+                widget = wibox.container.margin
+            },
+            bg = beautiful.xcolor0,
+            shape = helpers.prrect(beautiful.border_radius + 2, true, true,
+                                   false, false),
             widget = wibox.container.background
         },
-        wibox.widget.imagebox(corner_top_right_img, false),
+        nil,
         layout = wibox.layout.align.horizontal
     }
 end
 
-local top = function(c, args)
+local top = function(c)
+    local color = beautiful.xbackground
+
+    if c.class == "firefox" then
+        color = beautiful.xcolor0
+    else
+        color = beautiful.xbackground
+    end
 
     local titlebar_height = beautiful.titlebar_height
-
-    -- The top left corner of the titlebar
-    local corner_top_left_img = shapes.create_corner_top_left {
-        background_source = args.background_fill_top,
-        color = args.client_color,
-        height = titlebar_height,
-        radius = beautiful.border_radius,
-        stroke_offset_inner = 1.5,
-        stroke_width_inner = 1,
-        stroke_offset_outer = 0.5,
-        stroke_width_outer = 1,
-        stroke_source_inner = shapes.gradient(args.stroke_color_inner_top,
-                                              args.stroke_color_inner_sides,
-                                              titlebar_height),
-        stroke_source_outer = shapes.gradient(args.stroke_color_outer_top,
-                                              args.stroke_color_outer_sides,
-                                              titlebar_height)
-    }
-    -- The top right corner of the titlebar
-    local corner_top_right_img = shapes.flip(corner_top_left_img, "horizontal")
-
-    -- The middle part of the titlebar
-    local top_edge = shapes.create_edge_top_middle {
-        background_source = args.background_fill_top,
-        color = args.client_color,
-        height = titlebar_height,
-        stroke_color_inner = args.stroke_color_inner_top,
-        stroke_color_outer = args.stroke_color_outer_top,
-        stroke_offset_inner = 1.25,
-        stroke_offset_outer = 0.5,
-        stroke_width_inner = 2,
-        stroke_width_outer = 1,
-        width = c.screen.geometry.width
-    }
-
-    get_titlebar(c, titlebar_height, corner_top_left_img, top_edge,
-                 corner_top_right_img)
+    get_titlebar(c, titlebar_height, color)
 end
 
 return top

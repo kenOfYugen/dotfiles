@@ -1,30 +1,12 @@
 local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
-local get_colors = require("utils.colors")
 
 local add_decorations = function(c)
-
-    local client_color = nil
-    if c.class == "firefox" then
-        client_color = beautiful.xcolor0
-    else
-        client_color = beautiful.xbackground
-    end
-
-    local args = get_colors(client_color)
-
-    require("bloat.titlebars.top")(c, args)
-
-    client_color = beautiful.xbackground
-    args = get_colors(client_color)
-
-    require("bloat.titlebars.left")(c, args)
-    require("bloat.titlebars.right")(c, args)
-    require("bloat.titlebars.bottom")(c, args)
-
-    -- Clean up
-    collectgarbage("collect")
+    require("bloat.titlebars.top")(c)
+    require("bloat.titlebars.left")(c)
+    require("bloat.titlebars.right")(c)
+    require("bloat.titlebars.bottom")(c)
 end
 
 local enable_tb = function(c)

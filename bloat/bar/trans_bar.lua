@@ -13,6 +13,8 @@ local icons = require("icons")
 local systray_margin = (beautiful.wibar_height - beautiful.systray_icon_size) /
                            2
 
+local radius = beautiful.border_radius - 3
+
 -- Helper function that changes the appearance of progress bars and their icons
 -- Create horizontal rounded bars
 local function format_progress_bar(bar)
@@ -31,15 +33,44 @@ end
 local panelPop = require('bloat.pop.panel')
 local calPop = require('bloat.pop.cal')
 local awesome_icon = wibox.widget {
-    {widget = wibox.widget.imagebox, image = icons.awesome, resize = true},
-    margins = 7,
-    layout = wibox.container.margin
+    {
+        {widget = wibox.widget.imagebox, image = icons.awesome, resize = true},
+        margins = 7,
+        layout = wibox.container.margin
+    },
+    shape = helpers.rrect(radius),
+    bg = beautiful.xbackground,
+    border_width = beautiful.widget_border_width,
+    border_color = beautiful.widget_border_color,
+    widget = wibox.container.background
 }
 
-awesome_icon:connect_signal("mouse::enter",
-                            function() panelPop.visible = true end)
+local sidebar_activator = wibox({
+    width = 1,
+    visible = true,
+    ontop = true,
+    opacity = 0,
+    below = true,
+    screen = screen.primary
+})
+sidebar_activator.height = dpi(1000)
+sidebar_activator:connect_signal("mouse::enter",
+                                 function() panelPop.visible = true end)
 
-panelPop:connect_signal("mouse::leave", function() panelPop.visible = false end)
+awful.placement.left(sidebar_activator)
+
+-- awesome_icon:connect_signal("mouse::enter",
+--                            function() panelPop.visible = true end)
+
+awesome_icon:buttons(gears.table.join(awful.button({}, 1, function()
+    panelPop.visible = true
+    awesome_icon.bg = beautiful.xcolor0
+end)))
+
+panelPop:connect_signal("mouse::leave", function()
+    panelPop.visible = false
+    awesome_icon.bg = beautiful.xbackground
+end)
 
 -- Notifs Panel ---------------------------------------------------------------
 
@@ -55,8 +86,8 @@ notifPop:connect_signal("mouse::leave", function() notifPop.visible = false end)
 
 -- Battery Bar Widget ---------------------------------------------------------
 
---local battery_bar = require("widgets.battery_bar")
---local battery = format_progress_bar(battery_bar)
+-- local battery_bar = require("widgets.battery_bar")
+-- local battery = format_progress_bar(battery_bar)
 
 -- Systray Widget -------------------------------------------------------------
 
@@ -165,7 +196,7 @@ awful.screen.connect_for_each_screen(function(s)
         filter = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons,
         style = {
-            shape = helpers.rrect(beautiful.border_radius),
+            shape = helpers.rrect(radius),
             shape_border_width = beautiful.widget_border_width,
             shape_border_color = beautiful.widget_border_color
         },
@@ -192,14 +223,8 @@ awful.screen.connect_for_each_screen(function(s)
         {
             layout = wibox.layout.fixed.horizontal,
             {
-                {
-                    awesome_icon,
-                    shape = helpers.rrect(beautiful.border_radius),
-                    bg = beautiful.xbackground,
-                    border_width = beautiful.widget_border_width,
-                    border_color = beautiful.widget_border_color,
-                    widget = wibox.container.background
-                },
+
+                awesome_icon,
                 top = 5,
                 right = 5,
                 left = 10,
@@ -208,7 +233,8 @@ awful.screen.connect_for_each_screen(function(s)
             {
                 {
                     s.mytaglist,
-                    shape = helpers.rrect(beautiful.border_radius),
+                    bg = beautiful.xbackground,
+                    shape = helpers.rrect(radius),
                     border_width = beautiful.widget_border_width,
                     border_color = beautiful.widget_border_color,
                     widget = wibox.container.background
@@ -257,7 +283,7 @@ awful.screen.connect_for_each_screen(function(s)
                         top = dpi(6),
                         layout = wibox.container.margin
                     },
-                    shape = helpers.rrect(beautiful.border_radius),
+                    shape = helpers.rrect(radius),
                     bg = beautiful.xbackground,
                     border_width = beautiful.widget_border_width,
                     border_color = beautiful.widget_border_color,
@@ -277,7 +303,7 @@ awful.screen.connect_for_each_screen(function(s)
                         margins = dpi(4),
                         widget = wibox.container.margin
                     },
-                    shape = helpers.rrect(beautiful.border_radius),
+                    shape = helpers.rrect(radius),
                     bg = beautiful.xbackground,
                     border_width = beautiful.widget_border_width,
                     border_color = beautiful.widget_border_color,
@@ -296,7 +322,7 @@ awful.screen.connect_for_each_screen(function(s)
                         margins = dpi(7),
                         widget = wibox.container.margin
                     },
-                    shape = helpers.rrect(beautiful.border_radius),
+                    shape = helpers.rrect(radius),
                     bg = beautiful.xbackground,
                     border_width = beautiful.widget_border_width,
                     border_color = beautiful.widget_border_color,

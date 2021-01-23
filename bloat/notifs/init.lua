@@ -6,8 +6,6 @@ local awful = require("awful")
 local dpi = beautiful.xresources.apply_dpi
 local helpers = require("helpers")
 
-local apply_borders = require("utils.borders")
-
 require("bloat.notifs.brightness")
 require("bloat.notifs.volume")
 require("bloat.notifs.battery")
@@ -191,7 +189,7 @@ naughty.connect_signal("request::display", function(n)
                 widget = wibox.container.margin
             },
             bg = beautiful.xcolor0,
-            shape = helpers.rrect(beautiful.border_radius + 1),
+            shape = helpers.rrect(beautiful.border_radius + 2),
             widget = wibox.container.background
         }
     }

@@ -15,7 +15,7 @@ local create_shortcut = function(c, icon, location)
                                    location .. "; xdotool key Return;")
     end)
 
-    shortcut.forced_width = dpi(40)
+    shortcut.forced_width = dpi(50)
     shortcut.forced_height = dpi(40)
 
     return shortcut
@@ -33,10 +33,14 @@ local get_widget = function(c)
                         create_shortcut(c, "", "/home/javacafe01"),
                         create_shortcut(c, "", "trash:///"),
                         {
-                            -- separator
-                            bg = beautiful.xcolor8,
-                            forced_height = dpi(1),
-                            widget = wibox.container.background
+                            {
+                                bg = beautiful.xcolor8,
+                                forced_height = dpi(1),
+                                widget = wibox.container.background
+                            },
+                            left = dpi(4),
+                            right = dpi(5),
+                            widget = wibox.container.margin
                         },
                         create_shortcut(c, "", "/home/javacafe01/Downloads"),
                         create_shortcut(c, "", "/home/javacafe01/Documents"),
@@ -54,7 +58,7 @@ local get_widget = function(c)
             shape = helpers.prrect(dpi(30), false, true, true, false),
             widget = wibox.container.background
         },
-        left = dpi(2),
+        left = dpi(0),
         widget = wibox.container.margin
     }
 end

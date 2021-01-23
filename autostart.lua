@@ -7,9 +7,9 @@ local function run_once(cmd)
     local findme = cmd
     local firstspace = cmd:find(' ')
     if firstspace then findme = cmd:sub(0, firstspace - 1) end
-    awful.spawn.with_shell(string.format(
-                               'pgrep -u $USER -x %s > /dev/null || (%s)',
-                               findme, cmd), false)
+    awful.spawn.easy_async_with_shell(string.format(
+                                          'pgrep -u $USER -x %s > /dev/null || (%s)',
+                                          findme, cmd))
 end
 
 -- Network Manager Applet
@@ -23,7 +23,7 @@ run_once([[
     ps aux | grep "mpc idleloop player" | grep -v grep | awk '{print $2}' | xargs kill
     ]])
 
--- run_once("~/.screenlayout/layout.sh")
+run_once("~/.screenlayout/layout.sh")
 
 -- Bluetooth
 run_once("blueman-applet")

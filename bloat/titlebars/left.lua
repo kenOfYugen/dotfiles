@@ -1,49 +1,39 @@
 local awful = require("awful")
 local wibox = require("wibox")
+local beautiful = require("beautiful")
+local helpers = require("helpers")
 
-local shapes = require("utils.shapes")
-
-local set_left_titlebar = function(c, left_border_img, client_color)
+local set_left_titlebar = function(c)
     awful.titlebar(c, {
         position = "left",
-        size = 2,
-        bg = client_color,
-        widget = wibox.container.background
-    }):setup{bgimage = left_border_img, widget = wibox.container.background}
+        size = beautiful.widget_border_width,
+        bg = beautiful.xcolor0
+    })
 end
 
 local set_thunar_left_titlebar = function(c, left_border_img)
     local custom_titlebar = require("bloat.titlebars.thunar")(c)
 
-    awful.titlebar(c, {
-        position = "left",
-        size = 70,
-        bg = transparent,
-        widget = wibox.container.background
-    }):setup{
-        custom_titlebar,
-        bgimage = left_border_img,
-        widget = wibox.container.background
+    awful.titlebar(c, {position = "left", size = 70, bg = transparent}):setup{
+        {
+            bg = beautiful.xcolor0,
+            forced_width = beautiful.widget_border_width,
+            widget = wibox.container.background
+        },
+        {
+            custom_titlebar,
+            bg = beautiful.xbackground,
+            widget = wibox.container.background
+        },
+        layout = wibox.layout.fixed.horizontal
     }
 end
 
-local left = function(c, args)
-    -- The left side border
-    local left_border_img = shapes.create_edge_left {
-        client_color = args.client_color,
-        height = c.screen.geometry.height,
-        stroke_offset_outer = 0.5,
-        stroke_width_outer = 1,
-        stroke_color_outer = args.stroke_color_outer_sides,
-        stroke_offset_inner = 1.5,
-        stroke_width_inner = 1.5,
-        inner_stroke_color = args.stroke_color_inner_sides
-    }
-
+local left = function(c)
     if c.class == "Thunar" and c.type == "normal" then
-        set_thunar_left_titlebar(c, left_border_img)
+        set_thunar_left_titlebar(c)
     else
-        set_left_titlebar(c, left_border_img, args.client_color)
+        set_left_titlebar(c)
     end
 end
 

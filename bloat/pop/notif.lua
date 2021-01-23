@@ -20,11 +20,11 @@ local popupWidget = wibox.widget {
 }
 
 local width = 400
-local margin = 10
+local margin = 5
 
 local popup = popupLib.create(awful.screen.focused().geometry.width - width,
-                              beautiful.wibar_height, nil, width, popupWidget,
-                              dpi(25), false, false, false, true)
+                              beautiful.wibar_height + margin, nil, width,
+                              popupWidget, dpi(25), true, false, false, true)
 
 popup:set_xproperty("WM_NAME", "panel")
 
