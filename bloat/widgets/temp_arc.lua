@@ -6,11 +6,11 @@ local dpi = beautiful.xresources.apply_dpi
 local active_color = {
     type = 'linear',
     from = {0, 0},
-    to = {200, 50}, -- replace with w,h later
-    stops = {{0, beautiful.xcolor4}, {0.75, beautiful.xcolor12}}
+    to = {150, 50}, -- replace with w,h later
+    stops = {{0, beautiful.xcolor1}, {0.75, beautiful.xcolor9}}
 }
 
-local cpu_arc = wibox.widget {
+local temp_arc = wibox.widget {
     max_value = 100,
     thickness = 8,
     start_angle = 4.71238898, -- 2pi*3/4
@@ -18,9 +18,16 @@ local cpu_arc = wibox.widget {
     bg = beautiful.xbackground,
     paddings = 10,
     colors = {active_color},
+    value = 10,
     widget = wibox.container.arcchart
 }
 
-awesome.connect_signal("ears::cpu", function(value) cpu_arc.value = value end)
+awesome.connect_signal("ears::temp", function(temp)
+    if temp == nil then
+        temp_arc.value = 10
+    else
+        temp_arc.value = temp
+    end
+end)
 
-return cpu_arc
+return temp_arc

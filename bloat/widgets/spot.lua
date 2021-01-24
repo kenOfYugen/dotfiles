@@ -14,6 +14,7 @@ local art = wibox.widget {
     resize = true,
     forced_height = dpi(80),
     forced_width = dpi(80),
+    clip_shape = helpers.rrect(beautiful.border_radius),
     widget = wibox.widget.imagebox
 }
 
@@ -115,7 +116,7 @@ local spot_next_symbol = create_button("怜", beautiful.xcolor4, next_command,
                                        false)
 
 local spot = wibox.widget {
-    {art, margins = dpi(0), layout = wibox.container.margin},
+    {art, left = dpi(22), layout = wibox.container.margin},
     {
         {
             {
@@ -149,7 +150,7 @@ local spot = wibox.widget {
                     spot_prev_symbol,
                     spot_play_symbol,
                     spot_next_symbol,
-                    spacing = dpi(60),
+                    spacing = dpi(50),
                     layout = wibox.layout.fixed.horizontal
                 },
                 nil,

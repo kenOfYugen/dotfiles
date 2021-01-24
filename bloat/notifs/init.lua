@@ -60,7 +60,7 @@ naughty.connect_signal("request::display", function(n)
     n.timeout = 6
 
     local appicon = n.icon or n.app_icon
-    if not appicon then appicon = beautiful.me end
+    if not appicon then appicon = beautiful.notification_icon end
 
     local action_widget = {
         {
@@ -143,20 +143,11 @@ naughty.connect_signal("request::display", function(n)
                                                 .horizontal
                                         },
                                         {
-                                            step_function = wibox.container
-                                                .scroll.step_functions
-                                                .waiting_nonlinear_back_and_forth,
-                                            speed = 50,
-                                            {
-                                                text = n.message,
-                                                align = "left",
-                                                font = beautiful.font,
-                                                -- wrap = "char",
-                                                widget = wibox.widget.textbox
-                                            },
-                                            forced_width = dpi(204),
-                                            widget = wibox.container.scroll
-                                                .horizontal
+                                            text = n.message,
+                                            align = "left",
+                                            font = beautiful.font,
+                                            -- wrap = "char",
+                                            widget = wibox.widget.textbox
                                         },
                                         {
                                             actions,

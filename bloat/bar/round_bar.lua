@@ -25,8 +25,7 @@ end
 
 -- Awesome Panel -----------------------------------------------------------
 
-local panelPop = require('bloat.pop.panel')
-local calPop = require('bloat.pop.cal')
+local panelPop = require('bloat.pop.bot_pan')
 local awesome_icon = wibox.widget {
     {
         {widget = wibox.widget.imagebox, image = icons.awesome, resize = true},

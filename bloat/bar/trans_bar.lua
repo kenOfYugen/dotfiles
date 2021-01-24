@@ -30,8 +30,7 @@ end
 
 -- Init music, panel, and cal
 -- local mpd = require("widgets.mpd")
-local panelPop = require('bloat.pop.panel')
-local calPop = require('bloat.pop.cal')
+local panelPop = require('bloat.pop.bot_pan')
 local awesome_icon = wibox.widget {
     {
         {widget = wibox.widget.imagebox, image = icons.awesome, resize = true},
