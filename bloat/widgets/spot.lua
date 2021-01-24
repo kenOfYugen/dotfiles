@@ -126,12 +126,7 @@ local spot = wibox.widget {
                         step_function = wibox.container.scroll.step_functions
                             .waiting_nonlinear_back_and_forth,
                         speed = 50,
-                        {
-                            title_widget,
-                            left = 5,
-                            right = 5,
-                            widget = wibox.container.margin
-                        },
+                        title_widget,
                         -- forced_width = dpi(100),
                         widget = wibox.container.scroll.horizontal
                     },
@@ -140,8 +135,8 @@ local spot = wibox.widget {
                     layout = wibox.layout.align.horizontal
                 },
 
-                left = 5,
-                right = 5,
+                left = 25,
+                right = 25,
                 widget = wibox.container.margin
             },
             {
@@ -150,7 +145,7 @@ local spot = wibox.widget {
                     spot_prev_symbol,
                     spot_play_symbol,
                     spot_next_symbol,
-                    spacing = dpi(50),
+                    spacing = dpi(40),
                     layout = wibox.layout.fixed.horizontal
                 },
                 nil,
