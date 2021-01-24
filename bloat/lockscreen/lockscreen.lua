@@ -257,7 +257,7 @@ lock_screen_box:setup{
                             {
                                 forced_height = dpi(5),
                                 forced_width = dpi(5),
-                                shape = gears.shape.circle,
+                                shape = gears.shape.star,
                                 bg = beautiful.xcolor6,
                                 widget = wibox.container.background
                             },
@@ -266,7 +266,7 @@ lock_screen_box:setup{
                             {
                                 forced_height = dpi(5),
                                 forced_width = dpi(5),
-                                shape = gears.shape.circle,
+                                shape = gears.shape.star,
                                 bg = beautiful.xcolor6,
                                 widget = wibox.container.background
                             },

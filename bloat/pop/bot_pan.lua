@@ -349,7 +349,7 @@ local margin = 10
 
 local panelPop = popupLib.create(awful.screen.focused().geometry.width / 2 -
                                      width / 2, awful.screen.focused().geometry
-                                     .height / 2 + 163, nil, width, panelWidget,
+                                     .height / 2 + 165, nil, width, panelWidget,
                                  dpi(25), true, true, false, false)
 
 panelPop:set_xproperty("WM_NAME", "panel")
