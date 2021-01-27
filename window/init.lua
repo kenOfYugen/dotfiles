@@ -7,8 +7,10 @@ local helpers = require("helpers")
 
 local bling = require("bling")
 
-client.connect_signal("manage", function(c) c.shape = helpers.rrect(0) end)
-
+-- client.connect_signal("manage", function(c) c.shape = helpers.rrect(0) end)
+--[[client.connect_signal("focus", function(c)
+    gears.surface(c.content):write_to_png("/home/javacafe01/oof.png")
+end)]] --
 -- Custom Layouts -------------------------------------------------------------
 
 local mstab = bling.layout.mstab

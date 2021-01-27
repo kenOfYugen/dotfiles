@@ -85,8 +85,8 @@ notifPop:connect_signal("mouse::leave", function() notifPop.visible = false end)
 
 -- Battery Bar Widget ---------------------------------------------------------
 
-local battery_bar = require("bloat.widgets.battery_bar")
-local battery = format_progress_bar(battery_bar)
+-- local battery_bar = require("bloat.widgets.battery_bar")
+-- local battery = format_progress_bar(battery_bar)
 
 -- Systray Widget -------------------------------------------------------------
 
@@ -158,9 +158,9 @@ awful.screen.connect_for_each_screen(function(s)
     -- Remove wibar on full screen
     local function remove_wibar(c)
         if c.fullscreen or c.maximized then
-            s.mywibox.visible = false
+            c.screen.mywibox.visible = false
         else
-            s.mywibox.visible = true
+            c.screen.mywibox.visible = true
         end
     end
 
@@ -254,7 +254,7 @@ awful.screen.connect_for_each_screen(function(s)
         },
         {
             -- On desktop, no need for battery
-            {
+            --[[ {
                 {
                     {
                         battery,
@@ -274,7 +274,7 @@ awful.screen.connect_for_each_screen(function(s)
                 right = 5,
                 left = 5,
                 widget = wibox.container.margin
-            },
+            }, ]] --
             nil,
             helpers.horizontal_pad(0),
             {

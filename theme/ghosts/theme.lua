@@ -79,7 +79,7 @@ theme.button_close = theme.xcolor1
 -- Borders
 
 theme.border_width = dpi(0)
-theme.oof_border_width = dpi(1)
+theme.oof_border_width = dpi(4)
 theme.border_normal = theme.xcolor0
 theme.border_focus = theme.xcolor0
 theme.border_radius = dpi(12)
@@ -108,7 +108,7 @@ theme.taglist_fg_empty = theme.xcolor8
 theme.taglist_bg_volatile = transparent
 theme.taglist_fg_volatile = theme.xcolor11
 theme.taglist_disable_icon = true
-theme.taglist_shape_focus = helpers.rrect(theme.border_radius)
+theme.taglist_shape_focus = helpers.rrect(theme.border_radius - 3)
 
 -- Tasklist
 

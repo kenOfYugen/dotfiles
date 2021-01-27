@@ -21,7 +21,7 @@ local disable_tb = function(c)
     awful.titlebar.hide(c, "bottom")
     awful.titlebar.hide(c, "right")
     awful.titlebar.hide(c, "left")
-    c.border_width = beautiful.oof_border_width
+    c.border_width = 2
 end
 
 client.connect_signal("request::titlebars", function(c)

@@ -105,16 +105,20 @@ naughty.connect_signal("request::display", function(n)
                             {
                                 {
                                     {
-                                        image = appicon,
-                                        forced_width = 40,
-                                        forced_height = 40,
-                                        resize = true,
-                                        clip_shape = helpers.rrect(
-                                            beautiful.border_radius),
-                                        widget = wibox.widget.imagebox
+                                        {
+                                            image = appicon,
+                                            resize = true,
+                                            clip_shape = helpers.rrect(
+                                                beautiful.border_radius - 3),
+                                            widget = wibox.widget.imagebox
+                                        },
+                                        -- bg = beautiful.xcolor1,
+                                        strategy = 'max',
+                                        height = 40,
+                                        width = 40,
+                                        widget = wibox.container.constraint
                                     },
-                                    bg = beautiful.xbackground,
-                                    widget = wibox.container.background
+                                    layout = wibox.layout.align.vertical
                                 },
                                 top = dpi(10),
                                 left = dpi(15),
@@ -132,7 +136,8 @@ naughty.connect_signal("request::display", function(n)
                                                 .waiting_nonlinear_back_and_forth,
                                             speed = 50,
                                             {
-                                                text = n.title,
+                                                markup = "<span weight='bold'>" ..
+                                                    n.title .. "</span>",
                                                 font = beautiful.font,
                                                 align = "left",
                                                 visible = title_visible,
@@ -143,11 +148,14 @@ naughty.connect_signal("request::display", function(n)
                                                 .horizontal
                                         },
                                         {
-                                            text = n.message,
-                                            align = "left",
-                                            font = beautiful.font,
-                                            -- wrap = "char",
-                                            widget = wibox.widget.textbox
+                                            {
+                                                text = n.message,
+                                                align = "left",
+                                                font = beautiful.font,
+                                                widget = wibox.widget.textbox
+                                            },
+                                            right = 10,
+                                            widget = wibox.container.margin
                                         },
                                         {
                                             actions,

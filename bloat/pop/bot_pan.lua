@@ -52,7 +52,7 @@ local function format_progress_bar(bar, markup)
         markup = markup,
         align = 'center',
         valign = 'center',
-        font = beautiful.font_name .. '12',
+        font = beautiful.font_name .. '25',
         widget = wibox.widget.textbox
     }
     text.forced_height = dpi(36)
@@ -68,7 +68,25 @@ end
 local volume_bar = require("bloat.widgets.volume_arc")
 local volume = format_progress_bar(volume_bar, "<span foreground='" ..
                                        beautiful.xcolor6 ..
-                                       "'><b>VOL</b></span>")
+                                       "'><b></b></span>")
+
+awesome.connect_signal("ears::volume", function(vol, muted)
+    if muted or vol == 0 then
+        volume.children[1].markup = "<span foreground='" .. beautiful.xcolor6 ..
+                                        "'><b></b></span>"
+    else
+        if vol > 50 then
+            volume.children[1].markup = "<span foreground='" ..
+                                            beautiful.xcolor6 ..
+                                            "'><b></b></span>"
+        else
+            volume.children[1].markup = "<span foreground='" ..
+                                            beautiful.xcolor6 ..
+                                            "'><b></b></span>"
+
+        end
+    end
+end)
 
 apps_volume = function()
     helpers.run_or_raise({class = 'Pavucontrol'}, true, "pavucontrol")
@@ -87,7 +105,7 @@ volume:buttons(gears.table.join( -- Left click - Mute / Unmute
 local brightness_bar = require("bloat.widgets.brightness_arc")
 local brightness = format_progress_bar(brightness_bar, "<span foreground='" ..
                                            beautiful.xcolor5 ..
-                                           "'><b>SUN</b></span>")
+                                           "'><b></b></span>")
 
 -- local brightness = require("bloat.widgets.brightness_arc")
 
@@ -99,7 +117,7 @@ local brightness = format_progress_bar(brightness_bar, "<span foreground='" ..
 
 local ram_bar = require("bloat.widgets.ram_arc")
 local ram = format_progress_bar(ram_bar, "<span foreground='" ..
-                                    beautiful.xcolor3 .. "'><b>RAM</b></span>")
+                                    beautiful.xcolor3 .. "'><b></b></span>")
 
 --- }}}
 
@@ -107,7 +125,7 @@ local ram = format_progress_bar(ram_bar, "<span foreground='" ..
 
 local disk_bar = require("bloat.widgets.disk_arc")
 local disk = format_progress_bar(disk_bar, "<span foreground='" ..
-                                     beautiful.xcolor2 .. "'><b>DIS</b></span>")
+                                     beautiful.xcolor2 .. "'><b></b></span>")
 
 --- }}}
 
@@ -115,7 +133,7 @@ local disk = format_progress_bar(disk_bar, "<span foreground='" ..
 
 local temp_bar = require("bloat.widgets.temp_arc")
 local temp = format_progress_bar(temp_bar, "<span foreground='" ..
-                                     beautiful.xcolor1 .. "'><b>TEM</b></span>")
+                                     beautiful.xcolor1 .. "'><b></b></span>")
 
 --- }}}
 
@@ -125,7 +143,7 @@ local temp = format_progress_bar(temp_bar, "<span foreground='" ..
 
 local cpu_bar = require("bloat.widgets.cpu_arc")
 local cpu = format_progress_bar(cpu_bar, "<span foreground='" ..
-                                    beautiful.xcolor4 .. "'><b>CPU</b></span>")
+                                    beautiful.xcolor4 .. "'><b></b></span>")
 
 --- }}}
 

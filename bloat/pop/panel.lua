@@ -306,7 +306,7 @@ local width = 400
 local margin = 10
 
 local panelPop = popupLib.create(0, beautiful.wibar_height -
-                                     beautiful.widget_border_width + margin * 2 +
+                                     beautiful.oof_border_width + margin * 2 +
                                      66, nil, width, panelWidget, dpi(25),
                                  false, true, false, false)
 
