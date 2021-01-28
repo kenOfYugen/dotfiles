@@ -117,8 +117,11 @@ awful.screen.connect_for_each_screen(function(s)
         zickzack = true
     }) --]]
 
-    gears.wallpaper.fit(gears.filesystem.get_configuration_dir() ..
-                            "images/bg.png", s, nil)
+    --[[gears.wallpaper.fit(gears.filesystem.get_configuration_dir() ..
+                            "images/bg.png", s, nil) --]]
+
+    gears.wallpaper.maximized(gears.filesystem.get_configuration_dir() ..
+                                  "images/bg.png", s, false, nil)
 
 end)
 

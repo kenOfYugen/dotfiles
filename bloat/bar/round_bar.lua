@@ -19,7 +19,7 @@ local function format_progress_bar(bar)
     bar.forced_width = dpi(100)
     bar.shape = helpers.rrect(beautiful.border_radius - 3)
     bar.bar_shape = helpers.rrect(beautiful.border_radius - 3)
-    bar.background_color = beautiful.xbackground
+    bar.background_color = beautiful.xcolor0
     return bar
 end
 
@@ -32,7 +32,7 @@ local awesome_icon = wibox.widget {
         margins = 7,
         widget = wibox.container.margin
     },
-    bg = beautiful.xcolor0,
+    bg = beautiful.xbackground,
     widget = wibox.container.background
 }
 
@@ -55,12 +55,12 @@ awful.placement.left(sidebar_activator)
 
 awesome_icon:buttons(gears.table.join(awful.button({}, 1, function()
     panelPop.visible = true
-    awesome_icon.bg = beautiful.xbackground
+    awesome_icon.bg = beautiful.xcolor0
 end)))
 
 panelPop:connect_signal("mouse::leave", function()
     panelPop.visible = false
-    awesome_icon.bg = beautiful.xcolor0
+    awesome_icon.bg = beautiful.xbackground
 end)
 
 -- Notifs Panel ---------------------------------------------------------------
@@ -72,7 +72,7 @@ local notif_icon = wibox.widget {
         margins = dpi(4),
         widget = wibox.container.margin
     },
-    bg = beautiful.xcolor0,
+    bg = beautiful.xbackground,
     widget = wibox.container.background
 }
 
@@ -81,12 +81,12 @@ local notif_icon = wibox.widget {
 
 notif_icon:buttons(gears.table.join(awful.button({}, 1, function()
     notifPop.visible = true
-    notif_icon.bg = beautiful.xbackground
+    notif_icon.bg = beautiful.xcolor0
 end)))
 
 notifPop:connect_signal("mouse::leave", function()
     notifPop.visible = false
-    notif_icon.bg = beautiful.xcolor0
+    notif_icon.bg = beautiful.xbackground
 end)
 
 -- Battery Bar Widget ---------------------------------------------------------
@@ -152,7 +152,7 @@ awful.screen.connect_for_each_screen(function(s)
     end
 
     -- Create the wibox
-    s.mywibox = awful.wibar({position = "top", screen = s, ontop = true})
+    s.mywibox = awful.wibar({position = "bottom", screen = s, ontop = true})
     s.mywibox:set_xproperty("WM_NAME", "panel")
 
     -- Remove wibar on full screen
@@ -235,7 +235,7 @@ awful.screen.connect_for_each_screen(function(s)
             {
                 {
                     s.mytaglist,
-                    bg = beautiful.xbackground,
+                    bg = beautiful.xcolor0,
                     shape = helpers.rrect(beautiful.border_radius - 3),
                     widget = wibox.container.background
                 },
@@ -266,7 +266,7 @@ awful.screen.connect_for_each_screen(function(s)
                         left = 5,
                         widget = wibox.container.margin
                     },
-                    bg = beautiful.xbackground,
+                    bg = beautiful.xcolor0,
                     shape = helpers.rrect(beautiful.border_radius - 3),
                     widget = wibox.container.background
                 },
@@ -285,7 +285,7 @@ awful.screen.connect_for_each_screen(function(s)
                         top = dpi(4),
                         layout = wibox.container.margin
                     },
-                    bg = beautiful.xbackground,
+                    bg = beautiful.xcolor0,
                     shape = helpers.rrect(beautiful.border_radius - 3),
                     widget = wibox.container.background
                 },
@@ -305,7 +305,7 @@ awful.screen.connect_for_each_screen(function(s)
                         left = dpi(7),
                         widget = wibox.container.margin
                     },
-                    bg = beautiful.xbackground,
+                    bg = beautiful.xcolor0,
                     shape = helpers.rrect(beautiful.border_radius - 3),
                     widget = wibox.container.background
                 },

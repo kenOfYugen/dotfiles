@@ -62,7 +62,7 @@ local set_titlebar = function(c, bottom_edge_height)
 end
 
 local bottom = function(c)
-    local bottom_edge_height = beautiful.titlebar_height * (3 / 5)
+    local bottom_edge_height = beautiful.titlebar_height
     set_titlebar(c, bottom_edge_height)
 end
 

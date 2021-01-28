@@ -71,7 +71,7 @@ local top = function(c)
         color = beautiful.xbackground
     end
 
-    local titlebar_height = beautiful.titlebar_height * (3 / 5)
+    local titlebar_height = beautiful.titlebar_height
     get_titlebar(c, titlebar_height, color)
 end
 

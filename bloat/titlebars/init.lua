@@ -21,12 +21,12 @@ local disable_tb = function(c)
     awful.titlebar.hide(c, "bottom")
     awful.titlebar.hide(c, "right")
     awful.titlebar.hide(c, "left")
-    c.border_width = 2
+    c.border_width = 0
 end
 
 client.connect_signal("request::titlebars", function(c)
 
-    client.connect_signal("property::floating", function(c)
+    --[[client.connect_signal("property::floating", function(c)
         local b = false;
         if c.first_tag ~= nil then
             b = c.first_tag.layout.name == "floating"
@@ -55,6 +55,8 @@ client.connect_signal("request::titlebars", function(c)
                 if not c.bling_tabbed then disable_tb(c) end
             end
         end
-    end)
+    end)]] --
+
+    enable_tb(c)
 
 end)

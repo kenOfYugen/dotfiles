@@ -79,7 +79,7 @@ theme.button_close = theme.xcolor1
 -- Borders
 
 theme.border_width = dpi(0)
-theme.oof_border_width = dpi(4)
+theme.oof_border_width = dpi(0)
 theme.border_normal = theme.xcolor0
 theme.border_focus = theme.xcolor0
 theme.border_radius = dpi(12)
@@ -99,11 +99,11 @@ theme.taglist_font = theme.font_taglist
 theme.taglist_bg = theme.wibar_bg
 theme.taglist_bg_focus = theme.xcolor8
 theme.taglist_fg_focus = theme.xcolor4
-theme.taglist_bg_urgent = theme.xbackground
+theme.taglist_bg_urgent = theme.xcolor0
 theme.taglist_fg_urgent = theme.xcolor6
-theme.taglist_bg_occupied = theme.xbackground
+theme.taglist_bg_occupied = theme.xcolor0
 theme.taglist_fg_occupied = theme.xcolor6
-theme.taglist_bg_empty = theme.xbackground
+theme.taglist_bg_empty = theme.xcolor0
 theme.taglist_fg_empty = theme.xcolor8
 theme.taglist_bg_volatile = transparent
 theme.taglist_fg_volatile = theme.xcolor11
@@ -114,15 +114,15 @@ theme.taglist_shape_focus = helpers.rrect(theme.border_radius - 3)
 
 theme.tasklist_font = theme.font
 theme.tasklist_plain_task_name = true
-theme.tasklist_bg_focus = theme.xbackground
+theme.tasklist_bg_focus = theme.xcolor0
 theme.tasklist_fg_focus = theme.xcolor6
-theme.tasklist_bg_minimize = theme.xbackground .. "70"
+theme.tasklist_bg_minimize = theme.xcolor0 .. "70"
 theme.tasklist_fg_minimize = theme.xforeground .. "70"
-theme.tasklist_bg_normal = theme.xbackground
+theme.tasklist_bg_normal = theme.xcolor0
 theme.tasklist_fg_normal = theme.xforeground
 theme.tasklist_disable_task_name = false
 theme.tasklist_disable_icon = true
-theme.tasklist_bg_urgent = theme.xbackground
+theme.tasklist_bg_urgent = theme.xcolor0
 theme.tasklist_fg_urgent = theme.xcolor1
 theme.tasklist_spacing = dpi(5)
 theme.tasklist_align = "center"
@@ -130,7 +130,7 @@ theme.tasklist_align = "center"
 -- Titlebars
 
 theme.titlebar_size = dpi(40)
-theme.titlebar_height = dpi(40)
+theme.titlebar_height = dpi(20)
 theme.titlebar_bg_focus = theme.xbackground
 theme.titlebar_bg_normal = theme.xbackground
 theme.titlebar_fg_focus = theme.xbackground
@@ -195,12 +195,12 @@ theme.exit_screen_fg = theme.xforeground
 theme.wibar_height = dpi(32)
 theme.wibar_margin = dpi(15)
 theme.wibar_spacing = dpi(15)
-theme.wibar_bg = theme.xcolor0
+theme.wibar_bg = theme.xbackground
 
 -- Systray
 
 theme.systray_icon_spacing = dpi(10)
-theme.bg_systray = theme.xbackground
+theme.bg_systray = theme.xcolor0
 theme.systray_icon_size = dpi(15)
 
 -- Collision
