@@ -23,6 +23,7 @@ Collision is great for window navigation. It is created by one of the AwesomeWM 
 + **GTK Theme**: [Phocus](https://github.com/JavaCafe01/phocus)
 + **File Manager**: Thunar
 + **Color Scheme**: [javacafe](https://github.com/JavaCafe01/javacafe.vim)
++ **Dotfiles**: [my neovim, terminal, and other stuff](https://github.com/JavaCafe01/dotfiles)
 
 ## Common Questions
 
