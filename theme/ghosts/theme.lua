@@ -184,7 +184,7 @@ theme = theme_assets.recolor_layout(theme, theme.xforeground)
 
 -- Gaps
 
-theme.useless_gap = dpi(10)
+theme.useless_gap = dpi(15)
 
 -- Exit Screen
 
@@ -192,7 +192,7 @@ theme.exit_screen_fg = theme.xforeground
 
 -- Wibar
 
-theme.wibar_height = dpi(32)
+theme.wibar_height = dpi(33)
 theme.wibar_margin = dpi(15)
 theme.wibar_spacing = dpi(15)
 theme.wibar_bg = theme.xbackground

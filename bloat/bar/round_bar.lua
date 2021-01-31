@@ -221,74 +221,41 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Add widgets to the wibox
     s.mywibox:setup{
-        layout = wibox.layout.align.horizontal,
-        expand = "none",
+        layout = wibox.layout.fixed.vertical,
         {
-            layout = wibox.layout.fixed.horizontal,
-            {
-                awesome_icon,
-                top = 0,
-                right = 5,
-                left = 10,
-                widget = wibox.container.margin
-            },
-            {
-                {
-                    s.mytaglist,
-                    bg = beautiful.xcolor0,
-                    shape = helpers.rrect(beautiful.border_radius - 3),
-                    widget = wibox.container.background
-                },
-                top = 5,
-                bottom = 5,
-                right = 5,
-                left = 5,
-                widget = wibox.container.margin
-            },
-            s.mypromptbox
+            widget = wibox.container.background,
+            bg = beautiful.xcolor0,
+            forced_height = 1
         },
         {
-            s.mytasklist,
-            top = 5,
-            bottom = 5,
-            right = 5,
-            left = 5,
-            widget = wibox.container.margin
-        },
-        {
+            layout = wibox.layout.align.horizontal,
+            expand = "none",
             {
+                layout = wibox.layout.fixed.horizontal,
+                {
+                    awesome_icon,
+                    top = 0,
+                    right = 5,
+                    left = 10,
+                    widget = wibox.container.margin
+                },
                 {
                     {
-                        battery,
-                        top = 5,
-                        bottom = 5,
-                        right = 5,
-                        left = 5,
-                        widget = wibox.container.margin
+                        s.mytaglist,
+                        bg = beautiful.xcolor0,
+                        shape = helpers.rrect(beautiful.border_radius - 3),
+                        widget = wibox.container.background
                     },
-                    bg = beautiful.xcolor0,
-                    shape = helpers.rrect(beautiful.border_radius - 3),
-                    widget = wibox.container.background
+                    top = 5,
+                    bottom = 5,
+                    right = 5,
+                    left = 5,
+                    widget = wibox.container.margin
                 },
-                top = 5,
-                bottom = 5,
-                right = 5,
-                left = 5,
-                widget = wibox.container.margin
+                s.mypromptbox
             },
-            nil,
-            nil,
             {
-                {
-                    {
-                        mysystray_container,
-                        top = dpi(4),
-                        layout = wibox.container.margin
-                    },
-                    bg = beautiful.xcolor0,
-                    shape = helpers.rrect(beautiful.border_radius - 3),
-                    widget = wibox.container.background
-                },
+                s.mytasklist,
                 top = 5,
                 bottom = 5,
                 right = 5,
@@ -298,33 +265,74 @@ awful.screen.connect_for_each_screen(function(s)
             {
                 {
                     {
-                        s.mylayoutbox,
-                        top = dpi(4),
-                        bottom = dpi(4),
-                        right = dpi(7),
-                        left = dpi(7),
-                        widget = wibox.container.margin
+                        {
+                            battery,
+                            top = 5,
+                            bottom = 5,
+                            right = 5,
+                            left = 5,
+                            widget = wibox.container.margin
+                        },
+                        bg = beautiful.xcolor0,
+                        shape = helpers.rrect(beautiful.border_radius - 3),
+                        widget = wibox.container.background
                     },
-                    bg = beautiful.xcolor0,
-                    shape = helpers.rrect(beautiful.border_radius - 3),
-                    widget = wibox.container.background
+                    top = 5,
+                    bottom = 5,
+                    right = 5,
+                    left = 5,
+                    widget = wibox.container.margin
                 },
-                top = 5,
-                bottom = 5,
-                right = 5,
-                left = 5,
-                widget = wibox.container.margin
-            },
+                nil,
+                nil,
+                {
+                    {
+                        {
+                            mysystray_container,
+                            top = dpi(4),
+                            layout = wibox.container.margin
+                        },
+                        bg = beautiful.xcolor0,
+                        shape = helpers.rrect(beautiful.border_radius - 3),
+                        widget = wibox.container.background
+                    },
+                    top = 5,
+                    bottom = 5,
+                    right = 5,
+                    left = 5,
+                    widget = wibox.container.margin
+                },
+                {
+                    {
+                        {
+                            s.mylayoutbox,
+                            top = dpi(4),
+                            bottom = dpi(4),
+                            right = dpi(7),
+                            left = dpi(7),
+                            widget = wibox.container.margin
+                        },
+                        bg = beautiful.xcolor0,
+                        shape = helpers.rrect(beautiful.border_radius - 3),
+                        widget = wibox.container.background
+                    },
+                    top = 5,
+                    bottom = 5,
+                    right = 5,
+                    left = 5,
+                    widget = wibox.container.margin
+                },
 
-            {
-                notif_icon,
-                top = 0,
-                right = 10,
-                left = 5,
-                widget = wibox.container.margin
-            },
+                {
+                    notif_icon,
+                    top = 0,
+                    right = 10,
+                    left = 5,
+                    widget = wibox.container.margin
+                },
 
-            layout = wibox.layout.fixed.horizontal
+                layout = wibox.layout.fixed.horizontal
+            }
         }
     }
 end)

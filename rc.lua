@@ -139,7 +139,6 @@ require("keys")
 
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
-    -- All clients will match this rule.
     {
         rule = {},
         properties = {
@@ -155,75 +154,31 @@ awful.rules.rules = {
                 awful.placement.no_offscreen
         }
     }, {rule = {}, properties = {}, callback = awful.client.setslave}, -- so items in tasklist have the right order 
-    -- Floating clients.
     {
         rule_any = {
-            instance = {
-                "DTA", -- Firefox addon DownThemAll.
-                "copyq", -- Includes session name in class.
-                "pinentry"
-            },
-            class = {
-                "Arandr", "Blueman-manager", "Gpick", "Kruler", "MessageWin", -- kalarm.
-                "Sxiv", "fzfmenu", "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
-                "Wpa_gui", "veromix", "xtightvncviewer", "Steam"
-            },
-
-            -- Note that the name property shown in xprop might be set slightly after creation of the client
-            -- and the name shown there might not match defined rules here.
-            name = {
-                "Event Tester" -- xev.
-            },
+            class = {"Arandr", "Blueman-manager", "Sxiv", "fzfmenu"},
             role = {
-                "AlarmWindow", -- Thunderbird's calendar.
-                "ConfigManager", -- Thunderbird's about:config.
                 "pop-up" -- e.g. Google Chrome's (detached) Developer Tools.
             }
         },
         properties = {floating = true}
-    },
-
-    -- Add titlebars to normal clients and dialogs (UNCOMMENT FOR DOUBLE BORDERS)
-    {
-        rule_any = {type = {"dialog", "utility"}},
-        properties = {titlebars_enabled = false}
-    },
-    {rule_any = {type = {"normal"}}, properties = {titlebars_enabled = true}},
-    {
-        rule_any = {class = {"Steam"}},
-        properties = {titlebars_enabled = false, ontop = true}
-    }, -- Set Firefox to always map on the tag named "2" on screen 1.
-    --   { rule = { class = "Firefox" },
-    --     properties = {  tag = 2 } },
-    {
-        rule_any = {
-            instance = {"scratch"},
-            class = {"scratch"},
-            icon_name = {"scratchpad_urxvt"}
-        },
-        properties = {
-            skip_taskbar = false,
-            floating = true,
-            ontop = false,
-            minimized = true,
-            sticky = false,
-            width = screen_width * 0.5,
-            height = screen_height * 0.5
-        },
-        callback = function(c)
-            awful.placement.centered(c, {
-                honor_padding = true,
-                honor_workarea = true
-            })
-            gears.timer.delayed_call(function() c.urgent = false end)
-        end
+    }, {
+        rule_any = {type = {"normal", "dialog"}},
+        properties = {titlebars_enabled = true}
     }, {
         rule = {class = "jetbrains-studio", name = "^win[0-9]+$"},
-        properties = {
-            placement = awful.placement.no_offscreen,
-            titlebars_enabled = false
+        properties = {placement = awful.placement.no_offscreen}
+    }, {
+        rule_any = {
+            class = {"Steam", "zoom", "jetbrains-studio"},
+            type = {"splash"},
+            name = {
+                "^discord.com is sharing your screen.$" -- Discord (running in browser) screen sharing popup
+            },
+            properties = {titlebars_enabled = false}
         }
     }
+
 }
 
 -- Signals & Imports ----------------------------------------------------------
