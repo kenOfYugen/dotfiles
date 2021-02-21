@@ -1,17 +1,28 @@
 -- rc.lua
--- Main Config
+-- If LuaRocks is installed, make sure that packages installed through it are
+-- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
+-- Standard awesome library
 local gears = require("gears")
+local gfs = require("gears.filesystem")
 local awful = require("awful")
 require("awful.autofocus")
+-- Widget and layout library
 local wibox = require("wibox")
+-- Theme handling library
 local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
+-- Notification library
 local naughty = require("naughty")
+-- Declarative object management
+local ruled = require("ruled")
+local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+-- Enable hotkeys help widget for VIM and other apps
+-- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
--- Custom imports
+-- Helpers Library
 local helpers = require("helpers")
 
 -- Autostart and Errors -------------------------------------------------------
@@ -21,43 +32,35 @@ awesome.register_xproperty("WM_NAME", "string")
 
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
-if awesome.startup_errors then
-    naughty.notify({
-        preset = naughty.config.presets.critical,
-        title = "Oops, there were errors during startup!",
-        text = awesome.startup_errors
-    })
-end
-
--- Handle runtime errors after startup
-do
-    local in_error = false
-    awesome.connect_signal("debug::error", function(err)
-        -- Make sure we don't go into an endless error loop
-        if in_error then return end
-        in_error = true
-
-        naughty.notify({
-            preset = naughty.config.presets.critical,
-            title = "Oops, an error happened!",
-            text = tostring(err)
-        })
-        in_error = false
-    end)
-end
+naughty.connect_signal("request::display_error", function(message, startup)
+    naughty.notification {
+        urgency = "critical",
+        title = "Oops, an error happened" ..
+            (startup and " during startup!" or "!"),
+        message = message
+    }
+end)
 
 -- Variables & Inits ----------------------------------------------------------
 
+-- Set Theme
 theme = "ghosts"
-screen_width = awful.screen.focused().geometry.width
-screen_height = awful.screen.focused().geometry.height
-terminal = "termite"
+beautiful.init(gfs.get_configuration_dir() .. "theme/" .. theme .. "/theme.lua")
+
+-- Default Applications
+terminal = "st"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
-browser = "MOZ_X11_EGL=1 firefox"
+browser = "firefox"
 filemanager = "thunar"
 discord = "discord"
-music = terminal .. " --class music -e ncspot"
+launcher = "rofi -show drun"
+music = terminal .. " -c music -e ncspot"
+
+-- Dims
+screen_width = awful.screen.focused().geometry.width
+screen_height = awful.screen.focused().geometry.height
+
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -68,44 +71,21 @@ altkey = "Mod1"
 shift = "Shift"
 ctrl = "Control"
 
--- Set Theme
-beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/" .. theme ..
-                   "/theme.lua")
+-- Menubar configuration
+menubar.utils.terminal = terminal -- Set the terminal for applications that require it
+
+-- Import Bling Module
+local bling = require("bling")
+-- Playerctl signal
+bling.signal.playerctl.enable()
 
 -- Layouts
 require("window")
 
-local icons = require("icons")
-icons.init("sheet")
-
--- Menu
-myawesomemenu = {
-    {
-        "hotkeys",
-        function() hotkeys_popup.show_help(nil, awful.screen.focused()) end
-    }, {"edit config", editor_cmd .. " " .. awesome.conffile},
-    {"restart", awesome.restart}, {"quit", function() awesome.quit() end}
-}
-
-mymainmenu = awful.menu({
-    items = {
-        {"awesome", myawesomemenu, icons.awesome_menu}, {"Terminal", terminal},
-        {"Web Browser", browser}, {"File Manager", filemanager}
-    }
-})
-
 -- Screen Stuff ---------------------------------------------------------------
 
--- Bling module for wallpaper
-local bling = require("bling")
-awful.screen.connect_for_each_screen(function(s)
-    -- Screen padding
-    screen[s].padding = {left = 0, right = 0, top = 0, bottom = 0}
-
-    -- Each screen has its own tag table.
-    awful.tag({"", "", "", "", "ﭮ"}, s, awful.layout.layouts[1])
-
-    -- Set Wallpaper
+-- Set Wallpaper
+screen.connect_signal("request::wallpaper", function(s)
     --[[ bling.module.tiled_wallpaper("", s, {
         fg = beautiful.xcolor8,
         bg = beautiful.xcolor0,
@@ -117,44 +97,50 @@ awful.screen.connect_for_each_screen(function(s)
         zickzack = true
     }) --]]
 
-    --[[gears.wallpaper.fit(gears.filesystem.get_configuration_dir() ..
-                            "images/bg.png", s, nil) --]]
+    gears.wallpaper.maximized(beautiful.wallpaper, s, false, nil)
+end)
 
-    gears.wallpaper.maximized(gears.filesystem.get_configuration_dir() ..
-                                  "images/bg.png", s, false, nil)
+screen.connect_signal("request::desktop_decoration", function(s)
+    -- Screen padding
+    screen[s].padding = {left = 0, right = 0, top = 0, bottom = 0}
 
+    -- Each screen has its own tag table.
+    awful.tag({"1", "2", "3", "4", "5"}, s, awful.layout.layouts[1])
 end)
 
 -- Keys -----------------------------------------------------------------------
 
-root.buttons(gears.table.join(awful.button({}, 3,
-                                           function() mymainmenu:toggle() end),
-                              awful.button({}, 4, awful.tag.viewnext),
-                              awful.button({}, 5, awful.tag.viewprev)))
-
--- Key bindings
 require("keys")
 
 -- Rules ----------------------------------------------------------------------
 
--- Rules to apply to new clients (through the "manage" signal).
-awful.rules.rules = {
-    {
+ruled.client.connect_signal("request::rules", function()
+
+    -- Global
+    ruled.client.append_rule {
+        id = "global",
         rule = {},
         properties = {
-            border_width = beautiful.border_width,
-            border_color = beautiful.border_normal,
             focus = awful.client.focus.filter,
             raise = true,
             size_hints_honor = false,
-            keys = clientkeys,
-            buttons = clientbuttons,
             screen = awful.screen.preferred,
             placement = awful.placement.centered + awful.placement.no_overlap +
                 awful.placement.no_offscreen
         }
-    }, {rule = {}, properties = {}, callback = awful.client.setslave}, -- so items in tasklist have the right order 
-    {
+    }
+
+    -- Tasklist order
+    ruled.client.append_rule {
+        id = "tasklist_order",
+        rule = {},
+        properties = {},
+        callback = awful.client.setslave
+    }
+
+    -- Floate em
+    ruled.client.append_rule {
+        id = "floating",
         rule_any = {
             class = {"Arandr", "Blueman-manager", "Sxiv", "fzfmenu"},
             role = {
@@ -162,54 +148,67 @@ awful.rules.rules = {
             }
         },
         properties = {floating = true}
-    }, {
+    }
+
+    -- Borders
+    ruled.client.append_rule {
+        id = "borders",
         rule_any = {type = {"normal", "dialog"}},
-        properties = {titlebars_enabled = true}
-    }, {
-        rule = {class = "jetbrains-studio", name = "^win[0-9]+$"},
-        properties = {placement = awful.placement.no_offscreen}
-    }, {
-        rule_any = {
-            class = {"Steam", "zoom", "jetbrains-studio"},
+        except_any = {
+            role = {"Popup"},
             type = {"splash"},
-            name = {
-                "^discord.com is sharing your screen.$" -- Discord (running in browser) screen sharing popup
-            },
-            properties = {titlebars_enabled = false}
+            name = {"^discord.com is sharing your screen.$"}
+        },
+        properties = {
+            border_width = beautiful.border_width,
+            border_color = beautiful.border_normal
         }
     }
 
-}
+    -- Android Studio Fix
+    ruled.client.append_rule {
+        id = "jetbrains_fix",
+        {
+            rule = {class = "jetbrains-studio", name = "^win[0-9]+$"},
+            properties = {placement = awful.placement.no_offscreen}
+        }
+    }
 
--- Signals & Imports ----------------------------------------------------------
+    -- Center Placement
+    ruled.client.append_rule {
+        id = "center_placement",
+        rule_any = {
+            type = {"dialog"},
+            class = {
+                "Steam", "discord", "music", "markdown_input", "scratchpad"
+            },
+            instance = {"music", "markdown_input", "scratchpad"},
+            role = {"GtkFileChooserDialog", "conversation"}
+        },
+        properties = {titlebars_enabled = true}
+    }
 
--- Signal function to execute when a new client appears.
-client.connect_signal("manage", function(c)
-    -- Set the windows at the slave,
-    -- i.e. put it at the end of others instead of setting it master.
-    -- if not awesome.startup then awful.client.setslave(c) end
-
-    if awesome.startup and not c.size_hints.user_position and
-        not c.size_hints.program_position then
-        -- Prevent clients from being unreachable after screen count changes.
-        awful.placement.no_offscreen(c)
-    end
-
+    -- Titlebar rules
+    ruled.client.append_rule {
+        id = "titlebars",
+        rule_any = {type = {"normal", "dialog"}},
+        except_any = {
+            class = {"Steam", "zoom", "jetbrains-studio"},
+            type = {"splash"},
+            name = {"^discord.com is sharing your screen.$"}
+        },
+        properties = {titlebars_enabled = true}
+    }
 end)
-
--- Enable sloppy focus, so that focus follows mouse.
-client.connect_signal("mouse::enter", function(c)
-    c:emit_signal("request::activate", "mouse_enter", {raise = false})
-end)
-
-client.connect_signal("focus",
-                      function(c) c.border_color = beautiful.border_focus end)
-
-client.connect_signal("unfocus",
-                      function(c) c.border_color = beautiful.border_normal end)
 
 -- Import Daemons and Widgets
 require("ears")
 require("bloat")
+
+collectgarbage("setpause", 110)
+collectgarbage("setstepmul", 1000)
+
+-- collectgarbage("setpause", 160)
+-- collectgarbage("setstepmul", 400)
 
 -- EOF ------------------------------------------------------------------------

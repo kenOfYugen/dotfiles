@@ -15,7 +15,7 @@ local volume_arc = wibox.widget {
     thickness = 8,
     start_angle = 4.71238898, -- 2pi*3/4
     rounded_edge = true,
-    bg = beautiful.xbackground,
+    bg = beautiful.xcolor8,
     paddings = 10,
     colors = {active_color},
     widget = wibox.container.arcchart
@@ -25,7 +25,7 @@ awesome.connect_signal("ears::volume", function(volume, muted)
     if muted then
         volume_arc.bg = beautiful.xcolor1
     else
-        volume_arc.bg = beautiful.xbackground
+        volume_arc.bg = beautiful.xcolor8
     end
 
     volume_arc.value = volume

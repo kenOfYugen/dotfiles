@@ -1,4 +1,3 @@
--- This returns the "Wow, such empty." message.
 local beautiful = require("beautiful")
 local wibox = require('wibox')
 
@@ -34,7 +33,6 @@ local empty_notifbox = wibox.widget {
 
 }
 
--- Make empty_notifbox center
 local centered_empty_notifbox = wibox.widget {
     layout = wibox.layout.fixed.vertical,
     expand = 'none',

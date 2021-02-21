@@ -32,7 +32,7 @@ run_once("blueman-applet")
 run_once("picom --experimental-backends --config " ..
              gears.filesystem.get_configuration_dir() .. "configs/picom.conf")
 
---Media controller daemon
+-- Media controller daemon
 run_once("playerctld daemon")
 
 return autostart

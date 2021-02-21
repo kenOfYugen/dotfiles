@@ -9,26 +9,6 @@ local dpi = xresources.apply_dpi
 local helpers = require("helpers")
 local pad = helpers.pad
 
--- Construct layouts
---------------------------------------------------------------------------------
-
--- Poster (image)
-------------------------------------------------------------
-local box_image = wibox.widget {
-    shape = helpers.rrect(dpi(10)),
-    widget = wibox.widget.imagebox
-}
-
-local image_cont = wibox.widget {
-    box_image,
-    shape = gears.shape.circle,
-    widget = wibox.container.background
-}
-
-box_image:set_image(gears.filesystem.get_configuration_dir() .. "images/me.png")
-
-------------------------------------------------------------
-
 -- Text lines
 ------------------------------------------------------------
 local user = wibox.widget {

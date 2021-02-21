@@ -1,15 +1,26 @@
 local wibox = require("wibox")
 local awful = require("awful")
+local gears = require("gears")
 local beautiful = require("beautiful")
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
 local helpers = require("helpers")
-local get_titlebar = require("bloat.titlebars.titlebar")
 
 local titlebar
 
 local get_titlebar = function(c, height, color)
 
-    local wid = wibox.widget {
-        -- get_titlebar(c),
+    local buttons = gears.table.join(awful.button({}, 1, function()
+        client.focus = c
+        c:raise()
+        awful.mouse.client.move(c)
+    end), awful.button({}, 3, function()
+        client.focus = c
+        c:raise()
+        awful.mouse.client.resize(c)
+    end))
+
+    --[[ local wid = wibox.widget {
         {
             {
                 bg = color,
@@ -28,6 +39,7 @@ local get_titlebar = function(c, height, color)
     }
 
     wid.bg = beautiful.xcolor0
+    --]]
 
     --[[
     local function update()
@@ -42,11 +54,20 @@ local get_titlebar = function(c, height, color)
     c:connect_signal("unfocus", update)
     --]]
 
-    awful.titlebar(c, {size = height, bg = "transparent"}):setup{
+    awful.titlebar(c, {size = height, bg = color}):setup{
         nil,
         -- {
         -- {
-        wid,
+        -- wid,
+        { -- Middle
+            { -- Title
+                align = 'center',
+                valign = 'center',
+                widget = awful.titlebar.widget.titlewidget(c)
+            },
+            buttons = buttons,
+            layout = wibox.layout.flex.horizontal
+        },
         --[[     top = 14,
                 left = 14,
                 right = 14,
@@ -68,10 +89,10 @@ local top = function(c)
     if c.class == "firefox" then
         color = beautiful.xcolor0
     else
-        color = beautiful.xbackground
+        color = beautiful.xcolor0
     end
 
-    local titlebar_height = beautiful.titlebar_height
+    local titlebar_height = beautiful.titlebar_size
     get_titlebar(c, titlebar_height, color)
 end
 

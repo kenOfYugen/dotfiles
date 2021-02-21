@@ -7,12 +7,8 @@ local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local helpers = require("helpers")
-local icon_theme = "sheet"
-local icons = require("icons")
 
 local popupLib = require("utils.popupLib")
-
-icons.init(icon_theme)
 
 local box_radius = beautiful.client_radius
 local box_gap = dpi(8)
@@ -75,15 +71,17 @@ awesome.connect_signal("ears::volume", function(vol, muted)
         volume.children[1].markup = "<span foreground='" .. beautiful.xcolor6 ..
                                         "'><b></b></span>"
     else
-        if vol > 50 then
-            volume.children[1].markup = "<span foreground='" ..
-                                            beautiful.xcolor6 ..
-                                            "'><b></b></span>"
-        else
-            volume.children[1].markup = "<span foreground='" ..
-                                            beautiful.xcolor6 ..
-                                            "'><b></b></span>"
+        if vol then
+            if vol > 50 then
+                volume.children[1].markup =
+                    "<span foreground='" .. beautiful.xcolor6 ..
+                        "'><b></b></span>"
+            else
+                volume.children[1].markup =
+                    "<span foreground='" .. beautiful.xcolor6 ..
+                        "'><b></b></span>"
 
+            end
         end
     end
 end)
@@ -193,26 +191,9 @@ local fancy_date = {fancy_date_widget, layout = wibox.layout.fixed.vertical}
 
 -- {{{ Music Widget
 
---[[
-local mpd = require("bloat.widgets.mpd")
-local mpd_box = create_boxed_widget(mpd, 400, 125, beautiful.xcolor0)
-local mpd_area = {
-    nil,
-    {
-        mpd_box,
-        left = dpi(5),
-        right = dpi(5),
-        top = dpi(0),
-        bottom = dpi(0),
-        layout = wibox.container.margin
-    },
-    nil,
-    layout = wibox.layout.align.vertical
-}
---]]
-
-local spot = require("bloat.widgets.spot")
-local spot_box = create_boxed_widget(spot, 400, 125, beautiful.xcolor0)
+local playerctl = require("bloat.widgets.playerctl")
+local playerctl_box =
+    create_boxed_widget(playerctl, 400, 145, beautiful.xcolor0)
 
 -- {{{ Info Widget
 
@@ -224,56 +205,9 @@ local info_box = create_boxed_widget(info, 400, 125, beautiful.xbackground)
 -- {{ Weather
 
 local weather = require("bloat.widgets.weather")
-local weather_box = create_boxed_widget(weather, 400, 125, beautiful.xcolor0)
+local weather_box = create_boxed_widget(weather, 400, 145, beautiful.xcolor0)
 
 -- }}
-
-local function create_launcher(app_name, app_icon, color)
-
-    local icon = wibox.widget {
-        markup = helpers.colorize_text(app_icon, color),
-        font = "FiraCode Nerd Font Mono 70",
-        align = "center",
-        valigin = "center",
-        widget = wibox.widget.textbox()
-    }
-
-    local launcher = wibox.widget {icon, widget = wibox.container.background}
-
-    launcher:buttons(gears.table.join(awful.button({}, 1, function()
-        awful.spawn(app_name)
-    end)))
-
-    launcher:connect_signal("mouse::enter", function()
-        icon.markup = helpers.colorize_text(app_icon, beautiful.xbackground)
-    end)
-
-    launcher:connect_signal("mouse::leave", function()
-        icon.markup = helpers.colorize_text(app_icon, beautiful.xcolor8)
-    end)
-
-    return launcher
-
-end
-
--- {{{ App Launchers
-local app_launcher = wibox.widget {
-    create_launcher("termite", "", beautiful.xcolor8),
-    create_launcher("firefox", "", beautiful.xcolor8),
-    create_launcher("thunar", "", beautiful.xcolor8),
-    create_launcher("termite -e ncspot", "", beautiful.xcolor8),
-    forced_num_cols = 2,
-    forced_num_rows = 2,
-    homogeneous = true,
-    expand = true,
-    vertical_spacing = 35,
-    layout = wibox.layout.grid
-}
-
-local app_launcher_box = create_boxed_widget(app_launcher, 400, 341,
-                                             beautiful.xcolor0)
-
--- }}}
 
 local sys = wibox.widget {
     {
@@ -358,7 +292,7 @@ local time_box = create_boxed_widget(time, 400, 159, beautiful.xcolor0)
 local panelWidget = wibox.widget {
     {weather_box, sys_box, layout = wibox.layout.align.vertical},
     {info, time_box, layout = wibox.layout.align.vertical},
-    {spot_box, sys_box2, layout = wibox.layout.align.vertical},
+    {playerctl_box, sys_box2, layout = wibox.layout.align.vertical},
     layout = wibox.layout.flex.horizontal
 }
 
@@ -367,7 +301,7 @@ local margin = 10
 
 local panelPop = popupLib.create(awful.screen.focused().geometry.width / 2 -
                                      width / 2, awful.screen.focused().geometry
-                                     .height / 2 + 165 - beautiful.wibar_height,
+                                     .height / 2 + 145 - beautiful.wibar_height,
                                  nil, width, panelWidget, dpi(25), true, true,
                                  false, false)
 

@@ -1,28 +1,17 @@
 local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
+local helpers = require("helpers")
 
 local tb_ops = {}
 
-local add_decorations = function(c)
-    require("bloat.titlebars.top")(c)
-    require("bloat.titlebars.left")(c)
-    require("bloat.titlebars.right")(c)
-    require("bloat.titlebars.bottom")(c)
-end
+local add_decorations = function(c) require("bloat.titlebars.top")(c) end
 
-tb_ops.enable_tb = function(c)
-    add_decorations(c)
-    c.border_width = 0
-end
+tb_ops.enable_tb = function(c) add_decorations(c) end
 
-tb_ops.disable_tb = function(c)
-    awful.titlebar.hide(c, "top")
-    awful.titlebar.hide(c, "bottom")
-    awful.titlebar.hide(c, "right")
-    awful.titlebar.hide(c, "left")
-    if c.type == "normal" then c.border_width = 2 end
-end
+tb_ops.disable_tb = function(c) awful.titlebar.hide(c, "top") end
 
 client.connect_signal("request::titlebars", function(c)
 

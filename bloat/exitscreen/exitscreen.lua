@@ -16,7 +16,6 @@ local reboot_text_icon = ""
 local suspend_text_icon = ""
 local exit_text_icon = ""
 local lock_text_icon = ""
-local exitscreen_bg = beautiful.xbackground .. "80"
 
 local button_bg = beautiful.xcolor0
 local button_size = dpi(120)
@@ -90,19 +89,20 @@ local exit = create_button(exit_text_icon, beautiful.xcolor4, "Exit",
 local lock = create_button(lock_text_icon, beautiful.xcolor5, "Lock",
                            lock_command)
 
+local exit_manager = {}
 -- Create the exit screen wibox
-exit_screen = wibox({visible = false, ontop = true, type = "splash"})
+local exit_screen = wibox({visible = false, ontop = true, type = "splash"})
 awful.placement.maximize(exit_screen)
 
 exit_screen.bg = beautiful.exit_screen_bg or exitscreen_bg or "#111111"
 exit_screen.fg = beautiful.exit_screen_fg or beautiful.wibar_fg or "#FEFEFE"
 
 local exit_screen_grabber
-function exit_screen_hide()
+exit_manager.exit_screen_hide = function()
     awful.keygrabber.stop(exit_screen_grabber)
     exit_screen.visible = false
 end
-function exit_screen_show()
+exit_manager.exit_screen_show = function()
     exit_screen_grabber = awful.keygrabber.run(
                               function(_, key, event)
             -- Ignore case
@@ -112,30 +112,33 @@ function exit_screen_show()
 
             if key == 's' then
                 suspend_command()
-                exit_screen_hide()
+                exit_manager.exit_screen_hide()
                 -- 'e' for exit
             elseif key == 'e' then
                 exit_command()
             elseif key == 'l' then
-                exit_screen_hide()
+                exit_manager.exit_screen_hide()
                 lock_command()
             elseif key == 'p' then
                 poweroff_command()
             elseif key == 'r' then
                 reboot_command()
             elseif key == 'escape' or key == 'q' or key == 'x' then
-                exit_screen_hide()
+                exit_manager.exit_screen_hide()
             end
         end)
     exit_screen.visible = true
 end
 
 exit_screen:buttons(gears.table.join( -- Left click - Hide exit_screen
-                        awful.button({}, 1, function() exit_screen_hide() end),
-    -- Middle click - Hide exit_screen
-                        awful.button({}, 2, function() exit_screen_hide() end),
+                        awful.button({}, 1, function()
+        exit_manager.exit_screen_hide()
+    end), -- Middle click - Hide exit_screen
+    awful.button({}, 2, function() exit_manager.exit_screen_hide() end),
     -- Right click - Hide exit_screen
-                        awful.button({}, 3, function() exit_screen_hide() end)))
+                        awful.button({}, 3, function()
+        exit_manager.exit_screen_hide()
+    end)))
 
 -- Item placement
 exit_screen:setup{
@@ -157,5 +160,7 @@ exit_screen:setup{
     expand = "none",
     layout = wibox.layout.align.vertical
 }
+
+return exit_manager
 
 -- EOF ------------------------------------------------------------------------

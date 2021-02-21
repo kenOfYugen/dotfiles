@@ -41,7 +41,7 @@ lock_screen_box = wibox({
 })
 awful.placement.maximize(lock_screen_box)
 
-lock_screen_box.bg = beautiful.xbackground .. "80" or "#111111"
+lock_screen_box.bg = beautiful.exit_screen_bg
 lock_screen_box.fg = beautiful.xforeground or "#FEFEFE"
 
 -- Add lockscreen to each screen
@@ -49,9 +49,7 @@ awful.screen.connect_for_each_screen(function(s)
     if s == screen.primary then
         s.mylockscreen = lock_screen_box
     else
-        s.mylockscreen = helpers.screen_mask(s,
-                                             beautiful.lock_screen_bg or
-                                                 beautiful.exit_screen_bg or
+        s.mylockscreen = helpers.screen_mask(s, beautiful.exit_screen_bg or
                                                  beautiful.xbackground .. "80")
     end
 end)

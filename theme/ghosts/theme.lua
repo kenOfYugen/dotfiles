@@ -16,12 +16,14 @@ local helpers = require("helpers")
 -- Inherit default theme
 
 local theme = dofile(themes_path .. "default/theme.lua")
+theme.wallpaper = gfs.get_configuration_dir() .. "images/bg.png"
 
 -- Titlebar icon path
 
-local icon_path = gears.filesystem.get_configuration_dir() .. "icons/"
+local icon_path = gfs.get_configuration_dir() .. "icons/"
 
-theme.me = gears.filesystem.get_configuration_dir() .. "images/me.png"
+theme.me = gears.surface.load_uncached(gfs.get_configuration_dir() ..
+                                           "images/me.png")
 
 -- Icons for Notif Center
 
@@ -63,7 +65,7 @@ theme.max_font = "FiraCode Nerd Font Mono 10"
 
 theme.bg_dark = theme.xcolor0
 theme.bg_normal = theme.xbackground
-theme.bg_focus = theme.xcolor8
+theme.bg_focus = theme.xcolor0
 theme.bg_urgent = theme.xcolor8
 theme.bg_minimize = theme.xcolor8
 
@@ -78,7 +80,7 @@ theme.button_close = theme.xcolor1
 
 -- Borders
 
-theme.border_width = dpi(0)
+theme.border_width = dpi(2)
 theme.oof_border_width = dpi(0)
 theme.border_normal = theme.xcolor0
 theme.border_focus = theme.xcolor0
@@ -97,8 +99,8 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
                                   taglist_square_size, theme.fg_normal)
 theme.taglist_font = theme.font_taglist
 theme.taglist_bg = theme.wibar_bg
-theme.taglist_bg_focus = theme.xcolor8
-theme.taglist_fg_focus = theme.xcolor4
+theme.taglist_bg_focus = theme.xcolor0
+theme.taglist_fg_focus = theme.xcolor3
 theme.taglist_bg_urgent = theme.xcolor0
 theme.taglist_fg_urgent = theme.xcolor6
 theme.taglist_bg_occupied = theme.xcolor0
@@ -124,7 +126,6 @@ theme.tasklist_disable_task_name = false
 theme.tasklist_disable_icon = true
 theme.tasklist_bg_urgent = theme.xcolor0
 theme.tasklist_fg_urgent = theme.xcolor1
-theme.tasklist_spacing = dpi(5)
 theme.tasklist_align = "center"
 
 -- Titlebars
@@ -133,7 +134,7 @@ theme.titlebar_size = dpi(40)
 theme.titlebar_height = dpi(20)
 theme.titlebar_bg_focus = theme.xbackground
 theme.titlebar_bg_normal = theme.xbackground
-theme.titlebar_fg_focus = theme.xbackground
+theme.titlebar_fg_focus = theme.xcolor8
 theme.titlebar_fg_normal = theme.xbackground
 
 -- Edge snap
@@ -148,10 +149,10 @@ theme.prompt_fg = theme.xforeground
 
 -- Tooltips
 
-theme.tooltip_bg = theme.xcolor0
+theme.tooltip_bg = theme.xbackground
 theme.tooltip_fg = theme.xforeground
-theme.tooltip_font = theme.font
-theme.tooltip_border_width = theme.border_width
+theme.tooltip_font = theme.font_name .. "12"
+theme.tooltip_border_width = theme.widget_border_width - 1
 theme.tooltip_border_color = theme.xcolor0
 theme.tooltip_opacity = 1
 theme.tooltip_align = "left"
@@ -174,6 +175,8 @@ theme.menu_border_width = theme.border_width
 
 theme.hotkeys_font = theme.font
 theme.hotkeys_border_color = theme.xcolor0
+theme.hotkeys_group_margin = dpi(40)
+theme.hotkeys_shape = helpers.custom_shape
 
 -- Layout List
 
@@ -184,15 +187,16 @@ theme = theme_assets.recolor_layout(theme, theme.xforeground)
 
 -- Gaps
 
-theme.useless_gap = dpi(15)
+theme.useless_gap = dpi(10)
 
 -- Exit Screen
 
 theme.exit_screen_fg = theme.xforeground
+theme.exit_screen_bg = theme.xbackground .. "EE"
 
 -- Wibar
 
-theme.wibar_height = dpi(33)
+theme.wibar_height = dpi(35)
 theme.wibar_margin = dpi(15)
 theme.wibar_spacing = dpi(15)
 theme.wibar_bg = theme.xbackground
@@ -242,12 +246,11 @@ theme.collision_screen_fg_focus = theme.xcolor4
 
 theme.mstab_bar_height = dpi(60)
 theme.mstab_bar_padding = dpi(0)
-theme.mstab_tabbar_orientation = "bottom"
 theme.mstab_border_radius = dpi(6)
 theme.tabbar_style = "modern"
 theme.tabbar_bg_focus = theme.xbackground
 theme.tabbar_bg_normal = theme.xcolor0
-theme.tabbar_orientation = "bottom"
+theme.tabbar_position = "bottom"
 theme.mstab_bar_ontop = true
 
 theme.notification_spacing = 10
@@ -255,5 +258,19 @@ theme.notification_spacing = 10
 -- Weather
 
 theme.weather_city = "San_Diego"
+
+-- Swallowing
+
+theme.dont_swallow_classname_list = {
+    "firefox", "gimp", "Google-chrome", "Thunar"
+}
+
+-- Layout Machi
+
+theme.switcher_border_color = theme.xcolor4
+theme.switcher_border_opacity = 0.25
+theme.editor_border_color = theme.xcolor1
+theme.editor_border_opacity = 0.25
+theme.editor_active_opacity = 0.25
 
 return theme

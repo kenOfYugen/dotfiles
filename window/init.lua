@@ -1,13 +1,58 @@
 local awful = require("awful")
 local gears = require("gears")
+local gfs = gears.filesystem
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
 local helpers = require("helpers")
 
+-- Bling Module
 local bling = require("bling")
 
--- client.connect_signal("manage", function(c) c.shape = helpers.rrect(0) end)
+-- Layout Machi
+local machi = require("layout-machi")
+beautiful.layout_machi = machi.get_icon()
+
+-- This is to slave windows' positions in floating layout
+-- Not Mine
+-- https://github.com/larkery/awesome/blob/master/savefloats.lua
+require("window.savefloats")
+-- Better mouse resizing on tiled
+-- Not mine
+-- https://github.com/larkery/awesome/blob/master/better-resize.lua
+require("window.better-resize")
+
+client.connect_signal("manage", function(c)
+
+    -- Set the windows at the slave,
+    -- i.e. put it at the end of others instead of setting it master.
+    -- if not awesome.startup then awful.client.setslave(c) end
+    if awesome.startup and not c.size_hints.user_position and
+        not c.size_hints.program_position then
+        -- Prevent clients from being unreachable after screen count changes.
+        awful.placement.no_offscreen(c)
+    end
+
+    -- Give ST and icon
+    if c.class == "st-256color" or c.class == "st-dialog" or c.class ==
+        "st-float" then
+        local new_icon = gears.surface(gfs.get_configuration_dir() ..
+                                           "icons/ghosts/terminal.png")
+        c.icon = new_icon._native
+    end
+end)
+
+-- Enable sloppy focus, so that focus follows mouse.
+client.connect_signal("mouse::enter", function(c)
+    c:emit_signal("request::activate", "mouse_enter", {raise = false})
+end)
+
+client.connect_signal("focus",
+                      function(c) c.border_color = beautiful.border_focus end)
+
+client.connect_signal("unfocus",
+                      function(c) c.border_color = beautiful.border_normal end)
+
 --[[client.connect_signal("focus", function(c)
     gears.surface(c.content):write_to_png("/home/javacafe01/oof.png")
 end)]] --
@@ -23,7 +68,7 @@ local horizontal = bling.layout.horizontal
 tag.connect_signal("request::default_layouts", function()
     awful.layout.append_default_layouts({
         awful.layout.suit.tile, awful.layout.suit.floating, centered, mstab,
-        vertical, horizontal
+        vertical, horizontal, machi.default_layout
     })
 end)
 

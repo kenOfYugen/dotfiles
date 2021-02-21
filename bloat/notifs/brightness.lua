@@ -9,17 +9,19 @@ local width = dpi(200)
 local height = dpi(200)
 local screen = awful.screen.focused()
 
-local icon_theme = "sheet"
-local icons = require("icons")
-icons.init(icon_theme)
-
-local bright_icon = icons.brightness
-
 local active_color_1 = {
     type = 'linear',
     from = {0, 0},
     to = {200, 50}, -- replace with w,h later
     stops = {{0, beautiful.xcolor6}, {0.50, beautiful.xcolor4}}
+}
+
+local bright_icon = wibox.widget {
+    markup = "<span foreground='" .. beautiful.xcolor4 .. "'><b></b></span>",
+    align = 'center',
+    valign = 'center',
+    font = beautiful.font_name .. '70',
+    widget = wibox.widget.textbox
 }
 
 -- create the bright_adjust component
@@ -49,16 +51,15 @@ bright_adjust:setup{
     {
         layout = wibox.layout.align.vertical,
         {
-            {image = bright_icon, widget = wibox.widget.imagebox},
-            top = dpi(30),
+            bright_icon,
+            top = dpi(15),
             left = dpi(50),
             right = dpi(50),
-            bottom = dpi(0),
+            bottom = dpi(15),
             widget = wibox.container.margin
         },
         {
             bright_bar,
-            top = dpi(20),
             left = dpi(25),
             right = dpi(25),
             bottom = dpi(30),

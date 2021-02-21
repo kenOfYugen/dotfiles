@@ -5,8 +5,10 @@ local wibox = require("wibox")
 local awful = require("awful")
 local dpi = beautiful.xresources.apply_dpi
 local helpers = require("helpers")
+local ruled = require("ruled")
 
 require("bloat.notifs.brightness")
+require("bloat.notifs.playerctl")
 require("bloat.notifs.volume")
 require("bloat.notifs.battery")
 
@@ -16,9 +18,9 @@ naughty.config.defaults.screen = awful.screen.focused()
 naughty.config.defaults.timeout = 3
 naughty.config.defaults.title = "System Notification"
 -- naughty.config.defaults.margin = dpi(20)
-naughty.config.defaults.border_width = 0
+-- naughty.config.defaults.border_width = 0
 -- naughty.config.defaults.border_color = beautiful.widget_border_color
-naughty.config.defaults.position = "bottom_right"
+naughty.config.defaults.position = "bottom_left"
 -- naughty.config.defaults.shape = helpers.rrect(beautiful.client_radius)
 
 naughty.config.padding = dpi(10)
@@ -55,10 +57,15 @@ naughty.config.presets.ok = naughty.config.presets.normal
 naughty.config.presets.info = naughty.config.presets.normal
 naughty.config.presets.warn = naughty.config.presets.critical
 
+ruled.notification.connect_signal('request::rules', function()
+    -- All notifications will match this rule.
+    ruled.notification.append_rule {
+        rule = {},
+        properties = {screen = awful.screen.preferred, implicit_timeout = 6}
+    }
+end)
+
 naughty.connect_signal("request::display", function(n)
-
-    n.timeout = 6
-
     local appicon = n.icon or n.app_icon
     if not appicon then appicon = beautiful.notification_icon end
 
@@ -149,7 +156,7 @@ naughty.connect_signal("request::display", function(n)
                                         },
                                         {
                                             {
-                                                text = n.message,
+                                                markup = n.message,
                                                 align = "left",
                                                 font = beautiful.font,
                                                 widget = wibox.widget.textbox
