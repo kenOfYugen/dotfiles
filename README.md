@@ -24,7 +24,7 @@ This module is a powerful manual layout that contains an amazing editor to chang
 
 ## System Info
 + **OS**: Endeavour
-+ **Terminal**: Termite
++ **Terminal**: alacritty
 + **Browser**: Firefox
     + [firefox-css](https://github.com/JavaCafe01/firefox-css)
 + **Music**: Ncspot
