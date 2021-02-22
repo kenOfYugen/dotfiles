@@ -16,7 +16,6 @@ local dpi = require("beautiful.xresources").apply_dpi
 local naughty = require("naughty")
 -- Declarative object management
 local ruled = require("ruled")
-local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -70,9 +69,6 @@ modkey = "Mod4"
 altkey = "Mod1"
 shift = "Shift"
 ctrl = "Control"
-
--- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 
 -- Import Bling Module
 local bling = require("bling")

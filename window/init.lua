@@ -163,4 +163,14 @@ awful.keygrabber {
     }
 }
 
+-- Hide all windows when a splash is shown
+awesome.connect_signal("widgets::splash::visibility", function(vis)
+    local t = awful.screen.focused().selected_tag
+    if vis then
+        for idx, c in ipairs(t:clients()) do c.hidden = true end
+    else
+        for idx, c in ipairs(t:clients()) do c.hidden = false end
+    end
+end)
+
 -- EOF ------------------------------------------------------------------------

@@ -17,7 +17,7 @@ local suspend_text_icon = ""
 local exit_text_icon = ""
 local lock_text_icon = ""
 
-local button_bg = beautiful.xcolor0
+local button_bg = beautiful.xbackground
 local button_size = dpi(120)
 
 local lock_screen = require("bloat.lockscreen")
@@ -50,10 +50,10 @@ local create_button = function(symbol, hover_color, text, command)
         {nil, icon, expand = "none", layout = wibox.layout.align.horizontal},
         forced_height = button_size,
         forced_width = button_size,
-        border_width = dpi(3),
-        border_color = button_bg,
         shape = helpers.rrect(10),
         bg = button_bg,
+        border_width = beautiful.widget_border_width,
+        border_color = beautiful.widget_border_color,
         widget = wibox.container.background
     }
 
@@ -68,7 +68,7 @@ local create_button = function(symbol, hover_color, text, command)
     end)
     button:connect_signal("mouse::leave", function()
         icon.markup = helpers.colorize_text(icon.text, beautiful.xforeground)
-        button.border_color = button_bg
+        button.border_color = beautiful.widget_border_color
     end)
 
     -- Use helper function to change the cursor on hover
@@ -98,10 +98,13 @@ exit_screen.bg = beautiful.exit_screen_bg or exitscreen_bg or "#111111"
 exit_screen.fg = beautiful.exit_screen_fg or beautiful.wibar_fg or "#FEFEFE"
 
 local exit_screen_grabber
+
 exit_manager.exit_screen_hide = function()
     awful.keygrabber.stop(exit_screen_grabber)
     exit_screen.visible = false
+    awesome.emit_signal("widgets::splash::visibility", exit_screen.visible)
 end
+
 exit_manager.exit_screen_show = function()
     exit_screen_grabber = awful.keygrabber.run(
                               function(_, key, event)
@@ -128,6 +131,7 @@ exit_manager.exit_screen_show = function()
             end
         end)
     exit_screen.visible = true
+    awesome.emit_signal("widgets::splash::visibility", exit_screen.visible)
 end
 
 exit_screen:buttons(gears.table.join( -- Left click - Hide exit_screen

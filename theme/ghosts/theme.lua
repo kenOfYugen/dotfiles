@@ -35,9 +35,9 @@ theme.delete_grey_icon = icon_path .. "notif-center/delete_grey.png"
 
 -- Load ~/.Xresources colors and set fallback colors
 
-theme.xbackground = xrdb.background or "#30333d"
+theme.xbackground = xrdb.background or "#1a2026"
 theme.xforeground = xrdb.foreground or "#ffffff"
-theme.xcolor0 = xrdb.color0 or "#292b34"
+theme.xcolor0 = xrdb.color0 or "#29343d"
 theme.xcolor1 = xrdb.color1 or "#f9929b"
 theme.xcolor2 = xrdb.color2 or "#7ed491"
 theme.xcolor3 = xrdb.color3 or "#fbdf90"
@@ -45,7 +45,7 @@ theme.xcolor4 = xrdb.color4 or "#a3b8ef"
 theme.xcolor5 = xrdb.color5 or "#ccaced"
 theme.xcolor6 = xrdb.color6 or "#9ce5c0"
 theme.xcolor7 = xrdb.color7 or "#ffffff"
-theme.xcolor8 = xrdb.color8 or "#585e74"
+theme.xcolor8 = xrdb.color8 or "#3b4b58"
 theme.xcolor9 = xrdb.color9 or "#fca2aa"
 theme.xcolor10 = xrdb.color10 or "#a5d4af"
 theme.xcolor11 = xrdb.color11 or "#fbeab9"
@@ -192,7 +192,7 @@ theme.useless_gap = dpi(10)
 -- Exit Screen
 
 theme.exit_screen_fg = theme.xforeground
-theme.exit_screen_bg = theme.xbackground .. "EE"
+theme.exit_screen_bg = theme.xcolor0 .. "55"
 
 -- Wibar
 

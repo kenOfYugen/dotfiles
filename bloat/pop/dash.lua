@@ -19,6 +19,8 @@ local function create_boxed_widget(widget_to_be_boxed, width, height, bg_color)
     box_container.forced_height = height
     box_container.forced_width = width
     box_container.shape = helpers.rrect(box_radius)
+    box_container.border_width = beautiful.widget_border_width
+    box_container.border_color = beautiful.widget_border_color
 
     local boxed_widget = wibox.widget {
         {
@@ -192,20 +194,21 @@ local fancy_date = {fancy_date_widget, layout = wibox.layout.fixed.vertical}
 -- {{{ Music Widget
 
 local playerctl = require("bloat.widgets.playerctl")
-local playerctl_box =
-    create_boxed_widget(playerctl, 400, 145, beautiful.xcolor0)
+local playerctl_box = create_boxed_widget(playerctl, 400, 145,
+                                          beautiful.xbackground)
 
 -- {{{ Info Widget
 
 local info = require("bloat.widgets.info")
-local info_box = create_boxed_widget(info, 400, 145, beautiful.xcolor0)
+local info_box = create_boxed_widget(info, 400, 145, beautiful.xbackground)
 
 -- }}}
 
 -- {{ Weather
 
 local weather = require("bloat.widgets.weather")
-local weather_box = create_boxed_widget(weather, 400, 100, beautiful.xcolor0)
+local weather_box =
+    create_boxed_widget(weather, 400, 100, beautiful.xbackground)
 
 -- }}
 
@@ -275,8 +278,8 @@ local sys2 = wibox.widget {
 
 -- local sys2 = wibox.widget {ram, disk, temp, layout = wibox.layout.flex.vertical}
 
-local sys_box = create_boxed_widget(sys, 400, 200, beautiful.xcolor0)
-local sys_box2 = create_boxed_widget(sys2, 400, 200, beautiful.xcolor0)
+local sys_box = create_boxed_widget(sys, 400, 200, beautiful.xbackground)
+local sys_box2 = create_boxed_widget(sys2, 400, 200, beautiful.xbackground)
 
 local time = wibox.widget {
     {fancy_time, fancy_date, layout = wibox.layout.align.vertical},
@@ -287,7 +290,7 @@ local time = wibox.widget {
     widget = wibox.container.margin
 }
 
-local time_box = create_boxed_widget(time, 400, 159, beautiful.xcolor0)
+local time_box = create_boxed_widget(time, 400, 159, beautiful.xbackground)
 
 local panelWidget = wibox.widget {
     {info_box, sys_box, layout = wibox.layout.align.vertical},
@@ -304,22 +307,24 @@ dashboard.bg = beautiful.exit_screen_bg or "#111111"
 dashboard.fg = beautiful.exit_screen_fg or "#FEFEFE"
 
 local dash_grabber
+
 dash_manager.dash_hide = function()
     awful.keygrabber.stop(dash_grabber)
     dashboard.visible = false
+    awesome.emit_signal("widgets::splash::visibility", dashboard.visible)
 end
+
 dash_manager.dash_show = function()
     dash_grabber = awful.keygrabber.run(function(_, key, event)
         -- Ignore case
         key = key:lower()
-
         if event == "release" then return end
-
         if key == 'escape' or key == 'q' or key == 'x' then
             dash_manager.dash_hide()
         end
     end)
     dashboard.visible = true
+    awesome.emit_signal("widgets::splash::visibility", dashboard.visible)
 end
 
 dashboard:setup{

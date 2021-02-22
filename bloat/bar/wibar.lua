@@ -24,7 +24,6 @@ end
 
 -- Awesome Panel -----------------------------------------------------------
 
-local panelPop = require('bloat.pop.bot_pan')
 local awesome_icon = wibox.widget {
     {
         {
@@ -40,36 +39,9 @@ local awesome_icon = wibox.widget {
     widget = wibox.container.background
 }
 
---[[
-
-local sidebar_activator = wibox({
-    width = dpi(1),
-    visible = true,
-    ontop = true,
-    opacity = 0,
-    below = true,
-    screen = screen.primary
-})
-
-sidebar_activator.height = dpi(1000)
-sidebar_activator:connect_signal("mouse::enter",
-                                 function() panelPop.visible = true end)
-
-awful.placement.left(sidebar_activator)
-
-]] --
--- awesome_icon:connect_signal("mouse::enter",
---                            function() panelPop.visible = true end)
-
 awesome_icon:buttons(gears.table.join(awful.button({}, 1, function()
-    panelPop.visible = true
     awesome_icon.bg = beautiful.xcolor0
 end)))
-
-panelPop:connect_signal("mouse::leave", function()
-    panelPop.visible = false
-    awesome_icon.bg = beautiful.xbackground
-end)
 
 -- Notifs Panel ---------------------------------------------------------------
 
@@ -340,7 +312,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
     end
 
     -- Create the wibox
-    s.mywibox = awful.wibar({position = "bottom", screen = s, ontop = true})
+    s.mywibox = awful.wibar({position = "bottom", screen = s})
     s.mywibox:set_xproperty("WM_NAME", "panel")
 
     -- Remove wibar on full screen
@@ -351,6 +323,10 @@ screen.connect_signal("request::desktop_decoration", function(s)
             c.screen.mywibox.visible = true
         end
     end
+
+    -- Hide bar when a splash widget is visible
+    awesome.connect_signal("widgets::splash::visibility",
+                           function(vis) s.mywibox.visible = not vis end)
 
     client.connect_signal("property::fullscreen", remove_wibar)
 
