@@ -40,7 +40,7 @@ To start off, I do not round any corners with picom or any other fork. I round w
 
 But how did I get shadows? Usually, when you add shadows, it shadows the transparent widget as well, like this: 
 
-<img src="https://github.com/JavaCafe01/awesome-config/blob/master/images/round_transparent.png" alt="img">
+<img src="https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/round_transparent.png" alt="img">
 
 In picom, if you edit the wintypes option by adding `full-shadow = true` for every window type you need, you will fix that problem:
 
@@ -55,6 +55,6 @@ wintypes:
 
 Here is the result:
 
-<img src="https://github.com/JavaCafe01/awesome-config/blob/master/images/round_shadow.png" alt="img">
+<img src="https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/round_shadow.png" alt="img">
 
 Currently I don't have shadows, but I can easily just enable it in picom and still retain my AA corners.
