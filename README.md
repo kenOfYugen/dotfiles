@@ -4,7 +4,7 @@ NOTICE: My configuration for AwesomeWM only works on the latest git master branc
 ## Previews
 
 <p align="center">
-<img src="https://github.com/JavaCafe01/awesome-config/blob/master/images/rice.png" alt="img" align="center" width="800px">
+<img src="https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/rice.png" alt="img" align="center" width="800px">
 </p>
 
 
