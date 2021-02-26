@@ -1,37 +1,34 @@
 NOTICE: My configuration for AwesomeWM only works on the latest git master branch. On Arch based distros, all you would have to do is install `awesome-git` from the AUR. On others, you will have to build it manually.
 
 
-## Previews
-
-<p align="center">
-<img src="https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/rice.png" alt="img" align="center" width="800px">
-</p>
-
-
-
 ## Setup
 This repository has submodules, so make sure you clone it correctly:
 ```bash
-git clone --recurse-submodules https://github.com/JavaCafe01/awesome-config.git ~/.config/awesome
+git clone --recurse-submodules https://github.com/JavaCafe01/dotfiles.git
 ```
 
 ## Modules
 ### :star: [bling](https://github.com/Nooo37/bling) :star:
 Bling brings extra utilities to AwesomeWM such as tabs, swallowing, layouts, and flash focus. Please check it out and give it a star!
 
+<img src="https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/layout-machi_demo.gif" alt="gif" align="right" width="400px">
+
 ### [layout-machi](https://github.com/xinhaoyuan/layout-machi)
-This module is a powerful manual layout that contains an amazing editor to change and make layouts and window locations. Its for powerusers and gives full control of the layout. Give it a star!
+This module is a powerful manual layout that contains an amazing editor to change and make layouts and window locations. Its for powerusers and gives full control of the layout. Give it a star! To the right is a demo of how layout-machi works (this is not its full potential, I'm a noob with it).
+
+
+<img src="https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/rice.png" alt="img" align="right" width="400px">
 
 ## System Info
-+ **OS**: Endeavour
-+ **Terminal**: alacritty
-+ **Browser**: Firefox
++ **OS**: Arch
++ **Shell**: zsh
++ **Terminal**: [st](https://github.com/JavaCafe01/st)
++ **Browser**: firefox
     + [firefox-css](https://github.com/JavaCafe01/firefox-css)
-+ **Music**: Ncspot
-+ **GTK Theme**: [Phocus](https://github.com/JavaCafe01/phocus)
-+ **File Manager**: Thunar
-+ **Color Scheme**: [javacafe](https://github.com/JavaCafe01/javacafe.vim)
-+ **Dotfiles**: [my neovim, terminal, and other stuff](https://github.com/JavaCafe01/dotfiles)
++ **Music**: ncspot
++ **GTK Theme**: [phocus](https://github.com/JavaCafe01/phocus)
++ **File Manager**: thunar
++ **App Menu**: rofi
 
 ## Common Questions
 
