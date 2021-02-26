@@ -11,13 +11,16 @@ git clone --recurse-submodules https://github.com/JavaCafe01/dotfiles.git
 ### :star: [bling](https://github.com/Nooo37/bling) :star:
 Bling brings extra utilities to AwesomeWM such as tabs, swallowing, layouts, and flash focus. Please check it out and give it a star!
 
-<img src="https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/layout-machi_demo.gif" alt="gif" align="right" width="350px">
+<img src="https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/layout-machi_demo.gif" alt="gif" align="right" width="350px"/>
 
 ### [layout-machi](https://github.com/xinhaoyuan/layout-machi)
-This module is a powerful manual layout that contains an amazing editor to change and make layouts and window locations. Its for powerusers and gives full control of the layout. Give it a star! To the right is a demo of how layout-machi works (this is not its full potential, I'm a noob with it).
+This module is a powerful manual layout that contains an amazing editor to change and make layouts and window locations. It's for powerusers and gives full control of the layout. Give it a star! To the right is a demo of how layout-machi works (this is not its full potential, I'm a noob with it).
 
+<br/>
+<br/>
+<br/>
 
-<img src="https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/rice.png" alt="img" align="right" width="350px">
+<img src="https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/rice.png" alt="img" align="right" width="350px"/>
 
 ## System Info
 + **OS**: Arch
@@ -29,6 +32,7 @@ This module is a powerful manual layout that contains an amazing editor to chang
 + **GTK Theme**: [phocus](https://github.com/JavaCafe01/phocus)
 + **File Manager**: thunar
 + **App Menu**: rofi
++ **Wallpapers**: my current wallpaper is under images in the awesome folder, but for all of the ones I have used you can find them [here](https://github.com/JavaCafe01/wallpapers)
 
 ## Common Questions
 
