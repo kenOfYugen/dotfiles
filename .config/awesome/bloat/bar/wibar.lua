@@ -324,11 +324,20 @@ screen.connect_signal("request::desktop_decoration", function(s)
         end
     end
 
+    -- Remove wibar on full screen
+    local function add_wibar(c)
+        if c.fullscreen or c.maximized then
+            c.screen.mywibox.visible = true
+        end
+    end
+
     -- Hide bar when a splash widget is visible
     awesome.connect_signal("widgets::splash::visibility",
                            function(vis) s.mywibox.visible = not vis end)
 
     client.connect_signal("property::fullscreen", remove_wibar)
+
+    client.connect_signal("request::unmanage", add_wibar)
 
     -- Create the taglist widget
     s.mytaglist = require("bloat.widgets.pacman_taglist")(s)

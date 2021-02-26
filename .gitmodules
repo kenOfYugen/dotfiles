@@ -1,9 +1,24 @@
 [submodule "bling"]
-	path = bling
+	path = .config/awesome/bling
     url = https://github.com/Nooo37/bling
     branch = master
 
 [submodule "layout-machi"]
-	path = layout-machi
+	path = .config/awesome/layout-machi
     url = https://github.com/JavaCafe01/layout-machi.git
+    branch = master
+
+[submodule "st"]
+	path = .config/st
+    url = https://github.com/JavaCafe01/st.git
+    branch = master
+
+[submodule "firefox"]
+	path = .config/firefox-css
+    url = https://github.com/JavaCafe01/firefox-css.git
+    branch = master
+
+[submodule "fzf-tab"]
+	path = .zsh-plugins/fzf-tab
+    url = https://github.com/Aloxaf/fzf-tab.git
     branch = master

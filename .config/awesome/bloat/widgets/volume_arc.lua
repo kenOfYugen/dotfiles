@@ -25,7 +25,7 @@ awesome.connect_signal("ears::volume", function(volume, muted)
     if muted then
         volume_arc.bg = beautiful.xcolor1
     else
-        volume_arc.bg = beautiful.xcolor8
+        volume_arc.bg = beautiful.xcolor0
     end
 
     volume_arc.value = volume

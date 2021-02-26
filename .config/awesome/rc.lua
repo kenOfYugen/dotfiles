@@ -161,15 +161,6 @@ ruled.client.connect_signal("request::rules", function()
         }
     }
 
-    -- Android Studio Fix
-    ruled.client.append_rule {
-        id = "jetbrains_fix",
-        {
-            rule = {class = "jetbrains-studio", name = "^win[0-9]+$"},
-            properties = {placement = awful.placement.no_offscreen}
-        }
-    }
-
     -- Center Placement
     ruled.client.append_rule {
         id = "center_placement",
@@ -181,7 +172,7 @@ ruled.client.connect_signal("request::rules", function()
             instance = {"music", "markdown_input", "scratchpad"},
             role = {"GtkFileChooserDialog", "conversation"}
         },
-        properties = {titlebars_enabled = true}
+        properties = {placement = awful.placement.center}
     }
 
     -- Titlebar rules

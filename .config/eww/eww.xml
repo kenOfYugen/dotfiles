@@ -1,0 +1,25 @@
+<eww>
+    <definitions>
+        <def name="main">
+            <box class="date">
+                The time is: {{date}} currently.
+            </box>
+        </def>
+    </definitions>
+
+    <variables>
+        <script-var name="date">
+            date
+        </script-var>
+    </variables>
+
+    <windows>
+         <window name="main_window" stacking="fg" focusable="false" screen="1">
+        <geometry anchor="top left" x="0px" y="0" width="25%" height="20px"/>
+        <widget>
+            <main/>
+        </widget>
+    </window>
+	</windows>
+</eww>
+

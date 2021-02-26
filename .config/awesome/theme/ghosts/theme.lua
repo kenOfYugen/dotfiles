@@ -55,7 +55,7 @@ theme.xcolor14 = xrdb.color14 or "#c7e5d6"
 theme.xcolor15 = xrdb.color15 or "#eaeaea"
 
 -- Fonts
-theme.font_name = "Jetbrains Mono "
+theme.font_name = "FiraCode Nerd Font Mono "
 theme.font = theme.font_name .. "9"
 theme.icon_font = "FiraCode Nerd Font Mono 18"
 theme.font_taglist = "FiraCode Nerd Font Mono 13"

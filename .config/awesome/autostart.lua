@@ -12,29 +12,30 @@ local function run_once(cmd)
                                           findme, cmd))
 end
 
--- Network Manager Applet
-run_once("nm-applet")
+-- LuaFormatter off
+-- Add apps to autostart here
+autostart_apps = {
+    -- Network Manager Applet
+    "nm-applet", 
 
--- Disable Bell
-run_once("xset -b")
+    -- Disable Bell
+    "xset -b", 
 
--- Mpd Cleanup
-run_once([[
-    ps aux | grep "mpc idleloop player" | grep -v grep | awk '{print $2}' | xargs kill
-    ]])
+    -- Layout
+    "~/.screenlayout/layout.sh", 
 
-run_once("~/.screenlayout/layout.sh")
+    -- Bluetooth
+    "blueman-applet", 
 
--- Bluetooth
-run_once("blueman-applet")
+    -- Compositor
+    "picom --experimental-backends --config " ..
+        gears.filesystem.get_configuration_dir() .. "configs/picom.conf",
 
--- Compositor
-run_once("picom --experimental-backends --config " ..
-             gears.filesystem.get_configuration_dir() .. "configs/picom.conf")
+    -- Media controller daemon
+    "playerctld daemon"
+}
+-- LuaFormatter on
 
--- Media controller daemon
-run_once("playerctld daemon")
-
-return autostart
+for app = 1, #autostart_apps do run_once(autostart_apps[app]) end
 
 -- EOF ------------------------------------------------------------------------
