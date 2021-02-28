@@ -35,7 +35,7 @@ client.connect_signal("manage", function(c)
 
     -- Give ST and icon
     if c.class == "st-256color" or c.class == "st-dialog" or c.class ==
-        "st-float" then
+        "st-float" or c.instance == "st-256color" then
         local new_icon = gears.surface(gfs.get_configuration_dir() ..
                                            "icons/ghosts/terminal.png")
         c.icon = new_icon._native

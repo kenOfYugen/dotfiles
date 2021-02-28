@@ -7,10 +7,8 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 local helpers = require("helpers")
 -- Custom modules
 local notifPop = require("bloat.pop.notif")
-local dash_manager = require("bloat.pop.dash")
 local machi = require("layout-machi")
 local bling = require("bling")
-local exit_manager = require("bloat.exitscreen")
 
 -- Mouse Bindings
 awful.mouse.append_global_mousebindings({
@@ -126,10 +124,10 @@ awful.keyboard.append_global_keybindings(
                   function() notifPop.visible = not notifPop.visible end,
                   {description = "show notifs", group = "awesome"}),
         awful.key({modkey, shift}, "d", function()
-            dash_manager.dash_show()
+            awesome.emit_signal("widgets::dashboard::show")
         end, {description = "show panel", group = "awesome"}),
         awful.key({modkey}, "x", function()
-            exit_manager.exit_screen_show()
+            awesome.emit_signal("widgets::exit_screen::show")
         end, {description = "show exit screen", group = "awesome"}),
         awful.key({modkey, "Control"}, "r", awesome.restart,
                   {description = "reload awesome", group = "awesome"}),
