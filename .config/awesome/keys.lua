@@ -29,7 +29,7 @@ awful.keyboard.append_global_keybindings(
         awful.key({"Mod1"}, "d", function() bling.module.tabbed.pop() end, {
             description = "remove focused client from tabbing group",
             group = "tabs"
-        }), awful.key({modkey}, "Down", function()
+        }), --[[awful.key({modkey}, "Down", function()
             awful.client.focus.bydirection("down")
             bling.module.flash_focus.flashfocus(client.focus)
         end, {description = "focus down", group = "client"}),
@@ -44,9 +44,9 @@ awful.keyboard.append_global_keybindings(
         awful.key({modkey}, "Right", function()
             awful.client.focus.bydirection("right")
             bling.module.flash_focus.flashfocus(client.focus)
-        end, {description = "focus right", group = "client"}),
-        awful.key({modkey}, "j", function() awful.client.focus.byidx(1) end,
-                  {description = "focus next by index", group = "client"}),
+        end, {description = "focus right", group = "client"}),--]] awful.key(
+            {modkey}, "j", function() awful.client.focus.byidx(1) end,
+            {description = "focus next by index", group = "client"}),
         awful.key({modkey}, "k", function() awful.client.focus.byidx(-1) end,
                   {description = "focus previous by index", group = "client"}),
         awful.key({modkey, "Shift"}, "j",

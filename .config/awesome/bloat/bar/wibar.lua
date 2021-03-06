@@ -241,6 +241,7 @@ local playerctl_bar = wibox.widget {
                 song_logo,
                 left = dpi(3),
                 right = dpi(10),
+                bottom = dpi(1),
                 widget = wibox.container.margin
             },
             {

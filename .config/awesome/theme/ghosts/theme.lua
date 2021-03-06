@@ -139,8 +139,8 @@ theme.titlebar_fg_normal = theme.xbackground
 
 -- Edge snap
 
-theme.snap_bg = theme.xcolor4
-theme.snap_shape = helpers.rrect(theme.border_radius)
+theme.snap_bg = theme.xcolor8
+theme.snap_shape = helpers.rrect(0)
 
 -- Prompts
 
@@ -267,10 +267,10 @@ theme.dont_swallow_classname_list = {
 
 -- Layout Machi
 
-theme.switcher_border_color = theme.xcolor4
-theme.switcher_border_opacity = 0.25
-theme.editor_border_color = theme.xcolor1
-theme.editor_border_opacity = 0.25
-theme.editor_active_opacity = 0.25
+theme.machi_switcher_border_color = theme.xcolor4
+theme.machi_switcher_border_opacity = 0.25
+theme.machi_editor_border_color = theme.xcolor1
+theme.machi_editor_border_opacity = 0.25
+theme.machi_editor_active_opacity = 0.25
 
 return theme

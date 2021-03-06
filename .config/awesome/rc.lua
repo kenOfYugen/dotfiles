@@ -21,6 +21,8 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+require("collision")()
+
 -- Helpers Library
 local helpers = require("helpers")
 
@@ -187,6 +189,62 @@ ruled.client.connect_signal("request::rules", function()
         properties = {titlebars_enabled = true}
     }
 end)
+
+ruled.client.append_rules {
+    {
+        rule = {instance = 'sun-awt-X11-XFramePeer', class = 'jetbrains-studio'},
+        properties = {titlebars_enabled = false, floating = false}
+    }, {
+        rule = {
+            instance = 'sun-awt-X11-XWindowPeer',
+            class = 'jetbrains-studio',
+            type = 'dialog'
+        },
+        properties = {
+            titlebars_enabled = false,
+            border_width = 0,
+            floating = true,
+            focus = true
+        }
+    }, {
+        rule = {
+            instance = 'sun-awt-X11-XFramePeer',
+            class = 'jetbrains-studio',
+            name = 'Android Virtual Device Manager'
+        },
+        properties = {
+            titlebars_enabled = true,
+            floating = true,
+            focus = true,
+            placement = awful.placement.centered
+        }
+    }, {
+        rule = {
+            instance = 'sun-awt-X11-XFramePeer',
+            class = 'jetbrains-studio',
+            name = 'Welcome to Android Studio'
+        },
+        properties = {
+            titlebars_enabled = false,
+            floating = true,
+            focus = true,
+            placement = awful.placement.centered
+        }
+    }, {
+        rule = {
+            instance = 'sun-awt-X11-XWindowPeer',
+            class = 'jetbrains-studio',
+            name = 'win0'
+        },
+        properties = {
+            titlebars_enabled = false,
+            floating = true,
+            focus = true,
+            border_width = 0,
+            placement = awful.placement.centered
+        }
+    }
+}
 
 -- Import Daemons and Widgets
 require("ears")
