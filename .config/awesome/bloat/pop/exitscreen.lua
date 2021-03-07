@@ -29,7 +29,7 @@ local poweroff_command =
 local reboot_command = function() awful.spawn.with_shell("systemctl reboot") end
 local suspend_command = function()
     lock_screen_show()
-    awful.spawn.with_shell("systemctl hibernate")
+    awful.spawn.with_shell("systemctl suspend")
 end
 local exit_command = function() awesome.quit() end
 local lock_command = function() lock_screen_show() end
@@ -91,17 +91,34 @@ local lock = create_button(lock_text_icon, beautiful.xcolor5, "Lock",
 
 local exit_manager = {}
 -- Create the exit screen wibox
-local exit_screen = wibox({visible = false, ontop = true, type = "splash"})
+local exit_screen = wibox({
+    visible = false,
+    ontop = true,
+    type = "splash",
+    screen = screen.primary
+})
 awful.placement.maximize(exit_screen)
 
 exit_screen.bg = beautiful.exit_screen_bg or exitscreen_bg or "#111111"
 exit_screen.fg = beautiful.exit_screen_fg or beautiful.wibar_fg or "#FEFEFE"
 
+-- Add exit screen to each screen
+awful.screen.connect_for_each_screen(function(s)
+    if s == screen.primary then
+        s.exit = exit_screen
+    else
+        s.exit = helpers.screen_mask(s, beautiful.exit_screen_bg or
+                                         beautiful.xbackground .. "80")
+    end
+end)
+
+local function set_visibility(v) for s in screen do s.exit.visible = v end end
+
 local exit_screen_grabber
 
 exit_manager.exit_screen_hide = function()
     awful.keygrabber.stop(exit_screen_grabber)
-    exit_screen.visible = false
+    set_visibility(false)
     awesome.emit_signal("widgets::splash::visibility", exit_screen.visible)
 end
 
@@ -130,7 +147,7 @@ exit_manager.exit_screen_show = function()
                 exit_manager.exit_screen_hide()
             end
         end)
-    exit_screen.visible = true
+    set_visibility(true)
     awesome.emit_signal("widgets::splash::visibility", exit_screen.visible)
 end
 

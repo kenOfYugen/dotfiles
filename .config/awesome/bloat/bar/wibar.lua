@@ -333,8 +333,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
     end
 
     -- Hide bar when a splash widget is visible
-    awesome.connect_signal("widgets::splash::visibility",
-                           function(vis) s.mywibox.visible = not vis end)
+    awesome.connect_signal("widgets::splash::visibility", function(vis)
+        screen.primary.mywibox.visible = not vis
+    end)
 
     client.connect_signal("property::fullscreen", remove_wibar)
 

@@ -300,17 +300,34 @@ local panelWidget = wibox.widget {
 }
 
 local dash_manager = {}
-local dashboard = wibox({visible = false, ontop = true, type = "splash"})
+local dashboard = wibox({
+    visible = false,
+    ontop = true,
+    type = "splash",
+    screen = screen.primary
+})
 awful.placement.maximize(dashboard)
 
 dashboard.bg = beautiful.exit_screen_bg or "#111111"
 dashboard.fg = beautiful.exit_screen_fg or "#FEFEFE"
 
+-- Add dash to each screen
+awful.screen.connect_for_each_screen(function(s)
+    if s == screen.primary then
+        s.dash = dashboard
+    else
+        s.dash = helpers.screen_mask(s, beautiful.exit_screen_bg or
+                                         beautiful.xbackground .. "80")
+    end
+end)
+
+local function set_visibility(v) for s in screen do s.dash.visible = v end end
+
 local dash_grabber
 
 dash_manager.dash_hide = function()
     awful.keygrabber.stop(dash_grabber)
-    dashboard.visible = false
+    set_visibility(false)
     awesome.emit_signal("widgets::splash::visibility", dashboard.visible)
 end
 
@@ -323,7 +340,7 @@ dash_manager.dash_show = function()
             dash_manager.dash_hide()
         end
     end)
-    dashboard.visible = true
+    set_visibility(true)
     awesome.emit_signal("widgets::splash::visibility", dashboard.visible)
 end
 

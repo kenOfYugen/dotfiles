@@ -80,13 +80,13 @@ theme.button_close = theme.xcolor1
 
 -- Borders
 
-theme.border_width = dpi(2)
+theme.border_width = dpi(1)
 theme.oof_border_width = dpi(0)
 theme.border_normal = theme.xcolor0
 theme.border_focus = theme.xcolor0
 theme.border_radius = dpi(12)
 theme.client_radius = dpi(12)
-theme.widget_border_width = dpi(2)
+theme.widget_border_width = dpi(1)
 theme.widget_border_color = theme.xcolor0
 
 -- Taglist
@@ -192,7 +192,7 @@ theme.useless_gap = dpi(10)
 -- Exit Screen
 
 theme.exit_screen_fg = theme.xforeground
-theme.exit_screen_bg = theme.xcolor0 .. "55"
+theme.exit_screen_bg = theme.xcolor0 .. "00"
 
 -- Wibar
 

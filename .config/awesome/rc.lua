@@ -54,7 +54,7 @@ editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 browser = "firefox"
 filemanager = "thunar"
-discord = "discord"
+discord = "discord-canary"
 launcher = "rofi -show drun"
 music = terminal .. " -c music -e ncspot"
 
@@ -143,7 +143,8 @@ ruled.client.connect_signal("request::rules", function()
             class = {"Arandr", "Blueman-manager", "Sxiv", "fzfmenu"},
             role = {
                 "pop-up" -- e.g. Google Chrome's (detached) Developer Tools.
-            }
+            },
+            name = {"Friends List", "Steam - News"}
         },
         properties = {floating = true}
     }
