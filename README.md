@@ -5,6 +5,8 @@ NOTICE: My configuration for AwesomeWM only works on the latest git master branc
 This repository has submodules, so make sure you clone it correctly:
 ```bash
 git clone --recurse-submodules https://github.com/JavaCafe01/dotfiles.git
+cd dotfiles
+git submodule update --remote --merge
 ```
 
 ## Modules
