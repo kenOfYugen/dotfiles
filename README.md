@@ -32,7 +32,7 @@ This module is a powerful manual layout that contains an amazing editor to chang
     + [firefox-css](https://github.com/JavaCafe01/firefox-css)
 + **Music**: ncspot
 + **GTK Theme**: [phocus](https://github.com/JavaCafe01/phocus)
-+ **File Manager**: thunar
++ **File Manager**: nautilus
 + **App Menu**: rofi
 + **Wallpapers**: my current wallpaper is under images in the awesome folder, but for all of the ones I have used you can find them [here](https://github.com/JavaCafe01/wallpapers)
 
