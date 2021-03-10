@@ -16,7 +16,7 @@ local weather_heading = wibox.widget({
     widget = wibox.widget.textbox()
 })
 
-awesome.connect_signal("ears::weather", function(temp, wind, emoji)
+awesome.connect_signal("ears::weather", function(temp, _, emoji)
     weather_heading.markup = helpers.colorize_text(
                                  emoji .. "  " .. tostring(temp) ..
                                      "°F in San Diego", beautiful.xcolor4)

@@ -29,7 +29,6 @@ local helpers = require("helpers")
 -- Autostart and Errors -------------------------------------------------------
 
 local autostart = require("autostart")
-awesome.register_xproperty("WM_NAME", "string")
 
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -53,7 +52,7 @@ terminal = "st"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 browser = "firefox"
-filemanager = "thunar"
+filemanager = "nautilus"
 discord = "discord-canary"
 launcher = "rofi -show drun"
 music = terminal .. " -c music -e ncspot"

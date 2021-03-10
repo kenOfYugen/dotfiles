@@ -24,72 +24,103 @@ end
 
 -- Awesome Panel -----------------------------------------------------------
 
+--[[ local unclicked = gears.surface.load_uncached(
+                      gfs.get_configuration_dir() .. "icons/ghosts/awesome.png")
+
+local clicked = gears.color.recolor_image(
+                    gears.surface.load_uncached(
+                        gfs.get_configuration_dir() ..
+                            "icons/ghosts/awesome.png"), beautiful.xcolor8)
+
+                            --]]
+
+local icon1 = wibox.widget {
+    widget = wibox.widget.imagebox,
+    image = gears.surface.load_uncached(gfs.get_configuration_dir() ..
+                                            "icons/ghosts/awesome.png"),
+    resize = true
+}
+
 local awesome_icon = wibox.widget {
     {
-        {
-            widget = wibox.widget.imagebox,
-            image = gears.surface.load_uncached(
-                gfs.get_configuration_dir() .. "icons/ghosts/awesome.png"),
-            resize = true
-        },
-        margins = dpi(7),
+        icon1,
+        top = dpi(5),
+        bottom = dpi(5),
+        left = dpi(10),
+        right = dpi(5),
         widget = wibox.container.margin
     },
-    bg = beautiful.xbackground,
+    bg = beautiful.xcolor0,
     widget = wibox.container.background
 }
 
 awesome_icon:buttons(gears.table.join(awful.button({}, 1, function()
-    awesome_icon.bg = beautiful.xcolor0
+    awesome.emit_signal("widgets::start::show", mouse.screen)
 end)))
+
+--[[ awesome.connect_signal("widgets::start::status", function(status)
+    if not status then
+        icon1.image = unclicked
+    else
+        icon1.image = clicked
+    end
+end)
+--]]
 
 -- Notifs Panel ---------------------------------------------------------------
 
-local notifPop = require("bloat.pop.notif")
+local icon2 = wibox.widget {
+    widget = wibox.widget.textbox,
+    font = beautiful.icon_font,
+    markup = "<span foreground='" .. beautiful.xcolor4 .. "'>" .. "" ..
+        "</span>",
+    resize = true
+}
+
 local notif_icon = wibox.widget {
     {
-        {
-            widget = wibox.widget.textbox,
-            font = beautiful.icon_font,
-            markup = "<span foreground='" .. beautiful.xcolor4 .. "'>" .. "" ..
-                "</span>",
-            resize = true
-        },
-        margins = dpi(4),
+        icon2,
+        top = dpi(4),
+        right = dpi(7),
+        left = dpi(7),
+        bottom = dpi(4),
         widget = wibox.container.margin
     },
-    bg = beautiful.xbackground,
+    bg = beautiful.xcolor0,
     widget = wibox.container.background
 }
 
--- notif_icon:connect_signal("mouse::enter", function() notifPop.visible = true end)
--- notifPop:connect_signal("mouse::leave", function() notifPop.visible = false end)
-
 notif_icon:buttons(gears.table.join(awful.button({}, 1, function()
-    notifPop.visible = true
-    notif_icon.bg = beautiful.xcolor0
+    awesome.emit_signal("widgets::notif_panel::show", mouse.screen)
 end)))
 
-notifPop:connect_signal("mouse::leave", function()
-    notifPop.visible = false
-    notif_icon.bg = beautiful.xbackground
-end)
+--[[awesome.connect_signal("widgets::notif_panel::status", function(status)
+    if not status then
+        icon2.markup = "<span foreground='" .. beautiful.xcolor4 .. "'>" ..
+                           "" .. "</span>"
+    else
+        icon2.markup = "<span foreground='" .. beautiful.xcolor8 .. "'>" ..
+                           "" .. "</span>"
+
+    end
+end)--]]
 
 -- Battery Bar Widget ---------------------------------------------------------
 
 local battery_bar = wibox.widget {
     max_value = 100,
-    value = 50,
+    value = 70,
     forced_width = dpi(200),
     shape = helpers.rrect(beautiful.border_radius - 3),
     bar_shape = helpers.rrect(beautiful.border_radius - 3),
     color = {
         type = 'linear',
         from = {0, 0},
-        to = {75, 20},
+        to = {55, 20},
         stops = {
-            {0, beautiful.xcolor9}, {0.5, beautiful.xcolor11},
-            {1, beautiful.xcolor10}
+            {1 + (80) / 100, beautiful.xcolor10},
+            {0.75 - (80 / 100), beautiful.xcolor9},
+            {1 - (80) / 100, beautiful.xcolor10}
         }
     },
     background_color = beautiful.xcolor0,
@@ -306,15 +337,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
     -- Create layoutbox widget
     s.mylayoutbox = awful.widget.layoutbox(s)
 
-    if s.index == 1 then
-        mysystray_container.visible = true
-    else
-        mysystray_container.visible = false
-    end
-
     -- Create the wibox
     s.mywibox = awful.wibar({position = "bottom", screen = s})
-    s.mywibox:set_xproperty("WM_NAME", "panel")
 
     -- Remove wibar on full screen
     local function remove_wibar(c)
@@ -392,20 +416,26 @@ screen.connect_signal("request::desktop_decoration", function(s)
             {
                 layout = wibox.layout.fixed.horizontal,
                 {
-                    awesome_icon,
-                    top = dpi(0),
-                    right = dpi(5),
-                    left = dpi(10),
-                    widget = wibox.container.margin
-                },
-                {
                     {
-                        s.mytaglist,
+                        {
+                            awesome_icon,
+                            s.mytaglist,
+                            spacing = 15,
+                            spacing_widget = {
+                                color = beautiful.xcolor8,
+                                shape = gears.shape.powerline,
+                                widget = wibox.widget.separator
+                            },
+                            layout = wibox.layout.fixed.horizontal
+                        },
                         bg = beautiful.xcolor0,
                         shape = helpers.rrect(beautiful.border_radius - 3),
                         widget = wibox.container.background
                     },
-                    margins = dpi(5),
+                    top = dpi(5),
+                    left = dpi(10),
+                    right = dpi(5),
+                    bottom = dpi(5),
                     widget = wibox.container.margin
                 },
                 s.mypromptbox,
@@ -469,10 +499,16 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 },
 
                 {
-                    notif_icon,
-                    top = dpi(0),
+                    {
+                        notif_icon,
+                        bg = beautiful.xcolor0,
+                        shape = helpers.rrect(beautiful.border_radius - 3),
+                        widget = wibox.container.background
+                    },
+                    top = dpi(5),
                     right = dpi(10),
                     left = dpi(5),
+                    bottom = dpi(5),
                     widget = wibox.container.margin
                 },
 

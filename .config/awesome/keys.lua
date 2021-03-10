@@ -6,7 +6,6 @@ local beautiful = require("beautiful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local helpers = require("helpers")
 -- Custom modules
-local notifPop = require("bloat.pop.notif")
 local machi = require("layout-machi")
 local bling = require("bling")
 
@@ -120,11 +119,11 @@ awful.keyboard.append_global_keybindings(
                   {description = "show help", group = "awesome"}),
         awful.key({modkey}, "Escape", awful.tag.history.restore,
                   {description = "go back", group = "tag"}),
-        awful.key({modkey, shift}, "w",
-                  function() notifPop.visible = not notifPop.visible end,
-                  {description = "show notifs", group = "awesome"}),
+        awful.key({modkey, shift}, "w", function()
+            awesome.emit_signal("widgets::notif_panel::show", mouse.screen)
+        end, {description = "show notifs", group = "awesome"}),
         awful.key({modkey, shift}, "d", function()
-            awesome.emit_signal("widgets::dashboard::show")
+            awesome.emit_signal("widgets::start::show", mouse.screen)
         end, {description = "show panel", group = "awesome"}),
         awful.key({modkey}, "x", function()
             awesome.emit_signal("widgets::exit_screen::show")

@@ -37,21 +37,28 @@ align_vertical:set_middle(text_area)
 align_vertical.expand = "none"
 local area = wibox.widget {
     {
-        markup = "<span foreground='" .. beautiful.xcolor2 .. "'></span>",
-        font = "FiraCode Nerd Font Mono 40",
-        widget = wibox.widget.textbox
+        {
+            {
+                {
+                    markup = "<span foreground='" .. beautiful.xcolor2 ..
+                        "'></span>",
+                    align = "center",
+                    valign = "center",
+                    font = "FiraCode Nerd Font Mono 40",
+                    widget = wibox.widget.textbox
+                },
+                margins = dpi(25),
+                widget = wibox.container.margin
+            },
+            bg = beautiful.xcolor0,
+            shape = gears.shape.circle,
+            widget = wibox.container.background
+        },
+        left = dpi(35),
+        widget = wibox.container.margin
     },
-    align_vertical,
-    expand = "outside",
+    {align_vertical, left = dpi(55), widget = wibox.container.margin},
     layout = wibox.layout.align.horizontal
 }
 
-local main_wd = wibox.widget {
-    area,
-    left = dpi(80),
-    forced_width = dpi(200),
-    forced_height = dpi(100),
-    widget = wibox.container.margin
-}
-
-return main_wd
+return area

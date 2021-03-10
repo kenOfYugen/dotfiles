@@ -55,7 +55,7 @@ theme.xcolor14 = xrdb.color14 or "#c7e5d6"
 theme.xcolor15 = xrdb.color15 or "#eaeaea"
 
 -- Fonts
-theme.font_name = "FiraCode Nerd Font Mono "
+theme.font_name = "Fira Code "
 theme.font = theme.font_name .. "9"
 theme.icon_font = "FiraCode Nerd Font Mono 18"
 theme.font_taglist = "FiraCode Nerd Font Mono 13"
@@ -80,7 +80,7 @@ theme.button_close = theme.xcolor1
 
 -- Borders
 
-theme.border_width = dpi(1)
+theme.border_width = dpi(0)
 theme.oof_border_width = dpi(0)
 theme.border_normal = theme.xcolor0
 theme.border_focus = theme.xcolor0
@@ -192,7 +192,7 @@ theme.useless_gap = dpi(10)
 -- Exit Screen
 
 theme.exit_screen_fg = theme.xforeground
-theme.exit_screen_bg = theme.xcolor0 .. "00"
+theme.exit_screen_bg = theme.xcolor0 .. "55"
 
 -- Wibar
 

@@ -22,7 +22,7 @@ autostart_apps = {
     "xset -b", 
 
     -- Layout
-    "~/.screenlayout/layout.sh", 
+    -- "~/.screenlayout/layout.sh", 
 
     -- Bluetooth
     "blueman-applet", 
