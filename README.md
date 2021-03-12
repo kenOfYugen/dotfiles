@@ -16,7 +16,7 @@ I use Arch Linux, so all the packages I list can be directly installed with an A
 #### Packages/Programs
 
 ```bash
-paru -Sy awesome-git zsh tmux picom-git neovim-nightly-bin rofi playerctl nautilus discord imagemagick giph farge-git colorpicker lm_sensors acpid pulseaudio inotify-tools acpilight bat firefox ncspot
+paru -Sy awesome-git zsh tmux picom-git neovim-nightly-bin rofi playerctl nautilus discord imagemagick giph farge-git colorpicker-ym1234-git lm_sensors acpid pulseaudio inotify-tools acpilight bat firefox ncspot
 ```
 Also, I use a custom build of st. It should be cloned if you set up the submodules properly. Make sure you follow the instructions in my repo of st.
 
