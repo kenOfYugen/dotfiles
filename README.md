@@ -27,7 +27,7 @@ Note: Most of these packages are not needed.
 #### Fonts
 
 ```bash
-paru -Sy ttf-fira-code nerd-fonts-fire-code noto-fonts-emoji-blob
+paru -Sy ttf-fira-code nerd-fonts-fira-code noto-fonts-emoji-blob
 ```
 
 ## Modules
