@@ -8,6 +8,27 @@ git clone --recurse-submodules https://github.com/JavaCafe01/dotfiles.git
 cd dotfiles
 git submodule update --remote --merge
 ```
+### Dependencies
+These aren't really dependencies, but they are what you need to clone my setup exactly.
+
+I use Arch Linux, so all the packages I list can be directly installed with an AUR helper like `paru` or `yay`. The `-git` packages are ones directly from their git master branch.
+
+#### Packages/Programs
+
+```bash
+paru -Sy awesome-git zsh tmux picom-git neovim-nightly-bin rofi playerctl nautilus discord imagemagick giph farge-git colorpicker lm_sensors acpid pulseaudio inotify-tools acpilight bat firefox ncspot
+```
+Also, I use a custom build of st. It should be cloned if you set up the submodules properly. Make sure you follow the instructions in my repo of st.
+
+Note: Most of these packages are not needed.
+
+(If I'm missing anything, please submit an issue or pull request)
+
+#### Fonts
+
+```bash
+paru -Sy ttf-fira-code nerd-fonts-fire-code noto-fonts-emoji-blob
+```
 
 ## Modules
 ### :star: [bling](https://github.com/Nooo37/bling) :star:
