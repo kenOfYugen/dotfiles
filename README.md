@@ -36,9 +36,6 @@ paru -Sy ttf-fira-code nerd-fonts-fira-code noto-fonts-emoji-blob
 ### :star: [bling](https://github.com/Nooo37/bling) :star:
 Bling brings extra utilities to AwesomeWM such as tabs, swallowing, layouts, and flash focus. Please check it out and give it a star!
 
-<img src="https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/layout-machi_demo.gif" alt="gif" align="right" width="350px"/>
-
-
 <img src="https://raw.githubusercontent.com/K4rakara/awestore/trunk/demo.gif" alt="gif" align="right" width="100px"/>
 
 ### [awestore](https://github.com/K4rakara/awestore)
@@ -49,6 +46,12 @@ Using this module, I can create a sliding animation for my panel.
 
 ### [layout-machi](https://github.com/xinhaoyuan/layout-machi)
 This module is a powerful manual layout that contains an amazing editor to change and make layouts and window locations. It's for powerusers and gives full control of the layout. Give it a star! To the right is a demo of how layout-machi works (this is not its full potential, I'm a noob with it).
+
+<br/>
+<br/>
+<br/>
+
+<img src="https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/rice.png" alt="img" align="right" width="350px"/>
 
 ## System Info
 + **OS**: Arch
