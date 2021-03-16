@@ -46,14 +46,9 @@ As said in the readme -
 > This library is built off the concept of stores from Svelte. A store is a simple table that can be subscribed to, notifying intrested parties whenever the stored value changes.
 Using this module, I can create a sliding animation for my panel.
 
+
 ### [layout-machi](https://github.com/xinhaoyuan/layout-machi)
 This module is a powerful manual layout that contains an amazing editor to change and make layouts and window locations. It's for powerusers and gives full control of the layout. Give it a star! To the right is a demo of how layout-machi works (this is not its full potential, I'm a noob with it).
-
-<br/>
-<br/>
-<br/>
-
-<img src="https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/rice.png" alt="img" align="right" width="350px"/>
 
 ## System Info
 + **OS**: Arch
