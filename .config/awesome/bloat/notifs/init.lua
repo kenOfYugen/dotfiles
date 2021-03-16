@@ -20,7 +20,7 @@ naughty.config.defaults.title = "System Notification"
 -- naughty.config.defaults.margin = dpi(20)
 -- naughty.config.defaults.border_width = 0
 -- naughty.config.defaults.border_color = beautiful.widget_border_color
-naughty.config.defaults.position = "top_middle"
+naughty.config.defaults.position = "top_right"
 -- naughty.config.defaults.shape = helpers.rrect(beautiful.client_radius)
 
 naughty.config.padding = dpi(10)

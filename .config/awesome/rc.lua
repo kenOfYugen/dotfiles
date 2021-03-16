@@ -21,8 +21,6 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
-require("collision")()
-
 -- Helpers Library
 local helpers = require("helpers")
 
@@ -53,7 +51,7 @@ editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 browser = "firefox"
 filemanager = "nautilus"
-discord = "discord-canary"
+discord = "discord"
 launcher = "rofi -show drun"
 music = terminal .. " -c music -e ncspot"
 

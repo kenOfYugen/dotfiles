@@ -29,7 +29,7 @@ local poweroff_command =
 local reboot_command = function() awful.spawn.with_shell("systemctl reboot") end
 local suspend_command = function()
     lock_screen_show()
-    awful.spawn.with_shell("systemctl suspend")
+    awful.spawn.with_shell("systemctl hibernate")
 end
 local exit_command = function() awesome.quit() end
 local lock_command = function() lock_screen_show() end
@@ -52,8 +52,8 @@ local create_button = function(symbol, hover_color, text, command)
         forced_width = button_size,
         shape = helpers.rrect(10),
         bg = button_bg,
-        border_width = beautiful.widget_border_width,
-        border_color = beautiful.widget_border_color,
+        border_width = beautiful.widget_border_width + 1,
+        border_color = beautiful.xcolor8,
         widget = wibox.container.background
     }
 

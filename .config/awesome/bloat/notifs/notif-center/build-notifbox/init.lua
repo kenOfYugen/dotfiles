@@ -8,6 +8,9 @@ local dpi = beautiful.xresources.apply_dpi
 local empty_notifbox = require(
                            'bloat/notifs.notif-center.build-notifbox.empty-notifbox')
 
+local scroller = require(
+                     'bloat/notifs.notif-center.build-notifbox.notifbox-scroller')
+
 local config_dir = gears.filesystem.get_configuration_dir()
 local widget_icon_dir = config_dir .. 'bloat/notifs/notif-center/icons/'
 
@@ -16,6 +19,8 @@ local width = dpi(380)
 local remove_notifbox_empty = true
 
 local notifbox_layout = wibox.layout.fixed.vertical()
+
+scroller(notifbox_layout)
 
 notifbox_layout.spacing = dpi(7)
 notifbox_layout.forced_width = width

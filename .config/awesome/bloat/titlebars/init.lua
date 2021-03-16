@@ -9,9 +9,20 @@ local tb_ops = {}
 
 local add_decorations = function(c) require("bloat.titlebars.top")(c) end
 
-tb_ops.enable_tb = function(c) add_decorations(c) end
+tb_ops.enable_tb = function(c)
+    -- c.border_width = 0
+    if not c.bling_tabbed then c.shape = helpers.custom_shape end
+    add_decorations(c)
+end
 
-tb_ops.disable_tb = function(c) awful.titlebar.hide(c, "top") end
+tb_ops.disable_tb = function(c)
+    awful.titlebar.hide(c, "top")
+    awful.titlebar.hide(c, "bottom")
+    awful.titlebar.hide(c, "left")
+    awful.titlebar.hide(c, "right")
+    c.shape = helpers.rrect(0)
+    -- c.border_width = beautiful.border_width
+end
 
 client.connect_signal("request::titlebars", function(c)
 
@@ -20,7 +31,7 @@ client.connect_signal("request::titlebars", function(c)
         if c.first_tag ~= nil then
             b = c.first_tag.layout.name == "floating"
         end
-        if c.floating or b then
+        if not c.bling_tabbed and (c.floating or b) then
             tb_ops.enable_tb(c)
         else
             if not c.bling_tabbed then tb_ops.disable_tb(c) end

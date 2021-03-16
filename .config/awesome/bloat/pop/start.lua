@@ -13,16 +13,16 @@ local popupLib = require("utils.popupLib")
 local box_radius = beautiful.client_radius
 local box_gap = dpi(8)
 
-local width = 400
-local height = nil
+local width = 450
+local height = 1000 - 1 + 48
 
 local function create_boxed_widget(widget_to_be_boxed, width, height, bg_color)
     local box_container = wibox.container.background()
-    box_container.bg = bg_color .. "80"
+    box_container.bg = beautiful.xbackground
     box_container.forced_height = height
     box_container.forced_width = width
     box_container.shape = helpers.rrect(box_radius)
-    box_container.border_width = beautiful.widget_border_width
+    box_container.border_width = 0 or beautiful.widget_border_width
     box_container.border_color = beautiful.widget_border_color
 
     local boxed_widget = wibox.widget {
@@ -253,17 +253,34 @@ local time = wibox.widget {
 
 local time_box = create_boxed_widget(time, 400, nil, beautiful.xcolor0)
 
+local notifs = wibox.widget {
+    require("bloat.notifs.notif-center"),
+    margins = dpi(8),
+    widget = wibox.container.margin
+}
+
 local panelWidget = wibox.widget {
-    info,
-    time_box,
-    sys_box,
-    sys_box2,
+    {info, time_box, spacing = 1, layout = wibox.layout.fixed.vertical},
+    {sys_box, sys_box2, spacing = 1, layout = wibox.layout.fixed.vertical},
     playerctl_box,
+    notifs,
+    spacing = 1,
+    spacing_widget = {
+        bg = beautiful.xcolor8,
+        widget = wibox.container.background
+    },
     layout = wibox.layout.fixed.vertical
 }
 
 local widgetContainer = wibox.widget {
-    {panelWidget, margins = dpi(10), widget = wibox.container.margin},
+    {
+        panelWidget,
+        left = dpi(35),
+        right = dpi(35),
+        top = dpi(10),
+        bottom = dpi(10),
+        widget = wibox.container.margin
+    },
     forced_height = height,
     forced_width = width,
     layout = wibox.layout.fixed.vertical
@@ -274,19 +291,14 @@ local widgetBG = wibox.widget {
     bg = beautiful.xbackground,
     border_color = beautiful.widget_border_color,
     border_width = dpi(beautiful.widget_border_width),
-    shape = helpers.prrect(dpi(25), false, true, false, false),
+    shape = helpers.prrect(dpi(25), false, false, false, false),
     widget = wibox.container.background
 }
 
 local popupWidget = awful.popup {
-    widget = {
-        widgetBG,
-        bottom = beautiful.wibar_height - 1,
-        widget = wibox.container.margin
-    },
+    widget = {widgetBG, widget = wibox.container.margin},
     visible = false,
     ontop = true,
-    placement = awful.placement.bottom_left,
     bg = beautiful.xbackground .. "00"
 }
 

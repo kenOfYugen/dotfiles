@@ -72,6 +72,14 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/home/javacafe01/.local/share/nvim/site/pack/packer/opt/packer.nvim"
   },
+  ["plenary.nvim"] = {
+    loaded = true,
+    path = "/home/javacafe01/.local/share/nvim/site/pack/packer/start/plenary.nvim"
+  },
+  ["popup.nvim"] = {
+    loaded = true,
+    path = "/home/javacafe01/.local/share/nvim/site/pack/packer/start/popup.nvim"
+  },
   ["rust.vim"] = {
     config = { "\27LJ\2\n>\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\31let g:rustfmt_autosave = 1\bcmd\bvim\0" },
     loaded = true,
@@ -81,6 +89,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/javacafe01/.local/share/nvim/site/pack/packer/start/startuptime.vim"
   },
+  ["telescope.nvim"] = {
+    loaded = true,
+    path = "/home/javacafe01/.local/share/nvim/site/pack/packer/start/telescope.nvim"
+  },
   ["vim-lua-format"] = {
     loaded = true,
     path = "/home/javacafe01/.local/share/nvim/site/pack/packer/start/vim-lua-format"
@@ -89,12 +101,12 @@ _G.packer_plugins = {
 
 -- Config for: nvim-bufferline.lua
 try_loadstring("\27LJ\2\n1\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\22plugins.bufferbar\frequire\0", "config", "nvim-bufferline.lua")
--- Config for: rust.vim
-try_loadstring("\27LJ\2\n>\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\31let g:rustfmt_autosave = 1\bcmd\bvim\0", "config", "rust.vim")
 -- Config for: galaxyline.nvim
 try_loadstring("\27LJ\2\n2\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\23plugins.statusline\frequire\0", "config", "galaxyline.nvim")
 -- Config for: nvim-treesitter
 try_loadstring("\27LJ\2\n2\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\23plugins.treesitter\frequire\0", "config", "nvim-treesitter")
+-- Config for: rust.vim
+try_loadstring("\27LJ\2\n>\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\31let g:rustfmt_autosave = 1\bcmd\bvim\0", "config", "rust.vim")
 END
 
 catch

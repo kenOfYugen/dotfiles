@@ -17,6 +17,7 @@ beautiful.layout_machi = machi.get_icon()
 -- Not Mine
 -- https://github.com/larkery/awesome/blob/master/savefloats.lua
 require("window.savefloats")
+
 -- Better mouse resizing on tiled
 -- Not mine
 -- https://github.com/larkery/awesome/blob/master/better-resize.lua
@@ -57,9 +58,6 @@ client.connect_signal("focus",
 client.connect_signal("unfocus",
                       function(c) c.border_color = beautiful.border_normal end)
 
---[[client.connect_signal("focus", function(c)
-    gears.surface(c.content):write_to_png("/home/javacafe01/oof.png")
-end)]] --
 -- Custom Layouts -------------------------------------------------------------
 
 local mstab = bling.layout.mstab

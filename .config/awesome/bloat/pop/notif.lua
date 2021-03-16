@@ -9,7 +9,7 @@ local dpi = xresources.apply_dpi
 local helpers = require("helpers")
 
 local width = 400
-local height = nil
+local height = 400
 
 local notif_center = wibox.widget {
     {
@@ -41,7 +41,7 @@ local popupWidget = awful.popup {
     -- screen = screen.primary,
     widget = {
         widgetBG,
-        bottom = beautiful.wibar_height - 1,
+        bottom = beautiful.wibar_height - beautiful.widget_border_width,
         widget = wibox.container.margin
     },
     visible = false,

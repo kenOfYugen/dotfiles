@@ -5,13 +5,13 @@ local beautiful = require("beautiful")
 local active_color = {
     type = 'linear',
     from = {0, 0},
-    to = {150, 50}, -- replace with w,h later
+    to = {150, 50},
     stops = {{0, beautiful.xcolor5}, {0.75, beautiful.xcolor13}}
 }
 
 local brightness_arc = wibox.widget {
     thickness = 8,
-    start_angle = 4.71238898, -- 2pi*3/4
+    start_angle = 3 * math.pi / 2,
     rounded_edge = true,
     bg = beautiful.xcolor0,
     paddings = 10,

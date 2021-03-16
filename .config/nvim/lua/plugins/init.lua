@@ -1,6 +1,22 @@
-local cmd = vim.cmd
+-- check if packer is installed (~/local/share/nvim/site/pack)
+local packer_exists = pcall(vim.cmd, [[packadd packer.nvim]])
 
-cmd [[packadd packer.nvim]]
+if not packer_exists then
+
+    local directory = string.format('%s/site/pack/packer/opt/',
+                                    vim.fn.stdpath('data'))
+    vim.fn.mkdir(directory, 'p')
+    local git_clone_cmd = vim.fn.system(string.format('git clone %s %s',
+                                                      'https://github.com/wbthomason/packer.nvim',
+                                                      directory ..
+                                                          '/packer.nvim'))
+    print(git_clone_cmd)
+    print("Installing packer.nvim...")
+
+    return
+end
+
+vim.cmd [[autocmd! BufWritePost */plugins*.lua PackerCompile]]
 
 return require('packer').startup(function(use)
 
@@ -41,7 +57,7 @@ return require('packer').startup(function(use)
     -- Rust Plugin
     use {
         'rust-lang/rust.vim',
-        config = function() cmd [[let g:rustfmt_autosave = 1]] end
+        config = function() vim.cmd "let g:rustfmt_autosave = 1" end
     }
 
     -- Dash
@@ -52,5 +68,11 @@ return require('packer').startup(function(use)
 
     -- Better Colorizer
     use 'norcalli/nvim-colorizer.lua'
+
+    -- Telescope
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+    }
 
 end)

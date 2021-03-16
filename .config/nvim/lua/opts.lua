@@ -32,8 +32,8 @@ opt('o', 'cmdheight', 1)
 opt('o', 'updatetime', 300)
 opt('w', 'number', true)
 opt('w', 'relativenumber', true)
-opt('w', 'wrap', false)
-opt('w', 'cursorline', true)
+opt('w', 'wrap', true)
+opt('w', 'cursorline', false)
 opt('w', 'signcolumn', 'number')
 
 -- Get rid of tildas

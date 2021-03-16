@@ -14,12 +14,12 @@ require'bufferline'.setup {
         tab_size = 18,
         show_buffer_close_icons = true,
         persist_buffer_sort = true,
-        separator_style = "slant",
+        separator_style = "thin",
         always_show_bufferline = true
     },
     highlights = {
         buffer_selected = {gui = 'bold'},
-        fill = {guibg = '#29343d'},
+        fill = {guibg = '#1a2026'},
         separator_selected = {guifg = '#29343d'},
         separator = {guifg = '#29343d'}
     }

@@ -80,7 +80,7 @@ theme.button_close = theme.xcolor1
 
 -- Borders
 
-theme.border_width = dpi(0)
+theme.border_width = dpi(3)
 theme.oof_border_width = dpi(0)
 theme.border_normal = theme.xcolor0
 theme.border_focus = theme.xcolor0
@@ -134,8 +134,8 @@ theme.titlebar_size = dpi(40)
 theme.titlebar_height = dpi(20)
 theme.titlebar_bg_focus = theme.xbackground
 theme.titlebar_bg_normal = theme.xbackground
-theme.titlebar_fg_focus = theme.xcolor8
-theme.titlebar_fg_normal = theme.xbackground
+theme.titlebar_fg_normal = theme.xcolor8
+theme.titlebar_fg_focus = theme.xcolor15 .. "55"
 
 -- Edge snap
 
@@ -196,7 +196,7 @@ theme.exit_screen_bg = theme.xcolor0 .. "55"
 
 -- Wibar
 
-theme.wibar_height = dpi(35)
+theme.wibar_height = dpi(34) + theme.widget_border_width
 theme.wibar_margin = dpi(15)
 theme.wibar_spacing = dpi(15)
 theme.wibar_bg = theme.xbackground
@@ -250,7 +250,10 @@ theme.mstab_border_radius = dpi(6)
 theme.tabbar_style = "modern"
 theme.tabbar_bg_focus = theme.xbackground
 theme.tabbar_bg_normal = theme.xcolor0
+theme.tabbar_fg_focus = theme.xcolor8
+theme.tabbar_fg_normal = theme.xcolor15 .. "55"
 theme.tabbar_position = "bottom"
+theme.tabbar_AA_radius = 0
 theme.mstab_bar_ontop = true
 
 theme.notification_spacing = 10

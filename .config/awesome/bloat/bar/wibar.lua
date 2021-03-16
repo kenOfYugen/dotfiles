@@ -375,7 +375,14 @@ screen.connect_signal("request::desktop_decoration", function(s)
         buttons = tasklist_buttons,
         bg = beautiful.xcolor0,
         style = {bg = beautiful.xcolor0},
-        layout = {spacing = dpi(0), layout = wibox.layout.fixed.horizontal},
+        layout = {
+            spacing = dpi(0),
+            spacing_widget = {
+                bg = beautiful.xcolor8,
+                widget = wibox.container.background
+            },
+            layout = wibox.layout.fixed.horizontal
+        },
         widget_template = {
             {
                 {
@@ -408,7 +415,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
         {
             widget = wibox.container.background,
             bg = beautiful.xcolor0,
-            forced_height = dpi(1)
+            forced_height = beautiful.widget_border_width
         },
         {
             layout = wibox.layout.align.horizontal,

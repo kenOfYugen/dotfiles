@@ -28,7 +28,7 @@ awful.keyboard.append_global_keybindings(
         awful.key({"Mod1"}, "d", function() bling.module.tabbed.pop() end, {
             description = "remove focused client from tabbing group",
             group = "tabs"
-        }), --[[awful.key({modkey}, "Down", function()
+        }), awful.key({modkey}, "Down", function()
             awful.client.focus.bydirection("down")
             bling.module.flash_focus.flashfocus(client.focus)
         end, {description = "focus down", group = "client"}),
@@ -43,9 +43,9 @@ awful.keyboard.append_global_keybindings(
         awful.key({modkey}, "Right", function()
             awful.client.focus.bydirection("right")
             bling.module.flash_focus.flashfocus(client.focus)
-        end, {description = "focus right", group = "client"}),--]] awful.key(
-            {modkey}, "j", function() awful.client.focus.byidx(1) end,
-            {description = "focus next by index", group = "client"}),
+        end, {description = "focus right", group = "client"}),
+        awful.key({modkey}, "j", function() awful.client.focus.byidx(1) end,
+                  {description = "focus next by index", group = "client"}),
         awful.key({modkey}, "k", function() awful.client.focus.byidx(-1) end,
                   {description = "focus previous by index", group = "client"}),
         awful.key({modkey, "Shift"}, "j",
@@ -95,7 +95,7 @@ awful.keyboard.append_global_keybindings(
         end, {description = "take a screenshot", group = "awesome"}),
         awful.key({modkey}, "Print", function()
             awful.spawn.with_shell(gears.filesystem.get_configuration_dir() ..
-                                       "scripts/shoot selnp")
+                                       "scripts/shoot selnpshad")
         end, {description = "take a selection with no pads", group = "awesome"}),
         awful.key({modkey, "Shift"}, "Print", function()
             awful.spawn.with_shell(gears.filesystem.get_configuration_dir() ..
@@ -104,10 +104,10 @@ awful.keyboard.append_global_keybindings(
 
         -- Brightness
         awful.key({}, "XF86MonBrightnessUp",
-                  function() awful.spawn("xbacklight -inc 10") end,
+                  function() awful.spawn("xbacklight -inc 5") end,
                   {description = "increase brightness", group = "awesome"}),
         awful.key({}, "XF86MonBrightnessDown",
-                  function() awful.spawn("xbacklight -dec 10") end,
+                  function() awful.spawn("xbacklight -dec 5") end,
                   {description = "decrease brightness", group = "awesome"}),
 
         -- ColorPicker
@@ -119,9 +119,6 @@ awful.keyboard.append_global_keybindings(
                   {description = "show help", group = "awesome"}),
         awful.key({modkey}, "Escape", awful.tag.history.restore,
                   {description = "go back", group = "tag"}),
-        awful.key({modkey, shift}, "w", function()
-            awesome.emit_signal("widgets::notif_panel::show", mouse.screen)
-        end, {description = "show notifs", group = "awesome"}),
         awful.key({modkey, shift}, "d", function()
             awesome.emit_signal("widgets::start::show", mouse.screen)
         end, {description = "show panel", group = "awesome"}),
