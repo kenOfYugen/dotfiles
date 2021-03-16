@@ -9,7 +9,9 @@ cd dotfiles
 git submodule update --remote --merge
 ```
 ### Dependencies
-These aren't really dependencies, but they are what you need to clone my setup exactly.
+The following aren't really dependencies (some are), but they are what you need to clone my setup exactly.
+
+I use [`awestore`](https://github.com/K4rakara/awestore) for my panel animation. Look at the repo for install instructions. In short, you just have to use `luarocks` and do this: `sudo luarocks --lua-version 5.3 install awestore`
 
 I use Arch Linux, so all the packages I list can be directly installed with an AUR helper like `paru` or `yay`. The `-git` packages are ones directly from their git master branch.
 
@@ -35,6 +37,17 @@ paru -Sy ttf-fira-code nerd-fonts-fira-code noto-fonts-emoji-blob
 Bling brings extra utilities to AwesomeWM such as tabs, swallowing, layouts, and flash focus. Please check it out and give it a star!
 
 <img src="https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/layout-machi_demo.gif" alt="gif" align="right" width="350px"/>
+
+### [awestore](https://github.com/K4rakara/awestore)
+As said in the readme - 
+> This library is built off the concept of stores from Svelte. A store is a simple table that can be subscribed to, notifying intrested parties whenever the stored value changes.
+Using this module, I can create a sliding animation for my panel.
+
+<img src="https://raw.githubusercontent.com/K4rakara/awestore/trunk/demo.gif" alt="gif" align="right" width="30px"/>
+
+<br/>
+<br/>
+<br/>
 
 ### [layout-machi](https://github.com/xinhaoyuan/layout-machi)
 This module is a powerful manual layout that contains an amazing editor to change and make layouts and window locations. It's for powerusers and gives full control of the layout. Give it a star! To the right is a demo of how layout-machi works (this is not its full potential, I'm a noob with it).
