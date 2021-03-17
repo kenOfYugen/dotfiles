@@ -1,3 +1,5 @@
+![Lua](https://img.shields.io/badge/lua-moment-darkblue?style=flat-square&logo=lua)
+
 NOTICE: My configuration for AwesomeWM only works on the latest git master branch. On Arch based distros, all you would have to do is install `awesome-git` from the AUR. On others, you will have to build it manually.
 
 
