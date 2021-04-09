@@ -8,7 +8,9 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local wibox = require("wibox")
 local naughty = require("naughty")
-local cairo = require("lgi").cairo
+local lgi = require("lgi")
+local Rsvg = lgi.Rsvg
+local cairo = lgi.cairo
 local helpers = {}
 
 function helpers.volume_control(step)

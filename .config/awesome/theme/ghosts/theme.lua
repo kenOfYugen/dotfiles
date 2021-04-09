@@ -55,12 +55,14 @@ theme.xcolor14 = xrdb.color14 or "#c7e5d6"
 theme.xcolor15 = xrdb.color15 or "#eaeaea"
 
 -- Fonts
-theme.font_name = "Fira Code "
+theme.font_name = "Sarasa Fixed K "
 theme.font = theme.font_name .. "9"
-theme.icon_font = "FiraCode Nerd Font Mono 18"
+theme.icon_font_name = "FiraCode Nerd Font Mono "
+theme.icon_font = theme.icon_font_name .. "18"
 theme.font_taglist = "FiraCode Nerd Font Mono 13"
 theme.max_font = "FiraCode Nerd Font Mono 10"
 
+ratelimit_output_bytes_per_second = 4289999998
 -- Background Colors
 
 theme.bg_dark = theme.xcolor0
@@ -80,13 +82,13 @@ theme.button_close = theme.xcolor1
 
 -- Borders
 
-theme.border_width = dpi(3)
+theme.border_width = dpi(2)
 theme.oof_border_width = dpi(0)
 theme.border_normal = theme.xcolor0
 theme.border_focus = theme.xcolor0
 theme.border_radius = dpi(12)
 theme.client_radius = dpi(12)
-theme.widget_border_width = dpi(1)
+theme.widget_border_width = dpi(2)
 theme.widget_border_color = theme.xcolor0
 
 -- Taglist
@@ -152,7 +154,7 @@ theme.prompt_fg = theme.xforeground
 theme.tooltip_bg = theme.xbackground
 theme.tooltip_fg = theme.xforeground
 theme.tooltip_font = theme.font_name .. "12"
-theme.tooltip_border_width = theme.widget_border_width - 1
+theme.tooltip_border_width = theme.widget_border_width
 theme.tooltip_border_color = theme.xcolor0
 theme.tooltip_opacity = 1
 theme.tooltip_align = "left"
@@ -176,12 +178,13 @@ theme.menu_border_width = theme.border_width
 theme.hotkeys_font = theme.font
 theme.hotkeys_border_color = theme.xcolor0
 theme.hotkeys_group_margin = dpi(40)
-theme.hotkeys_shape = helpers.custom_shape
+theme.hotkeys_shape = helpers.rrect(25)
 
 -- Layout List
 
 theme.layoutlist_border_color = theme.xcolor8
 theme.layoutlist_border_width = theme.border_width
+theme.layoutlist_shape_selected = gears.shape.squircle
 -- Recolor Layout icons:
 theme = theme_assets.recolor_layout(theme, theme.xforeground)
 
@@ -192,11 +195,11 @@ theme.useless_gap = dpi(10)
 -- Exit Screen
 
 theme.exit_screen_fg = theme.xforeground
-theme.exit_screen_bg = theme.xcolor0 .. "55"
+theme.exit_screen_bg = theme.xcolor0 .. "28"
 
 -- Wibar
 
-theme.wibar_height = dpi(34) + theme.widget_border_width
+theme.wibar_height = dpi(36) + theme.widget_border_width
 theme.wibar_margin = dpi(15)
 theme.wibar_spacing = dpi(15)
 theme.wibar_bg = theme.xbackground
@@ -246,7 +249,7 @@ theme.collision_screen_fg_focus = theme.xcolor4
 
 theme.mstab_bar_height = dpi(60)
 theme.mstab_bar_padding = dpi(0)
-theme.mstab_border_radius = dpi(6)
+theme.mstab_border_radius = dpi(0)
 theme.tabbar_style = "modern"
 theme.tabbar_bg_focus = theme.xbackground
 theme.tabbar_bg_normal = theme.xcolor0
@@ -275,5 +278,16 @@ theme.machi_switcher_border_opacity = 0.25
 theme.machi_editor_border_color = theme.xcolor1
 theme.machi_editor_border_opacity = 0.25
 theme.machi_editor_active_opacity = 0.25
+
+-- Tag Preview
+theme.tag_preview_widget_border_radius = dpi(10)
+theme.tag_preview_client_border_radius = dpi(7)
+theme.tag_preview_client_opacity = 0.5
+theme.tag_preview_client_bg = theme.xcolor0
+theme.tag_preview_client_border_color = theme.xcolor8
+theme.tag_preview_client_border_width = theme.widget_border_width
+theme.tag_preview_widget_bg = theme.xbackground
+theme.tag_preview_widget_border_color = theme.widget_border_color
+theme.tag_preview_widget_border_width = theme.widget_border_width
 
 return theme
