@@ -45,8 +45,8 @@ c0="${reset}${bold}"
 
 # Print out the actual fetch
 
-printf '%b\n' "
-${c0}${blue}${user}${c0}@${cyan}${host}
+printf '%b' "
+${c0}${blue}${user}${c0}@${cyan}${host}${reset}
 
 ${cyan}      ----      ${c0}${blue} os ${reset}${c0}${blue}  ${cr}${white}${distro}${reset} 
 ${cyan}     / O O\     ${c0}${blue} wm ${reset}${c0}${blue}  ${cr}${white}${wm}${reset}
