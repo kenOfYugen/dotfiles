@@ -10,6 +10,9 @@ git clone --recurse-submodules https://github.com/JavaCafe01/dotfiles.git
 cd dotfiles
 git submodule update --remote --merge
 ```
+
+My neovim configuration uses `packer.nvim`, which should install itself. After opening `nvim` again, do `:PackerSync`. Also, make sure you have all the lsp's installed.
+
 ### Dependencies
 The following aren't really dependencies (some are), but they are what you need to clone my setup exactly.
 
@@ -20,10 +23,8 @@ I use Arch Linux, so all the packages I list can be directly installed with an A
 #### Packages/Programs
 
 ```bash
-paru -Sy awesome-git zsh tmux picom-git neovim-nightly-bin rofi playerctl nautilus discord imagemagick giph farge-git colorpicker-ym1234-git lm_sensors acpid pulseaudio inotify-tools acpilight bat firefox ncspot
+paru -Sy awesome-git zsh tmux picom-git neovim-nightly-bin rofi playerctl thunar discord imagemagick giph farge-git colorpicker-ym1234-git lm_sensors acpid pulseaudio inotify-tools acpilight bat firefox ncspot wezterm
 ```
-Also, I use a custom build of st. It should be cloned if you set up the submodules properly. Make sure you follow the instructions in my repo of st.
-
 Note: Most of these packages are not needed.
 
 (If I'm missing anything, please submit an issue or pull request)
@@ -31,12 +32,12 @@ Note: Most of these packages are not needed.
 #### Fonts
 
 ```bash
-paru -Sy ttf-fira-code nerd-fonts-fira-code noto-fonts-emoji-blob
+paru -Sy ttf-sarasa-gothic nerd-fonts-fira-code noto-fonts-emoji-blob
 ```
 
 ## Modules
 ### :star: [bling](https://github.com/Nooo37/bling) :star:
-Bling brings extra utilities to AwesomeWM such as tabs, swallowing, layouts, and flash focus. Please check it out and give it a star!
+Bling brings extra utilities and widgets to AwesomeWM such as tabs, swallowing, layouts, and flash focus. Please check it out and give it a star!
 
 <img src="https://raw.githubusercontent.com/K4rakara/awestore/trunk/demo.gif" alt="gif" align="right" width="100px"/>
 
@@ -52,22 +53,28 @@ Using this module, I can create a sliding animation for my panel.
 ### [layout-machi](https://github.com/xinhaoyuan/layout-machi)
 This module is a powerful manual layout that contains an amazing editor to change and make layouts and window locations. It's for powerusers and gives full control of the layout. Give it a star! To the right is a demo of how layout-machi works (this is not its full potential, I'm a noob with it).
 
+<br/>
+
 <img src="https://github.com/JavaCafe01/dotfiles/blob/master/.config/awesome/images/rice.png" alt="img" align="right" width="350px"/>
 
 
 ## System Info
 + **OS**: Arch
 + **Shell**: zsh
-+ **Terminal**: [st](https://github.com/JavaCafe01/st)
++ **Terminal**: [wezterm](https://github.com/wez/wezterm)
 + **Browser**: firefox
     + [firefox-css](https://github.com/JavaCafe01/firefox-css)
 + **Music**: ncspot
 + **GTK Theme**: [phocus](https://github.com/JavaCafe01/phocus)
-+ **File Manager**: nautilus
++ **File Manager**: thunar
 + **App Menu**: rofi
++ **Font**: Sarasa Mono K / Sarasa Fixed K
 + **Wallpapers**: my current wallpaper is under images in the awesome folder, but for all of the ones I have used you can find them [here](https://github.com/JavaCafe01/wallpapers)
 
 ## Common Questions
+
+### Multi-Monitor Support?
+I have recently started using an extra monitor, and have optimized my config to deal with multiple screens. If there are any issues, please post an issue!
 
 ### Where did I steal `ears` from?
 It was taken from [elenapan](https://github.com/elenapan/dotfiles).
