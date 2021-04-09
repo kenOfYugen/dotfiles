@@ -2,11 +2,13 @@
 --
 local gl = require('galaxyline')
 local gls = gl.section
-gl.short_line_list = {'NvimTree', 'vista', 'dbui'}
+local condition = require('galaxyline.condition')
+gl.short_line_list = {'NvimTree', 'vista', 'dbui', 'packer'}
 
 local colors = {
     bg0 = '#1a2026',
     bg = '#29343d',
+    bg1 = '#3b4b58',
     fg = '#bbc2cf',
     yellow = '#fbdf90',
     cyan = '#9ce5c0',
@@ -28,31 +30,6 @@ local function lsp_status(status)
     return shorter_stat
 end
 
-local function get_coc_lsp()
-    local status = vim.fn['coc#status']()
-    if not status or status == '' then return '' end
-    return lsp_status(status)
-end
-
-function get_diagnostic_info()
-    if vim.fn.exists('*coc#rpc#start_server') == 1 then return get_coc_lsp() end
-    return ''
-end
-
-local function get_current_func()
-    local has_func, func_name = pcall(vim.fn.nvim_buf_get_var, 0,
-                                      'coc_current_function')
-    if not has_func then return end
-    return func_name
-end
-
-function get_function_info()
-    if vim.fn.exists('*coc#rpc#start_server') == 1 then
-        return get_current_func()
-    end
-    return ''
-end
-
 local function trailing_whitespace()
     local trail = vim.fn.search("\\s$", "nw")
     if trail ~= 0 then
@@ -62,9 +39,7 @@ local function trailing_whitespace()
     end
 end
 
-CocStatus = get_diagnostic_info
-CocFunc = get_current_func
-TrailingWhiteSpace = trailing_whitespace
+local TrailingWhiteSpace = trailing_whitespace
 
 local buffer_not_empty = function()
     if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then return true end
@@ -72,12 +47,6 @@ local buffer_not_empty = function()
 end
 
 gls.left[1] = {
-    RainbowRed = {
-        provider = function() return '▊ ' end,
-        highlight = {colors.blue, colors.bg}
-    }
-}
-gls.left[2] = {
     ViMode = {
         provider = function()
             -- auto change color according the vim mode
@@ -103,21 +72,17 @@ gls.left[2] = {
                 ['!'] = colors.red,
                 t = colors.red
             }
-            vim.api.nvim_command('hi GalaxyViMode guifg=' ..
+            vim.api.nvim_command('hi GalaxyViMode guibg=' ..
                                      mode_color[vim.fn.mode()])
-            return '  '
+            return '   '
         end,
-        highlight = {colors.red, colors.bg, 'bold'}
+        separator = ' ',
+        separator_highlight = {'NONE', colors.bg},
+        highlight = {colors.bg1, colors.red, 'bold'}
     }
 }
-gls.left[3] = {
-    FileSize = {
-        provider = 'FileSize',
-        condition = buffer_not_empty,
-        highlight = {colors.fg, colors.bg}
-    }
-}
-gls.left[4] = {
+
+gls.left[2] = {
     FileIcon = {
         provider = 'FileIcon',
         condition = buffer_not_empty,
@@ -128,15 +93,15 @@ gls.left[4] = {
     }
 }
 
-gls.left[5] = {
+gls.left[3] = {
     FileName = {
         provider = {'FileName'},
         condition = buffer_not_empty,
-        highlight = {colors.green, colors.bg, 'bold'}
+        highlight = {colors.cyan, colors.bg, 'bold'}
     }
 }
 
-gls.left[6] = {
+gls.left[4] = {
     LineInfo = {
         provider = 'LineColumn',
         separator = ' ',
@@ -145,7 +110,7 @@ gls.left[6] = {
     }
 }
 
-gls.left[7] = {
+gls.left[5] = {
     PerCent = {
         provider = 'LinePercent',
         separator = ' ',
@@ -154,63 +119,62 @@ gls.left[7] = {
     }
 }
 
-gls.left[8] = {
-    DiagnosticError = {
-        provider = 'DiagnosticError',
-        icon = '  ',
-        highlight = {colors.red, colors.bg}
-    }
-}
-gls.left[9] = {
-    DiagnosticWarn = {
-        provider = 'DiagnosticWarn',
-        icon = '   ',
-        highlight = {colors.yellow, colors.bg}
-    }
-}
-
-gls.left[10] = {
-    DiagnosticHint = {
-        provider = 'DiagnosticHint',
-        icon = '   ',
-        highlight = {colors.cyan, colors.bg}
-    }
-}
-
-gls.left[11] = {
-    DiagnosticInfo = {
-        provider = 'DiagnosticInfo',
-        icon = '  ',
+gls.left[6] = {
+    RainbowBlue = {
+        provider = function() return '▊' end,
         highlight = {colors.blue, colors.bg}
     }
 }
 
-gls.left[12] = {
-    CocStatus = {
-        provider = CocStatus,
-        highlight = {colors.green, colors.bg},
-        icon = '   '
+gls.left[7] = {
+    DiagnosticError = {
+        provider = 'DiagnosticError',
+        icon = '  ',
+        highlight = {colors.red, colors.bg0}
+    }
+}
+gls.left[8] = {
+    DiagnosticWarn = {
+        provider = 'DiagnosticWarn',
+        icon = '   ',
+        highlight = {colors.yellow, colors.bg0}
     }
 }
 
-gls.left[13] = {
-    CocFunc = {
-        provider = CocFunc,
-        icon = '  λ ',
-        highlight = {colors.yellow, colors.bg}
+gls.left[9] = {
+    DiagnosticHint = {
+        provider = 'DiagnosticHint',
+        icon = '   ',
+        highlight = {colors.cyan, colors.bg0}
+    }
+}
+
+gls.left[10] = {
+    DiagnosticInfo = {
+        provider = 'DiagnosticInfo',
+        icon = '  ',
+        highlight = {colors.blue, colors.bg0}
     }
 }
 
 gls.right[1] = {
+    RainbowBlue = {
+        provider = function() return '▊' end,
+        highlight = {colors.blue, colors.bg}
+    }
+}
+
+gls.right[2] = {
     FileEncode = {
         provider = 'FileEncode',
         separator = ' ',
+        icon = ' ',
         separator_highlight = {'NONE', colors.bg},
         highlight = {colors.cyan, colors.bg, 'bold'}
     }
 }
 
-gls.right[2] = {
+gls.right[3] = {
     FileFormat = {
         provider = 'FileFormat',
         separator = ' ',
@@ -219,7 +183,7 @@ gls.right[2] = {
     }
 }
 
-gls.right[3] = {
+gls.right[4] = {
     GitIcon = {
         provider = function() return '  ' end,
         condition = require('galaxyline.provider_vcs').check_git_workspace,
@@ -229,7 +193,7 @@ gls.right[3] = {
     }
 }
 
-gls.right[4] = {
+gls.right[5] = {
     GitBranch = {
         provider = 'GitBranch',
         condition = require('galaxyline.provider_vcs').check_git_workspace,
@@ -243,7 +207,7 @@ local checkwidth = function()
     return false
 end
 
-gls.right[5] = {
+gls.right[6] = {
     DiffAdd = {
         provider = 'DiffAdd',
         condition = checkwidth,
@@ -251,15 +215,15 @@ gls.right[5] = {
         highlight = {colors.green, colors.bg}
     }
 }
-gls.right[6] = {
+gls.right[7] = {
     DiffModified = {
         provider = 'DiffModified',
         condition = checkwidth,
-        icon = ' 柳',
+        icon = ' | ',
         highlight = {colors.orange, colors.bg}
     }
 }
-gls.right[7] = {
+gls.right[8] = {
     DiffRemove = {
         provider = 'DiffRemove',
         condition = checkwidth,
@@ -268,7 +232,7 @@ gls.right[7] = {
     }
 }
 
-gls.right[8] = {
+gls.right[9] = {
     RainbowBlue = {
         provider = function() return '  ▊' end,
         highlight = {colors.blue, colors.bg}
@@ -279,26 +243,15 @@ gls.short_line_left[1] = {
     BufferType = {
         provider = 'FileTypeName',
         separator = ' ',
-        separator_highlight = {'NONE', colors.bg},
-        highlight = {colors.blue, colors.bg, 'bold'}
-    }
-}
-
-gls.short_line_left[2] = {
-    SFileName = {
-        provider = function()
-            local fileinfo = require('galaxyline.provider_fileinfo')
-            local fname = fileinfo.get_current_file_name()
-            for _, v in ipairs(gl.short_line_list) do
-                if v == vim.bo.filetype then return '' end
-            end
-            return fname
-        end,
-        condition = buffer_not_empty,
-        highlight = {colors.white, colors.bg, 'bold'}
+        separator_highlight = {'NONE', colors.bg0},
+        highlight = {colors.blue, colors.bg0, 'bold'}
     }
 }
 
 gls.short_line_right[1] = {
-    BufferIcon = {provider = 'BufferIcon', highlight = {colors.fg, colors.bg}}
+    SFileName = {
+        provider = 'SFileName',
+        condition = condition.buffer_not_empty,
+        highlight = {colors.fg, colors.bg0, 'bold'}
+    }
 }

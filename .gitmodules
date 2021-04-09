@@ -1,14 +1,11 @@
 [submodule ".config/firefox-css"]
 	path = .config/firefox-css
 	url = https://github.com/JavaCafe01/firefox-css.git
-[submodule ".config/st"]
-	path = .config/st
-	url = https://github.com/JavaCafe01/st.git
-[submodule ".config/awesome/bling"]
-	path = .config/awesome/bling
+[submodule ".config/awesome/module/bling"]
+	path = .config/awesome/module/bling
 	url = https://github.com/Nooo37/bling.git
-[submodule ".config/awesome/layout-machi"]
-	path = .config/awesome/layout-machi
+[submodule ".config/awesome/module/layout-machi"]
+	path = .config/awesome/module/layout-machi
 	url = https://github.com/xinhaoyuan/layout-machi.git
 [submodule ".zsh-plugins/fzf-tab"]
 	path = .zsh-plugins/fzf-tab
