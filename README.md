@@ -13,6 +13,8 @@ git submodule update --remote --merge
 
 My neovim configuration uses `packer.nvim`, which should install itself. After opening `nvim` again, do `:PackerSync`. Also, make sure you have all the lsp's installed.
 
+If you don't know any keys, no need to look in the source! Press `mod+f1`.
+
 ### Dependencies
 The following aren't really dependencies (some are), but they are what you need to clone my setup exactly.
 
