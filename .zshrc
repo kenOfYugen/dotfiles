@@ -94,13 +94,9 @@ zstyle ':fzf-tab:*' command $FZF_TAB_COMMAND
 zstyle ':completion:complete:*:options' sort false
 zstyle ':fzf-tab:complete:_zlua:*' query-string input
 
-zstyle ':fzf-tab:complete:*:*' fzf-preview '/home/javacafe01/.bin/preview.sh $realpath'
+zstyle ':fzf-tab:complete:*:*' fzf-preview '$HOME/.bin/preview.sh $realpath'
 
 # Set PATH so it includes user's private bin directories
 export PATH="${HOME}/.bin:${HOME}/.local/bin:${HOME}/go/bin:${PATH}"
-
-#export STARSHIP_CONFIG=~/.config/starship/starship.toml
-
-#eval "$(starship init zsh)"
 
 clear
