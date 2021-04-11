@@ -1,27 +1,17 @@
 local awful = require("awful")
+local gfs = require('gears.filesystem')
 
 local lock_screen = {}
 
-local lua_pam_path = os.getenv("HOME") .. "/.config/awesome/liblua_pam.so"
+local config_dir = gfs.get_configuration_dir()
+package.cpath = package.cpath .. ";" .. config_dir .. "ui/lockscreen/lib/?.so;"
 
 lock_screen.init = function()
-    -- See if lua pam is installed
-    awful.spawn.easy_async_with_shell("stat " .. lua_pam_path ..
-                                          " >/dev/null 2>&1",
-                                      function(_, __, ___, exitcode)
-        if exitcode == 0 then
-            local pam = require("liblua_pam")
-            lock_screen.authenticate = function(password)
-                return pam.auth_current_user(password)
-            end
-        else
-            -- Default pass
-            lock_screen.authenticate = function(password)
-                return password == "awesomewm"
-            end
-        end
-        require("ui.lockscreen.lockscreen")
-    end)
+    local pam = require("liblua_pam")
+    lock_screen.authenticate = function(password)
+        return pam.auth_current_user(password)
+    end
+    require("ui.lockscreen.lockscreen")
 end
 
 return lock_screen
