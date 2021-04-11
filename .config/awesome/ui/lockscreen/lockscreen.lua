@@ -1,9 +1,12 @@
--- TOTALLY NOT STOLEN FROM ELENAPAN
+-- This started off as a clone of Elenapan's lockscreen, but now it doesn't
+-- look like it at all. Still, a special thanks to their dots!
 -- https://github.com/elenapan/dotfiles/tree/master/config/awesome/elemental/lock_screen
+--
 -- Disclaimer:
--- This lock screen was not designed with security in mind. There is
--- no guarantee that it will protect you against someone that wants to
--- gain access to your computer.
+-- THIS LOCKSCREEN IS NOT SECURE. PLEASE DON'T THINK THIS CAN STOP HACKERS. 
+-- A SIMPLE AWESOMEWM RELOAD CAN BREAK THROUGH. I USE THIS BECAUSE I DONT CARE
+-- ABOUT MY LAPTOP'S SECURITY.
+--
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
@@ -14,13 +17,24 @@ local naughty = require("naughty")
 local helpers = require("helpers")
 local lock_screen = require("ui.lockscreen")
 
--- A dummy textbox needed to get user input.
--- It will not be visible anywhere.
-local some_textbox = wibox.widget.textbox()
+local pass_textbox = wibox.widget.textbox()
+local secret_textbox = wibox.widget {
+    font = beautiful.font_name .. 12,
+    widget = wibox.widget.textbox
+}
+
+pass_textbox:connect_signal("widget::redraw_needed", function()
+    local secret = " "
+    if #pass_textbox.text > 1 then
+        for i = 1, #pass_textbox.text - 1, 1 do secret = secret .. "" end
+        secret_textbox.markup = secret .. " "
+    else
+        secret_textbox.markup = "<span foreground='" .. beautiful.xforeground ..
+                                    55 .. "'><b><i>Password</i></b></span>"
+    end
+end)
 
 -- Create the lock screen wibox
--- Set the type to "splash" and set all "splash" windows to be blurred in your
--- compositor configuration file
 lock_screen_box = wibox({
     visible = false,
     ontop = true,
@@ -37,9 +51,8 @@ local gradient = {
 }
 
 lock_screen_box.bg = gradient
-lock_screen_box.fg = beautiful.xforeground or "#FEFEFE"
 
--- Add lockscreen to each screen
+-- Add lockscreen gradient to each screen
 awful.screen.connect_for_each_screen(function(s)
     if s == screen.primary then
         s.mylockscreen = lock_screen_box
@@ -60,133 +73,43 @@ local me_pic = wibox.widget {
         {
             image = beautiful.me,
             resize = true,
-            -- forced_height = dpi(35),
-            -- forced_width = dpi(35),
             clip_shape = gears.shape.circle,
             widget = wibox.widget.imagebox
         },
         bg = beautiful.xcolor0,
         shape = gears.shape.circle,
-        widget = wibox.widget.background
+        widget = wibox.container.background
     },
     nil,
     expand = "none",
     layout = wibox.layout.align.horizontal
 }
 
--- Lock animation
-local lock_animation_widget_rotate = wibox.container.rotate()
-
-local arc = function()
-    return function(cr, width, height)
-        gears.shape.arc(cr, width, height, dpi(5), 0, math.pi / 2, true, true)
-    end
-end
-
-local lock_animation_arc = wibox.widget {
-    shape = arc(),
-    bg = "#00000000",
-    forced_width = dpi(75),
-    forced_height = dpi(75),
-    widget = wibox.container.background
-}
-
-local lock_animation_widget = {
-    {lock_animation_arc, widget = lock_animation_widget_rotate},
-    {me_pic, margins = dpi(10), widget = wibox.container.margin},
-    forced_height = dpi(145),
-    forced_width = dpi(145),
-    layout = wibox.layout.stack
-}
-
--- Lock helper functions
-local characters_entered = 0
-local function reset()
-    characters_entered = 0;
-    lock_animation_widget_rotate.direction = "north"
-    lock_animation_arc.bg = "#00000000"
-end
-
-local function fail()
-    characters_entered = 0;
-    lock_animation_widget_rotate.direction = "north"
-    lock_animation_arc.bg = "#00000000"
-end
-
-local animation_colors = {
-    -- Rainbow sequence =)
-    beautiful.xcolor1, beautiful.xcolor5, beautiful.xcolor4, beautiful.xcolor6,
-    beautiful.xcolor2, beautiful.xcolor3
-}
-
-local animation_directions = {"north", "west", "south", "east"}
-
--- Function that "animates" every key press
-local function key_animation(char_inserted)
-    local color
-    local direction = animation_directions[(characters_entered % 4) + 1]
-    if char_inserted then
-        color = animation_colors[(characters_entered % 6) + 1]
-    else
-        if characters_entered == 0 then
-            reset()
-        else
-            color = beautiful.xcolor7 .. "55"
-        end
-    end
-
-    lock_animation_arc.bg = color
-    lock_animation_widget_rotate.direction = direction
-end
-
--- Get input from user
+--- Get input from user
 local function grab_password()
     awful.prompt.run {
         hooks = {
             -- Custom escape behaviour: Do not cancel input with Escape
             -- Instead, this will just clear any input received so far.
-            {
-                {}, 'Escape', function(_)
-                    reset()
-                    grab_password()
-                end
-            }, -- Fix for Control+Delete crashing the keygrabber
-            {
-                {'Control'}, 'Delete', function()
-                    reset()
-                    grab_password()
-                end
-            }
+            {{}, 'Escape', function(_) grab_password() end}, -- Fix for Control+Delete crashing the keygrabber
+            {{'Control'}, 'Delete', function() grab_password() end}
         },
         keypressed_callback = function(mod, key, cmd)
-            -- Only count single character keys (thus preventing
-            -- "Shift", "Escape", etc from triggering the animation)
-            if #key == 1 then
-                characters_entered = characters_entered + 1
-                key_animation(true)
-            elseif key == "BackSpace" then
-                if characters_entered > 0 then
-                    characters_entered = characters_entered - 1
-                end
-                key_animation(false)
-            end
-
-            -- Debug
-            -- naughty.notify { title = 'You pressed:', text = key }
+            -- Debug Stuff
+            -- naughty.notify { title = 'Pressed', text = key }
         end,
         exe_callback = function(input)
             -- Check input
             if lock_screen.authenticate(input) then
-                -- YAY
-                reset()
                 set_visibility(false)
             else
-                -- NAY
-                fail()
+                secret_textbox.markup = "<span foreground='" ..
+                                            beautiful.xforeground .. 55 ..
+                                            "'><b><i>Password</i></b></span>"
                 grab_password()
             end
         end,
-        textbox = some_textbox
+        textbox = pass_textbox
     }
 end
 
@@ -286,13 +209,22 @@ lock_screen_box:setup{
             },
             top = dpi(70),
             left = dpi(270),
-            bottom = dpi(90),
+            bottom = dpi(140),
             widget = wibox.container.margin
         },
         {
             {
                 {
-                    lock_animation_widget,
+                    {
+                        {
+                            me_pic,
+                            margins = dpi(10),
+                            widget = wibox.container.margin
+                        },
+                        forced_height = dpi(145),
+                        forced_width = dpi(145),
+                        widget = wibox.container.background
+                    },
                     top = dpi(40),
                     right = dpi(65),
                     left = dpi(65),
@@ -313,7 +245,27 @@ lock_screen_box:setup{
                     align = 'center',
                     widget = wibox.widget.textbox
                 },
-                helpers.vertical_pad(40),
+                helpers.vertical_pad(30),
+                {
+                    {
+                        {
+                            {
+                                secret_textbox,
+                                margins = dpi(5),
+                                widget = wibox.container.margin
+                            },
+                            halign = "center",
+                            widget = wibox.container.place
+                        },
+                        shape = helpers.rrect(beautiful.widget_border_radius),
+                        forced_width = dpi(200),
+                        bg = beautiful.xcolor0,
+                        widget = wibox.container.background
+                    },
+                    halign = "center",
+                    widget = wibox.container.place
+                },
+                helpers.vertical_pad(30),
                 layout = wibox.layout.fixed.vertical
             },
             shape = helpers.rrect(beautiful.widget_border_radius),
@@ -329,7 +281,7 @@ lock_screen_box:setup{
             },
             top = dpi(70),
             right = dpi(270),
-            bottom = dpi(90),
+            bottom = dpi(140),
             layout = wibox.container.margin
         },
         expand = "none",

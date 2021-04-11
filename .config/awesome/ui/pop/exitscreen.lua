@@ -29,7 +29,7 @@ local poweroff_command =
 local reboot_command = function() awful.spawn.with_shell("systemctl reboot") end
 local suspend_command = function()
     lock_screen_show()
-    awful.spawn.with_shell("systemctl hibernate")
+    awful.spawn.with_shell("systemctl suspend")
 end
 local exit_command = function() awesome.quit() end
 local lock_command = function() lock_screen_show() end

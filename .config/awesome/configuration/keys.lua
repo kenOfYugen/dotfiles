@@ -191,8 +191,8 @@ awful.keyboard.append_global_keybindings(
         awful.key({modkey}, "f", function() awful.spawn(filemanager) end,
                   {description = "open file browser", group = "launcher"}),
         awful.key({modkey}, "v",
-                  function() awesome.emit_signal("scratch::discord") end,
-                  {description = "open discord", group = "scratchpad"}),
+                  function() awesome.emit_signal("scratch::term") end,
+                  {description = "open terminal", group = "scratchpad"}),
         awful.key({modkey}, "w", function()
             awful.spawn.with_shell(browser)
         end, {description = "open firefox", group = "launcher"}),
