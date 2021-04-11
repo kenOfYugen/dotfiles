@@ -31,8 +31,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
     vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics,
                  {virtual_text = true, signs = true, update_in_insert = true})
 
-require('lspkind').init()
-
 -- Showing defaults
 require'nvim-lightbulb'.update_lightbulb {
     sign = {
