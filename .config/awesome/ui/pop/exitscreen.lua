@@ -10,7 +10,7 @@ local helpers = require("helpers")
 local pad = helpers.pad
 
 -- Appearance
-local icon_font = "Fira Code NerdFont Mono 45"
+local icon_font = beautiful.icon_font_name .. 30
 local poweroff_text_icon = ""
 local reboot_text_icon = ""
 local suspend_text_icon = ""
@@ -42,7 +42,7 @@ local create_button = function(symbol, hover_color, text, command)
         align = "center",
         valign = "center",
         font = icon_font,
-        text = symbol,
+        markup = helpers.colorize_text(symbol, beautiful.xforeground .. 55),
         widget = wibox.widget.textbox()
     }
 
@@ -67,7 +67,8 @@ local create_button = function(symbol, hover_color, text, command)
         button.border_color = hover_color
     end)
     button:connect_signal("mouse::leave", function()
-        icon.markup = helpers.colorize_text(icon.text, beautiful.xforeground)
+        icon.markup = helpers.colorize_text(icon.text,
+                                            beautiful.xforeground .. 55)
         button.border_color = beautiful.widget_border_color
     end)
 

@@ -9,9 +9,8 @@ local dpi = xresources.apply_dpi
 local art = wibox.widget {
     image = gears.filesystem.get_configuration_dir() .. "images/no_music.png",
     resize = true,
-    forced_height = dpi(100),
-    -- forced_width = dpi(80),
-    -- clip_shape = helpers.rrect(beautiful.border_radius - 5),
+    forced_height = dpi(250),
+    forced_width = dpi(250),
     widget = wibox.widget.imagebox
 }
 
@@ -27,8 +26,10 @@ local create_button = function(symbol, color, command, playpause)
 
     local button = wibox.widget {
         icon,
-        forced_height = dpi(15),
-        forced_width = dpi(15),
+        forced_height = dpi(40),
+        forced_width = dpi(40),
+        bg = beautiful.xcolor0,
+        shape = gears.shape.squircle,
         widget = wibox.container.background
     }
 
@@ -56,34 +57,11 @@ local create_button = function(symbol, color, command, playpause)
     return button
 end
 
-local title_widget = wibox.widget {
-    markup = 'No Title',
-    align = 'center',
-    valign = 'center',
-    ellipsize = 'middle',
-    forced_height = dpi(12),
-    widget = wibox.widget.textbox
-}
-
-local artist_widget = wibox.widget {
-    markup = 'No Artist',
-    align = 'center',
-    valign = 'center',
-    ellipsize = 'middle',
-    forced_height = dpi(12),
-    widget = wibox.widget.textbox
-}
-
 -- Get Song Info 
 awesome.connect_signal("bling::playerctl::title_artist_album",
                        function(title, artist, art_path)
     -- Set art widget
     art:set_image(gears.surface.load_uncached(art_path))
-
-    title_widget:set_markup_silently(
-        '<span foreground="' .. beautiful.xcolor5 .. '">' .. title .. '</span>')
-    artist_widget:set_markup_silently(
-        '<span foreground="' .. beautiful.xcolor6 .. '">' .. artist .. '</span>')
 end)
 
 local play_command =
@@ -99,49 +77,26 @@ local playerctl_prev_symbol = create_button("玲", beautiful.xcolor4,
 local playerctl_next_symbol = create_button("怜", beautiful.xcolor4,
                                             next_command, false)
 
-local slider = wibox.widget {
-    forced_height = dpi(5),
-    bar_shape = helpers.rrect(beautiful.border_radius),
-    shape = helpers.rrect(beautiful.border_radius),
-    background_color = beautiful.xcolor0 .. 55,
-    color = beautiful.xcolor6,
-    value = 25,
-    max_value = 100,
-    widget = wibox.widget.progressbar
-}
+emacs_tb = function(c)
+    awful.titlebar(c,
+                   {position = "right", size = 400, bg = beautiful.xbackground}):setup{
 
-awesome.connect_signal("bling::playerctl::position", function(pos, length)
-    slider.value = (pos / length) * 100
-end)
-
-local playerctl = wibox.widget {
-    {
-        {
-            art,
-            bg = beautiful.xcolor0,
-            -- shape = helpers.rrect(beautiful.border_radius - 5),
-            widget = wibox.container.background
-        },
-        left = dpi(0),
-        top = dpi(0),
-        bottom = dpi(0),
-        layout = wibox.container.margin
-    },
-    {
         {
             {
                 {
-                    title_widget,
-                    artist_widget,
-                    layout = wibox.layout.fixed.vertical
+                    art,
+                    bg = beautiful.xcolor1,
+                    shape = helpers.rrect(20),
+                    widget = wibox.container.background
                 },
-                top = 10,
-                left = 25,
-                right = 25,
+                top = dpi(40),
                 widget = wibox.container.margin
             },
+            halign = "center",
+            widget = wibox.container.place
+        },
+        {
             {
-                nil,
                 {
                     playerctl_prev_symbol,
                     playerctl_play_symbol,
@@ -149,29 +104,22 @@ local playerctl = wibox.widget {
                     spacing = dpi(40),
                     layout = wibox.layout.fixed.horizontal
                 },
-                nil,
-                expand = "none",
-                layout = wibox.layout.align.horizontal
-            },
-            {
-                slider,
-                top = dpi(10),
-                left = dpi(25),
-                right = dpi(25),
+                top = dpi(60),
                 widget = wibox.container.margin
             },
-            layout = wibox.layout.align.vertical
+            halign = "center",
+            widget = wibox.container.place
         },
-        top = dpi(0),
-        bottom = dpi(10),
-        widget = wibox.container.margin
-    },
-    layout = wibox.layout.align.horizontal
-}
+        layout = wibox.layout.fixed.vertical
+    }
 
-return {
-    playerctl,
-    bg = beautiful.xcolor0 .. 55,
-    shape = helpers.rrect(beautiful.client_radius),
-    widget = wibox.container.background
-}
+    awful.titlebar(c, nil):setup{}
+end
+
+table.insert(awful.rules.rules, {
+    rule_any = {class = {"music"}, instance = {"music"}},
+    properties = {},
+    callback = emacs_tb
+})
+
+return emacs_tb

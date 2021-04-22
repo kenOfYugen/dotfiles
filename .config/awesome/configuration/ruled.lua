@@ -40,6 +40,18 @@ ruled.client.connect_signal("request::rules", function()
         properties = {floating = true, placement = awful.placement.centered}
     }
 
+    -- KeyBoard
+    ruled.client.append_rule {
+        id = "keyboard",
+        rule = {class = "Onboard", instance = "onboard"},
+        properties = {
+            floating = true,
+            focusable = false,
+            ontop = true,
+            titlebars = false
+        }
+    }
+
     -- Borders
     ruled.client.append_rule {
         id = "borders",
@@ -76,6 +88,7 @@ ruled.client.connect_signal("request::rules", function()
         except_any = {
             class = {"Steam", "zoom", "jetbrains-studio"},
             type = {"splash"},
+            instance = {"onboard"},
             name = {"^discord.com is sharing your screen.$"}
         },
         properties = {titlebars_enabled = true}

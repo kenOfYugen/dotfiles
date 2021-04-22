@@ -16,7 +16,7 @@ end
 -- Add apps to autostart here
 autostart_apps = {
     -- Network Manager Applet
-    "nm-applet", 
+    "nm-applet",
 
     -- Disable Bell
     "xset -b", 
@@ -28,7 +28,7 @@ autostart_apps = {
     "blueman-applet", 
 
     -- Compositor
-    "picom --experimental-backends --config " ..
+    "picom --config " ..
         gears.filesystem.get_configuration_dir() .. "configuration/picom.conf",
 
     -- Media controller daemon

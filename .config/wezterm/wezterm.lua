@@ -30,8 +30,7 @@ local cfg_misc = {
         {
             intensity = "Bold",
             font = font_with_fallback("Sarasa Mono K", {bold = true})
-        },
-        {intensity = "Half", font = font_with_fallback("Sarasa Mono K Light")}
+        }, {intensity = "Half", font = font_with_fallback("Sarasa Mono K")}
     },
     font_size = 11.0,
     font_shaper = "Harfbuzz",
@@ -52,7 +51,7 @@ local cfg_misc = {
     window_close_confirmation = "NeverPrompt",
 
     -- Padding
-    window_padding = {left = 20, right = 20, top = 20, bottom = 20},
+    window_padding = {left = 40, right = 40, top = 40, bottom = 40},
 
     -- No opacity
     inactive_pane_hsb = {saturation = 1.0, brightness = 1.0}

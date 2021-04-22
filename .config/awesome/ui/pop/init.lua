@@ -29,16 +29,14 @@ awesome.connect_signal("widgets::exit_screen::toggle",
 start.x = -451
 start.y = -1 * beautiful.widget_border_width + beautiful.wibar_height
 
--- start.screen = mouse.screen
-
 local panel_anim = awestore.tweened(-450, {
-    duration = 300,
-    easing = awestore.easing.cubic_in_out
+    duration = 350,
+    easing = awestore.easing.circ_in_out
 })
 
 local strut_anim = awestore.tweened(0, {
     duration = 300,
-    easing = awestore.easing.cubic_in_out
+    easing = awestore.easing.circ_in_out
 })
 
 panel_anim:subscribe(function(x) start.x = x end)
@@ -47,7 +45,6 @@ strut_anim:subscribe(function(width)
 end)
 
 awesome.connect_signal("widgets::start::toggle", function()
-    -- start.screen = s
     if not start.visible then
         start.visible = true
         strut_anim:set(450)

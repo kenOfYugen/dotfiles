@@ -63,14 +63,14 @@ local battery_bar = wibox.widget {
 }
 
 local battery_text = wibox.widget {
-    font = beautiful.font_name .. "10",
+    font = beautiful.font,
     align = 'center',
     valign = 'center',
     widget = wibox.widget.textbox
 }
 
 local battery_icon = wibox.widget {
-    font = beautiful.font_name .. "10",
+    font = beautiful.icon_font_name .. "10",
     align = 'center',
     valign = 'center',
     widget = wibox.widget.textbox
@@ -80,7 +80,7 @@ local battery_pill = wibox.widget {
     battery_bar,
     {
         {
-            battery_icon,
+            {battery_icon, top = dpi(1), widget = wibox.container.margin},
             helpers.horizontal_pad(10),
             {battery_text, top = dpi(1), widget = wibox.container.margin},
             layout = wibox.layout.fixed.horizontal
@@ -149,7 +149,7 @@ end)
 -- Date Widget ----------------------------------------------------------------
 
 local date_text = wibox.widget {
-    font = beautiful.font_name .. "10",
+    font = beautiful.font,
     format = "%m/%d/%y",
     align = 'center',
     valign = 'center',
@@ -165,7 +165,7 @@ date_text:connect_signal("widget::redraw_needed", function()
 end)
 
 local date_icon = wibox.widget {
-    font = beautiful.font_name .. "14",
+    font = beautiful.icon_font_name .. "12",
     markup = "<span foreground='" .. beautiful.xcolor11 .. "'></span>",
     align = 'center',
     valign = 'center',
@@ -174,7 +174,7 @@ local date_icon = wibox.widget {
 
 local date_pill = wibox.widget {
     {
-        date_icon,
+        {date_icon, top = dpi(1), widget = wibox.container.margin},
         helpers.horizontal_pad(10),
         {date_text, top = dpi(1), widget = wibox.container.margin},
         layout = wibox.layout.fixed.horizontal
@@ -187,7 +187,7 @@ local date_pill = wibox.widget {
 -- Time Widget ----------------------------------------------------------------
 
 local time_text = wibox.widget {
-    font = beautiful.font_name .. "10",
+    font = beautiful.font,
     format = "%l:%M %P",
     align = 'center',
     valign = 'center',
@@ -203,7 +203,7 @@ time_text:connect_signal("widget::redraw_needed", function()
 end)
 
 local time_icon = wibox.widget {
-    font = beautiful.font_name .. "14",
+    font = beautiful.icon_font_name .. "12",
     markup = "<span foreground='" .. beautiful.xcolor5 .. "'></span>",
     align = 'center',
     valign = 'center',
@@ -212,7 +212,7 @@ local time_icon = wibox.widget {
 
 local time_pill = wibox.widget {
     {
-        time_icon,
+        {time_icon, top = dpi(1), widget = wibox.container.margin},
         helpers.horizontal_pad(10),
         {time_text, top = dpi(1), widget = wibox.container.margin},
         layout = wibox.layout.fixed.horizontal
@@ -269,7 +269,7 @@ local song_artist = wibox.widget {
 
 local song_logo = wibox.widget {
     markup = '<span foreground="' .. beautiful.xcolor6 .. '"></span>',
-    font = beautiful.icon_font,
+    font = beautiful.icon_font_name .. 12,
     align = 'center',
     valign = 'center',
     widget = wibox.widget.textbox
@@ -280,6 +280,7 @@ local playerctl_bar = wibox.widget {
         {
             {
                 song_logo,
+                top = dpi(3),
                 left = dpi(3),
                 right = dpi(10),
                 bottom = dpi(1),
@@ -325,7 +326,7 @@ local playerctl_bar = wibox.widget {
 
 playerctl_bar.visible = false
 
-awesome.connect_signal("bling::playerctl::player_stopped",
+awesome.connect_signal("bling::playerctl::no_players",
                        function() playerctl_bar.visible = false end)
 
 -- Get Title 
@@ -554,7 +555,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
         },
         {
             widget = wibox.container.background,
-            bg = beautiful.xcolor0,
+            bg = beautiful.widget_border_color,
             forced_height = beautiful.widget_border_width
         }
 

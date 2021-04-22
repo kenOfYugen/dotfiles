@@ -5,22 +5,32 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local helpers = require("helpers")
 
+require("ui.decorations.emacs")
+require("ui.decorations.ncmpcpp")
+
 local tb_ops = {}
 
 local add_decorations = function(c) require("ui.decorations.top")(c) end
 
 tb_ops.enable_tb = function(c)
     -- c.border_width = 0
-    c.titlebars = true
-    add_decorations(c)
+    if c.class == "Onboard" then
+        c.titlebars = false
+        tb_ops.disable_tb(c)
+    else
+        c.titlebars = true
+        add_decorations(c)
+    end
 end
 
 tb_ops.disable_tb = function(c)
-    awful.titlebar.hide(c, "top")
-    awful.titlebar.hide(c, "bottom")
-    awful.titlebar.hide(c, "left")
-    awful.titlebar.hide(c, "right")
-    -- c.border_width = beautiful.border_width
+    if c.class ~= "Emacs" or c.instance ~= "emacs" then
+        awful.titlebar.hide(c, "top")
+        awful.titlebar.hide(c, "bottom")
+        awful.titlebar.hide(c, "left")
+        awful.titlebar.hide(c, "right")
+        c.border_width = beautiful.border_width
+    end
 end
 
 client.connect_signal("request::titlebars", function(c)

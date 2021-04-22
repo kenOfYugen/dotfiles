@@ -42,7 +42,7 @@ end
 
 notifbox_layout:insert(1, empty_notifbox)
 
-naughty.connect_signal("added", function(n)
+naughty.connect_signal("request::display", function(n)
 
     if #notifbox_layout.children == 1 and remove_notifbox_empty then
         notifbox_layout:reset(notifbox_layout)
@@ -57,8 +57,7 @@ naughty.connect_signal("added", function(n)
     if not appicon then appicon = beautiful.notification_icon end
 
     local box = require("ui/notifs.notif-center.build-notifbox.notifbox")
-    notifbox_layout:insert(1, box.create(appicon, "<b>" .. n.title .. "</b>",
-                                         n.message, width))
+    notifbox_layout:insert(1, box.create(appicon, n, width))
 end)
 
 return notifbox_layout

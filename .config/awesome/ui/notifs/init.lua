@@ -13,18 +13,11 @@ require("ui.notifs.volume")
 require("ui.notifs.battery")
 
 naughty.config.defaults.ontop = true
--- naughty.config.defaults.icon_size = dpi(32)
 naughty.config.defaults.screen = awful.screen.focused()
 naughty.config.defaults.timeout = 3
 naughty.config.defaults.title = "System Notification"
--- naughty.config.defaults.margin = dpi(20)
--- naughty.config.defaults.border_width = 0
--- naughty.config.defaults.border_color = beautiful.widget_border_color
 naughty.config.defaults.position = "top_right"
--- naughty.config.defaults.shape = helpers.rrect(beautiful.client_radius)
 
-naughty.config.padding = dpi(10)
-naughty.config.spacing = dpi(5)
 naughty.config.icon_dirs = {
     "/usr/share/icons/Papirus-Dark/24x24/apps/", "/usr/share/pixmaps/"
 }
@@ -194,7 +187,7 @@ naughty.connect_signal("request::display", function(n)
                 margins = beautiful.widget_border_width,
                 widget = wibox.container.margin
             },
-            bg = beautiful.xcolor0,
+            bg = beautiful.widget_border_color,
             shape = helpers.rrect(beautiful.border_radius +
                                       beautiful.widget_border_width),
             widget = wibox.container.background

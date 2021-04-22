@@ -17,7 +17,7 @@ browser = "firefox"
 filemanager = "thunar"
 discord = "discord"
 launcher = "rofi -show drun"
-music = terminal .. " start --class music ncspot"
+music = terminal .. ' start --class music ncmpcpp'
 
 -- Global Vars
 screen_width = awful.screen.focused().geometry.width
@@ -36,15 +36,18 @@ ctrl = "Control"
 local yy = 10 + beautiful.wibar_height
 
 -- Enable Playerctl Module from Bling
-bling.signal.playerctl.enable()
+bling.signal.playerctl.enable {
+    -- ignore = "firefox", 
+    update_on_activity = true
+}
 
 bling.widget.tag_preview.enable {
-    show_client_content = false,
+    show_client_content = true,
     x = dpi(10),
     y = dpi(10) + beautiful.wibar_height,
     scale = 0.25,
     honor_padding = true,
-    honor_workarea = true
+    honor_workarea = false
 }
 
 -- Set Wallpaper

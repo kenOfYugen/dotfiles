@@ -51,7 +51,7 @@ local function format_progress_bar(bar, markup)
         markup = markup,
         align = 'center',
         valign = 'center',
-        font = beautiful.font_name .. '25',
+        font = beautiful.icon_font_name .. '20',
         widget = wibox.widget.textbox
     }
     text.forced_height = dpi(36)

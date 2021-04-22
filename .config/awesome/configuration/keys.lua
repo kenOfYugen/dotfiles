@@ -8,6 +8,7 @@ local helpers = require("helpers")
 -- Custom modules
 local machi = require("module.layout-machi")
 local bling = require("module.bling")
+local awestore = require("awestore")
 
 -- Mouse Bindings
 awful.mouse.append_global_mousebindings({
@@ -186,12 +187,12 @@ awful.keyboard.append_global_keybindings(
         end, {description = "open a terminal", group = "launcher"}),
         awful.key({modkey}, "s",
                   function() awesome.emit_signal("scratch::music") end,
-                  {description = "open nspot", group = "scratchpad"}),
+                  {description = "open music", group = "scratchpad"}),
 
         awful.key({modkey}, "f", function() awful.spawn(filemanager) end,
                   {description = "open file browser", group = "launcher"}),
         awful.key({modkey}, "v",
-                  function() awesome.emit_signal("scratch::term") end,
+                  function() awesome.emit_signal("scratch::discord") end,
                   {description = "open terminal", group = "scratchpad"}),
         awful.key({modkey}, "w", function()
             awful.spawn.with_shell(browser)

@@ -14,7 +14,9 @@ command_not_found_handler() {
 }
 
 setopt prompt_subst
-PROMPT='%F{5}%F{%(?.6.1)}  %f%F{8}|%f '
+PROMPT='%F{5}%F{%(?.6.1)} > %f% '
+#PROMPT='%F{5}%F{%(?.6.1)} > %f%F{8}|%f '
+
 export SUDO_PROMPT=$'Password for ->\033[32;05;16m %u\033[0m  '
 
 
@@ -48,7 +50,7 @@ zstyle ':completion:*' matcher-list \
 alias c='clear'
 alias ..='cd ..'
 alias v="nvim"
-alias ls='exa --icons'
+alias ls='ls --color=auto'
 alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
@@ -97,6 +99,8 @@ zstyle ':fzf-tab:complete:_zlua:*' query-string input
 zstyle ':fzf-tab:complete:*:*' fzf-preview '$HOME/.bin/preview.sh $realpath'
 
 # Set PATH so it includes user's private bin directories
-export PATH="${HOME}/.bin:${HOME}/.local/bin:${HOME}/go/bin:${PATH}"
+export PATH="${HOME}/.bin:${HOME}/.local/bin:${HOME}/go/bin:${HOME}/.emacs.d/bin/:${PATH}"
 
 clear
+
+alias luamake=/home/javacafe01/git-stuff/lua-language-server/3rd/luamake/luamake

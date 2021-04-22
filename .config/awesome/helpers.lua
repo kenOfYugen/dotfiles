@@ -13,6 +13,20 @@ local Rsvg = lgi.Rsvg
 local cairo = lgi.cairo
 local helpers = {}
 
+function helpers.find(rule)
+    local function matcher(c) return awful.rules.match(c, rule) end
+    local clients = client.get()
+    local findex = gears.table.hasitem(clients, client.focus) or 1
+    local start = gears.math.cycle(#clients, findex + 1)
+
+    local matches = {}
+    for c in awful.client.iterate(matcher, start) do
+        matches[#matches + 1] = c
+    end
+
+    return matches
+end
+
 function helpers.volume_control(step)
     local cmd
     if step == 0 then

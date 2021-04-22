@@ -8,9 +8,6 @@ local gfs = require("gears.filesystem")
 local awful = require("awful")
 require("awful.autofocus")
 
--- Widget library
-local wibox = require("wibox")
-
 -- Theme handling library
 local beautiful = require("beautiful")
 
@@ -62,9 +59,7 @@ collectgarbage("setstepmul", 1000)
 local wibox = require("wibox")
 local helpers = require("helpers")
 local gears = require("gears")
-
 local create_button = function(symbol, color, command, playpause)
-
     local icon = wibox.widget {
         markup = helpers.colorize_text(symbol, color),
         font = "FiraCode Nerd Font Mono 20",
@@ -72,14 +67,12 @@ local create_button = function(symbol, color, command, playpause)
         valigin = "center",
         widget = wibox.widget.textbox()
     }
-
     local button = wibox.widget {
         icon,
         forced_height = 30,
         forced_width = 30,
         widget = wibox.container.background
     }
-
     awesome.connect_signal("bling::playerctl::status", function(playing)
         if playpause then
             if playing then
@@ -89,34 +82,26 @@ local create_button = function(symbol, color, command, playpause)
             end
         end
     end)
-
     button:buttons(gears.table.join(
                        awful.button({}, 1, function() command() end)))
-
     button:connect_signal("mouse::enter", function()
         icon.markup = helpers.colorize_text(icon.text, beautiful.xforeground)
     end)
-
     button:connect_signal("mouse::leave", function()
         icon.markup = helpers.colorize_text(icon.text, color)
     end)
-
     return button
 end
-
 local play_command =
     function() awful.spawn.with_shell("playerctl play-pause") end
 local prev_command = function() awful.spawn.with_shell("playerctl previous") end
 local next_command = function() awful.spawn.with_shell("playerctl next") end
-
 local playerctl_play_symbol = create_button("", beautiful.xcolor4,
                                             play_command, true)
-
 local playerctl_prev_symbol = create_button("玲", beautiful.xcolor4,
                                             prev_command, false)
 local playerctl_next_symbol = create_button("怜", beautiful.xcolor4,
                                             next_command, false)
-
 local art = wibox.widget {
     image = gfs.get_configuration_dir() .. "images/me.png",
     resize = true,
@@ -125,14 +110,11 @@ local art = wibox.widget {
     -- clip_shape = helpers.rrect(12),
     widget = wibox.widget.imagebox
 }
-
 awesome.connect_signal("bling::playerctl::title_artist_album",
                        function(_, _, art_path)
     -- Set art widget
     art:set_image(gears.surface.load_uncached(art_path))
-
 end)
-
 local draggable_player = wibox({
     visible = true,
     ontop = true,
@@ -164,7 +146,6 @@ local draggable_player = wibox({
         layout = wibox.layout.fixed.vertical
     }
 })
-
 draggable_player:connect_signal("mouse::enter", function()
     awful.mouse.wibox.move(draggable_player)
 end)
