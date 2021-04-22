@@ -25,16 +25,16 @@ I use Arch Linux, so all the packages I list can be directly installed with an A
 #### Packages/Programs
 
 ```bash
-paru -Sy awesome-git zsh tmux picom-git neovim-nightly-bin rofi playerctl thunar discord imagemagick giph farge-git colorpicker-ym1234-git lm_sensors acpid pulseaudio inotify-tools acpilight bat firefox ncspot wezterm
+paru -Sy awesome-git zsh picom-git neovim-nightly-bin rofi playerctl thunar discord imagemagick giph farge-git colorpicker-ym1234-git lm_sensors acpid pulseaudio inotify-tools acpilight bat firefox wezterm ncmpcpp fzf pamixer slop xclip xorg-server-xephyr
 ```
-Note: Most of these packages are not needed.
+Note: Most of these packages are not needed. This is just for me for easy install.
 
 (If I'm missing anything, please submit an issue or pull request)
 
 #### Fonts
 
 ```bash
-paru -Sy ttf-sarasa-gothic nerd-fonts-fira-code noto-fonts-emoji-blob
+paru -Sy ttf-sarasa-gothic nerd-fonts-fira-code noto-fonts-emoji-blob ttf-nerd-fonts-symbols-mono
 ```
 
 ## Modules
