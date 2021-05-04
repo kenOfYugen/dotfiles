@@ -36,7 +36,7 @@ local area = wibox.widget {
                 bottom = dpi(5),
                 widget = wibox.container.margin
             },
-            bg = beautiful.xcolor0 .. 55,
+            bg = beautiful.xcolor8 .. 55,
             shape = gears.shape.circle,
             widget = wibox.container.background
         },

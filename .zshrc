@@ -14,7 +14,7 @@ command_not_found_handler() {
 }
 
 setopt prompt_subst
-PROMPT='%F{5}%F{%(?.6.1)} > %f% '
+PROMPT='%F{5}%F{%(?.6.1)} $ %f% '
 #PROMPT='%F{5}%F{%(?.6.1)} > %f%F{8}|%f '
 
 export SUDO_PROMPT=$'Password for ->\033[32;05;16m %u\033[0m  '
@@ -77,7 +77,7 @@ source ~/.zsh-plugins/fzf-tab/fzf-tab.plugin.zsh
 
 # Solarized colors
 export FZF_DEFAULT_OPTS='
---color fg:#ffffff,bg:#1a2026,hl:#A3BE8C,fg+:#D8DEE9,bg+:#1a2026,hl+:#A3BE8C,border:#3b4b58
+--color fg:#ffffff,bg:#131a21,hl:#A3BE8C,fg+:#D8DEE9,bg+:#131A21,hl+:#A3BE8C,border:#3b4b58
 --color pointer:#f9929b,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#9ce5c0,marker:#EBCB8B
 '
 
@@ -104,3 +104,5 @@ export PATH="${HOME}/.bin:${HOME}/.local/bin:${HOME}/go/bin:${HOME}/.emacs.d/bin
 clear
 
 alias luamake=/home/javacafe01/git-stuff/lua-language-server/3rd/luamake/luamake
+
+export NODE_PATH="'$(npm root -g)'"

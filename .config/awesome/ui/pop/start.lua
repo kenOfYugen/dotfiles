@@ -12,7 +12,7 @@ local box_radius = beautiful.client_radius
 local box_gap = dpi(8)
 
 local width = 451
-local height = 1000 - 1 + 49
+local height = 1000 - 1 + 49 - 12 - beautiful.useless_gap
 
 local function create_boxed_widget(widget_to_be_boxed, width, height, bg_color)
     local box_container = wibox.container.background()
@@ -51,7 +51,7 @@ local function format_progress_bar(bar, markup)
         markup = markup,
         align = 'center',
         valign = 'center',
-        font = beautiful.icon_font_name .. '20',
+        font = beautiful.icon_font_name .. '30',
         widget = wibox.widget.textbox
     }
     text.forced_height = dpi(36)
@@ -297,31 +297,60 @@ local ll = awful.widget.layoutlist {
 
 local panelWidget = wibox.widget {
     {
-        info,
-        {ll, align = "center", widget = wibox.container.place},
-        spacing = 25,
-        layout = wibox.layout.fixed.vertical
+        {
+            {
+                info,
+                {ll, align = "center", widget = wibox.container.place},
+                spacing = 24,
+                helpers.vertical_pad(0),
+                layout = wibox.layout.fixed.vertical
+            },
+            left = dpi(35),
+            right = dpi(35),
+            top = dpi(10),
+            widget = wibox.container.margin
+        },
+        bg = beautiful.widget_border_color,
+        widget = wibox.container.background
     },
-    {sys_box, sys_box2, spacing = 1, layout = wibox.layout.fixed.vertical},
-    playerctl_box,
-    notifs,
-    spacing = 1,
-    spacing_widget = {
-        bg = beautiful.xcolor8,
+
+    {
+        {
+            {
+                {
+                    {
+                        helpers.vertical_pad(24),
+                        sys_box,
+                        sys_box2,
+                        spacing = 1,
+                        layout = wibox.layout.fixed.vertical
+                    },
+                    playerctl_box,
+                    notifs,
+                    spacing = 1,
+                    spacing_widget = {
+                        bg = beautiful.xcolor8,
+                        widget = wibox.container.background
+                    },
+                    layout = wibox.layout.fixed.vertical
+                },
+                left = dpi(35),
+                right = dpi(35),
+                bottom = dpi(10),
+                widget = wibox.container.margin
+            },
+            bg = beautiful.xbackground,
+            shape = helpers.prrect(20, true, true, false, false),
+            widget = wibox.container.background
+        },
+        bg = beautiful.widget_border_color,
         widget = wibox.container.background
     },
     layout = wibox.layout.fixed.vertical
 }
 
 local widgetContainer = wibox.widget {
-    {
-        panelWidget,
-        left = dpi(35),
-        right = dpi(35),
-        top = dpi(10),
-        bottom = dpi(10),
-        widget = wibox.container.margin
-    },
+    {panelWidget, widget = wibox.container.margin},
     forced_height = height,
     forced_width = width,
     layout = wibox.layout.fixed.vertical
@@ -332,7 +361,7 @@ local widgetBG = wibox.widget {
     bg = beautiful.xbackground,
     border_color = beautiful.widget_border_color,
     border_width = dpi(beautiful.widget_border_width),
-    shape = helpers.prrect(dpi(25), false, false, false, false),
+    shape = helpers.prrect(dpi(20), true, true, true, true),
     widget = wibox.container.background
 }
 

@@ -8,9 +8,6 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local wibox = require("wibox")
 local naughty = require("naughty")
-local lgi = require("lgi")
-local Rsvg = lgi.Rsvg
-local cairo = lgi.cairo
 local helpers = {}
 
 function helpers.find(rule)
@@ -68,6 +65,23 @@ end
 helpers.resize_gaps = function(amt)
     local t = awful.screen.focused().selected_tag
     t.gap = t.gap + tonumber(amt)
+    awful.layout.arrange(awful.screen.focused())
+end
+
+-- Resize padding on the fly
+
+helpers.resize_padding = function(amt)
+    local s = awful.screen.focused()
+    local l = s.padding.left
+    local r = s.padding.right
+    local t = s.padding.top
+    local b = s.padding.bottom
+    s.padding = {
+        left = l + amt,
+        right = r + amt,
+        top = t + amt,
+        bottom = b + amt
+    }
     awful.layout.arrange(awful.screen.focused())
 end
 

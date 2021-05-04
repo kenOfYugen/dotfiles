@@ -4,7 +4,7 @@ local theme = require('theme')
 local configuration = require('configuration')
 
 function font_with_fallback(name, params)
-    local names = {name, "Blobmoji"}
+    local names = {name, "FiraCode Nerd Font Mono", "Blobmoji"}
     return wezterm.font_with_fallback(names, params)
 end
 
@@ -30,7 +30,8 @@ local cfg_misc = {
         {
             intensity = "Bold",
             font = font_with_fallback("Sarasa Mono K", {bold = true})
-        }, {intensity = "Half", font = font_with_fallback("Sarasa Mono K")}
+        },
+        {intensity = "Half", font = font_with_fallback("Sarasa Mono K Light")}
     },
     font_size = 11.0,
     font_shaper = "Harfbuzz",
@@ -51,7 +52,7 @@ local cfg_misc = {
     window_close_confirmation = "NeverPrompt",
 
     -- Padding
-    window_padding = {left = 40, right = 40, top = 40, bottom = 40},
+    window_padding = {left = 45, right = 45, top = 45, bottom = 45},
 
     -- No opacity
     inactive_pane_hsb = {saturation = 1.0, brightness = 1.0}

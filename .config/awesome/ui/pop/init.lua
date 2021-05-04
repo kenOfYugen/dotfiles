@@ -27,9 +27,9 @@ awesome.connect_signal("widgets::exit_screen::toggle",
                        function() exit_manager.exit_screen_show() end)
 
 start.x = -451
-start.y = -1 * beautiful.widget_border_width + beautiful.wibar_height
+start.y = -1 * beautiful.widget_border_width + beautiful.wibar_height + 14
 
-local panel_anim = awestore.tweened(-450, {
+local panel_anim = awestore.tweened(-451, {
     duration = 350,
     easing = awestore.easing.circ_in_out
 })
@@ -47,8 +47,8 @@ end)
 awesome.connect_signal("widgets::start::toggle", function()
     if not start.visible then
         start.visible = true
-        strut_anim:set(450)
-        panel_anim:set(-2)
+        strut_anim:set(451)
+        panel_anim:set(-2 + beautiful.useless_gap)
     else
         strut_anim:set(0)
         panel_anim:set(-451)
@@ -64,3 +64,6 @@ awesome.connect_signal("widgets::start::toggle", function()
 
     awesome.emit_signal("widgets::start::status", start.visible)
 end)
+
+local peek = require(... .. ".peek")
+awesome.connect_signal("widgets::peek", function() peek.run() end)

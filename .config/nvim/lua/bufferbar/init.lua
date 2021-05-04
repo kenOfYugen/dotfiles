@@ -1,6 +1,6 @@
 -- Bufferline
 --
-local vis = {guifg = '#eaeaea', guibg = '#1a2026', gui = ''}
+local vis = {guifg = '#eaeaea', guibg = '#131a21', gui = ''}
 local sel = {guifg = "#eaeaea", guibg = '#29343d', gui = ''}
 
 require'bufferline'.setup {
@@ -28,8 +28,8 @@ require'bufferline'.setup {
         modified_visible = vis,
         modified_selected = sel,
         background = vis,
-        fill = {guibg = '#1a2026'},
+        fill = {guibg = '#131a21'},
         indicator_selected = {guibg = '#9ce5c0'},
-        separator = {guibg = '#1a2026', guifg = '#29343d'}
+        separator = {guibg = '#131a21', guifg = '#29343d'}
     }
 }

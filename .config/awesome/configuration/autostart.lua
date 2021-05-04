@@ -28,7 +28,7 @@ autostart_apps = {
     "blueman-applet", 
 
     -- Compositor
-    "picom --config " ..
+    "picom --experimental-backends --config " ..
         gears.filesystem.get_configuration_dir() .. "configuration/picom.conf",
 
     -- Media controller daemon

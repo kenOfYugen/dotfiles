@@ -18,7 +18,7 @@ ruled.client.connect_signal("request::rules", function()
         }
     }
 
-    -- Tasklist order
+    -- tasklist order
     ruled.client.append_rule {
         id = "tasklist_order",
         rule = {},
@@ -72,10 +72,8 @@ ruled.client.connect_signal("request::rules", function()
         id = "center_placement",
         rule_any = {
             type = {"dialog"},
-            class = {
-                "Steam", "discord", "music", "markdown_input", "scratchpad"
-            },
-            instance = {"music", "markdown_input", "scratchpad"},
+            class = {"Steam", "discord", "markdown_input", "scratchpad"},
+            instance = {"markdown_input", "scratchpad"},
             role = {"GtkFileChooserDialog", "conversation"}
         },
         properties = {placement = awful.placement.center}

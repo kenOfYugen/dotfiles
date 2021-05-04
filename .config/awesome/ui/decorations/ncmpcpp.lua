@@ -4,7 +4,9 @@ local wibox = require("wibox")
 local helpers = require("helpers")
 local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
+local ruled = require("ruled")
 local dpi = xresources.apply_dpi
+local ruled = require("ruled")
 
 local art = wibox.widget {
     image = gears.filesystem.get_configuration_dir() .. "images/no_music.png",
@@ -18,7 +20,7 @@ local create_button = function(symbol, color, command, playpause)
 
     local icon = wibox.widget {
         markup = helpers.colorize_text(symbol, color),
-        font = beautiful.icon_font_name .. "15",
+        font = beautiful.icon_font_name .. "20",
         align = "center",
         valigin = "center",
         widget = wibox.widget.textbox()
@@ -28,7 +30,7 @@ local create_button = function(symbol, color, command, playpause)
         icon,
         forced_height = dpi(40),
         forced_width = dpi(40),
-        bg = beautiful.xcolor0,
+        bg = beautiful.xcolor0 .. 55,
         shape = gears.shape.squircle,
         widget = wibox.container.background
     }
@@ -77,15 +79,14 @@ local playerctl_prev_symbol = create_button("玲", beautiful.xcolor4,
 local playerctl_next_symbol = create_button("怜", beautiful.xcolor4,
                                             next_command, false)
 
-emacs_tb = function(c)
-    awful.titlebar(c,
-                   {position = "right", size = 400, bg = beautiful.xbackground}):setup{
+ncmp_tb = function(c)
+    awful.titlebar(c, {position = "left", size = 400, bg = beautiful.xcolor8}):setup{
 
         {
             {
                 {
                     art,
-                    bg = beautiful.xcolor1,
+                    bg = beautiful.xcolor0,
                     shape = helpers.rrect(20),
                     widget = wibox.container.background
                 },
@@ -112,14 +113,12 @@ emacs_tb = function(c)
         },
         layout = wibox.layout.fixed.vertical
     }
-
-    awful.titlebar(c, nil):setup{}
 end
 
-table.insert(awful.rules.rules, {
-    rule_any = {class = {"music"}, instance = {"music"}},
-    properties = {},
-    callback = emacs_tb
-})
-
-return emacs_tb
+ruled.client.connect_signal("request::rules", function()
+    ruled.client.append_rule {
+        id = "music",
+        rule = {instance = "music"},
+        callback = ncmp_tb
+    }
+end)

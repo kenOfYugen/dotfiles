@@ -1,10 +1,10 @@
 local col = {}
 
 col.foreground = "#ffffff"
-col.background = "#1a2026"
-col.cursor_bg = "#3b4b58"
-col.cursor_fg = "#3b4b58"
-col.cursor_border = "#3b4b58"
+col.background = "#131a21"
+col.cursor_bg = "#a3b8ef"
+col.cursor_fg = "#a3b8ef"
+col.cursor_border = "#a3b8ef"
 col.split = "#3b4b58"
 
 col.ansi = {
@@ -17,10 +17,10 @@ col.brights = {
 }
 
 col.tab_bar = {
-    background = "#1a2026",
+    background = "#131a21",
     active_tab = {bg_color = "#3b4b58", fg_color = "#eaeaea", italic = true},
-    inactive_tab = {bg_color = "#29343d", fg_color = "#1a2026"},
-    inactive_tab_hover = {bg_color = "#29343d", fg_color = "#1a2026"}
+    inactive_tab = {bg_color = "#29343d", fg_color = "#131a21"},
+    inactive_tab_hover = {bg_color = "#29343d", fg_color = "#131a21"}
 }
 
 return col

@@ -10,9 +10,9 @@ local titlebar
 
 local function create_title_button(c, color_focus, color_unfocus, shp)
     local tb = wibox.widget {
-        forced_width = dpi(12),
-        forced_height = dpi(12),
-        bg = color_focus,
+        forced_width = dpi(16),
+        forced_height = dpi(16),
+        bg = color_focus .. 80,
         shape = shp,
         widget = wibox.container.background
     }
@@ -29,7 +29,7 @@ local function create_title_button(c, color_focus, color_unfocus, shp)
     c:connect_signal("focus", update)
     c:connect_signal("unfocus", update)
 
-    tb:connect_signal("mouse::enter", function() tb.bg = color_focus .. "70" end)
+    tb:connect_signal("mouse::enter", function() tb.bg = color_focus .. 55 end)
     tb:connect_signal("mouse::leave", function() tb.bg = color_focus end)
 
     tb.visible = true
@@ -88,18 +88,20 @@ local get_titlebar = function(c, height, color)
 
                        --]]
 
-    local close = create_title_button(c, beautiful.xcolor1, beautiful.xcolor8,
-                                      po(12, 12, 5))
-
+    local close = create_title_button(c, beautiful.xcolor1,
+                                      beautiful.xcolor8 .. 55,
+                                      gears.shape.squircle)
     close:connect_signal("button::press", function() c:kill() end)
 
-    local min = create_title_button(c, beautiful.xcolor3, beautiful.xcolor8,
-                                    po(12, 12, 5))
+    local min = create_title_button(c, beautiful.xcolor3,
+                                    beautiful.xcolor8 .. 55,
+                                    gears.shape.squircle)
 
     min:connect_signal("button::press", function() c.minimized = true end)
 
-    local max = create_title_button(c, beautiful.xcolor4, beautiful.xcolor8,
-                                    po(12, 12, 5))
+    local max = create_title_button(c, beautiful.xcolor4,
+                                    beautiful.xcolor8 .. 55,
+                                    gears.shape.squircle)
 
     max:connect_signal("button::press",
                        function() c.maximized = not c.maximized end)
@@ -145,12 +147,13 @@ local get_titlebar = function(c, height, color)
                     max,
                     min,
                     close,
-                    spacing = dpi(0),
+                    spacing = dpi(10),
                     layout = wibox.layout.flex.horizontal
                 },
-                top = dpi(13),
+                top = dpi(12),
                 left = dpi(14),
                 right = dpi(14),
+                bottom = dpi(12),
                 widget = wibox.container.margin
 
             },

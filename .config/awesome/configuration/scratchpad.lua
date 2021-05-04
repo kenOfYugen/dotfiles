@@ -23,7 +23,7 @@ local music_scratch = bling.module.scratchpad:new{
     sticky = false,
     autoclose = false,
     floating = true,
-    geometry = {x = dpi(10), y = dpi(566), height = dpi(500), width = dpi(1000)},
+    geometry = {x = dpi(10), y = dpi(606), height = dpi(460), width = dpi(960)},
     reapply = true,
     awestore = {x = anim_x}
 
@@ -40,8 +40,8 @@ local anim_y = awestore.tweened(1090, {
 })
 
 local discord_scratch = bling.module.scratchpad:new{
-    command = "firefox --new-window https://discord.com/app --new-instance -P discord --class=Discord",
-    rule = {class = "Discord"},
+    command = "discord",
+    rule = {instance = "discord"},
     sticky = false,
     autoclose = false,
     floating = true,
@@ -53,28 +53,3 @@ local discord_scratch = bling.module.scratchpad:new{
 
 awesome.connect_signal("scratch::discord",
                        function() discord_scratch:toggle() end)
-
-local anim_y = awestore.tweened(1090, {
-    duration = 300,
-    easing = awestore.easing.cubic_in_out
-})
-
-local keyboard_scratch = bling.module.scratchpad:new{
-    command = "onboard",
-    rule = {instance = "onboard", class = "Onboard"},
-    sticky = true,
-    autoclose = false,
-    floating = true,
-    geometry = {
-        x = dpi(40) + beautiful.useless_gap,
-        y = awful.screen.focused().geometry.height - 450,
-        height = dpi(450),
-        width = awful.screen.focused().geometry.width - dpi(40) -
-            beautiful.useless_gap
-    },
-    reapply = true,
-    -- dont_focus_before_close = false,
-    awestore = {y = anim_y}
-}
-
-awesome.connect_signal("scratch::kb", function() keyboard_scratch:toggle() end)

@@ -37,7 +37,8 @@ local yy = 10 + beautiful.wibar_height
 
 -- Enable Playerctl Module from Bling
 bling.signal.playerctl.enable {
-    -- ignore = "firefox", 
+    -- ignore = "firefox",
+    backend = "playerctl_lib",
     update_on_activity = true
 }
 
@@ -52,8 +53,19 @@ bling.widget.tag_preview.enable {
 
 -- Set Wallpaper
 screen.connect_signal("request::wallpaper", function(s)
-    gears.wallpaper.maximized(beautiful.wallpaper, s, false, nil)
+    -- gears.wallpaper.maximized(beautiful.wallpaper, s, false, nil)
     -- gears.wallpaper.set(beautiful.xbackground)
+    bling.module.tiled_wallpaper("", s,
+                                 { -- call the actual function ("x" is the string that will be tiled)
+        fg = beautiful.xcolor8, -- define the foreground color
+        bg = beautiful.xbackground, -- define the background color
+        offset_y = 50, -- set a y offset
+        offset_x = 23, -- set a x offset
+        font = beautiful.icon_font_name, -- set the font (without the size)
+        font_size = 25, -- set the font size
+        padding = 151, -- set padding (default is 100)
+        zickzack = true -- rectangular pattern or criss cross
+    })
 end)
 
 -- Get Keybinds

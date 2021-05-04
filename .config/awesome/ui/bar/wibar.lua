@@ -448,18 +448,18 @@ screen.connect_signal("request::desktop_decoration", function(s)
                         shape = helpers.rrect(beautiful.border_radius - 3),
                         widget = wibox.container.background
                     },
-                    top = dpi(6),
+                    top = dpi(10),
                     left = dpi(10),
                     right = dpi(5),
-                    bottom = dpi(6),
+                    bottom = dpi(0),
                     widget = wibox.container.margin
                 },
                 s.mypromptbox,
                 {
                     playerctl_bar,
-                    top = dpi(6),
+                    top = dpi(10),
                     left = dpi(5),
-                    bottom = dpi(6),
+                    bottom = dpi(0),
                     right = dpi(5),
                     widget = wibox.container.margin
                 }
@@ -472,9 +472,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
                         shape = helpers.rrect(beautiful.border_radius - 3),
                         widget = wibox.container.background
                     },
-                    top = dpi(6),
+                    top = dpi(10),
                     left = dpi(5),
-                    bottom = dpi(6),
+                    bottom = dpi(0),
                     right = dpi(5),
                     widget = wibox.container.margin
                 },
@@ -488,9 +488,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
                         shape = helpers.rrect(beautiful.border_radius - 3),
                         widget = wibox.container.background
                     },
-                    top = dpi(6),
+                    top = dpi(10),
                     left = dpi(5),
-                    bottom = dpi(6),
+                    bottom = dpi(0),
                     right = dpi(5),
                     widget = wibox.container.margin
                 },
@@ -502,9 +502,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
                         shape = helpers.rrect(beautiful.border_radius - 3),
                         widget = wibox.container.background
                     },
-                    top = dpi(6),
+                    top = dpi(10),
                     left = dpi(5),
-                    bottom = dpi(6),
+                    bottom = dpi(0),
                     right = dpi(5),
                     widget = wibox.container.margin
                 },
@@ -515,17 +515,17 @@ screen.connect_signal("request::desktop_decoration", function(s)
                         shape = helpers.rrect(beautiful.border_radius - 3),
                         widget = wibox.container.background
                     },
-                    top = dpi(6),
+                    top = dpi(10),
                     left = dpi(5),
-                    bottom = dpi(6),
+                    bottom = dpi(0),
                     right = dpi(5),
                     widget = wibox.container.margin
                 },
                 {
                     awful.widget.only_on_screen(final_systray, screen[1]),
-                    top = dpi(6),
+                    top = dpi(10),
                     left = dpi(5),
-                    bottom = dpi(6),
+                    bottom = dpi(0),
                     right = dpi(5),
                     widget = wibox.container.margin
                 },
@@ -543,8 +543,8 @@ screen.connect_signal("request::desktop_decoration", function(s)
                         shape = helpers.rrect(beautiful.border_radius - 3),
                         widget = wibox.container.background
                     },
-                    top = dpi(6),
-                    bottom = dpi(6),
+                    top = dpi(10),
+                    bottom = dpi(0),
                     left = dpi(5),
                     right = dpi(10),
                     widget = wibox.container.margin
@@ -556,7 +556,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
         {
             widget = wibox.container.background,
             bg = beautiful.widget_border_color,
-            forced_height = beautiful.widget_border_width
+            forced_height = 0
         }
 
     }

@@ -2,13 +2,11 @@
 -- Contains Global Keys
 local gears = require("gears")
 local awful = require("awful")
-local beautiful = require("beautiful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local helpers = require("helpers")
 -- Custom modules
 local machi = require("module.layout-machi")
 local bling = require("module.bling")
-local awestore = require("awestore")
 
 -- Mouse Bindings
 awful.mouse.append_global_mousebindings({
@@ -188,12 +186,15 @@ awful.keyboard.append_global_keybindings(
         awful.key({modkey}, "s",
                   function() awesome.emit_signal("scratch::music") end,
                   {description = "open music", group = "scratchpad"}),
+        awful.key({modkey}, "z",
+                  function() awesome.emit_signal("widgets::peek") end,
+                  {description = "peek", group = "client"}),
 
         awful.key({modkey}, "f", function() awful.spawn(filemanager) end,
                   {description = "open file browser", group = "launcher"}),
         awful.key({modkey}, "v",
                   function() awesome.emit_signal("scratch::discord") end,
-                  {description = "open terminal", group = "scratchpad"}),
+                  {description = "open discord", group = "scratchpad"}),
         awful.key({modkey}, "w", function()
             awful.spawn.with_shell(browser)
         end, {description = "open firefox", group = "launcher"}),
@@ -291,13 +292,23 @@ client.connect_signal("request::default_keybindings", function()
                 c:raise()
             end, {description = "(un)maximize horizontally", group = "client"}),
 
+            -- On the fly padding change
+            awful.key({modkey, shift}, "=",
+                      function() helpers.resize_padding(5) end,
+                      {description = "add padding", group = "screen"}),
+            awful.key({modkey, shift}, "-",
+                      function() helpers.resize_padding(-5) end,
+                      {description = "subtract padding", group = "screen"}),
+
             -- On the fly useless gaps change
             awful.key({modkey}, "=", function()
                 helpers.resize_gaps(5)
-            end),
+            end, {description = "add gaps", group = "screen"}),
+
             awful.key({modkey}, "-", function()
                 helpers.resize_gaps(-5)
-            end), -- Single tap: Center client 
+            end, {description = "subtract gaps", group = "screen"}),
+            -- Single tap: Center client 
             -- Double tap: Center client + Floating + Resize
             awful.key({modkey}, "c", function(c)
                 awful.placement.centered(c, {
