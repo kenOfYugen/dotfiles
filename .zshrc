@@ -50,59 +50,24 @@ zstyle ':completion:*' matcher-list \
 alias c='clear'
 alias ..='cd ..'
 alias v="nvim"
-alias ls='ls --color=auto'
+alias ls='exa --color=auto --icons'
 alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
 alias cat='bat --color always --plain'
-alias xwin='Xephyr -br -ac -noreset -screen 1400x800 :1'
-alias xdisp='DISPLAY=:1 '
-alias fetish="info='n os wm sh cpu mem kern term pkgs col n' accent=4 separator='  ' fet.sh"
 alias grep='grep --color=auto'
-
-alias firefox='MOZ_X11_EGL=1 firefox'
 
 alias fonty='fontpreview-ueberzug -b "#1a2026" -f "#ffffff"'
 
 alias yt="YTFZF_EXTMENU=' rofi -dmenu -fuzzy' ytfzf -D"
-
 
 # window titles
 precmd() {
     printf '\033]0;%s\007' "$(dirs)"
 }
 
-source ~/.zsh-plugins/fzf-tab/fzf-tab.plugin.zsh
-
-# Solarized colors
-export FZF_DEFAULT_OPTS='
---color fg:#ffffff,bg:#131a21,hl:#A3BE8C,fg+:#D8DEE9,bg+:#131A21,hl+:#A3BE8C,border:#3b4b58
---color pointer:#f9929b,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#9ce5c0,marker:#EBCB8B
-'
-
-FZF_TAB_COMMAND=(
-    fzf
-    --ansi
-    --expect='$continuous_trigger' # For continuous completion
-    --nth=2,3 --delimiter='\x00'  # Don't search prefix
-    --layout=reverse --height="''${FZF_TMUX_HEIGHT:=50%}"
-    --tiebreak=begin -m --bind=tab:down,btab:up,change:top,ctrl-space:toggle --cycle
-    '--query=$query'   # $query will be expanded to query string at runtime.
-    '--header-lines=$#headers' # $#headers will be expanded to lines of headers at runtime
-)
-zstyle ':fzf-tab:*' command $FZF_TAB_COMMAND
-
-zstyle ':completion:complete:*:options' sort false
-zstyle ':fzf-tab:complete:_zlua:*' query-string input
-
-zstyle ':fzf-tab:complete:*:*' fzf-preview '$HOME/.bin/preview.sh $realpath'
-
 # Set PATH so it includes user's private bin directories
-export PATH="${HOME}/.bin:${HOME}/.local/bin:${HOME}/go/bin:${HOME}/.emacs.d/bin/:${PATH}"
+export PATH="${HOME}/.bin:${HOME}/.local/bin:${HOME}/go/bin:${HOME}/.emacs.d/bin/:${HOME}/.npm/bin/:${PATH}"
 
 clear
-
-alias luamake=/home/javacafe01/git-stuff/lua-language-server/3rd/luamake/luamake
-
-export NODE_PATH="'$(npm root -g)'"
