@@ -6,6 +6,7 @@
     gimp
     arandr
     gnome3.nautilus
+    gnome3.eog
   ];
 
   programs = {
@@ -19,9 +20,16 @@
       };
     };
 
+    discocss = {
+      enable = true;
+      # Set to false if you don't want your Discord binary to be aliased to discocss
+      discordAlias = true;
+      css = import ./programs/discord-css.nix {};
+    };
+
     emacs = {
       enable = true;
-      package = pkgs.emacsPgtkGcc;
+      # package = pkgs.emacsPgtkGcc;
     };
 
     exa = {
@@ -106,5 +114,5 @@
   };
 
 
-  xresources.extraConfig = import ./x/resources.nix {} ;
+  xresources.extraConfig = import ./x/resources.nix {};
 }

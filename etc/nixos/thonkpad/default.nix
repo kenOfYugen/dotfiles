@@ -1,4 +1,4 @@
-{ config, home, inputs, nixpkgs, user-overlays, ... }:
+{ config, home, inputs, nixpkgs, user-overlays, discocss, ... }:
 
 nixpkgs.lib.nixosSystem rec {
   system = "x86_64-linux";
@@ -32,21 +32,24 @@ nixpkgs.lib.nixosSystem rec {
             input-overlays
           ] ++ user-overlays;
         };
-    }
+      }
 
-   ./configuration.nix
+      ./configuration.nix
 
-    home.nixosModules.home-manager
-    {
-      home-manager = {
-        useGlobalPkgs = true;
-        useUserPackages = true;
-        users.javacafe01 = import ../javacafe01;
-      };
-    }
+      home.nixosModules.home-manager
+      {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          sharedModules = [ discocss.hmModule ];
+          users.javacafe01 = nixpkgs.lib.mkMerge [ 
+            ../javacafe01 
+          ];
+        };
+      }
 
-    nixpkgs.nixosModules.notDetected
-  ];
+      nixpkgs.nixosModules.notDetected
+    ];
 
-  specialArgs = { inherit inputs; };
-}
+    specialArgs = { inherit inputs; };
+  }

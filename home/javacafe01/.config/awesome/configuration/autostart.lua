@@ -18,7 +18,7 @@ autostart_apps = {
     -- Network Manager Applet
     -- "nm-applet",
 
-    "connman",
+    "connman-gtk",
 
     -- Disable Bell
     "xset -b", 

@@ -284,7 +284,6 @@
       comma
       picom
       libnotify
-      discord
       inotify-tools
       brightnessctl
       fzf
@@ -310,10 +309,10 @@
 
       [spotify]
       enabled = true
-      client_id = <id>
-      client_secret = <secret>
-      username = <user>
-      password = <password>
+      client_id = 69
+      client_secret = 69
+      username = 69
+      password = 69
       bitrate = 320
     '';
   };

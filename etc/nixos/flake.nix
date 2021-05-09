@@ -1,8 +1,14 @@
 {
   description = "A somewhat huge NixOS configuration using Nix Flakes.";
 
+
   inputs = {
     nixos-hardware.url = github:NixOS/nixos-hardware/master;
+    
+    discocss = {
+      url = "github:mlvzk/discocss/flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     comma = {
       url = "github:Shopify/comma";
@@ -30,7 +36,7 @@
     nixpkgs.follows = "unstable";
   };
 
-  outputs = { self, home, nixpkgs, nixos-hardware, ... } @ inputs:
+  outputs = { self, home, nixpkgs, nixos-hardware, discocss, ... } @ inputs:
     with nixpkgs.lib;
     let
       config = {
@@ -47,7 +53,7 @@
     in
     {
       nixosConfigurations.thonkpad = import ./thonkpad {
-        inherit config home inputs nixpkgs user-overlays;
+        inherit config home inputs nixpkgs user-overlays discocss;
 	modules = [
 	  nixos-hardware.nixosModules.lenovo-thinkpad-x1-extreme
 	];
