@@ -89,16 +89,13 @@ awful.keyboard.append_global_keybindings(
 
         -- Screen Shots/Vids
         awful.key({}, "Print", function()
-            awful.spawn.with_shell(gears.filesystem.get_configuration_dir() ..
-                                       "scripts/shoot")
+            awful.spawn.with_shell("shoot")
         end, {description = "take a screenshot", group = "awesome"}),
         awful.key({modkey}, "Print", function()
-            awful.spawn.with_shell(gears.filesystem.get_configuration_dir() ..
-                                       "scripts/shoot selnp")
+            awful.spawn.with_shell("shoot selnp")
         end, {description = "take a selection with no pads", group = "awesome"}),
         awful.key({modkey, "Shift"}, "Print", function()
-            awful.spawn.with_shell(gears.filesystem.get_configuration_dir() ..
-                                       "scripts/shoot sel")
+            awful.spawn.with_shell("shoot sel")
         end, {description = "take a selection with pads", group = "awesome"}),
 
         -- Brightness
@@ -157,10 +154,6 @@ awful.keyboard.append_global_keybindings(
                   {description = "focus the previous screen", group = "screen"}),
         awful.key({modkey}, "d", function() awful.spawn(launcher) end,
                   {description = "show rofi ", group = "launcher"}),
-        awful.key({modkey}, "e", function()
-            awful.spawn(gears.filesystem.get_configuration_dir() ..
-                            "scripts/rofi-emoji")
-        end, {description = "show rofi emoji", group = "launcher"}),
 
         -- Standard program
         awful.key({modkey}, "t", function() awful.spawn(terminal) end,

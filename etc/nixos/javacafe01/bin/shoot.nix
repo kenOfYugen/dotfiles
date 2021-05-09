@@ -1,5 +1,6 @@
-#!/usr/bin/env bash
+{ pkgs, ... }:
 
+''
 # My script for screenshots, im bad at scripting pls help to make smaller
 
 img="shot_$(date '+%m%d%H%M%S').png"
@@ -17,7 +18,7 @@ case $1 in
         read -r G < <(echo $slop)
         import -window root -crop $G $file
         ;;
-    
+
     "selnpshad")
         slop=$(slop -c '0.61,0.9,0.75,1' -p -3 -f "%g") || exit 1
         read -r G < <(echo $slop)
@@ -31,5 +32,6 @@ case $1 in
 esac
 
 
-xclip -selection clipboard -t image/png -i  $file
-notify-send -i $file "Screenshot saved"
+${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i  $file
+${pkgs.libnotify}/bin/notify-send -i $file "Screenshot saved"
+''

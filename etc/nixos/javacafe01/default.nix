@@ -1,27 +1,47 @@
 { config, pkgs, ... }:
-{
-  home.packages = with pkgs; [
-    playerctl
-    zoom-us
-    gimp
-    arandr
-    gnome3.nautilus
-    gnome3.eog
-  ];
 
-  programs = {
+let 
+  giph_wrapper = pkgs.writeShellScriptBin "jeff" (import ./bin/jeff.nix {inherit pkgs;});
+  screenshot_script = pkgs.writeShellScriptBin "shoot" (import ./bin/shoot.nix {inherit pkgs;});
+  panes_script = pkgs.writeShellScriptBin "panes" (import ./bin/panes.nix {});
+  updoot_script = pkgs.writeShellScriptBin "updoot" (import ./bin/updoot.nix {inherit pkgs;});
 
-    bat = {
-      enable = true;
-      config = {
-        pager = "never";
-        style = "plain";
-        theme = "base16";
+  extensions = (with pkgs.vscode-extensions; [
+    bbenoist.Nix
+    ms-python.python
+  ]);
+  vscode-with-extensions = pkgs.vscode-with-extensions.override {
+    vscodeExtensions = extensions;
+  };
+in
+  {
+    home.packages = with pkgs; [
+      playerctl
+      zoom-us
+      gimp
+      arandr
+      gnome3.nautilus
+      gnome3.eog
+      giph_wrapper
+      updoot_script
+      panes_script
+      screenshot_script
+      vscode-with-extensions
+    ];
+
+    programs = {
+
+      bat = {
+        enable = true;
+        config = {
+          pager = "never";
+          style = "plain";
+          theme = "base16";
+        };
       };
-    };
 
-    discocss = {
-      enable = true;
+      discocss = {
+        enable = true;
       # Set to false if you don't want your Discord binary to be aliased to discocss
       discordAlias = true;
       css = import ./programs/discord-css.nix {};

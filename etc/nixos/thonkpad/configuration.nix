@@ -279,7 +279,6 @@
       gcc
       imagemagick
       slop
-      giph
       neovim-nightly
       comma
       picom
@@ -294,6 +293,8 @@
       niv
       acpi
       connman-gtk
+      ripgrep
+      fd
     ];
   };
 
@@ -309,10 +310,10 @@
 
       [spotify]
       enabled = true
-      client_id = 69
-      client_secret = 69
-      username = 69
-      password = 69
+      client_id = <client_id>
+      client_secret = <client_secret>
+      username = <username>
+      password = <password>
       bitrate = 320
     '';
   };
