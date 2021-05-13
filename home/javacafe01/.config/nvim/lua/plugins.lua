@@ -85,7 +85,6 @@ return require('packer').startup(function(use)
     -- Nvim Built in LSP configs
     use "neovim/nvim-lspconfig"
     use "glepnir/lspsaga.nvim"
-    use "kabouzeid/nvim-lspinstall"
 
     -- Auto complete stuff
     use "hrsh7th/nvim-compe"
