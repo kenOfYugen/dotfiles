@@ -15,11 +15,6 @@ end
 -- LuaFormatter off
 -- Add apps to autostart here
 autostart_apps = {
-    -- Network Manager Applet
-    -- "nm-applet",
-
-    "connman-gtk",
-
     -- Disable Bell
     "xset -b", 
 

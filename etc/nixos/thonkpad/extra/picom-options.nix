@@ -4,5 +4,5 @@
   #glx-no-stencil = true;
   #glx-no-rebind-pixmap = true;
   #unredir-if-possible = true;
-  #use-damage = true;
+  #use-damage = false;
 }

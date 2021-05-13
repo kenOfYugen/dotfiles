@@ -11,8 +11,8 @@ require("configuration.autostart")
 
 -- Default Applications
 terminal = "wezterm"
-editor = os.getenv("EDITOR") or "nvim"
-editor_cmd = terminal .. " start " .. editor
+editor = "emacs" or os.getenv("EDITOR")
+editor_cmd = terminal .. " start " .. os.getenv("EDITOR")
 browser = "firefox"
 filemanager = "nautilus"
 discord = "discord"
@@ -57,7 +57,7 @@ screen.connect_signal("request::wallpaper", function(s)
     -- gears.wallpaper.set(beautiful.xbackground)
     bling.module.tiled_wallpaper("", s,
                                  { -- call the actual function ("x" is the string that will be tiled)
-        fg = beautiful.xcolor8, -- define the foreground color
+        fg = beautiful.xcolor0, -- define the foreground color
         bg = beautiful.xbackground, -- define the background color
         offset_y = 50, -- set a y offset
         offset_x = 23, -- set a x offset

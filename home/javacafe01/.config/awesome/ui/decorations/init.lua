@@ -19,7 +19,7 @@ tb_ops.enable_tb = function(c)
         tb_ops.disable_tb(c)
     else
         c.titlebars = true
-        if c.class ~= "music" then add_decorations(c) end
+        -- if c.class ~= "music" then add_decorations(c) end
     end
 end
 

@@ -63,7 +63,7 @@
 
     networking.hostName = "thonkpad"; # Define your hostname.
     networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
-    networking.wireless.iwd.enable = true;
+    networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
@@ -113,7 +113,7 @@
               rev = "a4572b9b52d89369ce3bd462904d536ec116dc35";
               sha256 = "1kj2qz2ns0jn5gha4ryr8w8vvy23s3bb5z3vjhwwfnrv7ypb40iz";
             };
-            GI_TYPELIB_PATH = "${pkgs.playerctl}/lib/girepository-1.0:" + old.GI_TYPELIB_PATH;
+            GI_TYPELIB_PATH = "${pkgs.playerctl}/lib/girepository-1.0:" + "${pkgs.upower}/lib/girepository-1.0:" + old.GI_TYPELIB_PATH;
           })).override {
             stdenv = pkgs.clangStdenv;
             luaPackages = pkgs.lua52Packages;
@@ -170,18 +170,11 @@
       enable = true;
     };
 
-    connman = {
-      enable = true;
-      package = pkgs.connmanFull;
-      wifi.backend = "iwd";
-    };
-
     picom = {
       enable = true;
       experimentalBackends = true;
       backend = "glx";
       vSync = true;
-
       settings = import ./extra/picom-options.nix;
     };
 
@@ -256,6 +249,18 @@
     };
 
     systemPackages = with pkgs; [
+      (stdenv.mkDerivation rec {
+        name = "lua-format-${version}";
+        version = "1.3.5";
+        src = fetchFromGitHub {
+          owner = "Koihik";
+          repo = "LuaFormatter";
+          rev = "${version}";
+          sha256 = "163190g37r6npg5k5mhdwckdhv9nwy2gnfp5jjk8p0s6cyvydqjw";
+          fetchSubmodules = true;
+        };
+        nativeBuildInputs = [ cmake ];
+      })
       dash
       acpid
       dbus
@@ -280,7 +285,6 @@
       imagemagick
       slop
       neovim-nightly
-      comma
       picom
       libnotify
       inotify-tools
@@ -292,7 +296,6 @@
       cachix
       niv
       acpi
-      connman-gtk
       ripgrep
       fd
     ];
@@ -321,6 +324,9 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs = {
+    nm-applet = {
+      enable = true;
+    };
     mtr = {
       enable = true;
     };

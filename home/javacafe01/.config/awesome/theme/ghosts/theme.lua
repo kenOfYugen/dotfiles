@@ -1,5 +1,5 @@
---  _   _                         
--- | |_| |__   ___ _ __ ___   ___ 
+--  _   _
+-- | |_| |__   ___ _ __ ___   ___
 -- | __| '_ \ / _ \ '_ ` _ \ / _ \
 -- | |_| | | |  __/ | | | | |  __/
 --  \__|_| |_|\___|_| |_| |_|\___|
@@ -83,7 +83,7 @@ theme.button_close = theme.xcolor1
 
 -- Borders
 --
-theme.border_width = dpi(4)
+theme.border_width = dpi(6)
 theme.oof_border_width = dpi(0)
 theme.border_normal = theme.xcolor0
 theme.border_focus = theme.xcolor8
@@ -119,11 +119,11 @@ theme.taglist_shape_focus = helpers.rrect(theme.border_radius - 3)
 --
 theme.tasklist_font = theme.font
 theme.tasklist_plain_task_name = true
-theme.tasklist_bg_focus = theme.xcolor0
+theme.tasklist_bg_focus = theme.xcolor0 .. 55
 theme.tasklist_fg_focus = theme.xcolor6
 theme.tasklist_bg_minimize = theme.xcolor0 .. "70"
 theme.tasklist_fg_minimize = theme.xforeground .. "70"
-theme.tasklist_bg_normal = theme.xcolor0
+theme.tasklist_bg_normal = theme.xcolor0 .. 00
 theme.tasklist_fg_normal = theme.xforeground
 theme.tasklist_disable_task_name = false
 theme.tasklist_disable_icon = true
@@ -163,7 +163,7 @@ theme.tooltip_align = "left"
 -- Menu
 --
 theme.menu_font = theme.font
-theme.menu_bg_focus = theme.xcolor4
+theme.menu_bg_focus = theme.xcolor4 .. 70
 theme.menu_fg_focus = theme.xcolor7
 theme.menu_bg_normal = theme.xbackground
 theme.menu_fg_normal = theme.xcolor7
@@ -171,8 +171,8 @@ theme.menu_submenu_icon = gears.filesystem.get_configuration_dir() ..
                               "theme/icons/submenu.png"
 theme.menu_height = dpi(20)
 theme.menu_width = dpi(130)
-theme.menu_border_color = "#0000000"
-theme.menu_border_width = theme.border_width
+theme.menu_border_color = theme.xcolor8
+theme.menu_border_width = theme.border_width / 2
 
 -- Hotkeys Pop Up
 --
@@ -203,15 +203,16 @@ theme.exit_screen_bg = theme.xcolor0 .. "28"
 -- Wibar
 --
 -- theme.wibar_height = dpi(36) + theme.widget_border_width
-theme.wibar_height = dpi(36 - 2)
+theme.wibar_height = dpi(30)
 theme.wibar_margin = dpi(15)
 theme.wibar_spacing = dpi(15)
-theme.wibar_bg = theme.xbackground .. 00
+theme.wibar_bg = theme.xbackground
+theme.wibar_bg_secondary = theme.xcolor0 .. 55
 
 -- Systray
 --
 theme.systray_icon_spacing = dpi(10)
-theme.bg_systray = theme.xcolor0
+theme.bg_systray = theme.xcolor8
 theme.systray_icon_size = dpi(15)
 
 -- Collision
@@ -254,13 +255,14 @@ theme.collision_screen_fg_focus = theme.xcolor4
 theme.mstab_bar_height = dpi(60)
 theme.mstab_bar_padding = dpi(0)
 theme.mstab_border_radius = dpi(6)
-theme.tabbar_style = "modern"
+theme.tabbar_style = "boxes"
 theme.tabbar_bg_focus = theme.xbackground
 theme.tabbar_bg_normal = theme.xcolor0
 theme.tabbar_fg_focus = theme.xcolor8
 theme.tabbar_fg_normal = theme.xcolor15 .. "55"
-theme.tabbar_position = "bottom"
+theme.tabbar_position = "left"
 theme.tabbar_AA_radius = 0
+theme.tabbar_size = 40
 theme.mstab_bar_ontop = true
 
 theme.notification_spacing = 10

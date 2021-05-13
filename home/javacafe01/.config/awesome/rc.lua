@@ -14,7 +14,7 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 
-require("awful.hotkeys_popup")
+local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 
 -- Check if awesome encountered an error during startup and fell back to
@@ -46,6 +46,29 @@ end)
 -- Import Daemons and Widgets
 require("signal")
 require("ui")
+
+-- Create a launcher widget and a main menu
+awesomemenu = {
+   { "Key Binds", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+   { "Manual", terminal .. " start man awesome" },
+   { "Edit Config", editor .. " " .. awesome.conffile },
+   { "Restart", awesome.restart },
+   { "Quit", function() awesome.quit() end },
+}
+
+appmenu = {
+   { "Wezterm", terminal },
+}
+
+
+mymainmenu = awful.menu({ items = { { "AwesomeWM", awesomemenu, beautiful.awesome_icon },
+                                    { "Apps", appmenu }
+                                  }
+                        })
+
+awful.mouse.append_global_mousebindings({
+    awful.button({ }, 3, function () mymainmenu:toggle() end)
+})
 
 awful.spawn.with_shell("~/.screenlayout/layout.sh")
 

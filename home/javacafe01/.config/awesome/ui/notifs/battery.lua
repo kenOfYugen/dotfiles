@@ -1,37 +1,50 @@
 local gfs = require("gears.filesystem")
 local naughty = require("naughty")
 
-local display = true
+local display_high = true
+local display_low = true
+local display_charge = true
 
-awesome.connect_signal("signal::battery", function(value)
-    if value < 11 then
+awesome.connect_signal("signal::battery", function(device)
+    value = device.percentage
+
+    -- only display message if its not charging and low
+    if value < 11 and display_low and device.state == 2 then
         naughty.notification({
             title = "Battery Status",
             text = "Running low at " .. value .. "%",
             image = gfs.get_configuration_dir() .. "icons/ghosts/battery.png"
         })
+        display_low = false
     end
 
-    if (value > 94 and display) then
+    -- only display message once if its charging and high
+    if value > 97 and display_high and device.state == 1 then
         naughty.notification({
             title = "Battery Status",
             text = "Running high at " .. value .. "%",
             image = gfs.get_configuration_dir() .. "icons/ghosts/battery.png"
 
         })
-        display = false
+        display_high = false
     end
-end)
 
-awesome.connect_signal("signal::charger", function(plugged)
-    if plugged then
+    -- only display once if charging
+    if display_charge and device.state == 1 then
         naughty.notification({
             title = "Battery Status",
             text = "Charging",
             image = gfs.get_configuration_dir() ..
                 "icons/ghosts/battery_charging.png"
         })
-        display = true
+        display_charge = false
     end
+
+    if value < 97 and value > 11 then
+        display_low = true
+        display_high = true
+    end
+
+    if device.state == 2 then display_charge = true end
 
 end)

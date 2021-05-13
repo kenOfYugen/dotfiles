@@ -62,12 +62,16 @@ alias fonty='fontpreview-ueberzug -b "#1a2026" -f "#ffffff"'
 
 alias yt="YTFZF_EXTMENU=' rofi -dmenu -fuzzy' ytfzf -D"
 
+function run() { 
+    nix run nixpkgs#$@ 
+}
+
 # window titles
 precmd() {
     printf '\033]0;%s\007' "$(dirs)"
 }
 
 # Set PATH so it includes user's private bin directories
-export PATH="${HOME}/.bin:${HOME}/.local/bin:${HOME}/go/bin:${HOME}/.emacs.d/bin/:${HOME}/.npm/bin/:${PATH}"
+export PATH="${HOME}/.local/bin:${HOME}/go/bin:${HOME}/.emacs.d/bin/:${HOME}/.npm/bin/:${PATH}"
 
 clear
