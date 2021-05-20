@@ -1,7 +1,36 @@
-#+TITLE: [[https://awesomewm.org][AwesomeWM]] and [[https://nixos.org][NixOS]] Configuration
+#+TITLE: [[https://awesomewm.org][AwesomeWM]] and [[https://nixos.org][NixOS]] Config
 #+AUTHOR: JavaCafe01
 #+STARTUP: showeverything
 
+[[assets/awesome_logo.svg]]
+
+[[https://github.com/nixos/nixpkgs][file:https://img.shields.io/badge/NixOS-21.05-informational?style=flat.svg]]
+
 ** Screenshots
 *** Main
-[[screenshots/main.png]]
+[[assets/main.png]]
+- Panel widget (with notification center)
+- [[https://github.com/dylanaraps/neofetch][neofetch]]
+- Notifications (made with the AwesomeWM API)
+*** Emacs
+[[assets/emacs.png]]
+- My [[https://github.com/JavaCafe01/emacs-config][config]] using the amazing [[https://github.com/hlissner/doom-emacs][Doom Emacs]] framework
+*** Neovim
+[[assets/nvim.png]]
+- Neovim Nightly
+- [[https://github.com/JavaCafe01/javacafe.nvim][colorscheme]]
+*** Terminal
+[[assets/terminal.png]]
+- [[https://github.com/wez/wezterm][Wez's Terminal]]
+- Built in multiplexer and tabs
+*** Browser
+[[assets/firefox.png]]
+- Firefox
+- My [[https://github.com/JavaCafe01/firefox-css][firefox custom css]]
+*** Scratchpads
+[[assets/scratchpads.png]]
+- Ncmpcpp with mopidy-spotify
+- Discord with [[https://github.com/mlvzk/discocss][discocss]]
+*** Lockscreen
+[[assets/lockscreen.png]]
+- Built with the AwesomeWM API
