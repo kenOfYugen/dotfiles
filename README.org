@@ -1,0 +1,7 @@
+#+TITLE: [[https://awesomewm.org][AwesomeWM]] and [[https://nixos.org][NixOS]] Configuration
+#+AUTHOR: JavaCafe01
+#+STARTUP: showeverything
+
+** Screenshots
+*** Main
+[[screenshots/main.png]]
