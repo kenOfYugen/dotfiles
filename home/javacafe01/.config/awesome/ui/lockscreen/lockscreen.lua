@@ -47,7 +47,7 @@ local gradient = {
     type = 'linear',
     from = {960, 0},
     to = {960, 1080},
-    stops = {{0.4, beautiful.xcolor4}, {1, beautiful.xcolor5}}
+    stops = {{0.4, beautiful.xcolor4}, {1, beautiful.xcolor6}}
 }
 
 lock_screen_box.bg = gradient

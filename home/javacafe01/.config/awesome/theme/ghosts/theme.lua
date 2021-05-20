@@ -3,7 +3,6 @@
 -- | __| '_ \ / _ \ '_ ` _ \ / _ \
 -- | |_| | | |  __/ | | | | |  __/
 --  \__|_| |_|\___|_| |_| |_|\___|
-local awful = require("awful")
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
@@ -26,6 +25,11 @@ local icon_path = gfs.get_configuration_dir() .. "icons/"
 --
 theme.me = gears.surface.load_uncached(gfs.get_configuration_dir() ..
                                            "images/me.png")
+
+-- Distro Logo
+--
+theme.distro_logo = gears.surface.load_uncached(
+                        gfs.get_configuration_dir() .. "images/distro.png")
 
 -- Icons for Notif Center
 --
@@ -81,7 +85,7 @@ theme.fg_minimize = theme.xcolor8
 
 theme.button_close = theme.xcolor1
 
--- Borders
+-- uBorders
 --
 theme.border_width = dpi(6)
 theme.oof_border_width = dpi(0)
@@ -89,7 +93,7 @@ theme.border_normal = theme.xcolor0
 theme.border_focus = theme.xcolor8
 theme.border_radius = dpi(12)
 theme.client_radius = dpi(12)
-theme.widget_border_width = dpi(2)
+theme.widget_border_width = dpi(6)
 theme.widget_border_color = theme.xcolor0
 
 -- Taglist
@@ -135,7 +139,7 @@ theme.tasklist_align = "center"
 --
 theme.titlebar_size = dpi(40)
 theme.titlebar_height = dpi(20)
-theme.titlebar_bg_focus = theme.xcolor0
+theme.titlebar_bg_focus = theme.xcolor8
 theme.titlebar_bg_normal = theme.xcolor0
 theme.titlebar_fg_normal = theme.xcolor8
 theme.titlebar_fg_focus = theme.xcolor15 .. "55"
@@ -288,16 +292,16 @@ theme.machi_editor_active_opacity = 0.25
 
 -- Tag Preview
 --
-theme.tag_preview_widget_border_radius = dpi(12)
+theme.tag_preview_widget_border_radius = dpi(0)
 theme.tag_preview_client_border_radius = dpi(7)
 theme.tag_preview_client_opacity = 0.5
 theme.tag_preview_client_bg = theme.xcolor0
 theme.tag_preview_client_border_color = theme.xcolor8
-theme.tag_preview_client_border_width = theme.widget_border_width + 1
+theme.tag_preview_client_border_width = dpi(3)
 theme.tag_preview_widget_bg = theme.xbackground
 theme.tag_preview_widget_border_color = theme.widget_border_color
 theme.tag_preview_widget_border_width = theme.widget_border_width
-theme.tag_preview_widget_margin = dpi(5)
+theme.tag_preview_widget_margin = dpi(15)
 
 theme.fade_duration = 250
 

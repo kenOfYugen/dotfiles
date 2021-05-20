@@ -12,7 +12,7 @@ local box_radius = beautiful.client_radius
 local box_gap = dpi(8)
 
 local width = 451
-local height = 1000 - 1 + 49 - 12 - beautiful.useless_gap
+local height = 1000 - beautiful.useless_gap * 2 + 3 + 49
 
 local function create_boxed_widget(widget_to_be_boxed, width, height, bg_color)
     local box_container = wibox.container.background()
@@ -99,10 +99,10 @@ apps_volume = function()
 end
 
 volume:buttons(gears.table.join( -- Left click - Mute / Unmute
-                   awful.button({}, 1, function() helpers.volume_control(0) end),
-    -- Scroll - Increase / Decrease volume
-                   awful.button({}, 4, function() helpers.volume_control(5) end),
-                   awful.button({}, 5, function() helpers.volume_control(-5) end)))
+awful.button({}, 1, function() helpers.volume_control(0) end),
+-- Scroll - Increase / Decrease volume
+awful.button({}, 4, function() helpers.volume_control(5) end),
+awful.button({}, 5, function() helpers.volume_control(-5) end)))
 
 -- }}}
 --
@@ -298,55 +298,32 @@ local ll = awful.widget.layoutlist {
 local panelWidget = wibox.widget {
     {
         {
-            {
-                info,
-                {ll, align = "center", widget = wibox.container.place},
-                spacing = 24,
-                helpers.vertical_pad(0),
-                layout = wibox.layout.fixed.vertical
-            },
-            left = dpi(35),
-            right = dpi(35),
-            top = dpi(10),
-            widget = wibox.container.margin
+            info,
+            {ll, align = "center", widget = wibox.container.place},
+            spacing = 24,
+            helpers.vertical_pad(0),
+            layout = wibox.layout.fixed.vertical
         },
-        bg = beautiful.widget_border_color,
-        widget = wibox.container.background
-    },
-
-    {
         {
-            {
-                {
-                    {
-                        helpers.vertical_pad(24),
-                        sys_box,
-                        sys_box2,
-                        spacing = 1,
-                        layout = wibox.layout.fixed.vertical
-                    },
-                    playerctl_box,
-                    notifs,
-                    spacing = 1,
-                    spacing_widget = {
-                        bg = beautiful.xcolor8,
-                        widget = wibox.container.background
-                    },
-                    layout = wibox.layout.fixed.vertical
-                },
-                left = dpi(35),
-                right = dpi(35),
-                bottom = dpi(10),
-                widget = wibox.container.margin
-            },
-            bg = beautiful.xbackground,
-            shape = helpers.prrect(20, true, true, false, false),
+            helpers.vertical_pad(24),
+            sys_box,
+            sys_box2,
+            spacing = 1,
+            layout = wibox.layout.fixed.vertical
+        },
+        playerctl_box,
+        notifs,
+        spacing = 1,
+        spacing_widget = {
+            bg = beautiful.xcolor8,
             widget = wibox.container.background
         },
-        bg = beautiful.widget_border_color,
-        widget = wibox.container.background
+        layout = wibox.layout.fixed.vertical
     },
-    layout = wibox.layout.fixed.vertical
+    left = dpi(35),
+    right = dpi(35),
+    bottom = dpi(10),
+    widget = wibox.container.margin
 }
 
 local widgetContainer = wibox.widget {
@@ -361,7 +338,7 @@ local widgetBG = wibox.widget {
     bg = beautiful.xbackground,
     border_color = beautiful.widget_border_color,
     border_width = dpi(beautiful.widget_border_width),
-    shape = helpers.prrect(dpi(20), true, true, true, true),
+    shape = helpers.prrect(dpi(39), false, true, false, false),
     widget = wibox.container.background
 }
 

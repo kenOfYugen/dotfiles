@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 ''
+#> Syntax: bash
+
 # My script for screenshots, im bad at scripting pls help to make smaller
 
 img="shot_$(date '+%m%d%H%M%S').png"

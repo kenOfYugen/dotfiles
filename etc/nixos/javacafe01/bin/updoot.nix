@@ -1,6 +1,8 @@
 {pkgs, ...}:
 
 ''
+#> Syntax: bash
+
 # Send to host
 
 [ -f "$1" ] && op="cat"

@@ -55,10 +55,10 @@ notifbox.create = function(icon, n, width)
                         },
                         layout = wibox.layout.align.vertical
                     },
-                    top = dpi(10),
+                    top = dpi(13),
                     left = dpi(15),
                     right = dpi(15),
-                    bottom = dpi(10),
+                    bottom = dpi(13),
                     widget = wibox.container.margin
                 },
                 {

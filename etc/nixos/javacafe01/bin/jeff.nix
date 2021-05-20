@@ -1,6 +1,8 @@
 {pkgs, ...}:
 
 ''
+#> Syntax: bash
+
 # Wrapper for amazing software giph by phisch
 
 file="$HOME/Pictures/screenshots/gif_$(date '+%Y-%m-%d%H:%M:%S').gif"

@@ -1,6 +1,8 @@
 {}:
 
 ''
+#> Syntax: bash
+
 # Author: GekkoP
 # Source: http://linuxbbq.org/bbs/viewtopic.php?f=4&t=1656#p33189
 

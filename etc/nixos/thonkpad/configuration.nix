@@ -2,29 +2,24 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   imports =
-    [ # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    ./extra/fonts.nix
-    ./extra/nvidia.nix
-  ];
-
-  nixpkgs.config.allowUnfree = true;
+    [ ./hardware-configuration.nix ./extra/fonts.nix ./extra/nvidia.nix ];
 
   nix = {
     binaryCaches = [
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
+      "https://mjlbach.cachix.org"
     ];
 
     binaryCachePublicKeys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];    
+      "mjlbach.cachix.org-1:dR0V90mvaPbXuYria5mXvnDtFibKYqYc2gtl9MWSkqI="
+    ];
 
-    trustedUsers = ["root" "javacafe01"];
+    trustedUsers = [ "root" "javacafe01" ];
 
     package = pkgs.nixUnstable;
 
@@ -43,68 +38,72 @@
       dates = "weekly";
     };
 
-    optimise = {
-      automatic = true;
-    };
+    optimise.automatic = true;
 
     useSandbox = false;
-
   };
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   boot = {
-    kernelParams =
-      [ "acpi_rev_override" "mem_sleep_default=deep" "intel_iommu=igfx_off" "nvidia-drm.modeset=1" ];
-      extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+    kernelParams = [
+      "acpi_rev_override"
+      "mem_sleep_default=deep"
+      "intel_iommu=igfx_off"
+      "nvidia-drm.modeset=1"
+    ];
+
+    extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
     };
+  };
 
-    networking.hostName = "thonkpad"; # Define your hostname.
-    networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
-    networking.networkmanager.enable = true;
+  networking = {
+    hostName = "thonkpad";
+    wireless.enable = false;
+    networkmanager.enable = true;
+    useDHCP = false;
+    interfaces.enp0s31f6.useDHCP = true;
+    interfaces.wlan0.useDHCP = true;
+  };
 
-  # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
-  networking.interfaces.enp0s31f6.useDHCP = true;
-  networking.interfaces.wlan0.useDHCP = true;
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+
   console = {
     font = "Lat2-Terminus16";
     keyMap = "us";
   };
 
-
   services = {
+    blueman.enable = true;
+    printing.enable = true;
+    tlp.enable = true;
+    upower.enable = true;
+    openssh.enable = true;
+    acpid.enable = true;
+
     xserver = {
       enable = true;
       layout = "us";
       dpi = 96;
       libinput.enable = true;
+
       displayManager = {
         lightdm = { enable = true; };
+
         autoLogin = {
           enable = true;
           user = "javacafe01";
         };
+
         defaultSession = "none+awesome";
       };
+
       windowManager = {
-
         awesome = {
-
           package = (pkgs.awesome.overrideAttrs (old: rec {
             version = "a4572b9b52d89369ce3bd462904d536ec116dc35";
             src = pkgs.fetchFromGitHub {
@@ -113,7 +112,8 @@
               rev = "a4572b9b52d89369ce3bd462904d536ec116dc35";
               sha256 = "1kj2qz2ns0jn5gha4ryr8w8vvy23s3bb5z3vjhwwfnrv7ypb40iz";
             };
-            GI_TYPELIB_PATH = "${pkgs.playerctl}/lib/girepository-1.0:" + "${pkgs.upower}/lib/girepository-1.0:" + old.GI_TYPELIB_PATH;
+            GI_TYPELIB_PATH = "${pkgs.playerctl}/lib/girepository-1.0:"
+              + "${pkgs.upower}/lib/girepository-1.0:" + old.GI_TYPELIB_PATH;
           })).override {
             stdenv = pkgs.clangStdenv;
             luaPackages = pkgs.lua52Packages;
@@ -129,17 +129,12 @@
             luadbi-mysql
             luaposix
           ];
-
         };
       };
     };
-  };
 
-  services = {
     dbus = {
-      packages = 
-
-      let
+      packages = let
         mopidyDbusServiceFile = pkgs.writeTextFile rec {
           name = "org.mpris.MediaPlayer2.mopidy.conf";
           destination = "/share/dbus-1/system.d/${name}";
@@ -160,13 +155,8 @@
             </busconfig>
           '';
         };
-      in
+      in with pkgs; [ gnome3.dconf mopidyDbusServiceFile ];
 
-      with pkgs; [ gnome3.dconf mopidyDbusServiceFile ];
-      enable = true;
-    };
-
-    acpid = {
       enable = true;
     };
 
@@ -178,96 +168,83 @@
       settings = import ./extra/picom-options.nix;
     };
 
-  };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio = {
-    enable = true;
-    daemon = {
-      config = {
-        avoid-resampling = "yes";
-      };
-    };
-
-    support32Bit = true;
-
-    tcp = {
+    mopidy = {
       enable = true;
-      anonymousClients.allowedIpRanges = ["127.0.0.1"];
+      extensionPackages = with pkgs; [ mopidy-spotify mopidy-mpris mopidy-mpd ];
+      configuration = ''
+        [mpris]
+        bus_type = system
+
+        [audio]
+        output = pulsesink server=127.0.0.1
+
+        [spotify]
+        enabled = true
+        client_id = <client_id>
+        client_secret = <client_secret>
+        username = <username>
+        password = <password>
+        bitrate = 320
+      '';
+    };
+  };
+
+  sound.enable = true;
+
+  hardware = {
+    pulseaudio = {
+      enable = true;
+      daemon.config.avoid-resampling = "yes";
+      support32Bit = true;
+
+      tcp = {
+        enable = true;
+        anonymousClients.allowedIpRanges = [ "127.0.0.1" ];
+      };
+
+      extraModules = [ pkgs.pulseaudio-modules-bt ];
+
+      package = pkgs.pulseaudioFull;
+
+      extraConfig = "\n    load-module module-switch-on-connect\n    ";
     };
 
-    extraModules = [ pkgs.pulseaudio-modules-bt ];
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+    };
 
-    # NixOS allows either a lightweight build (default) or full build of PulseAudio to be installed.
-    # Only the full build has Bluetooth support, so it must be selected here.
-    package = pkgs.pulseaudioFull;
-
-    extraConfig = "
-    load-module module-switch-on-connect
-    ";
+    bluetooth.enable = true;
+    bluetooth.package = pkgs.bluezFull;
   };
 
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
-
-  # Enable bluetooth
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
-  hardware.bluetooth.package = pkgs.bluezFull;
-  # hardware.bluetooth.config = {
-  #  General = {
-  #    Enable = "Source,Sink,Media,Socket";
-  #  };
-  # };
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users = { 
+  users = {
     mutableUsers = true;
     defaultUserShell = pkgs.zsh;
+
     users.javacafe01 = {
       isNormalUser = true;
       home = "/home/javacafe01";
       description = "Gokul Swaminathan";
-      extraGroups = [ "wheel" "networkmanager" "sudo" "video" "audio" "docker" "mopidy"]; # Enable ‘sudo’ for the user.
+      extraGroups =
+        [ "wheel" "networkmanager" "sudo" "video" "audio" "docker" "mopidy" ];
     };
   };
 
-  # $ nix search wget
-  environment = { 
-
+  environment = {
     binsh = "${pkgs.dash}/bin/dash";
-
-    variables = {
-      "EDITOR" = "nvim";
-    };
-
+    variables = { "EDITOR" = "nvim"; };
     systemPackages = with pkgs; [
-      (stdenv.mkDerivation rec {
-        name = "lua-format-${version}";
-        version = "1.3.5";
-        src = fetchFromGitHub {
-          owner = "Koihik";
-          repo = "LuaFormatter";
-          rev = "${version}";
-          sha256 = "163190g37r6npg5k5mhdwckdhv9nwy2gnfp5jjk8p0s6cyvydqjw";
-          fetchSubmodules = true;
-        };
-        nativeBuildInputs = [ cmake ];
-      })
+      (import ./extra/lua-format.nix { inherit stdenv fetchFromGitHub pkgs; })
+
       dash
       acpid
       dbus
       wezterm
       pavucontrol
-      wget 
-      vim 
+      wget
+      vim
       git
       nodejs
       curl
@@ -296,53 +273,31 @@
       cachix
       niv
       acpi
-      ripgrep
       fd
+      (ripgrep.override { withPCRE2 = true; })
+      gnutls
+      libtool
+      cmake
+      nixfmt
     ];
   };
 
-  services.mopidy = {
-    enable = true;
-    extensionPackages = with pkgs; [ mopidy-spotify mopidy-mpris mopidy-mpd ];
-    configuration = ''
-      [mpris]
-      bus_type = system
-
-      [audio]
-      output = pulsesink server=127.0.0.1
-
-      [spotify]
-      enabled = true
-      client_id = <client_id>
-      client_secret = <client_secret>
-      username = <username>
-      password = <password>
-      bitrate = 320
-    '';
-  };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
   programs = {
-    nm-applet = {
+    nm-applet.enable = true;
+    mtr.enable = true;
+
+    gnupg.agent = {
       enable = true;
+      enableSSHSupport = true;
     };
-    mtr = {
-      enable = true;
-    };
-    gnupg = {
-      agent = {
-        enable = true;
-        enableSSHSupport = true;
-      };
-    };
-    dconf = {
-      enable = true;
-    };
+
+    dconf.enable = true;
+
     java = {
       enable = true;
       package = pkgs.jdk;
     };
+
     npm = {
       enable = true;
       npmrc = ''
@@ -352,17 +307,5 @@
     };
   };
 
-  # For thinkpad
-  services.tlp.enable = true;
-
-  # Battery power management
-  services.upower.enable = true;
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
   system.stateVersion = "20.09";
-
 }

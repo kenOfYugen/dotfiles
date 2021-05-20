@@ -49,28 +49,25 @@ require("ui")
 
 -- Create a launcher widget and a main menu
 awesomemenu = {
-   { "Key Binds", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "Manual", terminal .. " start man awesome" },
-   { "Edit Config", editor .. " " .. awesome.conffile },
-   { "Restart", awesome.restart },
-   { "Quit", function() awesome.quit() end },
+    {
+        "Key Binds",
+        function() hotkeys_popup.show_help(nil, awful.screen.focused()) end
+    }, {"Manual", terminal .. " start man awesome"},
+    {"Edit Config", editor .. " " .. awesome.conffile},
+    {"Restart", awesome.restart}, {"Quit", function() awesome.quit() end}
 }
 
-appmenu = {
-   { "Wezterm", terminal },
-}
+appmenu = {{"Wezterm", terminal}, {"Emacs", editor}}
 
-
-mymainmenu = awful.menu({ items = { { "AwesomeWM", awesomemenu, beautiful.awesome_icon },
-                                    { "Apps", appmenu }
-                                  }
-                        })
-
-awful.mouse.append_global_mousebindings({
-    awful.button({ }, 3, function () mymainmenu:toggle() end)
+mymainmenu = awful.menu({
+    items = {
+        {"AwesomeWM", awesomemenu, beautiful.awesome_icon}, {"Apps", appmenu}
+    }
 })
 
-awful.spawn.with_shell("~/.screenlayout/layout.sh")
+awful.mouse.append_global_mousebindings({
+    awful.button({}, 3, function() mymainmenu:toggle() end)
+})
 
 -- Garbage Collector Settings
 collectgarbage("setpause", 110)

@@ -9,30 +9,14 @@ tabs.hide_tab_bar_if_only_one_tab = true
 tabs.show_tab_index_in_tab_bar = false
 tabs.tab_max_width = 25
 
-tab_style.inactive_tab_left = wezterm.format(
-                                  {
-        {Background = {Color = "#1a2026"}}, {Foreground = {Color = "#29343d"}},
-        {Text = ""}
-    })
-
-tab_style.inactive_tab_right = wezterm.format(
-                                   {
-        {Background = {Color = "#1a2026"}}, {Foreground = {Color = "#29343d"}},
-        {Text = " "}
-    })
-
-tab_style.active_tab_left = wezterm.format(
-                                {
-        {Background = {Color = "#1a2026"}}, {Foreground = {Color = "#3b4b58"}},
-        {Text = ""}
-    })
-
-tab_style.active_tab_right = wezterm.format(
-                                 {
-        {Background = {Color = "#1a2026"}}, {Foreground = {Color = "#3b4b58"}},
-        {Text = " "}
-    })
-
-tabs.tab_bar_style = tab_style
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+  if tab.is_active then
+    return {
+      {Background={Color="blue"}},
+      {Text=" " .. tab.active_pane.title .. " "},
+    }
+  end
+  return tab.active_pane.title
+end)
 
 return tabs

@@ -16,8 +16,7 @@ local systray_margin = (beautiful.wibar_height - beautiful.systray_icon_size) /
 
 local icon1 = wibox.widget {
     widget = wibox.widget.imagebox,
-    image = gears.surface.load_uncached(gfs.get_configuration_dir() ..
-                                            "icons/ghosts/nix.png"),
+    image = beautiful.distro_logo,
     resize = true
 }
 
@@ -74,8 +73,8 @@ local battery_pill = wibox.widget {
     widget = wibox.container.margin
 }
 
-awesome.connect_signal("signal::battery", function(device)
-    value = device.percentage
+awesome.connect_signal("signal::battery", function(percentage, state)
+    local value = percentage
 
     local bat_icon = ""
 
@@ -95,7 +94,11 @@ awesome.connect_signal("signal::battery", function(device)
         bat_icon = ""
     end
 
-    if device.state == 1 then bat_icon = "" end
+    -- if charging
+    if state == 1 then bat_icon = "" end
+
+    -- if full
+    if state == 4 then bat_icon = "" end
 
     battery_icon.markup = "<span foreground='" .. beautiful.xcolor12 .. "'>" ..
                               bat_icon .. "</span>"
