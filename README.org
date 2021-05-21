@@ -3,8 +3,45 @@
 #+STARTUP: showeverything
 
 [[assets/awesome_logo.svg]]
++
+[[assets/bling_logo.png]]
 
 [[https://github.com/nixos/nixpkgs][file:https://img.shields.io/badge/NixOS-21.05-informational?style=flat.svg]]
+
+
+** Table of Contents :TOC_3_gh:QUOTE:
+#+BEGIN_QUOTE
+  - [[#install][Install]]
+  - [[#modules][Modules]]
+    - [[#bling][bling]]
+    - [[#layout-machi][layout-machi]]
+    - [[#upower-battery-widget][UPower Battery Widget]]
+    - [[#better-resize][Better Resize]]
+    - [[#save-floats][Save Floats]]
+  - [[#screenshots][Screenshots]]
+    - [[#main][Main]]
+    - [[#emacs][Emacs]]
+    - [[#neovim][Neovim]]
+    - [[#terminal][Terminal]]
+    - [[#browser][Browser]]
+    - [[#scratchpads][Scratchpads]]
+    - [[#lockscreen][Lockscreen]]
+#+END_QUOTE
+
+** Install
+(in progress)
+
+** Modules
+*** [[https://github.com/BlingCorp/bling][bling]]
+**** Adds new layouts, modules, and widgets that try to primarily focus on window management
+*** [[https://github.com/xinhaoyuan/layout-machi][layout-machi]]
+**** A manual layout for Awesome with an interactive editor
+*** [[https://github.com/Aire-One/awesome-battery_widget][UPower Battery Widget]]
+**** A widget accessing =UPower= for battery info with LGI
+*** Better Resize
+**** An improved method of resizing clients in the tiled layout
+*** Save Floats
+**** Saves positions of clients in the floating layout
 
 ** Screenshots
 *** Main
@@ -14,19 +51,20 @@
 - Notifications (made with the AwesomeWM API)
 *** Emacs
 [[assets/emacs.png]]
-- My [[https://github.com/JavaCafe01/emacs-config][config]] using the amazing [[https://github.com/hlissner/doom-emacs][Doom Emacs]] framework
+- [[https://github.com/hlissner/doom-emacs][Doom Emacs]]
+- [[https://github.com/JavaCafe01/emacs-config][config]]
 *** Neovim
 [[assets/nvim.png]]
-- Neovim Nightly
+- Neovim 0.5+ (nightly)
 - [[https://github.com/JavaCafe01/javacafe.nvim][colorscheme]]
 *** Terminal
 [[assets/terminal.png]]
 - [[https://github.com/wez/wezterm][Wez's Terminal]]
-- Built in multiplexer and tabs
+- Built-in multiplexer and tabs
 *** Browser
 [[assets/firefox.png]]
 - Firefox
-- My [[https://github.com/JavaCafe01/firefox-css][firefox custom css]]
+- [[https://github.com/JavaCafe01/firefox-css][custom css]]
 *** Scratchpads
 [[assets/scratchpads.png]]
 - Ncmpcpp with mopidy-spotify
