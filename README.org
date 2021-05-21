@@ -2,7 +2,7 @@
 #+AUTHOR: JavaCafe01
 #+STARTUP: showeverything
 
-[[assets/awesome.svg]]
+[[file:assets/awesome.svg]]
 
 [[https://github.com/nixos/nixpkgs][file:https://img.shields.io/badge/NixOS-21.05-informational?style=flat.svg]]
 
@@ -45,7 +45,6 @@
 *** Main
 [[assets/main.png]]
 - Panel widget (with notification center)
-- [[https://github.com/dylanaraps/neofetch][neofetch]]
 - Notifications (made with the AwesomeWM API)
 *** Emacs
 [[assets/emacs.png]]
