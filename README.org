@@ -4,8 +4,6 @@
 
 [[assets/awesome.svg]]
 
-[[assets/bling.png]]
-
 [[https://github.com/nixos/nixpkgs][file:https://img.shields.io/badge/NixOS-21.05-informational?style=flat.svg]]
 
 
