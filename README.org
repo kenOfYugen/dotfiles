@@ -2,9 +2,9 @@
 #+AUTHOR: JavaCafe01
 #+STARTUP: showeverything
 
-[[assets/awesome_logo.svg]]
-+
-[[assets/bling_logo.png]]
+[[assets/awesome.svg]]
+
+[[assets/bling.png]]
 
 [[https://github.com/nixos/nixpkgs][file:https://img.shields.io/badge/NixOS-21.05-informational?style=flat.svg]]
 
