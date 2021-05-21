@@ -31,15 +31,15 @@
 
 ** Modules
 *** [[https://github.com/BlingCorp/bling][bling]]
-**** Adds new layouts, modules, and widgets that try to primarily focus on window management
+Adds new layouts, modules, and widgets that try to primarily focus on window management
 *** [[https://github.com/xinhaoyuan/layout-machi][layout-machi]]
-**** A manual layout for Awesome with an interactive editor
+manual layout for Awesome with an interactive editor
 *** [[https://github.com/Aire-One/awesome-battery_widget][UPower Battery Widget]]
-**** A widget accessing =UPower= for battery info with LGI
+A widget accessing =UPower= for battery info with LGI
 *** Better Resize
-**** An improved method of resizing clients in the tiled layout
+An improved method of resizing clients in the tiled layout
 *** Save Floats
-**** Saves positions of clients in the floating layout
+Saves positions of clients in the floating layout
 
 ** Screenshots
 *** Main
