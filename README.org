@@ -8,10 +8,14 @@
 
 #+HTML:</div>
 
-Welcome to my system configuration files! My system is managed by =Nix=, as I use =NixOS=. Well, most of it is. My AwesomeWM configuration and Neovim configuration files are still written in lua, as the number of edits, features, and customizations I have done on them is too massive for me to convert those configs to =Nix=.
+Welcome to my system configuration files! My system is managed by =Nix=, as I use =NixOS=. Well, most of it is. My AwesomeWM configuration and Neovim configuration files are still written in lua, as the number of edits, features, and customizations I have done on them are too massive for me to convert those configs to =Nix=. The only configuration left to convert to =Nix= is =wezterm=.
+
+
+*Note*: Please don't use this as a template =NixOS= setup - I just started using =NixOS= and I'm sure what I'm doing isn't the best at some places.
 
 * Table of Contents :TOC_3_gh:QUOTE:
 #+BEGIN_QUOTE
+- [[#configuration-files][Configuration Files]]
   - [[#install][Install]]
   - [[#modules][Modules]]
     - [[#bling][bling]]
@@ -27,6 +31,7 @@ Welcome to my system configuration files! My system is managed by =Nix=, as I us
     - [[#browser][Browser]]
     - [[#scratchpads][Scratchpads]]
     - [[#lockscreen][Lockscreen]]
+  - [[#special-thanks][Special Thanks]]
 #+END_QUOTE
 
 ** Install
@@ -72,3 +77,7 @@ Welcome to my system configuration files! My system is managed by =Nix=, as I us
 *** Lockscreen
 [[assets/lockscreen.png]]
 - Built with the AwesomeWM API
+
+** Special Thanks
+- [[https://github.com/elenapan/dotfiles][elenapan's dotfiles]]
+-[[https://github.com/fortuneteller2k/nix-config][ fortuneteller2k's =Nix= config]]
