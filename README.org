@@ -5,7 +5,7 @@
 [[file:assets/awesome.svg]]
 
 [[https://github.com/nixos/nixpkgs][file:https://img.shields.io/badge/NixOS-21.05-informational?style=flat.svg]]
-[[file:https:/img.shields.io/badge/lua-moment-darkblue?style=flat&logo=lua]]
+[[file:https://img.shields.io/badge/lua-moment-darkblue?style=flat&logo=lua]]
 
 ** Table of Contents :TOC_3_gh:QUOTE:
 #+BEGIN_QUOTE
