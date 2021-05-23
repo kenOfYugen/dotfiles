@@ -7,6 +7,7 @@
   };
 
   format = "$all";
+  add_newline = false;
 
   hostname = {
     ssh_only = true;

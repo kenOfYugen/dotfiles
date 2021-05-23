@@ -1,8 +1,8 @@
 { stdenv, fetchFromGitHub, pkgs, ... }:
 
 stdenv.mkDerivation rec {
-  name = "lua-format-${version}";
-  version = "1.3.5";
+  name = "lua-format";
+  version = "417d4570a4265109ebbab6610023e91c4668f631";
   src = fetchFromGitHub {
     owner = "Koihik";
     repo = "LuaFormatter";

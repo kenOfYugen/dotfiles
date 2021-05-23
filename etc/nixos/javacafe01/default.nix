@@ -18,6 +18,8 @@ in {
 
   home.packages = with pkgs; [
     arduino
+    ncurses
+    zlib
     playerctl
     zoom-us
     gimp
@@ -52,6 +54,18 @@ in {
     ccls
     texlive.combined.scheme-medium
     rnix-lsp
+
+    # Lua Format
+    (import ../derivations/lua-format.nix {
+      inherit stdenv fetchFromGitHub pkgs;
+    })
+
+    # Matrix Client
+    element-desktop
+
+    pandoc
+    tdesktop
+    glxinfo
   ];
 
   programs = {

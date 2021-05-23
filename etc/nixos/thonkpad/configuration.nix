@@ -61,11 +61,19 @@
 
   networking = {
     hostName = "thonkpad";
-    wireless.enable = false;
-    networkmanager.enable = true;
+    wireless.iwd.enable = true;
     useDHCP = false;
-    interfaces.enp0s31f6.useDHCP = true;
-    interfaces.wlan0.useDHCP = true;
+
+    networkmanager = {
+      enable = true;
+      dns = "none";
+      wifi.backend = "iwd";
+    };
+
+    interfaces = {
+      enp0s31f6.useDHCP = true;
+      wlan0.useDHCP = true;
+    };
   };
 
   time.timeZone = "America/Los_Angeles";
@@ -104,22 +112,6 @@
 
       windowManager = {
         awesome = {
-          package = (pkgs.awesome.overrideAttrs (old: rec {
-            version = "a4572b9b52d89369ce3bd462904d536ec116dc35";
-            src = pkgs.fetchFromGitHub {
-              owner = "awesomeWM";
-              repo = "awesome";
-              rev = "a4572b9b52d89369ce3bd462904d536ec116dc35";
-              sha256 = "1kj2qz2ns0jn5gha4ryr8w8vvy23s3bb5z3vjhwwfnrv7ypb40iz";
-            };
-            GI_TYPELIB_PATH = "${pkgs.playerctl}/lib/girepository-1.0:"
-              + "${pkgs.upower}/lib/girepository-1.0:" + old.GI_TYPELIB_PATH;
-          })).override {
-            stdenv = pkgs.clangStdenv;
-            luaPackages = pkgs.lua52Packages;
-            gtk3Support = true;
-          };
-
           enable = true;
 
           luaModules = with pkgs.lua52Packages; [
@@ -236,8 +228,6 @@
     binsh = "${pkgs.dash}/bin/dash";
     variables = { "EDITOR" = "nvim"; };
     systemPackages = with pkgs; [
-      (import ./extra/lua-format.nix { inherit stdenv fetchFromGitHub pkgs; })
-
       dash
       acpid
       dbus
