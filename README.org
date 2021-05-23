@@ -1,12 +1,16 @@
-#+TITLE: [[https://awesomewm.org][AwesomeWM]] and [[https://nixos.org][NixOS]] Configuration
-#+AUTHOR: JavaCafe01
-#+STARTUP: showeverything
+#+HTML:<div align=center>
 
-[[file:assets/awesome.svg]]
+#+HTML:&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=""><img alt="Nix Logo" height="230" src="https://upload.wikimedia.org/wikipedia/commons/2/28/Nix_snowflake.svg"></a>
 
-[[https://github.com/nixos/nixpkgs][file:https://img.shields.io/badge/NixOS-21.05-informational?style=flat.svg]] [[file:https://img.shields.io/badge/lua-moment-blue?style=flat&logo=lua.svg]]
+* Configuration Files
 
-** Table of Contents :TOC_3_gh:QUOTE:
+[[https://github.com/nixos/nixpkgs][file:https://img.shields.io/badge/NixOS-21.05-informational.svg?logo=nixos]] [[https://github.com/awesomeWM/awesome][file:https://img.shields.io/badge/AwesomeWM-git-blue.svg?logo=lua]]
+
+#+HTML:</div>
+
+Welcome to my system configuration files! My system is managed by =Nix=, as I use =NixOS=. Well, most of it is. My AwesomeWM configuration and Neovim configuration files are still written in lua, as the number of edits, features, and customizations I have done on them is too massive for me to convert those configs to =Nix=.
+
+* Table of Contents :TOC_3_gh:QUOTE:
 #+BEGIN_QUOTE
   - [[#install][Install]]
   - [[#modules][Modules]]
