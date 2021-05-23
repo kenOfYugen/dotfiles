@@ -27,7 +27,6 @@ Welcome to my system configuration files! My system is managed by Nix, as I use 
     - [[#main][Main]]
     - [[#emacs][Emacs]]
     - [[#neovim][Neovim]]
-    - [[#terminal][Terminal]]
     - [[#browser][Browser]]
     - [[#scratchpads][Scratchpads]]
     - [[#lockscreen][Lockscreen]]
@@ -62,13 +61,8 @@ Welcome to my system configuration files! My system is managed by Nix, as I use 
 [[assets/nvim.png]]
 - Neovim 0.5+ (nightly)
 - [[https://github.com/JavaCafe01/javacafe.nvim][colorscheme]]
-*** Terminal
-[[assets/terminal.png]]
-- [[https://github.com/wez/wezterm][Wez's Terminal]]
-- Built-in multiplexer and tabs
 *** Browser
 [[assets/firefox.png]]
-- Firefox
 - [[https://github.com/JavaCafe01/firefox-css][custom css]]
 *** Scratchpads
 [[assets/scratchpads.png]]
