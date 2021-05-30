@@ -1,5 +1,5 @@
 {
-  description = "My NixOS configuration using flakes";
+  description = "JavaCafe's NixOS configuration";
 
   inputs = {
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -8,13 +8,12 @@
     emacs.url = "github:mjlbach/emacs-overlay";
     nur.url = "github:nix-community/NUR";
     neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
-    rust.url = "github:oxalica/rust-overlay";
 
     master.url = "github:nixos/nixpkgs/master";
     stable.url = "github:nixos/nixpkgs/release-20.09";
     staging.url = "github:nixos/nixpkgs/staging";
     staging-next.url = "github:nixos/nixpkgs/staging-next";
-    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nixpkgs.follows = "unstable";
   };

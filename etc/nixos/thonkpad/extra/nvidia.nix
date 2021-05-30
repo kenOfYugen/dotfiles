@@ -8,12 +8,11 @@ let
     export __VK_LAYER_NV_optimus=NVIDIA_only
     exec -a "$0" "$@"
   '';
-in
-{
+in {
   environment.systemPackages = [ nvidia-offload ];
 
-  services.xserver = { 
-    videoDrivers = [ "nvidia" ]; 
+  services.xserver = {
+    videoDrivers = [ "nvidia" ];
 
     config = ''
       Section "Device"
@@ -41,9 +40,16 @@ in
     '';
   };
 
-  hardware.nvidia.prime = {
-    offload.enable = true;
-    nvidiaBusId = "PCI:1:0:0";
-    intelBusId = "PCI:0:2:0";
+  hardware.nvidia = {
+
+    modesetting.enable = true;
+
+    powerManagement.enable = true;
+
+    prime = {
+      offload.enable = true;
+      nvidiaBusId = "PCI:1:0:0";
+      intelBusId = "PCI:0:2:0";
+    };
   };
 }

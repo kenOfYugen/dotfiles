@@ -44,6 +44,8 @@
   };
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_xanmod;
+
     kernelParams = [
       "acpi_rev_override"
       "mem_sleep_default=deep"
@@ -51,7 +53,7 @@
       "nvidia-drm.modeset=1"
     ];
 
-    extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+    extraModulePackages = [ pkgs.linuxPackages_xanmod.nvidia_x11 ];
 
     loader = {
       systemd-boot.enable = true;
@@ -61,13 +63,14 @@
 
   networking = {
     hostName = "thonkpad";
-    wireless.iwd.enable = true;
+    #wireless.iwd.enable = true;
+    wireless.enable = false;
     useDHCP = false;
 
     networkmanager = {
       enable = true;
       dns = "none";
-      wifi.backend = "iwd";
+      # wifi.backend = "iwd";
     };
 
     interfaces = {
@@ -92,6 +95,8 @@
     upower.enable = true;
     openssh.enable = true;
     acpid.enable = true;
+
+    udev.packages = [ pkgs.android-udev-rules ];
 
     xserver = {
       enable = true;
@@ -152,14 +157,6 @@
       enable = true;
     };
 
-    picom = {
-      enable = true;
-      experimentalBackends = true;
-      backend = "glx";
-      vSync = true;
-      settings = import ./extra/picom-options.nix;
-    };
-
     mopidy = {
       enable = true;
       extensionPackages = with pkgs; [ mopidy-spotify mopidy-mpris mopidy-mpd ];
@@ -172,10 +169,10 @@
 
         [spotify]
         enabled = true
-        client_id = <client_id>
-        client_secret = <client_secret>
-        username = <username>
-        password = <password>
+        client_id = 659086b3-f5b2-4c57-a205-b4b0144ab328
+        client_secret = haZJumBgGG4quVdlD5yiwUCNjnG_4chXVOejtEMFdpA=
+        username = swagcuberusa
+        password = Trit0n_Rox
         bitrate = 320
       '';
     };
@@ -219,8 +216,16 @@
       isNormalUser = true;
       home = "/home/javacafe01";
       description = "Gokul Swaminathan";
-      extraGroups =
-        [ "wheel" "networkmanager" "sudo" "video" "audio" "docker" "mopidy" ];
+      extraGroups = [
+        "wheel"
+        "networkmanager"
+        "sudo"
+        "video"
+        "audio"
+        "docker"
+        "mopidy"
+        "adbusers"
+      ];
     };
   };
 
@@ -231,7 +236,7 @@
       dash
       acpid
       dbus
-      wezterm
+      master.wezterm
       pavucontrol
       wget
       vim
@@ -246,13 +251,10 @@
       gsettings-desktop-schemas
       firefox
       unzip
-      python3
-      python38Packages.pip
       gcc
       imagemagick
       slop
       neovim-nightly
-      picom
       libnotify
       inotify-tools
       brightnessctl
@@ -269,12 +271,15 @@
       libtool
       cmake
       nixfmt
+      pkg-config
+      android-studio
     ];
   };
 
   programs = {
     nm-applet.enable = true;
     mtr.enable = true;
+    adb.enable = true;
 
     gnupg.agent = {
       enable = true;
@@ -295,6 +300,8 @@
         color = true
       '';
     };
+
+    bash.promptInit = ''eval "$(${pkgs.starship}/bin/starship init bash)"'';
   };
 
   system.stateVersion = "20.09";

@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   name = "lua-format";
-  version = "417d4570a4265109ebbab6610023e91c4668f631";
+  version = "42fea5f7a3f8b1bd5d59c191ef50a3b87f3fc8f5";
   src = fetchFromGitHub {
     owner = "Koihik";
     repo = "LuaFormatter";
