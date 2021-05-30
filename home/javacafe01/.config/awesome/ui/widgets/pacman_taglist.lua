@@ -55,8 +55,8 @@ local get_taglist = function(s)
             {
                 {id = 'icon_role', widget = wibox.widget.imagebox},
                 id = 'margin_role',
-                top = dpi(9),
-                bottom = dpi(9),
+                top = dpi(7),
+                bottom = dpi(7),
                 left = dpi(10),
                 right = dpi(10),
                 widget = wibox.container.margin

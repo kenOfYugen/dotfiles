@@ -5,7 +5,6 @@ local dpi = beautiful.xresources.apply_dpi
 local awestore = require("awestore")
 local helpers = require("helpers")
 
-
 local anim_x = awestore.tweened(-1010, {
     duration = 300,
     easing = awestore.easing.cubic_in_out
@@ -22,18 +21,16 @@ local music_scratch = bling.module.scratchpad:new{
     awestore = {x = anim_x}
 }
 
-awesome.connect_signal("scratch::music", function()
-    music_scratch:toggle()
-end)
+awesome.connect_signal("scratch::music", function() music_scratch:toggle() end)
 
 local anim_y = awestore.tweened(1090, {
     duration = 300,
     easing = awestore.easing.cubic_in_out
 })
 
-local discord_scratch = bling.module.scratchpad:new{
-    command = "Discord",
-    rule = {instance = "discord"},
+local chat_scratch = bling.module.scratchpad:new{
+    command = [[ firefox -P chat --new-tab -url https://discord.com/channels/@me --new-tab -url https://app.element.io --class chat ]],
+    rule = {class = "chat"},
     sticky = false,
     autoclose = false,
     floating = true,
@@ -42,5 +39,4 @@ local discord_scratch = bling.module.scratchpad:new{
     awestore = {y = anim_y}
 }
 
-awesome.connect_signal("scratch::discord",
-                       function() discord_scratch:toggle() end)
+awesome.connect_signal("scratch::chat", function() chat_scratch:toggle() end)

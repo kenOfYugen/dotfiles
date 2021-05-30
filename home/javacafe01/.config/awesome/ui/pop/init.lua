@@ -27,8 +27,7 @@ awesome.connect_signal("widgets::exit_screen::toggle",
                        function() exit_manager.exit_screen_show() end)
 
 start.x = -451
-start.y = beautiful.wibar_height + beautiful.useless_gap * 2 - 3 +
-              beautiful.widget_border_width + 1
+start.y = beautiful.wibar_height - beautiful.widget_border_width
 
 local panel_anim = awestore.tweened(-451, {
     duration = 350,

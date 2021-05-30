@@ -338,7 +338,12 @@ screen.connect_signal("request::desktop_decoration", function(s)
     s.mylayoutbox = awful.widget.layoutbox(s)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({position = "top", screen = s, type = "dock"})
+    s.mywibox = awful.wibar({
+        position = "top",
+        screen = s,
+        type = "dock",
+        ontop = true
+    })
 
     -- Remove wibar on full screen
     local function remove_wibar(c)

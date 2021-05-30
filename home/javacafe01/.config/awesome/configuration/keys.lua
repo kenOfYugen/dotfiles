@@ -88,17 +88,17 @@ awful.keyboard.append_global_keybindings(
                   {description = "playerctl next", group = "awesome"}),
 
         -- Screen Shots/Vids
-        awful.key({}, "Print", function()
-            awful.spawn.with_shell("shoot")
-        end, {description = "take a screenshot", group = "awesome"}),
-        awful.key({modkey}, "Print", function()
-            awful.spawn.with_shell("shoot selnp")
-        end, {description = "take a selection with no pads", group = "awesome"}),
-        awful.key({modkey, "Shift"}, "Print", function()
-            awful.spawn.with_shell("shoot sel")
-        end, {description = "take a selection with pads", group = "awesome"}),
-
-        -- Brightness
+        awful.key({}, "Print", function() awful.spawn.with_shell("shoot") end,
+                  {description = "take a screenshot", group = "awesome"}),
+        awful.key({modkey}, "Print",
+                  function() awful.spawn.with_shell("shoot selnp") end, {
+            description = "take a selection with no pads",
+            group = "awesome"
+        }), awful.key({modkey, "Shift"}, "Print",
+                      function() awful.spawn.with_shell("shoot sel") end, {
+            description = "take a selection with pads",
+            group = "awesome"
+        }), -- Brightness
         awful.key({}, "XF86MonBrightnessUp",
                   function() awful.spawn("brightnessctl s +5%") end,
                   {description = "increase brightness", group = "awesome"}),
@@ -186,8 +186,8 @@ awful.keyboard.append_global_keybindings(
         awful.key({modkey}, "f", function() awful.spawn(filemanager) end,
                   {description = "open file browser", group = "launcher"}),
         awful.key({modkey}, "v",
-                  function() awesome.emit_signal("scratch::discord") end,
-                  {description = "open discord", group = "scratchpad"}),
+                  function() awesome.emit_signal("scratch::chat") end,
+                  {description = "open chats", group = "scratchpad"}),
         awful.key({modkey}, "w", function()
             awful.spawn.with_shell(browser)
         end, {description = "open firefox", group = "launcher"}),

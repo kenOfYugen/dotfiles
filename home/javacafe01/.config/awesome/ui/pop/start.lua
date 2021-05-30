@@ -12,7 +12,8 @@ local box_radius = beautiful.client_radius
 local box_gap = dpi(8)
 
 local width = 451
-local height = 1000 - beautiful.useless_gap * 2 + 3 + 49
+local height = 1000 - beautiful.useless_gap * 2 + 76 +
+                   beautiful.widget_border_width
 
 local function create_boxed_widget(widget_to_be_boxed, width, height, bg_color)
     local box_container = wibox.container.background()
@@ -49,9 +50,9 @@ end
 local function format_progress_bar(bar, markup)
     local text = wibox.widget {
         markup = markup,
-        align = 'center',
-        valign = 'center',
-        font = beautiful.icon_font_name .. '30',
+        align = "center",
+        valign = "center",
+        font = beautiful.icon_font_name .. "30",
         widget = wibox.widget.textbox
     }
     text.forced_height = dpi(36)
@@ -88,14 +89,13 @@ awesome.connect_signal("signal::volume", function(vol, muted)
                 volume.widget.children[2].markup =
                     "<span foreground='" .. beautiful.xcolor6 ..
                         "'><b></b></span>"
-
             end
         end
     end
 end)
 
 apps_volume = function()
-    helpers.run_or_raise({class = 'Pavucontrol'}, true, "pavucontrol")
+    helpers.run_or_raise({class = "Pavucontrol"}, true, "pavucontrol")
 end
 
 volume:buttons(gears.table.join( -- Left click - Mute / Unmute
@@ -185,7 +185,6 @@ fancy_date_widget:connect_signal("widget::redraw_needed", function()
                                    beautiful.xcolor6 .. "'>" ..
                                    fancy_date_widget.text:sub(7, 10) ..
                                    "</span>"
-
 end)
 fancy_date_widget.align = "center"
 fancy_date_widget.valign = "center"
@@ -227,7 +226,6 @@ local sys = wibox.widget {
     left = dpi(20),
     bottom = dpi(10),
     widget = wibox.container.margin
-
 }
 
 local sys2 = wibox.widget {
@@ -258,12 +256,10 @@ local time = wibox.widget {
     widget = wibox.container.margin
 }
 
-local time_box = create_boxed_widget(time, 400, nil, beautiful.xcolor0)
-
 local notifs = wibox.widget {
     require("ui.notifs.notif-center"),
     top = dpi(8),
-    bottom = dpi(9),
+    bottom = dpi(20),
     left = dpi(8),
     right = dpi(8),
     widget = wibox.container.margin
@@ -280,7 +276,7 @@ local ll = awful.widget.layoutlist {
     widget_template = {
         {
             {
-                id = 'icon_role',
+                id = "icon_role",
                 forced_height = dpi(60),
                 forced_width = dpi(60),
                 widget = wibox.widget.imagebox
@@ -288,7 +284,7 @@ local ll = awful.widget.layoutlist {
             margins = dpi(20),
             widget = wibox.container.margin
         },
-        id = 'background_role',
+        id = "background_role",
         forced_width = dpi(60),
         forced_height = dpi(60),
         widget = wibox.container.background
@@ -298,24 +294,20 @@ local ll = awful.widget.layoutlist {
 local panelWidget = wibox.widget {
     {
         {
+            helpers.vertical_pad(15),
             info,
             {ll, align = "center", widget = wibox.container.place},
-            spacing = 24,
+            spacing = 20,
             helpers.vertical_pad(0),
             layout = wibox.layout.fixed.vertical
         },
-        {
-            helpers.vertical_pad(24),
-            sys_box,
-            sys_box2,
-            spacing = 1,
-            layout = wibox.layout.fixed.vertical
-        },
+        {sys_box, sys_box2, spacing = 1, layout = wibox.layout.fixed.vertical},
         playerctl_box,
         notifs,
-        spacing = 1,
+        spacing = 5,
         spacing_widget = {
             bg = beautiful.xcolor8,
+            shape = gears.shape.rounded_rect,
             widget = wibox.container.background
         },
         layout = wibox.layout.fixed.vertical
@@ -338,14 +330,14 @@ local widgetBG = wibox.widget {
     bg = beautiful.xbackground,
     border_color = beautiful.widget_border_color,
     border_width = dpi(beautiful.widget_border_width),
-    shape = helpers.prrect(dpi(39), false, true, false, false),
+    shape = helpers.prrect(dpi(0), false, true, false, false),
     widget = wibox.container.background
 }
 
 local popupWidget = awful.popup({
     widget = {widgetBG, widget = wibox.container.margin},
     visible = false,
-    ontop = true,
+    ontop = false,
     type = "dock",
     bg = beautiful.xbackground .. "00"
 })

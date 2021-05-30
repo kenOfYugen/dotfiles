@@ -87,13 +87,13 @@ theme.button_close = theme.xcolor1
 
 -- uBorders
 --
-theme.border_width = dpi(6)
+theme.border_width = dpi(0)
 theme.oof_border_width = dpi(0)
 theme.border_normal = theme.xcolor0
 theme.border_focus = theme.xcolor8
 theme.border_radius = dpi(12)
 theme.client_radius = dpi(12)
-theme.widget_border_width = dpi(6)
+theme.widget_border_width = dpi(2)
 theme.widget_border_color = theme.xcolor0
 
 -- Taglist
@@ -123,11 +123,11 @@ theme.taglist_shape_focus = helpers.rrect(theme.border_radius - 3)
 --
 theme.tasklist_font = theme.font
 theme.tasklist_plain_task_name = true
-theme.tasklist_bg_focus = theme.xcolor0 .. 55
+theme.tasklist_bg_focus = theme.xcolor0
 theme.tasklist_fg_focus = theme.xcolor6
-theme.tasklist_bg_minimize = theme.xcolor0 .. "70"
-theme.tasklist_fg_minimize = theme.xforeground .. "70"
-theme.tasklist_bg_normal = theme.xcolor0 .. 00
+theme.tasklist_bg_minimize = theme.xcolor0 .. 55
+theme.tasklist_fg_minimize = theme.xforeground .. 55
+theme.tasklist_bg_normal = theme.xcolor0 .. 70
 theme.tasklist_fg_normal = theme.xforeground
 theme.tasklist_disable_task_name = false
 theme.tasklist_disable_icon = true
@@ -206,12 +206,12 @@ theme.exit_screen_bg = theme.xcolor0 .. "28"
 
 -- Wibar
 --
--- theme.wibar_height = dpi(36) + theme.widget_border_width
-theme.wibar_height = dpi(30)
+theme.wibar_height = dpi(36) + theme.widget_border_width
 theme.wibar_margin = dpi(15)
 theme.wibar_spacing = dpi(15)
 theme.wibar_bg = theme.xbackground
-theme.wibar_bg_secondary = theme.xcolor0 .. 55
+theme.wibar_bg_secondary = theme.xbackground
+-- theme.xcolor0 .. 55
 
 -- Systray
 --
