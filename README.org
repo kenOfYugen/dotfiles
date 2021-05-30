@@ -2,7 +2,7 @@
 
 #+HTML:<a href="https://awesomewm.org/"><img alt="AwesomeWM Logo" height="160" src="https://upload.wikimedia.org/wikipedia/commons/0/07/Awesome_logo.svg"></a>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://nixos.org/"><img alt="Nix Logo" height="160" src="https://upload.wikimedia.org/wikipedia/commons/2/28/Nix_snowflake.svg"></a>
 
-* Configuration Files
+* =Dotfiles=
 
 [[https://github.com/nixos/nixpkgs][file:https://img.shields.io/badge/NixOS-21.05-informational.svg?logo=nixos]] [[https://github.com/awesomeWM/awesome][file:https://img.shields.io/badge/AwesomeWM-git-blue.svg?logo=lua]]
 
@@ -15,7 +15,7 @@ Welcome to my system configuration files! My system is managed by Nix, as I use 
 
 * Table of Contents :TOC_3_gh:QUOTE:
 #+BEGIN_QUOTE
-- [[#configuration-files][Configuration Files]]
+- [[#dotfiles][=Dotfiles=]]
   - [[#install][Install]]
   - [[#modules][Modules]]
     - [[#bling][bling]]

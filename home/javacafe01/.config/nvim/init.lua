@@ -15,7 +15,6 @@ require('bufferbar')
 require('gitsigns')
 require('nvimtree')
 require('treesitter')
-require('autopairs')
 
 -- LSP
 require('lsp')

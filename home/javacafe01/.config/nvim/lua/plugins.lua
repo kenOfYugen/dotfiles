@@ -59,6 +59,7 @@ return require('packer').startup(function(use)
 
     -- Colorscheme
     use 'javacafe01/javacafe.nvim'
+    use 'nekonako/xresources-nvim'
 
     -- Lua formatter
     use 'andrejlevkovitch/vim-lua-format'
@@ -93,7 +94,6 @@ return require('packer').startup(function(use)
 
     use {"lewis6991/gitsigns.nvim"}
     use {"liuchengxu/vim-which-key"}
-    use {"windwp/nvim-autopairs"}
     use {"terrortylor/nvim-comment"}
     use {"kevinhwang91/nvim-bqf"}
 

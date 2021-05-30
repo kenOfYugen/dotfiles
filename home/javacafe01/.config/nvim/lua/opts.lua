@@ -9,7 +9,7 @@ end
 
 cmd 'syntax enable'
 cmd 'filetype plugin indent on'
-cmd 'colorscheme javacafe'
+cmd 'colorscheme xresources'
 opt('b', 'smartindent', true)
 opt('b', 'shiftwidth', 4)
 opt('b', 'tabstop', 4)
