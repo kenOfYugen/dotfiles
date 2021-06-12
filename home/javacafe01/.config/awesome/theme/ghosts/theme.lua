@@ -87,13 +87,13 @@ theme.button_close = theme.xcolor1
 
 -- uBorders
 --
-theme.border_width = dpi(0)
+theme.border_width = dpi(3)
 theme.oof_border_width = dpi(0)
 theme.border_normal = theme.xcolor0
 theme.border_focus = theme.xcolor8
 theme.border_radius = dpi(12)
 theme.client_radius = dpi(12)
-theme.widget_border_width = dpi(2)
+theme.widget_border_width = dpi(3)
 theme.widget_border_color = theme.xcolor0
 
 -- Taglist
@@ -270,7 +270,8 @@ theme.tabbar_size = 40
 theme.mstab_bar_ontop = true
 
 theme.notification_spacing = 10
-theme.notif_border_radius = dpi(12)
+theme.notif_border_radius = dpi(10)
+theme.notif_border_width = dpi(3)
 
 -- Weather
 --
@@ -292,7 +293,7 @@ theme.machi_editor_active_opacity = 0.25
 
 -- Tag Preview
 --
-theme.tag_preview_widget_border_radius = dpi(0)
+theme.tag_preview_widget_border_radius = dpi(10)
 theme.tag_preview_client_border_radius = dpi(7)
 theme.tag_preview_client_opacity = 0.5
 theme.tag_preview_client_bg = theme.xcolor0

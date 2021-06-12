@@ -35,5 +35,5 @@ esac
 
 
 ${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i  $file
-${pkgs.libnotify}/bin/notify-send -i $file "Screenshot saved"
+${pkgs.libnotify}/bin/notify-send -i $file "Screenshot saved" -a "Shoot"
 ''

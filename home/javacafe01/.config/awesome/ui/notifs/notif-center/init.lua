@@ -12,7 +12,7 @@ local notif_header = wibox.widget {
 
 return wibox.widget {
     {
-        notif_header,
+        nil,
         nil,
         require("ui.notifs.notif-center.clear-all"),
         expand = "none",

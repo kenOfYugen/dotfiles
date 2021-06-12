@@ -4,7 +4,7 @@ local theme = require('theme')
 local configuration = require('configuration')
 
 function font_with_fallback(name, params)
-    local names = {name, "FiraCode Nerd Font Mono", "Twitter Color Emoji"}
+    local names = {name, "FiraCode Nerd Font Mono", "Blobmoji"}
     return wezterm.font_with_fallback(names, params)
 end
 

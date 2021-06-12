@@ -159,22 +159,22 @@ awful.keyboard.append_global_keybindings(
         awful.key({modkey}, "t", function() awful.spawn(terminal) end,
                   {description = "open a terminal", group = "launcher"}),
         awful.key({modkey, shift}, "t", function()
-            awful.spawn.easy_async_with_shell(
-                "slop -b 2 -c '0.61,0.9,0.75,1' -p -2", function(out)
-                    local mywidth, myheight, myx, myy =
-                        string.match(out, "(.*)x(.*)+(.*)+(.*)")
+            awful.spawn.easy_async_with_shell("slop -c '0.61,0.9,0.75,1'",
+                                              function(out)
+                local mywidth, myheight, myx, myy =
+                    string.match(out, "(.*)x(.*)+(.*)+(.*)")
 
-                    awful.spawn(terminal, {
-                        geometry = {
-                            x = myx,
-                            y = myy,
-                            height = myheight,
-                            width = mywidth
-                        },
-                        floating = true
-                    })
+                awful.spawn(terminal, {
+                    geometry = {
+                        x = myx,
+                        y = myy,
+                        height = myheight,
+                        width = mywidth
+                    },
+                    floating = true
+                })
 
-                end)
+            end)
         end, {description = "open a terminal", group = "launcher"}),
         awful.key({modkey}, "s",
                   function() awesome.emit_signal("scratch::music") end,

@@ -5,13 +5,14 @@ nixpkgs.lib.nixosSystem rec {
 
   modules = [
     {
-      nixpkgs =
-        let
-          input-overlays = _: _: {
-            comma = import inputs.comma { pkgs = nixpkgs.legacyPackages."${system}"; };
-          };
+      nixpkgs = let
+        input-overlays = _: _: {
+          comma =
+            import inputs.comma { pkgs = nixpkgs.legacyPackages."${system}"; };
+        };
 
-          nixpkgs-overlays = _: _: with inputs; {
+        nixpkgs-overlays = _: _:
+          with inputs; {
             master = import master { inherit config system; };
             unstable = import unstable { inherit config system; };
             stable = import stable { inherit config system; };
@@ -19,36 +20,34 @@ nixpkgs.lib.nixosSystem rec {
             staging-next = import staging-next { inherit config system; };
 
           };
-        in
-        {
-          inherit config;
+      in {
+        inherit config;
 
-          overlays = with inputs; [
+        overlays = with inputs;
+          [
             nixpkgs-overlays
             emacs.overlay
             neovim-nightly.overlay
             nur.overlay
             input-overlays
           ] ++ user-overlays;
-        };
-      }
+      };
+    }
 
-      ./configuration.nix
+    ./configuration.nix
 
-      home.nixosModules.home-manager
-      {
-        home-manager = {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          sharedModules = [ discocss.hmModule ];
-          users.javacafe01 = nixpkgs.lib.mkMerge [ 
-            ../javacafe01 
-          ];
-        };
-      }
+    home.nixosModules.home-manager
+    {
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        sharedModules = [ discocss.hmModule ];
+        users.javacafe01 = nixpkgs.lib.mkMerge [ ../javacafe01 ];
+      };
+    }
 
-      nixpkgs.nixosModules.notDetected
-    ];
+    nixpkgs.nixosModules.notDetected
+  ];
 
-    specialArgs = { inherit inputs; };
-  }
+  specialArgs = { inherit inputs; };
+}

@@ -11,12 +11,14 @@
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
       "https://mjlbach.cachix.org"
+      "https://emacsng.cachix.org"
     ];
 
     binaryCachePublicKeys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "mjlbach.cachix.org-1:dR0V90mvaPbXuYria5mXvnDtFibKYqYc2gtl9MWSkqI="
+      "emacsng.cachix.org-1:i7wOr4YpdRpWWtShI8bT6V7lOTnPeI7Ho6HaZegFWMI="
     ];
 
     trustedUsers = [ "root" "javacafe01" ];
@@ -131,51 +133,53 @@
     };
 
     dbus = {
-      packages = let
-        mopidyDbusServiceFile = pkgs.writeTextFile rec {
-          name = "org.mpris.MediaPlayer2.mopidy.conf";
-          destination = "/share/dbus-1/system.d/${name}";
-          text = ''
-            <!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
-            "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
-            <busconfig>
-            <!-- Allow mopidy user to publish the Mopidy-MPRIS service -->
-            <policy user="mopidy">
-            <allow own="org.mpris.MediaPlayer2.mopidy"/>
-            </policy>
+      /* packages = let
+           mopidyDbusServiceFile = pkgs.writeTextFile rec {
+             name = "org.mpris.MediaPlayer2.mopidy.conf";
+             destination = "/share/dbus-1/system.d/${name}";
+             text = ''
+               <!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+               "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+               <busconfig>
+               <!-- Allow mopidy user to publish the Mopidy-MPRIS service -->
+               <policy user="mopidy">
+               <allow own="org.mpris.MediaPlayer2.mopidy"/>
+               </policy>
 
-            <!-- Allow anyone to invoke methods on the Mopidy-MPRIS service -->
-            <policy context="default">
-            <allow send_destination="org.mpris.MediaPlayer2.mopidy"/>
-            <allow receive_sender="org.mpris.MediaPlayer2.mopidy"/>
-            </policy>
-            </busconfig>
-          '';
-        };
-      in with pkgs; [ gnome3.dconf mopidyDbusServiceFile ];
+               <!-- Allow anyone to invoke methods on the Mopidy-MPRIS service -->
+               <policy context="default">
+               <allow send_destination="org.mpris.MediaPlayer2.mopidy"/>
+               <allow receive_sender="org.mpris.MediaPlayer2.mopidy"/>
+               </policy>
+               </busconfig>
+             '';
+           };
+         in with pkgs; [ gnome3.dconf mopidyDbusServiceFile ];
+      */
 
       enable = true;
     };
 
-    mopidy = {
-      enable = true;
-      extensionPackages = with pkgs; [ mopidy-spotify mopidy-mpris mopidy-mpd ];
-      configuration = ''
-        [mpris]
-        bus_type = system
+    /* mopidy = {
+         enable = true;
+         extensionPackages = with pkgs; [ mopidy-spotify mopidy-mpris mopidy-mpd ];
+         configuration = ''
+           [mpris]
+           bus_type = system
 
-        [audio]
-        output = pulsesink server=127.0.0.1
+           [audio]
+           output = pulsesink server=127.0.0.1
 
-        [spotify]
-        enabled = true
-        client_id = 659086b3-f5b2-4c57-a205-b4b0144ab328
-        client_secret = haZJumBgGG4quVdlD5yiwUCNjnG_4chXVOejtEMFdpA=
-        username = swagcuberusa
-        password = Trit0n_Rox
-        bitrate = 320
-      '';
-    };
+           [spotify]
+           enabled = true
+           client_id = <client_id>
+           client_secret = <client_secret>
+           username = <username>
+           password = <password>
+           bitrate = 320
+         '';
+       };
+    */
   };
 
   sound.enable = true;
@@ -272,7 +276,6 @@
       cmake
       nixfmt
       pkg-config
-      android-studio
     ];
   };
 

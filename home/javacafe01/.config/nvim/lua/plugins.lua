@@ -59,7 +59,6 @@ return require('packer').startup(function(use)
 
     -- Colorscheme
     use 'javacafe01/javacafe.nvim'
-    use 'nekonako/xresources-nvim'
 
     -- Lua formatter
     use 'andrejlevkovitch/vim-lua-format'

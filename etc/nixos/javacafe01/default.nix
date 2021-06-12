@@ -20,7 +20,7 @@ let
 
 in {
 
-  home.sessionVariables = { EDITOR = "emacs"; };
+  home.sessionVariables = { EDITOR = "nvim"; };
 
   home.packages = with pkgs; [
     mpv
@@ -67,6 +67,11 @@ in {
     pandoc
     tdesktop
     glxinfo
+
+    android-studio
+    neovide
+
+    obs-studio
   ];
 
   programs = {
@@ -107,7 +112,8 @@ in {
           userChrome = builtins.readFile (builtins.fetchurl {
             url =
               "https://raw.githubusercontent.com/JavaCafe01/firefox-css/master/userChrome.css";
-            sha256 = "1v15ic3w9g2n6gzrpxwrr6qdz4gq7r3p2v96qiwjs1sm4jv1gmlc";
+            sha256 =
+              "sha256:1ianm5w99mjjr6da0477n0bary5glv1wfc52xrb24jv7j14dfziz";
           });
           userContent = builtins.readFile (builtins.fetchurl {
             url =
@@ -122,7 +128,8 @@ in {
           userChrome = builtins.readFile (builtins.fetchurl {
             url =
               "https://raw.githubusercontent.com/JavaCafe01/firefox-css/master/userChrome.css";
-            sha256 = "1v15ic3w9g2n6gzrpxwrr6qdz4gq7r3p2v96qiwjs1sm4jv1gmlc";
+            sha256 =
+              "sha256:1ianm5w99mjjr6da0477n0bary5glv1wfc52xrb24jv7j14dfziz";
           });
           userContent = builtins.readFile (builtins.fetchurl {
             url =
@@ -149,7 +156,18 @@ in {
       settings = import ./programs/ncmpcpp.nix;
     };
 
-    rofi = { enable = true; };
+    ncspot = {
+      enable = true;
+      settings = {
+        use_nerdfont = true;
+        notify = false;
+      };
+    };
+
+    rofi = {
+      enable = true;
+      theme = import ./programs/rofi-theme.nix { inherit config; };
+    };
 
     starship = {
       enable = true;
@@ -173,6 +191,8 @@ in {
         grep = "grep --color=auto";
         c = "clear";
         v = "nvim";
+        xwin = "Xephyr -br -ac -noreset -screen 960x600 :1";
+        xdisp = "DISPLAY=:1";
       };
 
       initExtra = ''
@@ -270,8 +290,8 @@ in {
         src = pkgs.fetchFromGitHub {
           owner = "yshui";
           repo = "picom";
-          rev = "7ba87598c177092a775d5e8e4393cb68518edaac";
-          sha256 = "0za3ywdn27dzp7140cpg1imbqpbflpzgarr76xaqmijz97rv1909";
+          rev = "d9c97421324b51c8beefacc7e66a2218ab3e5247";
+          sha256 = "0qm3i8fbqms4gj9sqhmyagyvclbsdgjyqhni956b7arm5nf4nswn";
         };
       })).override { stdenv = pkgs.clangStdenv; };
 
@@ -279,31 +299,28 @@ in {
       experimentalBackends = true;
       backend = "glx";
       vSync = true;
-      shadow = true;
+      shadow = false;
       shadowOffsets = [ (-18) (-18) ];
 
       shadowExclude = [
-        "window_type *= 'menu'"
         "window_type = 'popup_menu'"
-        "window_type = 'notification'"
         "class_g = 'slop'"
-        "window_type = 'dropdown_menu'"
         "window_type = 'menu'"
         "class_g = 'Firefox' && window_type *= 'utility'"
         "_GTK_FRAME_EXTENTS@:c"
-        "_NET_WM_WINDOW_TYPE:a = '_NET_WM_WINDOW_TYPE_NOTIFICATION'"
       ];
 
       extraOptions = ''
-        shadow-ignore-shaped = false;
-        mark-wmwin-focused = true;
-        mark-ovredir-focused = true;
-        detect-client-opacity = true;
-        detect-transient = true;
-        detect-client-leader = true;
-        resize-damage = 1;
-        glx-no-stencil = true;
-        use-damage = true;
+        #corner-radius = 10;
+        #rounded-corners-exclude = [
+        #    "window_type = 'popup_menu'",
+        #    "window_type = 'dock'",
+        #    "class_g = 'slop'",
+        #    "window_type = 'notification'",
+        #    "window_type = 'menu'",
+        #    "class_g = 'Firefox' && window_type *= 'utility'",
+        #    "_GTK_FRAME_EXTENTS@:c",
+        #];
       '';
 
     };

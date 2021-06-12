@@ -24,6 +24,7 @@
       config = {
         allowBroken = true;
         allowUnfree = true;
+        tarball-ttl = 0;
       };
 
       filterNixFiles = k: v: v == "regular" && hasSuffix ".nix" k;

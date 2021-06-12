@@ -37,7 +37,7 @@ local yy = 10 + beautiful.wibar_height
 
 -- Enable Playerctl Module from Bling
 bling.signal.playerctl.enable {
-    ignore = {"firefox", "chromium"},
+    ignore = {"chromium"},
     backend = "playerctl_lib",
     update_on_activity = true
 }
@@ -54,7 +54,6 @@ bling.widget.tag_preview.enable {
 -- Set Wallpaper
 screen.connect_signal("request::wallpaper", function(s)
     gears.wallpaper.maximized(beautiful.wallpaper, s, false, nil)
-    -- gears.wallpaper.set(beautiful.xbackground)
     --[[
     bling.module.tiled_wallpaper("x", s, {
         -- call the actual function ("x" is the string that will be tiled)

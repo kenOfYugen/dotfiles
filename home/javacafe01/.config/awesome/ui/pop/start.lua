@@ -306,9 +306,14 @@ local panelWidget = wibox.widget {
         notifs,
         spacing = 5,
         spacing_widget = {
-            bg = beautiful.xcolor8,
-            shape = gears.shape.rounded_rect,
-            widget = wibox.container.background
+            {
+                bg = beautiful.xcolor8,
+                shape = gears.shape.rounded_rect,
+                widget = wibox.container.background
+            },
+            right = dpi(80),
+            left = dpi(80),
+            widget = wibox.container.margin
         },
         layout = wibox.layout.fixed.vertical
     },

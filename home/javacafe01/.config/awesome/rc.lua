@@ -69,6 +69,8 @@ awful.mouse.append_global_mousebindings({
     awful.button({}, 3, function() mymainmenu:toggle() end)
 })
 
+local blacklisted_snid = setmetatable({}, {__mode = "v"})
+
 -- Garbage Collector Settings
 collectgarbage("setpause", 110)
 collectgarbage("setstepmul", 1000)
@@ -77,10 +79,10 @@ collectgarbage("setstepmul", 1000)
 -- collectgarbage("setpause", 160)
 -- collectgarbage("setstepmul", 400)
 
+--[[
 --
 -- This is the code for the floating music player.
 --
---[[
 local wibox = require("wibox")
 local helpers = require("helpers")
 local gears = require("gears")
@@ -130,7 +132,6 @@ local playerctl_next_symbol = create_button("怜", beautiful.xcolor4,
 local art = wibox.widget {
     image = gfs.get_configuration_dir() .. "images/me.png",
     resize = true,
-    forced_height = 200,
     forced_width = 200,
     -- clip_shape = helpers.rrect(12),
     widget = wibox.widget.imagebox
