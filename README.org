@@ -1,12 +1,12 @@
 #+HTML:<div align=center>
 
-#+HTML:<a href="https://awesomewm.org/"><img alt="AwesomeWM Logo" height="160" src="https://upload.wikimedia.org/wikipedia/commons/0/07/Awesome_logo.svg"></a>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://nixos.org/"><img alt="Nix Logo" height="160" src="https://upload.wikimedia.org/wikipedia/commons/2/28/Nix_snowflake.svg"></a>
-
 * Dotfiles
 
 [[https://github.com/nixos/nixpkgs][file:https://img.shields.io/badge/NixOS-21.11-informational.svg?logo=nixos]] [[https://github.com/awesomeWM/awesome][file:https://img.shields.io/badge/AwesomeWM-git-blue.svg?logo=lua]]
 
 #+HTML:</div>
+
+#+HTML:<a href="https://awesomewm.org/"><img alt="AwesomeWM Logo" height="160" align = "left" src="https://upload.wikimedia.org/wikipedia/commons/0/07/Awesome_logo.svg"></a>
 
 Welcome to my system configuration files! My system is managed by Nix, as I use NixOS. Well, most of it is. My AwesomeWM configuration and Neovim configuration files are still written in lua, as the number of edits, features, and customizations I have done on them are too massive for me to convert those configs to Nix. The only configuration left to convert to Nix is =wezterm=.
 
