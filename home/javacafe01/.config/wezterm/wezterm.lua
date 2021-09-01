@@ -37,7 +37,7 @@ local cfg_misc = {
     font_shaper = "Harfbuzz",
     line_height = 1.0,
     freetype_load_target = "HorizontalLcd",
-    freetype_render_target = "Normal",
+    freetype_render_target = "HorizontalLcd",
 
     -- Cursor style
     default_cursor_style = "SteadyUnderline",
@@ -52,7 +52,8 @@ local cfg_misc = {
     window_close_confirmation = "NeverPrompt",
 
     -- Padding
-    window_padding = {left = 45, right = 45, top = 45, bottom = 45},
+    -- Top is offsetted for titlebar
+    window_padding = {left = 50, right = 50, top = 50, bottom = 50},
 
     -- No opacity
     inactive_pane_hsb = {saturation = 1.0, brightness = 1.0}

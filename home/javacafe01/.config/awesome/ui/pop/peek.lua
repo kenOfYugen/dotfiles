@@ -30,10 +30,10 @@ local make_peek = function(letter, c, size)
             margins = 5,
             widget = wibox.container.margin
         },
-        bg = beautiful.xcolor8,
-        border_width = beautiful.border_width,
-        border_color = beautiful.xcolor0,
-        shape = helpers.rrect(12),
+        bg = beautiful.xbackground,
+        border_width = beautiful.widget_border_width,
+        border_color = beautiful.widget_border_color,
+        shape = helpers.rrect(beautiful.border_radius),
         widget = wibox.container.background
     }
     return peek_wibox

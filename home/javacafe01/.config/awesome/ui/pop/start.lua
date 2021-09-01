@@ -8,12 +8,14 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local helpers = require("helpers")
 
+local start_manager = {}
+
 local box_radius = beautiful.client_radius
 local box_gap = dpi(8)
 
 local width = 451
-local height = 1000 - beautiful.useless_gap * 2 + 76 +
-                   beautiful.widget_border_width
+local height =
+    725 - beautiful.useless_gap + 76 + beautiful.widget_border_width + 40
 
 local function create_boxed_widget(widget_to_be_boxed, width, height, bg_color)
     local box_container = wibox.container.background()
@@ -197,8 +199,8 @@ local fancy_date = {fancy_date_widget, layout = wibox.layout.fixed.vertical}
 -- {{{ Music Widget
 
 local playerctl = require("ui.widgets.playerctl")
-local playerctl_box =
-    create_boxed_widget(playerctl, 400, 145, beautiful.xcolor0)
+local playerctl_box = create_boxed_widget(playerctl, 400, 145,
+                                          beautiful.xcolor0 .. 00)
 
 -- {{{ Info Widget
 
@@ -207,18 +209,12 @@ local info = require("ui.widgets.info")
 
 -- }}}
 
--- {{ Weather
-
-local weather = require("ui.widgets.weather")
-
--- }}
-
 local sys = wibox.widget {
     {
         volume,
         brightness,
         cpu,
-        spacing = dpi(20),
+        spacing = dpi(25),
         layout = wibox.layout.flex.horizontal
     },
     top = dpi(20),
@@ -229,7 +225,7 @@ local sys = wibox.widget {
 }
 
 local sys2 = wibox.widget {
-    {ram, disk, temp, spacing = dpi(20), layout = wibox.layout.flex.horizontal},
+    {ram, disk, temp, spacing = dpi(25), layout = wibox.layout.flex.horizontal},
     top = dpi(10),
     right = dpi(20),
     left = dpi(20),
@@ -241,29 +237,6 @@ local sys2 = wibox.widget {
 
 local sys_box = create_boxed_widget(sys, 400, 117, beautiful.xcolor0)
 local sys_box2 = create_boxed_widget(sys2, 400, 117, beautiful.xcolor0)
-
-local time = wibox.widget {
-    {
-        fancy_time,
-        fancy_date,
-        -- {weather, top = dpi(20), widget = wibox.container.margin},
-        layout = wibox.layout.align.vertical
-    },
-    top = dpi(10),
-    left = dpi(20),
-    right = dpi(20),
-    bottom = dpi(20),
-    widget = wibox.container.margin
-}
-
-local notifs = wibox.widget {
-    require("ui.notifs.notif-center"),
-    top = dpi(8),
-    bottom = dpi(20),
-    left = dpi(8),
-    right = dpi(8),
-    widget = wibox.container.margin
-}
 
 local ll = awful.widget.layoutlist {
     source = awful.widget.layoutlist.source.default_layouts, -- DOC_HIDE
@@ -294,59 +267,100 @@ local ll = awful.widget.layoutlist {
 local panelWidget = wibox.widget {
     {
         {
-            helpers.vertical_pad(15),
-            info,
-            {ll, align = "center", widget = wibox.container.place},
-            spacing = 20,
-            helpers.vertical_pad(0),
-            layout = wibox.layout.fixed.vertical
-        },
-        {sys_box, sys_box2, spacing = 1, layout = wibox.layout.fixed.vertical},
-        playerctl_box,
-        notifs,
-        spacing = 5,
-        spacing_widget = {
             {
-                bg = beautiful.xcolor8,
-                shape = gears.shape.rounded_rect,
-                widget = wibox.container.background
+                helpers.vertical_pad(5),
+                info,
+                {ll, align = "center", widget = wibox.container.place},
+                spacing = 20,
+                helpers.vertical_pad(10),
+                layout = wibox.layout.fixed.vertical
             },
-            right = dpi(80),
-            left = dpi(80),
+            right = dpi(20),
+            left = dpi(20),
             widget = wibox.container.margin
         },
-        layout = wibox.layout.fixed.vertical
+        bg = beautiful.xbackground,
+        shape = helpers.rrect(beautiful.border_radius),
+        border_color = beautiful.widget_border_color,
+        border_width = beautiful.widget_border_width,
+        widget = wibox.container.background
     },
-    left = dpi(35),
-    right = dpi(35),
-    bottom = dpi(10),
-    widget = wibox.container.margin
-}
-
-local widgetContainer = wibox.widget {
-    {panelWidget, widget = wibox.container.margin},
-    forced_height = height,
-    forced_width = width,
+    {
+        {
+            {
+                sys_box,
+                sys_box2,
+                spacing = 1,
+                layout = wibox.layout.fixed.vertical
+            },
+            left = dpi(25),
+            top = dpi(20),
+            bottom = dpi(20),
+            right = dpi(25),
+            widget = wibox.container.margin
+        },
+        bg = beautiful.xbackground,
+        shape = helpers.rrect(beautiful.border_radius),
+        border_color = beautiful.widget_border_color,
+        border_width = beautiful.widget_border_width,
+        widget = wibox.container.background
+    },
+    {
+        {
+            playerctl_box,
+            right = dpi(20),
+            left = dpi(40),
+            widget = wibox.container.margin
+        },
+        bg = beautiful.xbackground,
+        shape = helpers.rrect(beautiful.border_radius),
+        border_color = beautiful.widget_border_color,
+        border_width = beautiful.widget_border_width,
+        widget = wibox.container.background
+    },
+    spacing = beautiful.useless_gap * 2,
     layout = wibox.layout.fixed.vertical
 }
 
-local widgetBG = wibox.widget {
-    widgetContainer,
-    bg = beautiful.xbackground,
-    border_color = beautiful.widget_border_color,
-    border_width = dpi(beautiful.widget_border_width),
-    shape = helpers.prrect(dpi(0), false, true, false, false),
-    widget = wibox.container.background
-}
+local placement_fn = function(c)
+    awful.placement.bottom_left(c, {
+        margins = {
+            bottom = beautiful.useless_gap * 2 - 10,
+            left = beautiful.useless_gap * 2
+        }
+    })
+end
 
-local popupWidget = awful.popup({
-    widget = {widgetBG, widget = wibox.container.margin},
+start_manager.menu = awful.popup({
+    widget = {
+        {
+            panelWidget,
+            forced_height = height,
+            forced_width = width,
+            layout = wibox.layout.fixed.vertical
+        },
+        widget = wibox.container.margin
+    },
     visible = false,
-    ontop = false,
+    placement = placement_fn,
+    ontop = true,
     type = "dock",
     bg = beautiful.xbackground .. "00"
 })
 
-return popupWidget
+start_manager.toggle = function(self)
+
+    local start_menu = self.menu
+
+    if not start_menu.visible then
+        start_menu.visible = true
+    else
+        start_menu.visible = false
+    end
+
+    awesome.emit_signal("widgets::start::status", start_menu.visible)
+end
+
+return start_manager
 
 -- EOF ------------------------------------------------------------------------

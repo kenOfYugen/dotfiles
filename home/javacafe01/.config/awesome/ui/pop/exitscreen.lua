@@ -50,10 +50,10 @@ local create_button = function(symbol, hover_color, text, command)
         {nil, icon, expand = "none", layout = wibox.layout.align.horizontal},
         forced_height = button_size,
         forced_width = button_size,
-        shape = helpers.rrect(10),
+        shape = helpers.rrect(beautiful.widget_border_radius),
         bg = button_bg,
-        border_width = beautiful.widget_border_width + 1,
-        border_color = beautiful.xcolor8,
+        border_width = beautiful.widget_border_width,
+        border_color = beautiful.widget_border_color,
         widget = wibox.container.background
     }
 
@@ -149,18 +149,14 @@ exit_manager.exit_screen_show = function()
             end
         end)
     set_visibility(true)
-    -- awesome.emit_signal("widgets::splash::visibility", exit_screen.visible)
+    awesome.emit_signal("widgets::splash::visibility", exit_screen.visible)
 end
 
 exit_screen:buttons(gears.table.join( -- Left click - Hide exit_screen
-                        awful.button({}, 1, function()
-        exit_manager.exit_screen_hide()
-    end), -- Middle click - Hide exit_screen
-    awful.button({}, 2, function() exit_manager.exit_screen_hide() end),
-    -- Right click - Hide exit_screen
-                        awful.button({}, 3, function()
-        exit_manager.exit_screen_hide()
-    end)))
+awful.button({}, 1, function() exit_manager.exit_screen_hide() end), -- Middle click - Hide exit_screen
+awful.button({}, 2, function() exit_manager.exit_screen_hide() end),
+-- Right click - Hide exit_screen
+awful.button({}, 3, function() exit_manager.exit_screen_hide() end)))
 
 -- Item placement
 exit_screen:setup{

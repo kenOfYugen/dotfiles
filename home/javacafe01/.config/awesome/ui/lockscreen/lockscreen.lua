@@ -50,7 +50,7 @@ local gradient = {
     stops = {{0.4, beautiful.xcolor4}, {1, beautiful.xcolor6}}
 }
 
-lock_screen_box.bg = gradient
+lock_screen_box.bg = beautiful.exit_screen_bg
 
 -- Add lockscreen gradient to each screen
 awful.screen.connect_for_each_screen(function(s)
@@ -65,6 +65,7 @@ end)
 
 local function set_visibility(v)
     for s in screen do s.mylockscreen.visible = v end
+    awesome.emit_signal("widgets::splash::visibility", v)
 end
 
 local me_pic = wibox.widget {

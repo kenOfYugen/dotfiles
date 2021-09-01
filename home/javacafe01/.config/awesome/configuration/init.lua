@@ -1,8 +1,6 @@
 local awful = require("awful")
-local gears = require("gears")
-local gfs = gears.filesystem
 local beautiful = require("beautiful")
-local dpi = beautiful.xresources.apply_dpi
+local gears = require("gears")
 
 local bling = require("module.bling")
 
@@ -44,30 +42,32 @@ bling.signal.playerctl.enable {
 
 bling.widget.tag_preview.enable {
     show_client_content = false,
-    x = dpi(10),
-    y = dpi(10) + beautiful.wibar_height,
+    placement_fn = function(c)
+        awful.placement.top_left(c, {
+            margins = {
+                top = beautiful.wibar_height + beautiful.useless_gap / 2,
+                left = beautiful.useless_gap / 2
+            }
+        })
+    end,
     scale = 0.15,
     honor_padding = true,
     honor_workarea = false
 }
 
--- Set Wallpaper
-screen.connect_signal("request::wallpaper", function(s)
-    gears.wallpaper.maximized(beautiful.wallpaper, s, false, nil)
-    --[[
-    bling.module.tiled_wallpaper("x", s, {
-        -- call the actual function ("x" is the string that will be tiled)
-        fg = beautiful.xcolor0, -- define the foreground color
-        bg = beautiful.xbackground, -- define the background color
-        offset_y = 45, -- set a y offset
-        offset_x = 30, -- set a x offset
-        font = beautiful.icon_font_name, -- set the font (without the size)
-        font_size = 15, -- set the font size
-        padding = 125, -- set padding (default is 100)
-        zickzack = true -- rectangular pattern or criss cross
-    })
-    ]] --
-end)
+bling.widget.task_preview.enable {
+    placement_fn = function(c)
+        awful.placement.top(c, {
+            margins = {top = beautiful.wibar_height + beautiful.useless_gap / 2}
+        })
+    end
+}
+
+require("module.window_switcher").enable()
+-- bling.widget.window_switcher.enable()
+
+-- Set wallpaper
+require("module.wallpaper")
 
 -- Get Keybinds
 require("configuration.keys")

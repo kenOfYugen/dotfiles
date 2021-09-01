@@ -1,22 +1,17 @@
 local wezterm = require('wezterm')
 
-local tabs = {}
-local tab_style = {}
+-- The filled in variant of the < symbol
+local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
+
+-- The filled in variant of the > symbol
+local SOLID_RIGHT_ARROW = utf8.char(0xe0b0)
+
+local tabs1 = {}
 
 -- Tab Bar Options
-tabs.enable_tab_bar = true
-tabs.hide_tab_bar_if_only_one_tab = true
-tabs.show_tab_index_in_tab_bar = false
-tabs.tab_max_width = 25
+tabs1.enable_tab_bar = true
+tabs1.hide_tab_bar_if_only_one_tab = true
+tabs1.show_tab_index_in_tab_bar = false
+tabs1.tab_max_width = 25
 
-wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-  if tab.is_active then
-    return {
-      {Background={Color="blue"}},
-      {Text=" " .. tab.active_pane.title .. " "},
-    }
-  end
-  return tab.active_pane.title
-end)
-
-return tabs
+return tabs1

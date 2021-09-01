@@ -1,14 +1,36 @@
-local awful = require("awful")
 local bling = require("module.bling")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
-local awestore = require("awestore")
-local helpers = require("helpers")
+local rubato = require("module.rubato")
 
-local anim_x = awestore.tweened(-1010, {
-    duration = 300,
-    easing = awestore.easing.cubic_in_out
-})
+local anim_y = rubato.timed {
+    pos = 1090,
+    rate = 60,
+    easing = rubato.quadratic,
+    intro = 0.1,
+    duration = 0.3,
+    awestore_compat = true -- This option must be set to true.
+}
+
+local anim_x = rubato.timed {
+    pos = -970,
+    rate = 60,
+    easing = rubato.quadratic,
+    intro = 0.1,
+    duration = 0.3,
+    awestore_compat = true -- This option must be set to true.
+}
+
+local music_anim = {
+    x = rubato.timed {
+        pos = -970,
+        rate = 120,
+        easing = rubato.quadratic,
+        intro = 0.1,
+        duration = 0.3,
+        awestore_compat = true
+    }
+}
 
 local music_scratch = bling.module.scratchpad:new{
     command = music,
@@ -18,25 +40,35 @@ local music_scratch = bling.module.scratchpad:new{
     floating = true,
     geometry = {x = dpi(10), y = dpi(606), height = dpi(460), width = dpi(960)},
     reapply = true,
-    awestore = {x = anim_x}
+    rubato = music_anim
 }
 
 awesome.connect_signal("scratch::music", function() music_scratch:toggle() end)
 
-local anim_y = awestore.tweened(1090, {
-    duration = 300,
-    easing = awestore.easing.cubic_in_out
-})
+local chat_anim = {
+    y = rubato.timed {
+        pos = 1090,
+        rate = 120,
+        easing = rubato.quadratic,
+        intro = 0.1,
+        duration = 0.3,
+        awestore_compat = true
+    }
+}
 
 local chat_scratch = bling.module.scratchpad:new{
-    command = [[ firefox -P chat --new-tab -url https://discord.com/channels/@me --new-tab -url https://app.element.io --class chat ]],
-    rule = {class = "chat"},
+    -- command = [[ firefox -P chat --new-tab -url https://discord.com/channels/@me --new-tab -url https://app.element.io --class chat ]],
+    command = "Discord",
+    rule = {
+        --    class = "chat"
+        class = "discord"
+    },
     sticky = false,
     autoclose = false,
     floating = true,
     geometry = {x = dpi(460), y = dpi(90), height = dpi(900), width = dpi(1000)},
     reapply = true,
-    awestore = {y = anim_y}
+    rubato = chat_anim
 }
 
 awesome.connect_signal("scratch::chat", function() chat_scratch:toggle() end)

@@ -2,17 +2,19 @@
 -- Wibar (top bar)
 local awful = require("awful")
 local gears = require("gears")
-local gfs = require("gears.filesystem")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local helpers = require("helpers")
-
-local systray_margin = (beautiful.wibar_height - beautiful.systray_icon_size) /
-                           2
+local rubato = require("module.rubato")
 
 -- Awesome Panel -----------------------------------------------------------
+
+local panel_managers = {
+    start = require("ui.pop.start"),
+    notifs = require("ui.pop.notifs")
+}
 
 local icon1 = wibox.widget {
     widget = wibox.widget.imagebox,
@@ -34,17 +36,10 @@ local awesome_icon = wibox.widget {
 }
 
 awesome_icon:buttons(gears.table.join(awful.button({}, 1, function()
-    awesome.emit_signal("widgets::start::toggle", mouse.screen)
+    panel_managers.start:toggle()
+    panel_managers.notifs:toggle()
 end)))
 
---[[ awesome.connect_signal("widgets::start::status", function(status)
-    if not status then
-        icon1.image = unclicked
-    else
-        icon1.image = clicked
-    end
-end)
---]]
 -- Battery Bar Widget ---------------------------------------------------------
 
 local battery_text = wibox.widget {
@@ -63,14 +58,36 @@ local battery_icon = wibox.widget {
 
 local battery_pill = wibox.widget {
     {
-        {battery_icon, top = dpi(1), widget = wibox.container.margin},
-        helpers.horizontal_pad(10),
+        helpers.horizontal_pad(2),
+        -- {battery_icon, top = dpi(1), widget = wibox.container.margin},
+        -- helpers.horizontal_pad(3),
+        -- helpers.horizontal_pad(10),
         {battery_text, top = dpi(1), widget = wibox.container.margin},
+        helpers.horizontal_pad(2),
         layout = wibox.layout.fixed.horizontal
     },
     left = dpi(10),
     right = dpi(10),
     widget = wibox.container.margin
+}
+
+local battery_wrapper = wibox.widget {
+    battery_pill,
+    value = 20,
+    max_value = 100,
+    min_value = 0,
+    border_width = 2,
+    border_color = beautiful.xcolor0,
+    color = beautiful.xcolor8,
+    widget = wibox.container.radialprogressbar
+}
+
+local anim = rubato.timed {
+    pos = 0,
+    rate = 120,
+    easing = rubato.quadratic,
+    intro = 0.4,
+    duration = 1
 }
 
 awesome.connect_signal("signal::battery", function(percentage, state)
@@ -95,10 +112,29 @@ awesome.connect_signal("signal::battery", function(percentage, state)
     end
 
     -- if charging
-    if state == 1 then bat_icon = "" end
+    if state == 1 then
+        bat_icon = ""
+        anim:subscribe(function(perc, time)
+            battery_wrapper.value = perc
+            if time == anim.duration then
+                anim:reset()
+                anim.pos = 0
+                anim.target = 100
+            end
+        end)
+        if anim.state == false then anim.target = 100 end
+    else
+        anim:unsubscribe()
+        battery_wrapper.value = percentage
+    end
 
     -- if full
-    if state == 4 then bat_icon = "" end
+    if state == 4 then
+        bat_icon = ""
+        -- battery_wrapper.color = beautiful.xcolor10
+    else
+        battery_wrapper.color = beautiful.xcolor8
+    end
 
     battery_icon.markup = "<span foreground='" .. beautiful.xcolor12 .. "'>" ..
                               bat_icon .. "</span>"
@@ -239,10 +275,10 @@ local playerctl_bar = wibox.widget {
     {
         {
             song_logo,
-            top = dpi(3),
+            top = dpi(2),
             left = dpi(3),
             right = dpi(0),
-            bottom = dpi(1),
+            bottom = dpi(2),
             widget = wibox.container.margin
         },
         {
@@ -306,16 +342,16 @@ local final_systray = wibox.widget {
         layout = wibox.container.margin
     },
     bg = beautiful.xcolor8,
-    shape = helpers.rrect(10),
+    shape = helpers.rrect(12),
     widget = wibox.container.background
 }
 
 local wrap_widget = function(w)
     local wrapped = wibox.widget {
         w,
-        top = dpi(5),
+        top = dpi(8),
         left = dpi(4),
-        bottom = dpi(5),
+        bottom = dpi(8),
         right = dpi(4),
         widget = wibox.container.margin
     }
@@ -325,8 +361,8 @@ end
 local make_pill = function(w, c)
     local pill = wibox.widget {
         w,
-        bg = beautiful.xcolor0,
-        shape = helpers.rrect(10),
+        bg = c,
+        shape = helpers.rrect(12),
         widget = wibox.container.background
     }
     return pill
@@ -344,7 +380,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
         position = "top",
         screen = s,
         type = "dock",
-        ontop = true
+        ontop = false
     })
 
     -- Remove wibar on full screen
@@ -381,7 +417,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
         filter = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons,
         bg = beautiful.wibar_bg,
-        style = {bg = beautiful.xcolor0, shape = helpers.rrect(10)},
+        style = {bg = beautiful.xcolor0, shape = helpers.rrect(12)},
         layout = {spacing = dpi(8), layout = wibox.layout.fixed.horizontal},
         widget_template = {
             {
@@ -390,21 +426,33 @@ screen.connect_signal("request::desktop_decoration", function(s)
                         awful.widget.clienticon,
                         top = dpi(1),
                         bottom = dpi(1),
-                        right = dpi(1),
                         layout = wibox.container.margin
                     },
-                    helpers.horizontal_pad(6),
-                    {id = 'text_role', widget = wibox.widget.textbox},
+                    -- helpers.horizontal_pad(6),
+                    -- {id = 'text_role', widget = wibox.widget.textbox},
                     layout = wibox.layout.fixed.horizontal
                 },
-                top = dpi(5),
-                bottom = dpi(5),
+                top = dpi(4),
+                bottom = dpi(4),
                 left = dpi(10),
                 right = dpi(10),
                 widget = wibox.container.margin
             },
             id = "background_role",
-            widget = wibox.container.background
+            widget = wibox.container.background,
+            create_callback = function(self, c, index, clients)
+                self:connect_signal('mouse::enter', function()
+                    self.border_color = beautiful.xcolor8
+                    self.border_width = dpi(1)
+                    awesome.emit_signal("bling::task_preview::visibility", s,
+                                        true, c)
+                end)
+                self:connect_signal('mouse::leave', function()
+                    self.border_width = dpi(0)
+                    awesome.emit_signal("bling::task_preview::visibility", s,
+                                        false, c)
+                end)
+            end
         }
     }
 
@@ -436,15 +484,15 @@ screen.connect_signal("request::desktop_decoration", function(s)
                             widget = wibox.widget.separator
                         },
                         layout = wibox.layout.fixed.horizontal
-                    })),
+                    }, beautiful.xcolor0)),
                     s.mypromptbox,
-                    wrap_widget(make_pill(playerctl_bar, beautiful.xcolor8))
+                    wrap_widget(make_pill(playerctl_bar, beautiful.xcolor0))
                 },
                 {wrap_widget(s.mytasklist), widget = wibox.container.constraint},
                 {
-                    wrap_widget(make_pill(time_pill, beautiful.xcolor0 .. 55)),
+                    wrap_widget(make_pill(time_pill, beautiful.xcolor0)),
                     wrap_widget(make_pill(date_pill, beautiful.xcolor0)),
-                    wrap_widget(make_pill(battery_pill, beautiful.xcolor8 .. 55)),
+                    wrap_widget(make_pill(battery_wrapper, beautiful.xcolor0)),
                     wrap_widget(make_pill(
                                     {
                             s.mylayoutbox,
@@ -453,7 +501,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
                             right = dpi(8),
                             left = dpi(8),
                             widget = wibox.container.margin
-                        }, beautiful.xcolor8 .. 90)),
+                        }, beautiful.xcolor0)),
                     wrap_widget(awful.widget.only_on_screen(final_systray,
                                                             screen[1])),
                     helpers.horizontal_pad(4),
@@ -465,7 +513,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
         },
         { -- This is for a bottom border in the bar
             widget = wibox.container.background,
-            bg = beautiful.xcolor0,
+            bg = beautiful.darker_bg,
             forced_height = beautiful.widget_border_width
         }
     }

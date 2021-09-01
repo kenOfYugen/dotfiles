@@ -80,7 +80,8 @@ local playerctl_next_symbol = create_button("怜", beautiful.xcolor4,
                                             next_command, false)
 
 ncmp_tb = function(c)
-    awful.titlebar(c, {position = "left", size = 400, bg = beautiful.xcolor8}):setup{
+    awful.titlebar(c,
+                   {position = "left", size = 400, bg = beautiful.xbackground}):setup{
 
         {
             {

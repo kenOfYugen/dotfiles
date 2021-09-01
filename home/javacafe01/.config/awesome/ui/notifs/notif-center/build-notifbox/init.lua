@@ -3,26 +3,22 @@ local naughty = require('naughty')
 local wibox = require('wibox')
 local gears = require('gears')
 local beautiful = require('beautiful')
-
 local dpi = beautiful.xresources.apply_dpi
+
 local empty_notifbox = require(
                            'ui/notifs.notif-center.build-notifbox.empty-notifbox')
-
-local scroller = require(
-                     'ui/notifs.notif-center.build-notifbox.notifbox-scroller')
-
-local config_dir = gears.filesystem.get_configuration_dir()
-local widget_icon_dir = config_dir .. 'ui/notifs/notif-center/icons/'
 
 local width = dpi(380)
 
 local remove_notifbox_empty = true
 
-local notifbox_layout = wibox.layout.fixed.vertical()
+local notifbox_layout = wibox.widget {
+    layout = require("module.overflow").vertical,
+    scrollbar_width = 2,
+    spacing = 7,
+    scroll_speed = 10
+}
 
-scroller(notifbox_layout)
-
-notifbox_layout.spacing = dpi(7)
 notifbox_layout.forced_width = width
 
 reset_notifbox_layout = function()

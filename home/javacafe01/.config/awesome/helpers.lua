@@ -10,6 +10,15 @@ local wibox = require("wibox")
 local naughty = require("naughty")
 local helpers = {}
 
+function helpers.contains(_table, _c)
+	for _, c in ipairs(_table) do
+		if _c == c then
+			return true
+		end
+	end
+	return false
+end
+
 function helpers.find(rule)
     local function matcher(c) return awful.rules.match(c, rule) end
     local clients = client.get()

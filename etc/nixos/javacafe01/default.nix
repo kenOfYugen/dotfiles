@@ -23,6 +23,8 @@ in {
   home.sessionVariables = { EDITOR = "nvim"; };
 
   home.packages = with pkgs; [
+
+    # Programs
     mpv
     playerctl
     zoom-us
@@ -30,15 +32,22 @@ in {
     arandr
     gnome3.nautilus
     gnome3.eog
+    feh
     evince
+    manix
+    sqlite
+    element-desktop
+    pandoc
+    glxinfo
+    neovim-unwrapped
+
+    # Bin Scripts
     giph_wrapper
     updoot_script
     panes_script
     screenshot_script
     custom_fetch
-    manix
     manix_script
-    sqlite
     search_script
     preview_script
 
@@ -55,23 +64,14 @@ in {
     rnix-lsp
     shfmt
 
+    python39Packages.discordpy
+
     # Formatters
     (import ../derivations/lua-format.nix {
       inherit stdenv fetchFromGitHub pkgs;
     })
     black
 
-    # Matrix Client
-    element-desktop
-
-    pandoc
-    tdesktop
-    glxinfo
-
-    android-studio
-    neovide
-
-    obs-studio
   ];
 
   programs = {
@@ -86,15 +86,9 @@ in {
 
     discocss = {
       enable = true;
-      discord = pkgs.master.discord;
+      discord = pkgs.discord;
       discordAlias = true;
       css = import ./programs/discord-css.nix { };
-    };
-
-    emacs = {
-      enable = true;
-      package = pkgs.emacsPgtkGcc;
-      extraPackages = (epkgs: [ epkgs.vterm ]);
     };
 
     exa = {
@@ -109,33 +103,26 @@ in {
         myprofile = {
           id = 0;
           settings = { "general.smoothScroll" = true; };
-          userChrome = builtins.readFile (builtins.fetchurl {
-            url =
-              "https://raw.githubusercontent.com/JavaCafe01/firefox-css/master/userChrome.css";
-            sha256 =
-              "sha256:1ianm5w99mjjr6da0477n0bary5glv1wfc52xrb24jv7j14dfziz";
-          });
-          userContent = builtins.readFile (builtins.fetchurl {
-            url =
-              "https://raw.githubusercontent.com/JavaCafe01/firefox-css/master/userContent.css";
-            sha256 = "0r8sx50xv567fbq4v31rh5rhz4m4wabrxc34a18842bkjyq2cw9i";
-          });
+          userChrome = import ./programs/firefox/userChrome-css.nix { };
+          userContent = import ./programs/firefox/userContent-css.nix { };
+
+          # Pretty pog, I can enable css without going into firefox.
+          extraConfig = ''
+            user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+            user_pref("full-screen-api.ignore-widgets", true);
+          '';
         };
 
         chat = {
           id = 1;
           settings = { "general.smoothScroll" = true; };
-          userChrome = builtins.readFile (builtins.fetchurl {
-            url =
-              "https://raw.githubusercontent.com/JavaCafe01/firefox-css/master/userChrome.css";
-            sha256 =
-              "sha256:1ianm5w99mjjr6da0477n0bary5glv1wfc52xrb24jv7j14dfziz";
-          });
-          userContent = builtins.readFile (builtins.fetchurl {
-            url =
-              "https://raw.githubusercontent.com/JavaCafe01/firefox-css/master/userContent.css";
-            sha256 = "0r8sx50xv567fbq4v31rh5rhz4m4wabrxc34a18842bkjyq2cw9i";
-          });
+          userChrome = import ./programs/firefox/userChrome-css.nix { };
+          userContent = import ./programs/firefox/userContent-css.nix { };
+
+          extraConfig = ''
+            user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+            user_pref("full-screen-api.ignore-widgets", true);
+          '';
         };
       };
     };
@@ -157,7 +144,7 @@ in {
     };
 
     ncspot = {
-      enable = true;
+      enable = false;
       settings = {
         use_nerdfont = true;
         notify = false;
@@ -198,21 +185,21 @@ in {
       initExtra = ''
         set -k
         setopt auto_cd
-        export PATH="''${HOME}/.local/bin:''${HOME}/go/bin:''${HOME}/.emacs.d/bin/:''${HOME}/.npm/bin/:''${PATH}"
+        export PATH="''${HOME}/.local/bin:''${HOME}/go/bin:''${HOME}/.emacs.d/bin:''${HOME}/.npm/bin:''${HOME}/.cargo/bin:''${PATH}"
         setopt NO_NOMATCH   # disable some globbing
 
         function run() {
-            nix run nixpkgs#$@
+          nix run nixpkgs#$@
         }
 
         precmd() {
-            printf '\033]0;%s\007' "$(dirs)"
+          printf '\033]0;%s\007' "$(dirs)"
         }
 
         command_not_found_handler() {
-            printf 'Command not found ->\033[32;05;16m %s\033[0m \n' "$0" >&2
-            return 127
-        }
+          printf 'Command not found ->\033[32;05;16m %s\033[0m \n' "$0" >&2
+          return 127
+                                                           }
 
         export SUDO_PROMPT=$'Password for ->\033[32;05;16m %u\033[0m  '
 
@@ -222,21 +209,21 @@ in {
         '
 
         FZF_TAB_COMMAND=(
-            ${pkgs.fzf}/bin/fzf
-            --ansi
-            --expect='$continuous_trigger' # For continuous completion
-            --nth=2,3 --delimiter='\x00'  # Don't search prefix
-            --layout=reverse --height="''${FZF_TMUX_HEIGHT:=50%}"
-            --tiebreak=begin -m --bind=tab:down,btab:up,change:top,ctrl-space:toggle --cycle
-            '--query=$query'   # $query will be expanded to query string at runtime.
-            '--header-lines=$#headers' # $#headers will be expanded to lines of headers at runtime
+          ${pkgs.fzf}/bin/fzf
+          --ansi
+          --expect='$continuous_trigger' # For continuous completion
+          --nth=2,3 --delimiter='\x00'  # Don't search prefix
+          --layout=reverse --height="''${FZF_TMUX_HEIGHT:=50%}"
+          --tiebreak=begin -m --bind=tab:down,btab:up,change:top,ctrl-space:toggle --cycle
+          '--query=$query'   # $query will be expanded to query string at runtime.
+          '--header-lines=$#headers' # $#headers will be expanded to lines of headers at runtime
         )
-        zstyle ':fzf-tab:*' command $FZF_TAB_COMMAND
+          zstyle ':fzf-tab:*' command $FZF_TAB_COMMAND
 
-        zstyle ':completion:complete:*:options' sort false
-        zstyle ':fzf-tab:complete:_zlua:*' query-string input
+          zstyle ':completion:complete:*:options' sort false
+          zstyle ':fzf-tab:complete:_zlua:*' query-string input
 
-        zstyle ':fzf-tab:complete:*:*' fzf-preview '${preview_script}/bin/preview.sh $realpath'
+          zstyle ':fzf-tab:complete:*:*' fzf-preview '${preview_script}/bin/preview.sh $realpath'
       '';
 
       history = {
@@ -247,22 +234,12 @@ in {
 
       plugins = with pkgs; [
         {
-          name = "zsh-syntax-highlighting";
-          src = fetchFromGitHub {
-            owner = "zsh-users";
-            repo = "zsh-syntax-highlighting";
-            rev = "0.8.0-alpha1-pre-redrawhook";
-            sha256 = "1gv7cl4kyqyjgyn3i6dx9jr5qsvr7dx1vckwv5xg97h81hg884rn";
-          };
-          file = "zsh-syntax-highlighting.zsh";
-        }
-        {
           name = "zsh-completions";
           src = fetchFromGitHub {
             owner = "zsh-users";
             repo = "zsh-completions";
-            rev = "0.33.0";
-            sha256 = "1c2xx9bkkvyy0c6aq9vv3fjw7snlm0m5bjygfk5391qgjpvchd29";
+            rev = "32732916a0d0a25adcdb25c4906e0111681a81e2";
+            sha256 = "1arj4f0d3k6cmz0h5bs8wl2p9i86s7if39d52ywf9b8rpq9bz0k8";
           };
         }
         {
@@ -270,9 +247,19 @@ in {
           src = fetchFromGitHub {
             owner = "Aloxaf";
             repo = "fzf-tab";
-            rev = "3d6aca79b68b8b98286dda2cb76076f2a2081225";
-            sha256 = "0kr6f3ii0gl61fhhd2nybwpcsjv816ag98xbjgz82ihlay4nqi6k";
+            rev = "89a33154707c09789177a893e5a8ebbb131d5d3d";
+            sha256 = "1g8011ldrghbw5ibchsp0p93r31cwyx2r1z5xplksd779jw79wdx";
           };
+        }
+        {
+          name = "zsh-syntax-highlighting";
+          src = fetchFromGitHub {
+            owner = "zsh-users";
+            repo = "zsh-syntax-highlighting";
+            rev = "6e0e950154a4c6983d9e077ed052298ad9126144";
+            sha256 = "0y5zg08jxayq46r9j61mf5j761j83nkzgh4aa1jcs4k6l2nwcgdp";
+          };
+          file = "zsh-syntax-highlighting.zsh";
         }
       ];
     };
@@ -286,43 +273,55 @@ in {
     };
 
     picom = {
-      package = (pkgs.picom.overrideAttrs (old: {
-        src = pkgs.fetchFromGitHub {
-          owner = "yshui";
-          repo = "picom";
-          rev = "d9c97421324b51c8beefacc7e66a2218ab3e5247";
-          sha256 = "0qm3i8fbqms4gj9sqhmyagyvclbsdgjyqhni956b7arm5nf4nswn";
-        };
-      })).override { stdenv = pkgs.clangStdenv; };
-
+      package = pkgs.picom-git;
       enable = true;
       experimentalBackends = true;
       backend = "glx";
       vSync = true;
       shadow = false;
       shadowOffsets = [ (-18) (-18) ];
+      shadowOpacity = "0.4";
 
       shadowExclude = [
         "window_type = 'popup_menu'"
         "class_g = 'slop'"
         "window_type = 'menu'"
+        "window_type = 'notification'"
         "class_g = 'Firefox' && window_type *= 'utility'"
         "_GTK_FRAME_EXTENTS@:c"
       ];
 
       extraOptions = ''
-        #corner-radius = 10;
-        #rounded-corners-exclude = [
-        #    "window_type = 'popup_menu'",
-        #    "window_type = 'dock'",
-        #    "class_g = 'slop'",
-        #    "window_type = 'notification'",
-        #    "window_type = 'menu'",
-        #    "class_g = 'Firefox' && window_type *= 'utility'",
-        #    "_GTK_FRAME_EXTENTS@:c",
-        #];
-      '';
+        # corner-radius = 6;
+        # round-borders = 1;
+        # rounded-corners-exclude = [
+        # "window_type = 'popup_menu'",
+        #       # "window_type = 'dropdown_menu'",
+        #       "window_type = 'dock'",
+        #       "class_g = 'slop'",
+        #       "window_type = 'notification'",
+        #       "window_type = 'menu'",
+        #       "class_g = 'Firefox' && window_type *= 'utility'",
+        #       "_GTK_FRAME_EXTENTS@:c",
+        #       ];
 
+        #      blur: {
+        #      method = "dual_kawase";
+        #      strength = 7;
+        #      background = false;
+        #      background-frame = false;
+        #      background-fixed = false;
+        #      kern = "3x3box";
+        #      }
+
+        #      blur-background-exclude = [
+        #      "window_type = 'dock'",
+        #      # "window_type = 'dropdown_menu'",
+        #      "window_type = 'notification'",
+        #      "class_g = 'slop'",
+        #      "_GTK_FRAME_EXTENTS@:c"
+        #      ];
+              '';
     };
 
     playerctld.enable = true;

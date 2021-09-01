@@ -22,7 +22,6 @@ done
 ## Packages
 nix-user-pkgs() {
                     nix-store -qR ~/.nix-profile
-                    nix-store -qR /etc/profiles/per-user/"$USER"
 }
 
 ## WM Name

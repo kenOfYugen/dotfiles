@@ -119,7 +119,7 @@ local playerctl = wibox.widget {
         {
             art,
             bg = beautiful.xcolor0,
-            -- shape = helpers.rrect(beautiful.border_radius - 5),
+            shape = helpers.rrect(beautiful.border_radius),
             widget = wibox.container.background
         },
         left = dpi(0),
@@ -169,9 +169,4 @@ local playerctl = wibox.widget {
     layout = wibox.layout.align.horizontal
 }
 
-return {
-    playerctl,
-    bg = beautiful.xcolor0 .. 55,
-    shape = helpers.rrect(beautiful.client_radius),
-    widget = wibox.container.background
-}
+return playerctl

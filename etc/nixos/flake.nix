@@ -5,9 +5,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     discocss.url = "github:mlvzk/discocss/flake";
     home.url = "github:nix-community/home-manager";
-    emacs.url = "github:mjlbach/emacs-overlay";
     nur.url = "github:nix-community/NUR";
-    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
+    nixpkgs-f2k.url = "github:fortuneteller2k/nixpkgs-f2k";
 
     master.url = "github:nixos/nixpkgs/master";
     stable.url = "github:nixos/nixpkgs/release-20.09";
@@ -18,7 +17,8 @@
     nixpkgs.follows = "unstable";
   };
 
-  outputs = { self, home, nixpkgs, nixos-hardware, discocss, ... }@inputs:
+  outputs = { self, home, nixpkgs, nixos-hardware, discocss, nixpkgs-f2k
+    , ... }@inputs:
     with nixpkgs.lib;
     let
       config = {

@@ -1,6 +1,5 @@
 -- keys.lua
 -- Contains Global Keys
-local gears = require("gears")
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local helpers = require("helpers")
@@ -58,10 +57,10 @@ awful.keyboard.append_global_keybindings(
             group = "client"
         }), awful.key({modkey}, "u", awful.client.urgent.jumpto,
                       {description = "jump to urgent client", group = "client"}),
-        awful.key({modkey}, "Tab", function()
-            awful.client.focus.history.previous()
-            if client.focus then client.focus:raise() end
-        end, {description = "go back", group = "client"})
+        awful.key({altkey}, "Tab", function()
+            awesome.emit_signal("module::window_switcher::visibility",
+                                mouse.screen)
+        end, {description = "Window Switcher", group = "client"})
     })
 
 -- Awesomewm
@@ -88,7 +87,7 @@ awful.keyboard.append_global_keybindings(
                   {description = "playerctl next", group = "awesome"}),
 
         -- Screen Shots/Vids
-        awful.key({}, "Print", function() awful.spawn.with_shell("shoot") end,
+        awful.key({}, "Print", function() require("ui.pop.shoot"):show() end,
                   {description = "take a screenshot", group = "awesome"}),
         awful.key({modkey}, "Print",
                   function() awful.spawn.with_shell("shoot selnp") end, {
@@ -106,20 +105,13 @@ awful.keyboard.append_global_keybindings(
                   function() awful.spawn("brightnessctl s 5%-") end,
                   {description = "decrease brightness", group = "awesome"}),
 
-        -- ColorPicker
-        awful.key({modkey}, "p", function() awful.spawn("farge --notify") end,
-                  {description = "color picker", group = "awesome"}),
-
         -- Awesome stuff
         awful.key({modkey}, "F1", hotkeys_popup.show_help,
                   {description = "show help", group = "awesome"}),
         awful.key({modkey}, "Escape", awful.tag.history.restore,
                   {description = "go back", group = "tag"}),
-        awful.key({modkey, shift}, "d", function()
-            awesome.emit_signal("widgets::start::toggle", mouse.screen)
-        end, {description = "show panel", group = "awesome"}),
         awful.key({modkey}, "x", function()
-            awesome.emit_signal("widgets::exit_screen::toggle")
+            require("ui.pop.exitscreen").exit_screen_show()
         end, {description = "show exit screen", group = "awesome"}),
         awful.key({modkey, "Control"}, "r", awesome.restart,
                   {description = "reload awesome", group = "awesome"}),
@@ -179,8 +171,7 @@ awful.keyboard.append_global_keybindings(
         awful.key({modkey}, "s",
                   function() awesome.emit_signal("scratch::music") end,
                   {description = "open music", group = "scratchpad"}),
-        awful.key({modkey}, "z",
-                  function() awesome.emit_signal("widgets::peek") end,
+        awful.key({modkey}, "z", function() require("ui.pop.peek").run() end,
                   {description = "peek", group = "client"}),
 
         awful.key({modkey}, "f", function() awful.spawn(filemanager) end,

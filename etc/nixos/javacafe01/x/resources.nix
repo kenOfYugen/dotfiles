@@ -23,7 +23,7 @@ Xft.lcdfilter: lcddefault
 *.color9:       #fca2aa
 
 ! green
-*.color2:       #7ed491
+*.color2:       #9ce5c0
 *.color10:      #a5d4af
 
 ! yellow

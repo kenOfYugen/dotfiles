@@ -34,7 +34,7 @@ local bright_adjust = wibox({
     height = height,
     visible = false,
     ontop = true,
-    bg = beautiful.xbackground .. "00"
+    bg = "#00000000"
 })
 
 local bright_bar = wibox.widget {
@@ -52,7 +52,7 @@ bright_adjust:setup{
         layout = wibox.layout.align.vertical,
         {
             bright_icon,
-            top = dpi(15),
+            top = dpi(30),
             left = dpi(50),
             right = dpi(50),
             bottom = dpi(15),
@@ -60,14 +60,15 @@ bright_adjust:setup{
         },
         {
             bright_bar,
-            left = dpi(25),
-            right = dpi(25),
-            bottom = dpi(30),
+            left = dpi(35),
+            right = dpi(35),
+            bottom = dpi(45),
+            top = dpi(10),
             widget = wibox.container.margin
         }
 
     },
-    shape = helpers.rrect(beautiful.client_radius),
+    shape = helpers.rrect(beautiful.border_radius),
     bg = beautiful.xbackground,
     border_width = beautiful.widget_border_width,
     border_color = beautiful.widget_border_color,

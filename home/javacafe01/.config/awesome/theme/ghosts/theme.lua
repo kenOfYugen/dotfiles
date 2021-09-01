@@ -16,6 +16,7 @@ local helpers = require("helpers")
 --
 local theme = dofile(themes_path .. "default/theme.lua")
 theme.wallpaper = gfs.get_configuration_dir() .. "images/bg.png"
+theme.wallpaper_blur = gfs.get_configuration_dir() .. "images/bg_blur.png"
 
 -- Titlebar icon path
 --
@@ -41,11 +42,12 @@ theme.delete_grey_icon = icon_path .. "notif-center/delete_grey.png"
 
 -- Load ~/.Xresources colors and set fallback colors
 --
-theme.xbackground = xrdb.background or "#1a2026"
+theme.darker_bg = "#10171e"
+theme.xbackground = xrdb.background or "#131a21"
 theme.xforeground = xrdb.foreground or "#ffffff"
 theme.xcolor0 = xrdb.color0 or "#29343d"
 theme.xcolor1 = xrdb.color1 or "#f9929b"
-theme.xcolor2 = xrdb.color2 or "#7ed491"
+theme.xcolor2 = xrdb.color2 or "#9ce5c0"
 theme.xcolor3 = xrdb.color3 or "#fbdf90"
 theme.xcolor4 = xrdb.color4 or "#a3b8ef"
 theme.xcolor5 = xrdb.color5 or "#ccaced"
@@ -85,16 +87,16 @@ theme.fg_minimize = theme.xcolor8
 
 theme.button_close = theme.xcolor1
 
--- uBorders
+-- Borders
 --
 theme.border_width = dpi(3)
 theme.oof_border_width = dpi(0)
-theme.border_normal = theme.xcolor0
-theme.border_focus = theme.xcolor8
-theme.border_radius = dpi(12)
+theme.border_normal = theme.darker_bg
+theme.border_focus = theme.darker_bg
+theme.border_radius = dpi(6)
 theme.client_radius = dpi(12)
-theme.widget_border_width = dpi(3)
-theme.widget_border_color = theme.xcolor0
+theme.widget_border_width = dpi(2)
+theme.widget_border_color = theme.darker_bg
 
 -- Taglist
 --
@@ -137,12 +139,11 @@ theme.tasklist_align = "center"
 
 -- Titlebars
 --
-theme.titlebar_size = dpi(40)
-theme.titlebar_height = dpi(20)
-theme.titlebar_bg_focus = theme.xcolor8
-theme.titlebar_bg_normal = theme.xcolor0
-theme.titlebar_fg_normal = theme.xcolor8
-theme.titlebar_fg_focus = theme.xcolor15 .. "55"
+theme.titlebar_size = dpi(35)
+theme.titlebar_bg_focus = theme.xbackground
+theme.titlebar_bg_normal = theme.darker_bg
+theme.titlebar_fg_normal = theme.xcolor15 .. "80"
+theme.titlebar_fg_focus = theme.xcolor15
 
 -- Edge snap
 --
@@ -181,9 +182,9 @@ theme.menu_border_width = theme.border_width / 2
 -- Hotkeys Pop Up
 --
 theme.hotkeys_font = theme.font
-theme.hotkeys_border_color = theme.xcolor0
+theme.hotkeys_border_color = theme.darker_bg
 theme.hotkeys_group_margin = dpi(40)
-theme.hotkeys_shape = helpers.rrect(25)
+theme.hotkeys_shape = helpers.rrect(5)
 
 -- Layout List
 --
@@ -202,11 +203,11 @@ theme.useless_gap = dpi(10)
 -- Exit Screen
 --
 theme.exit_screen_fg = theme.xforeground
-theme.exit_screen_bg = theme.xcolor0 .. "28"
+theme.exit_screen_bg = theme.xcolor0 .. "90"
 
 -- Wibar
 --
-theme.wibar_height = dpi(36) + theme.widget_border_width
+theme.wibar_height = dpi(42) + theme.widget_border_width
 theme.wibar_margin = dpi(15)
 theme.wibar_spacing = dpi(15)
 theme.wibar_bg = theme.xbackground
@@ -259,29 +260,30 @@ theme.collision_screen_fg_focus = theme.xcolor4
 theme.mstab_bar_height = dpi(60)
 theme.mstab_bar_padding = dpi(0)
 theme.mstab_border_radius = dpi(6)
-theme.tabbar_style = "boxes"
+theme.tabbar_disable = true
+theme.tabbar_style = "modern"
 theme.tabbar_bg_focus = theme.xbackground
 theme.tabbar_bg_normal = theme.xcolor0
-theme.tabbar_fg_focus = theme.xcolor8
-theme.tabbar_fg_normal = theme.xcolor15 .. "55"
-theme.tabbar_position = "left"
+theme.tabbar_fg_focus = theme.xcolor0
+theme.tabbar_fg_normal = theme.xcolor15
+theme.tabbar_position = "bottom"
 theme.tabbar_AA_radius = 0
 theme.tabbar_size = 40
 theme.mstab_bar_ontop = true
 
-theme.notification_spacing = 10
-theme.notif_border_radius = dpi(10)
-theme.notif_border_width = dpi(3)
-
--- Weather
---
-theme.weather_city = "San_Diego"
+theme.notification_spacing = theme.useless_gap
+theme.notification_border_radius = dpi(0)
+theme.notification_border_width = dpi(0)
 
 -- Swallowing
 --
 theme.dont_swallow_classname_list = {
     "firefox", "gimp", "Google-chrome", "Thunar"
 }
+
+-- Calendar
+--
+theme.calendar_start_sunday = true
 
 -- Layout Machi
 --
@@ -293,8 +295,8 @@ theme.machi_editor_active_opacity = 0.25
 
 -- Tag Preview
 --
-theme.tag_preview_widget_border_radius = dpi(10)
-theme.tag_preview_client_border_radius = dpi(7)
+theme.tag_preview_widget_border_radius = theme.border_radius
+theme.tag_preview_client_border_radius = theme.border_radius * 0.75
 theme.tag_preview_client_opacity = 0.5
 theme.tag_preview_client_bg = theme.xcolor0
 theme.tag_preview_client_border_color = theme.xcolor8
@@ -302,7 +304,23 @@ theme.tag_preview_client_border_width = dpi(3)
 theme.tag_preview_widget_bg = theme.xbackground
 theme.tag_preview_widget_border_color = theme.widget_border_color
 theme.tag_preview_widget_border_width = theme.widget_border_width
-theme.tag_preview_widget_margin = dpi(15)
+theme.tag_preview_widget_margin = dpi(10)
+
+-- Task Preview
+--
+theme.task_preview_widget_border_radius = theme.border_radius
+theme.task_preview_widget_bg = theme.xbackground
+theme.task_preview_widget_border_color = theme.widget_border_color
+theme.task_preview_widget_border_width = theme.widget_border_width
+theme.task_preview_widget_margin = dpi(15)
+
+-- Window Switcher
+--
+theme.window_switcher_widget_bg = theme.xbackground
+theme.window_switcher_widget_border_radius = theme.widget_border_radius
+theme.window_switcher_widget_border_width = theme.widget_border_width
+theme.window_switcher_widget_border_color = theme.widget_border_color
+theme.window_switcher_icon_valign = "left"
 
 theme.fade_duration = 250
 

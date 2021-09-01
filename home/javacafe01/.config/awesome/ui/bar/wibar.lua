@@ -2,15 +2,11 @@
 -- Wibar (top bar)
 local awful = require("awful")
 local gears = require("gears")
-local gfs = require("gears.filesystem")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local helpers = require("helpers")
-
-local systray_margin = (beautiful.wibar_height - beautiful.systray_icon_size) /
-                           2
 
 -- Awesome Panel -----------------------------------------------------------
 
@@ -143,6 +139,10 @@ local date_pill = wibox.widget {
     right = dpi(10),
     widget = wibox.container.margin
 }
+
+date_pill:buttons(gears.table.join(awful.button({}, 1, function()
+    awesome.emit_signal("widgets::notifs::toggle", mouse.screen)
+end)))
 
 -- Time Widget ----------------------------------------------------------------
 
@@ -339,7 +339,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 
     -- Create the wibox
     s.mywibox = awful.wibar({
-        position = "top",
+        position = "bottom",
         screen = s,
         type = "dock",
         ontop = true
@@ -395,11 +395,10 @@ screen.connect_signal("request::desktop_decoration", function(s)
                         awful.widget.clienticon,
                         top = dpi(3),
                         bottom = dpi(3),
-                        right = dpi(3),
                         layout = wibox.container.margin
                     },
-                    helpers.horizontal_pad(6),
-                    {id = 'text_role', widget = wibox.widget.textbox},
+                    -- helpers.horizontal_pad(6),
+                    -- {id = 'text_role', widget = wibox.widget.textbox},
                     layout = wibox.layout.fixed.horizontal
                 },
                 top = dpi(5),
@@ -409,7 +408,21 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 widget = wibox.container.margin
             },
             id = "background_role",
-            widget = wibox.container.background
+            widget = wibox.container.background,
+            create_callback = function(self, c, index, clients)
+                self:connect_signal('mouse::enter', function()
+                    self.border_color = beautiful.xcolor8
+                    self.border_width = dpi(1)
+                    awesome.emit_signal("bling::task_preview::visibility", s,
+                                        true, c)
+                end)
+                self:connect_signal('mouse::leave', function()
+                    self.border_width = dpi(0)
+                    awesome.emit_signal("bling::task_preview::visibility", s,
+                                        false, c)
+                end)
+            end
+
         }
     }
 
@@ -429,7 +442,11 @@ screen.connect_signal("request::desktop_decoration", function(s)
                     make_pill({
                         awesome_icon,
                         {
-                            s.mytaglist,
+                            {
+                                s.mytaglist,
+                                margins = dpi(3),
+                                layout = wibox.container.margin
+                            },
                             helpers.horizontal_pad(4),
                             layout = wibox.layout.fixed.horizontal
                         },

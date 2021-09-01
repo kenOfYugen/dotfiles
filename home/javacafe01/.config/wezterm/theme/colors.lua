@@ -8,7 +8,7 @@ col.cursor_border = "#a3b8ef"
 col.split = "#3b4b58"
 
 col.ansi = {
-    "#29343d", "#f9929b", "#7ed491", "#fbdf90", "#a3b8ef", "#ccaced", "#9ce5c0",
+    "#29343d", "#f9929b", "#9ce5c0", "#fbdf90", "#a3b8ef", "#ccaced", "#9ce5c0",
     "#ffffff"
 }
 col.brights = {

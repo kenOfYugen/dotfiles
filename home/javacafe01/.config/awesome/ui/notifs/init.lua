@@ -7,6 +7,18 @@ local dpi = beautiful.xresources.apply_dpi
 local helpers = require("helpers")
 local ruled = require("ruled")
 
+local menubar = require("menubar")
+
+naughty.connect_signal("request::icon", function(n, context, hints)
+    if context ~= "app_icon" then return end
+
+    local path = menubar.utils.lookup_icon(hints.app_icon) or
+                     menubar.utils.lookup_icon(hints.app_icon:lower())
+
+    if path then n.icon = path end
+
+end)
+
 require("ui.notifs.brightness")
 require("ui.notifs.playerctl")
 require("ui.notifs.volume")
@@ -17,11 +29,6 @@ naughty.config.defaults.screen = awful.screen.focused()
 naughty.config.defaults.timeout = 3
 naughty.config.defaults.title = "System Notification"
 naughty.config.defaults.position = "top_right"
-
-naughty.config.icon_dirs = {
-    "/usr/share/icons/Papirus-Dark/24x24/apps/", "/usr/share/pixmaps/"
-}
-naughty.config.icon_formats = {"png", "svg"}
 
 -- Timeouts
 naughty.config.presets.low.timeout = 3
@@ -59,8 +66,8 @@ ruled.notification.connect_signal("request::rules", function()
 end)
 
 naughty.connect_signal("request::display", function(n)
-    local appicon = n.app_icon
-    if not appicon then appicon = beautiful.notification_icon end
+
+    local appicon = beautiful.notification_icon
     local time = os.date("%H:%M")
 
     local action_widget = {
@@ -224,9 +231,9 @@ naughty.connect_signal("request::display", function(n)
                 widget = wibox.container.margin
             },
             bg = beautiful.xbackground,
-            border_width = beautiful.notif_border_width,
-            border_color = beautiful.xcolor8,
-            shape = helpers.rrect(beautiful.notif_border_radius),
+            border_width = beautiful.widget_border_width,
+            border_color = beautiful.widget_border_color,
+            shape = helpers.rrect(beautiful.border_radius),
             widget = wibox.container.background
         }
     }

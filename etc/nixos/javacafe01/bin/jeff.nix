@@ -19,15 +19,15 @@ case $1 in
         ;;
 
     "selmp4")
-        ${pkgs.giph}/bin/giph -y -s -f 30 -c '0.61,0.9,0.75,1' -p 18 $file2
+        ${pkgs.giph}/bin/giph -y -s -f 60 -c '0.61,0.9,0.75,1' -p 18 $file2
         ;;
 
     "selnpmp4")
-        ${pkgs.giph}/bin/giph -y -s -f 30 -c '0.61,0.9,0.75,1' -p -3 $file2
+        ${pkgs.giph}/bin/giph -y -s -f 60 -c '0.61,0.9,0.75,1' -p -3 $file2
         ;;
 
     "mp4")
-        ${pkgs.giph}/bin/giph -y -g "1920x1080+0+0" -f 30 $file2
+        ${pkgs.giph}/bin/giph -y -g "1920x1080+0+0" -f 60 $file2
         ;;
 
     *)

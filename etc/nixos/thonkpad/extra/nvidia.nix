@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
@@ -9,7 +9,9 @@ let
     exec -a "$0" "$@"
   '';
 in {
-  environment.systemPackages = [ nvidia-offload ];
+  environment.systemPackages = [ 
+    # nvidia-offload 
+  ];
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
@@ -33,6 +35,7 @@ in {
           Option "AllowEmptyInitialConfiguration"
       EndSection
     '';
+
     screenSection = ''
       Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
       Option         "AllowIndirectGLXProtocol" "off"
@@ -41,6 +44,7 @@ in {
   };
 
   hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
 
     modesetting.enable = true;
 

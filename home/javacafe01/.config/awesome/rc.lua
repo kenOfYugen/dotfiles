@@ -175,6 +175,6 @@ local draggable_player = wibox({
 draggable_player:connect_signal("mouse::enter", function()
     awful.mouse.wibox.move(draggable_player)
 end)
-]] --
+--]]
 
 -- EOF ------------------------------------------------------------------------

@@ -18,7 +18,6 @@ nixpkgs.lib.nixosSystem rec {
             stable = import stable { inherit config system; };
             staging = import staging { inherit config system; };
             staging-next = import staging-next { inherit config system; };
-
           };
       in {
         inherit config;
@@ -26,10 +25,9 @@ nixpkgs.lib.nixosSystem rec {
         overlays = with inputs;
           [
             nixpkgs-overlays
-            emacs.overlay
-            neovim-nightly.overlay
             nur.overlay
             input-overlays
+            nixpkgs-f2k.overlay
           ] ++ user-overlays;
       };
     }

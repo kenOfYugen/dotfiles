@@ -13,8 +13,9 @@ in {
   "#mainbox" = {
     padding = mkLiteral "20px 0px 20px 0px";
     background-color = mkLiteral "#131A21";
-    border = mkLiteral "10px";
+    border = mkLiteral "3px";
     border-color = mkLiteral "#29343d";
+    border-radius = mkLiteral "0px";
     children = map mkLiteral [ "inputbar" "message" "listview" ];
   };
 
@@ -38,3 +39,4 @@ in {
     margin = mkLiteral "0px 0.3em 0em 0em";
   };
 }
+
