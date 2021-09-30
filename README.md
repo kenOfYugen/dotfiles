@@ -1,3 +1,5 @@
+NOTE: These dotfiles are outdated. I will be adjusting them (making a separate repo for my NixOS configuration and my setup for AwesomeWM) soon.
+
 <div align=center>
 
 # dotfiles
