@@ -20,7 +20,7 @@ Welcome to my system configuration files! My system is managed by Nix, as I use 
 
 ```bash
 # Get into a Nix shell with git and flakes
-nix-shell -p nixFlakes
+nix-shell -p git nixFlakes
 
 # Clone my dotfiles
 git clone https://github.com/JavaCafe01/awedots /mnt/etc/nixos
