@@ -54,7 +54,13 @@ nixos-install --root /mnt --flake /mnt/etc/nixos#thonkpad --impure
 - Saves positions of clients in the floating layout
 
 ## Screenshots
-TODO
+<img src="assets/overall.png" width="90%" height="90%"/>
+
+<img src="assets/dash.png" width="90%" height="90%"/>
+
+<img src="assets/music.png" width="90%" height="90%"/>
+
+<img src="assets/lockscreen.png" width="90%" height="90%"/>
 
 ## Special Thanks
 - [elenapan's dotfiles](https://github.com/elenapan/dotfiles)
