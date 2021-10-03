@@ -1,5 +1,3 @@
-NOTE: These dotfiles are outdated. I will be adjusting them (making a separate repo for my NixOS configuration and my setup for AwesomeWM) soon.
-
 <div align=center>
 
 # dotfiles
@@ -14,10 +12,34 @@ Welcome to my system configuration files! My system is managed by Nix, as I use 
 
 **Note**: Please don't use this as a template NixOS setup - I just started using NixOS and I'm sure what I'm doing isn't the best at some places.
 
-## Install
-(in progress)
 
-## Modules
+## Setup for NixOS
+1. Get the latest [NixOS ISO](https://nixos.org/download.html) and boot into the installer/environment.
+2. Format and mount your disks.
+3. Follow these commands:
+
+```bash
+# Get into a Nix shell with git and flakes
+nix-shell -p nixFlakes
+
+# Clone my dotfiles
+git clone https://github.com/JavaCafe01/awedots /mnt/etc/nixos
+
+# Remove this file
+rm /mnt/etc/nixos/thonkpad/hardware-configuration.nix
+
+# Generate a config and copy the hardware configuration, disregarding the generated configuration.nix
+nixos-generate-config
+cp /etc/nixos/hardware-configuration.nix /mnt/etc/nixos/thonkpad/
+
+# Install this NixOS configuration with flakes
+nixos-install --root /mnt --flake /mnt/etc/nixos#thonkpad --impure
+```
+4. Reboot, login as root, and change the password for your user using `passwd`.
+5. Log in as your normal user.
+
+
+## AwesomeWM Modules
 ### [bling](https://github.com/BlingCorp/bling)
 - Adds new layouts, modules, and widgets that try to primarily focus on window management
 ### [layout-machi](https://github.com/xinhaoyuan/layout-machi)
@@ -32,24 +54,7 @@ Welcome to my system configuration files! My system is managed by Nix, as I use 
 - Saves positions of clients in the floating layout
 
 ## Screenshots
-### Main
-![Main](assets/main.png)
-- Panel widget (with notification center)
-- Notifications (made with the AwesomeWM API)
-### Neovim
-![Nvim](assets/nvim.png)
-- Neovim 0.5+ (nightly)
-- [Configuration](https://github.com/JavaCafe01/NvChad)
-### Browser
-![Firefox](assets/firefox.png)
-- CSS is under [`/etc/nixos/javacafe01/programs/firefox`](https://github.com/JavaCafe01/awedots/tree/master/etc/nixos/javacafe01/programs/firefox)
-### Scratchpads
-![Scratchpads](assets/scratchpads.png)
-- Ncmpcpp with mopidy-spotify
-- Discord with [discocss](https://github.com/mlvzk/discocss)
-### Lockscreen
-![Lockscreen](assets/lockscreen.png)
-- Built with the AwesomeWM API
+TODO
 
 ## Special Thanks
 - [elenapan's dotfiles](https://github.com/elenapan/dotfiles)
