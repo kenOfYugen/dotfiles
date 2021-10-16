@@ -24,7 +24,7 @@ in {
   home.homeDirectory = "/home/javacafe01";
 
   home.file = {
-    ".config/awesome".source = ../config/awesome;
+    #    ".config/awesome".source = ../config/awesome;
     ".config/wezterm".source = ../config/wezterm;
     ".config/nvim/lua/custom/chadrc.lua".source = ../config/nvchad/rc.lua;
     ".config/nvim/lua/custom/init.lua".source = ../config/nvchad/init.lua;
@@ -84,6 +84,11 @@ in {
   ];
 
   programs = {
+    alacritty = {
+      enable = true;
+      package = pkgs.alacritty-ligatures;
+    };
+
     bat = {
       enable = true;
       config = {
@@ -120,7 +125,7 @@ in {
             "browser.startup.homepage" = "https://gs.is-a.dev/startpage/";
             "general.smoothScroll" = true;
           };
-          userChrome = import ./programs/firefox/userChrome-css.nix { };
+          # userChrome = import ./programs/firefox/userChrome-css.nix { };
           userContent = import ./programs/firefox/userContent-css.nix { };
 
           # Pretty pog, I can enable css without going into firefox.
@@ -289,58 +294,6 @@ in {
       enableSshSupport = true;
     };
 
-    picom = {
-      package = pkgs.nur.repos.reedrw.picom-next-ibhagwan;
-      enable = true;
-      experimentalBackends = true;
-      backend = "glx";
-      vSync = true;
-      shadow = false;
-      shadowOffsets = [ (-18) (-18) ];
-      shadowOpacity = "0.4";
-
-      shadowExclude = [
-        "window_type = 'popup_menu'"
-        "class_g = 'slop'"
-        "window_type = 'menu'"
-        "window_type = 'notification'"
-        "class_g = 'Firefox' && window_type *= 'utility'"
-        "_GTK_FRAME_EXTENTS@:c"
-      ];
-
-      extraOptions = ''
-        corner-radius = 6;
-        round-borders = 1;
-        rounded-corners-exclude = [
-        "window_type = 'popup_menu'",
-              # "window_type = 'dropdown_menu'",
-              "window_type = 'dock'",
-              "class_g = 'slop'",
-              "window_type = 'notification'",
-              "window_type = 'menu'",
-              "class_g = 'Firefox' && window_type *= 'utility'",
-              "_GTK_FRAME_EXTENTS@:c",
-              ];
-
-        #      blur: {
-        #      method = "dual_kawase";
-        #      strength = 7;
-        #      background = false;
-        #      background-frame = false;
-        #      background-fixed = false;
-        #      kern = "3x3box";
-        #      }
-
-        #      blur-background-exclude = [
-        #      "window_type = 'dock'",
-        #      # "window_type = 'dropdown_menu'",
-        #      "window_type = 'notification'",
-        #      "class_g = 'slop'",
-        #      "_GTK_FRAME_EXTENTS@:c"
-        #      ];
-      '';
-    };
-
     playerctld.enable = true;
   };
 
@@ -370,6 +323,19 @@ in {
     };
 
     font.name = "Sarasa UI K 10";
+  };
+
+xdg = {
+    enable = true;
+
+    userDirs = {
+      enable = true;
+      documents = "${config.home.homeDirectory}/Documents";
+      music = "${config.home.homeDirectory}/Music";
+      pictures = "${config.home.homeDirectory}/Pictures";
+      videos = "${config.home.homeDirectory}/Videos";
+      screenshots = "${pictures}/screenshots";
+    };
   };
 
   xresources.extraConfig = import ./x/resources.nix { };

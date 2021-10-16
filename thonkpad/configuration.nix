@@ -6,8 +6,9 @@
   imports = [
     ./hardware-configuration.nix
     ./extra/fonts.nix
-    ./extra/nvidia.nix
+    ./extra/amdgpu.nix
     ./extra/vscode.nix
+    ./extra/gaming.nix
   ];
 
   nix = {
@@ -20,7 +21,6 @@
     ];
 
     trustedUsers = [ "root" "javacafe01" ];
-
     package = pkgs.nixUnstable;
 
     extraOptions = ''
@@ -28,9 +28,7 @@
     '';
 
     allowedUsers = [ "javacafe01" ];
-
     autoOptimiseStore = true;
-
     checkConfig = true;
 
     gc = {
@@ -41,7 +39,6 @@
     };
 
     optimise.automatic = true;
-
     useSandbox = false;
   };
 
@@ -52,18 +49,13 @@
     kernelParams = [
       "acpi_rev_override"
       "mem_sleep_default=deep"
-      "intel_iommu=igfx_off"
-      "nvidia-drm.modeset=1"
+      # "intel_iommu=igfx_off"
+      # "nvidia-drm.modeset=1"
     ];
 
     loader = {
-      grub = {
-        devices = [ "nodev" ];
-        efiSupport = true;
-        enable = true;
-        useOSProber = true;
-        version = 2;
-      };
+      grub.enable = false;
+      systemd-boot.enable = true;
 
       efi = {
         canTouchEfiVariables = true;
@@ -85,7 +77,7 @@
     };
 
     interfaces = {
-      enp0s31f6.useDHCP = true;
+      enp5s0.useDHCP = true;
       wlan0.useDHCP = true;
     };
   };
@@ -104,11 +96,11 @@
   services = {
     blueman.enable = true;
     printing.enable = true;
-    tlp.enable = true;
+    tlp.enable = false;
     upower.enable = true;
     openssh.enable = true;
     acpid.enable = true;
-    thermald.enable = true;
+    thermald.enable = false;
     gvfs.enable = true;
 
     xserver = {
@@ -119,12 +111,6 @@
 
       displayManager = {
         lightdm = { enable = true; };
-        /* sddm = {
-           enable = true;
-           settings.Wayland.SessionDir =
-           "${pkgs.plasma5Packages.plasma-workspace}/share/wayland-sessions";
-           };
-        */
 
         autoLogin = {
           enable = true;
@@ -134,13 +120,9 @@
         defaultSession = "none+awesome";
       };
 
-      # desktopManager = { plasma5.enable = true; };
-
       windowManager = {
         awesome = {
           enable = true;
-          # This is from f2k's flake repository
-          package = pkgs.awesome-git;
 
           luaModules = with pkgs; [
             lua52Packages.lgi
@@ -151,7 +133,6 @@
           ];
         };
       };
-
     };
 
     dbus = {
@@ -200,6 +181,31 @@
         bitrate = 320
       '';
     };
+
+    picom = {
+      enable = true;
+      experimentalBackends = true;
+      backend = "glx";
+      vSync = false;
+      shadow = true;
+      shadowOffsets = [ (-18) (-18) ];
+      shadowOpacity = 0.4;
+
+      shadowExclude = [
+        "class_g = 'slop'"
+        "window_type = 'menu'"
+        "class_g = 'Firefox' && window_type *= 'utility'"
+        "_GTK_FRAME_EXTENTS@:c"
+      ];
+
+      wintypes = {
+        popup_menu = { full-shadow = true; };
+        dropdown_menu = { full-shadow = true; };
+        notification = { shadow = true; full-shadow = true; };
+        normal = { full-shadow = true; };
+      };
+
+    };
   };
 
   sound.enable = true;
@@ -226,6 +232,10 @@
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
+
+      extraPackages = with pkgs; [ amdvlk rocm-opencl-icd rocm-opencl-runtime ];
+
+      extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
     };
 
     bluetooth.enable = true;
@@ -343,9 +353,11 @@
     }];
 
   system = {
-    stateVersion = "20.09";
+    stateVersion = "21.05";
     userActivationScripts.clone-nvchad.text = ''
       ${pkgs.git}/bin/git clone https://github.com/NvChad/NvChad ~/.config/nvim || true
     '';
   };
+
+  xdg.portal.enable = true;
 }
