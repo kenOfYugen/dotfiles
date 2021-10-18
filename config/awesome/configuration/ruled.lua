@@ -13,7 +13,7 @@ ruled.client.connect_signal("request::rules", function()
             raise = true,
             size_hints_honor = false,
             screen = awful.screen.preferred,
-            placement = awful.placement.centered + awful.placement.no_offscreen
+            placement = awful.placement.no_overlap+awful.placement.no_offscreen
         }
     }
 
@@ -71,7 +71,7 @@ ruled.client.connect_signal("request::rules", function()
         id = "titlebars",
         rule_any = {type = {"normal", "dialog"}},
         except_any = {
-            class = {"Steam", "zoom", "jetbrains-studio", "chat"},
+            class = {"Steam", "zoom", "jetbrains-studio", "chat", "Org.gnome.Nautilus", "Firefox", "Google-chrome"},
             type = {"splash"},
             instance = {"onboard"},
             name = {"^discord.com is sharing your screen.$"}

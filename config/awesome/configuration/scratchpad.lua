@@ -39,11 +39,11 @@ local chat_anim = {
 }
 
 local chat_scratch = bling.module.scratchpad:new{
-    command = [[ firefox -P chat --new-tab -url https://discord.com/channels/@me ]],
-    -- command = "Discord",
+    -- command = [[ firefox -P chat --new-tab -url https://discord.com/channels/@me --class chat ]],
+    command = "Discord",
     rule = {
-        class = "chat"
-        --    class = "discord"
+        -- class = "chat"
+        class = "discord"
     },
     sticky = false,
     autoclose = false,

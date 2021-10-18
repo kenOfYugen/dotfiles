@@ -89,10 +89,10 @@ theme.button_close = theme.xcolor1
 
 -- Borders
 --
-theme.border_width = dpi(3)
+theme.border_width = dpi(0)
 theme.oof_border_width = dpi(0)
-theme.border_normal = theme.darker_bg
-theme.border_focus = theme.darker_bg
+theme.border_normal = theme.xbackground
+theme.border_focus = theme.xbackground
 theme.border_radius = dpi(6)
 theme.client_radius = dpi(12)
 theme.widget_border_width = dpi(2)
@@ -140,7 +140,8 @@ theme.tasklist_align = "center"
 -- Titlebars
 --
 theme.titlebar_size = dpi(35)
-theme.titlebar_bg_focus = theme.xbackground
+theme.titlebar_2bwm_size = dpi(3)
+theme.titlebar_bg_focus = theme.darker_bg
 theme.titlebar_bg_normal = theme.darker_bg
 theme.titlebar_fg_normal = theme.xcolor15 .. "80"
 theme.titlebar_fg_focus = theme.xcolor15

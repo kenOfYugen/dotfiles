@@ -8,7 +8,7 @@
     ./extra/fonts.nix
     ./extra/amdgpu.nix
     ./extra/vscode.nix
-    ./extra/gaming.nix
+   # ./extra/gaming.nix
   ];
 
   nix = {
@@ -105,6 +105,7 @@
 
     xserver = {
       enable = true;
+      useGlamor = true;
       layout = "us";
       dpi = 96;
       libinput.enable = true;
@@ -186,10 +187,15 @@
       enable = true;
       experimentalBackends = true;
       backend = "glx";
-      vSync = false;
+      vSync = true;
       shadow = true;
       shadowOffsets = [ (-18) (-18) ];
       shadowOpacity = 0.4;
+
+      settings = {
+        animations = true;
+        animation-stiffness = 300;
+      };
 
       shadowExclude = [
         "class_g = 'slop'"

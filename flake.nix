@@ -42,7 +42,7 @@
               discocss = discocss.defaultPackage.${system};
             } // (with nixpkgs-f2k.packages.${system}; {
               awesome = awesome-git;
-              picom = picom-git;
+              picom = picom-pijulius;
               xdg-desktop-portal-wlr = xdg-desktop-portal-wlr-git;
             }) // {
               /* Nixpkgs branches

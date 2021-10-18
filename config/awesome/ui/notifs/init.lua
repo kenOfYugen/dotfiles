@@ -231,7 +231,7 @@ naughty.connect_signal("request::display", function(n)
                 widget = wibox.container.margin
             },
             bg = beautiful.xbackground,
-            border_width = beautiful.widget_border_width,
+            border_width = beautiful.widget_border_width * 0,
             border_color = beautiful.widget_border_color,
             shape = helpers.rrect(beautiful.border_radius),
             widget = wibox.container.background

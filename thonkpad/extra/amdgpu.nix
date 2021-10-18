@@ -4,13 +4,16 @@
 
   services.xserver = { 
     videoDrivers = [ "amdgpu" ];
-    config = ''
+    extraConfig = ''
     Section "Device"
-	Identifier "AMD"
-	Driver "amdgpu"
-	Option "TearFree" "true"
-	Option "DRI" "3"
-	Option "VariableRefresh" "true"
+      Identifier "Radeon"
+      Driver "radeon"
+      Option "TearFree" "on"
+    EndSection
+    Section "Device"
+      Identifier "AMD"
+      Driver "amdgpu"
+      Option "TearFree" "true"
     EndSection
     '';
   };

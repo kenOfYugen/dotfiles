@@ -11,6 +11,7 @@ client.connect_signal("request::titlebars", function(c)
     end
 end)
 
+--[[
 screen.connect_signal('arrange', function(s)
     local layout = s.selected_tag.layout.name
 
@@ -26,3 +27,4 @@ screen.connect_signal('arrange', function(s)
         ::continue::
     end
 end)
+]]

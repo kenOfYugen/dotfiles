@@ -486,13 +486,14 @@ screen.connect_signal("request::desktop_decoration", function(s)
                         layout = wibox.layout.fixed.horizontal
                     }, beautiful.xcolor0)),
                     s.mypromptbox,
-                    wrap_widget(make_pill(playerctl_bar, beautiful.xcolor0))
+                   wrap_widget(s.mytasklist)
                 },
-                {wrap_widget(s.mytasklist), widget = wibox.container.constraint},
+                { wrap_widget(make_pill(playerctl_bar, beautiful.xcolor0))
+, widget = wibox.container.constraint},
                 {
                     wrap_widget(make_pill(time_pill, beautiful.xcolor0)),
                     wrap_widget(make_pill(date_pill, beautiful.xcolor0)),
-                    wrap_widget(make_pill(battery_wrapper, beautiful.xcolor0)),
+                    -- wrap_widget(make_pill(battery_wrapper, beautiful.xcolor0)),
                     wrap_widget(make_pill(
                                     {
                             s.mylayoutbox,

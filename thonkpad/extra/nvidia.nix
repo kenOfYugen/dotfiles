@@ -14,7 +14,7 @@ in {
   ];
 
   services.xserver = {
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "nvidiaBeta" ];
 
     config = ''
       Section "Device"
@@ -44,7 +44,7 @@ in {
   };
 
   hardware.nvidia = {
-   # package = config.boot.kernelPackages.nvidiaPackages.beta;
+   package = config.boot.kernelPackages.nvidiaPackages.beta;
 
    modesetting.enable = true;
 

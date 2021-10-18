@@ -75,6 +75,8 @@ in {
 
     python39Packages.discordpy
 
+    discord
+
     # Formatters
     (import ../derivations/lua-format.nix {
       inherit stdenv fetchFromGitHub pkgs;
@@ -84,11 +86,6 @@ in {
   ];
 
   programs = {
-    alacritty = {
-      enable = true;
-      package = pkgs.alacritty-ligatures;
-    };
-
     bat = {
       enable = true;
       config = {
@@ -98,12 +95,14 @@ in {
       };
     };
 
+    /*
     discocss = {
       enable = true;
       discord = pkgs.discord;
       discordAlias = true;
       css = import ./programs/discord-css.nix { };
-    };
+      };
+      */
 
     exa = {
       enable = true;
@@ -325,18 +324,6 @@ in {
     font.name = "Sarasa UI K 10";
   };
 
-xdg = {
-    enable = true;
-
-    userDirs = {
-      enable = true;
-      documents = "${config.home.homeDirectory}/Documents";
-      music = "${config.home.homeDirectory}/Music";
-      pictures = "${config.home.homeDirectory}/Pictures";
-      videos = "${config.home.homeDirectory}/Videos";
-      screenshots = "${pictures}/screenshots";
-    };
-  };
-
+xdg.enable = true;
   xresources.extraConfig = import ./x/resources.nix { };
 }
