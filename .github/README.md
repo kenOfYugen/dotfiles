@@ -1,6 +1,6 @@
 <div align=center>
 
-# dotfiles
+# <img src="assets/home.png" />
 
 [![NixOS](https://img.shields.io/badge/NixOS-21.11-informational.svg?logo=nixos)](https://github.com/nixos/nixpkgs) [![AwesomeWM](https://img.shields.io/badge/AwesomeWM-git-blue.svg?logo=lua)](https://github.com/awesomeWM/awesome)
 
@@ -8,7 +8,7 @@
 
 <a href="https://awesomewm.org/"><img alt="AwesomeWM Logo" height="160" align = "left" src="https://upload.wikimedia.org/wikipedia/commons/0/07/Awesome_logo.svg"></a>
 
-Welcome to my system configuration files! My system is managed by Nix, as I use NixOS. Well, most of it is. My AwesomeWM configuration and Neovim configuration files are still written in lua, as the number of edits, features, and customizations I have done on them are too massive for me to convert those configs to Nix. The only configuration left to convert to Nix is **wezterm**.
+Welcome to my system configuration files! Ironically, nothing here is actually under my `$HOME` directory. My system is managed by Nix, as I use NixOS. Well, most of it is. My AwesomeWM configuration and Neovim configuration files are still written in lua, as the number of edits, features, and customizations I have done on them are too massive for me to convert those configs to Nix. The only configuration left to convert to Nix is **wezterm**.
 
 **Note**: Please don't use this as a template NixOS setup - I just started using NixOS and I'm sure what I'm doing isn't the best at some places.
 
