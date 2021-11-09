@@ -72,9 +72,11 @@ local get_titlebar = function(c, height)
             layout_spacing = dpi(6),
             bg_color_focus = beautiful.darker_bg,
             bg_color = beautiful.xbackground,
-            icon_shape = helpers.rrect(4)
+            icon_shape = helpers.rrect(0)
         }),
         nil,
+        nil,
+        --[[
         {
             {
                 {
@@ -91,7 +93,7 @@ local get_titlebar = function(c, height)
             },
             valign = "center",
             widget = wibox.container.place
-        },
+        },--]]
         expand = "none",
         buttons = buttons,
         layout = wibox.layout.align.horizontal

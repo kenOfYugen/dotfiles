@@ -6,12 +6,12 @@ nixpkgs.lib.nixosSystem rec {
   modules = [
     home.nixosModules.home-manager
     nixpkgs.nixosModules.notDetected
-    
-{
+
+    {
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        # sharedModules = [ discocss.hmModule ];
+        sharedModules = [ discocss.hmModule ];
         users.javacafe01 = nixpkgs.lib.mkMerge [ ../javacafe01 ];
       };
 

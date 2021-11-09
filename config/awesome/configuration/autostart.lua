@@ -3,7 +3,7 @@
 local awful = require("awful")
 
 -- Add apps to autostart here
-autostart_apps = {
+local autostart_apps = {
     "xset -b", -- Disable bell 
     "blueman-applet" -- Bluetooth Systray Applet
 }

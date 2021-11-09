@@ -50,15 +50,15 @@ local get_taglist = function(s)
         screen = s,
         filter = awful.widget.taglist.filter.all,
         style = {shape = gears.shape.rectangle},
-        layout = {spacing = 0, layout = wibox.layout.fixed.horizontal},
+        layout = {spacing = 0, layout = wibox.layout.fixed.vertical},
         widget_template = {
             {
                 {id = 'icon_role', widget = wibox.widget.imagebox},
                 id = 'margin_role',
                 top = dpi(7),
                 bottom = dpi(7),
-                left = dpi(10),
-                right = dpi(10),
+                left = dpi(11),
+                right = dpi(11),
                 widget = wibox.container.margin
             },
             id = 'background_role',
@@ -71,11 +71,11 @@ local get_taglist = function(s)
                         awesome.emit_signal("bling::tag_preview::visibility", s,
                                             true)
                     end
-                    if self.bg ~= beautiful.xbackground .. "60" then
+                    if self.bg ~= beautiful.darker_bg then
                         self.backup = self.bg
                         self.has_backup = true
                     end
-                    self.bg = beautiful.xbackground .. "60"
+                    self.bg = beautiful.darker_bg
                 end)
                 self:connect_signal('mouse::leave', function()
                     awesome.emit_signal("bling::tag_preview::visibility", s,

@@ -26,9 +26,9 @@ local create_button = function(symbol, color, command, playpause)
     awesome.connect_signal("bling::playerctl::status", function(playing)
         if playpause then
             if playing then
-                icon.markup = helpers.colorize_text("", color)
+                icon.markup = helpers.colorize_text("", color)
             else
-                icon.markup = helpers.colorize_text("", color)
+                icon.markup = helpers.colorize_text("", color)
             end
         end
     end)
@@ -81,12 +81,12 @@ local play_command =
 local prev_command = function() awful.spawn.with_shell("playerctl previous") end
 local next_command = function() awful.spawn.with_shell("playerctl next") end
 
-local playerctl_play_symbol = create_button("", beautiful.xcolor4,
+local playerctl_play_symbol = create_button("", beautiful.xcolor4,
                                             play_command, true)
 
-local playerctl_prev_symbol = create_button("玲", beautiful.xcolor4,
+local playerctl_prev_symbol = create_button("", beautiful.xcolor4,
                                             prev_command, false)
-local playerctl_next_symbol = create_button("怜", beautiful.xcolor4,
+local playerctl_next_symbol = create_button("", beautiful.xcolor4,
                                             next_command, false)
 
 local playerctl = wibox.widget {

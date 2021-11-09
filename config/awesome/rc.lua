@@ -48,7 +48,7 @@ require("signal")
 require("ui")
 
 -- Create a launcher widget and a main menu
-awesomemenu = {
+local awesomemenu = {
     {
         "Key Binds",
         function() hotkeys_popup.show_help(nil, awful.screen.focused()) end
@@ -57,9 +57,9 @@ awesomemenu = {
     {"Restart", awesome.restart}, {"Quit", function() awesome.quit() end}
 }
 
-appmenu = {{"Wezterm", terminal}, {"Emacs", editor}}
+local appmenu = {{"Wezterm", terminal}, {"Emacs", editor}}
 
-mymainmenu = awful.menu({
+local mymainmenu = awful.menu({
     items = {
         {"AwesomeWM", awesomemenu, beautiful.awesome_icon}, {"Apps", appmenu}
     }
@@ -68,8 +68,6 @@ mymainmenu = awful.menu({
 awful.mouse.append_global_mousebindings({
     awful.button({}, 3, function() mymainmenu:toggle() end)
 })
-
-local blacklisted_snid = setmetatable({}, {__mode = "v"})
 
 -- Garbage Collector Settings
 collectgarbage("setpause", 110)

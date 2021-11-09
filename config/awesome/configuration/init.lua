@@ -1,8 +1,6 @@
 local awful = require("awful")
+local wibox = require("wibox")
 local beautiful = require("beautiful")
-local gears = require("gears")
-
-local bling = require("module.bling")
 
 -- Set Autostart Applications
 require("configuration.autostart")
@@ -15,7 +13,8 @@ browser = "firefox"
 filemanager = "nautilus"
 discord = "discord"
 launcher = "rofi -show drun"
-music = terminal .. " start --class music ncmpcpp"
+music = terminal .. " start --class music ncspot"
+emoji_launcher = "rofi -show emoji"
 
 -- Global Vars
 screen_width = awful.screen.focused().geometry.width
@@ -31,43 +30,22 @@ altkey = "Mod1"
 shift = "Shift"
 ctrl = "Control"
 
-local yy = 10 + beautiful.wibar_height
+-- Set Wallpaper
+screen.connect_signal("request::wallpaper", function(s)
+    awful.wallpaper {
+        screen = s,
+        bg = beautiful.lighter_bg
+        --[[ widget = {
+         horizontal_fit_policy = "fit",
+         vertical_fit_policy   = "fit",
+         image                 = beautiful.wallpaper,
+         widget                = wibox.widget.imagebox,
+        },]] --
+    }
+end)
 
--- Enable Playerctl Module from Bling
-bling.signal.playerctl.enable {
-    ignore = {},
-    backend = "playerctl_lib",
-    update_on_activity = true
-}
-
-bling.widget.tag_preview.enable {
-    show_client_content = false,
-    placement_fn = function(c)
-        awful.placement.top_left(c, {
-            margins = {
-                top = beautiful.wibar_height + beautiful.useless_gap / 2,
-                left = beautiful.useless_gap / 2
-            }
-        })
-    end,
-    scale = 0.15,
-    honor_padding = true,
-    honor_workarea = false
-}
-
-bling.widget.task_preview.enable {
-    placement_fn = function(c)
-        awful.placement.top(c, {
-            margins = {top = beautiful.wibar_height + beautiful.useless_gap / 2}
-        })
-    end
-}
-
--- require("module.window_switcher").enable()
-bling.widget.window_switcher.enable()
-
--- Set wallpaper
-require("module.wallpaper")
+-- Get Bling Config
+require("configuration.bling")
 
 -- Get Keybinds
 require("configuration.keys")

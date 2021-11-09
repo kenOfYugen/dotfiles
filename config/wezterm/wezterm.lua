@@ -63,12 +63,12 @@ local cfg_misc = {
 local cfg_colors = {colors = theme.colors}
 
 -- Tab Style (like shape)
-local cfg_tab_bar_style = theme.tab_style
+local cfg_tab_bar = configuration.tabs
 
 -- Keys
 local cfg_keys = configuration.keys
 
 -- Merge everything and return
-local config = mytable.merge_all(cfg_misc, cfg_colors, cfg_tab_bar_style,
+local config = mytable.merge_all(cfg_misc, cfg_colors, cfg_tab_bar,
                                  cfg_keys)
 return config

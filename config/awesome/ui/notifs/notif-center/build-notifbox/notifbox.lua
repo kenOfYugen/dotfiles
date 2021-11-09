@@ -1,10 +1,6 @@
-local awful = require("awful")
 local wibox = require("wibox")
-local gears = require("gears")
 local beautiful = require("beautiful")
-local naughty = require("naughty")
 local dpi = beautiful.xresources.apply_dpi
-
 local helpers = require("helpers")
 
 local button = require("ui.widgets.button")
@@ -22,17 +18,6 @@ notifbox.create = function(icon, n, width)
     end)
     dismiss.forced_height = dpi(14)
     dismiss.forced_width = dpi(14)
-
-    local img_icon = wibox.widget {
-        image = icon,
-        forced_width = dpi(35),
-        forced_height = dpi(35),
-        resize = true,
-        clip_shape = function(cr)
-            gears.shape.rounded_rect(cr, dpi(35), dpi(35), dpi(6))
-        end,
-        widget = wibox.widget.imagebox
-    }
 
     box = wibox.widget {
         {
@@ -75,7 +60,6 @@ notifbox.create = function(icon, n, width)
                                         markup = "<b>" .. n.title .. "</b>",
                                         font = beautiful.font,
                                         align = "left",
-                                        visible = title_visible,
                                         widget = wibox.widget.textbox
                                     },
                                     forced_width = dpi(204),
@@ -88,7 +72,7 @@ notifbox.create = function(icon, n, width)
                                         font = beautiful.font,
                                         widget = wibox.widget.textbox
                                     },
-                                    left = dpi(10),
+                                    left = dpi(30),
                                     widget = wibox.container.margin
                                 },
                                 {

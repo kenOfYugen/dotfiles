@@ -28,7 +28,7 @@ naughty.config.defaults.ontop = true
 naughty.config.defaults.screen = awful.screen.focused()
 naughty.config.defaults.timeout = 3
 naughty.config.defaults.title = "System Notification"
-naughty.config.defaults.position = "top_right"
+naughty.config.defaults.position = "bottom_right"
 
 -- Timeouts
 naughty.config.presets.low.timeout = 3
@@ -147,7 +147,7 @@ naughty.connect_signal("request::display", function(n)
                             bottom = dpi(5),
                             widget = wibox.container.margin
                         },
-                        bg = beautiful.xcolor0,
+                        bg = beautiful.lighter_bg,
                         widget = wibox.container.background
                     },
                     {
@@ -230,10 +230,10 @@ naughty.connect_signal("request::display", function(n)
                 bottom = dpi(5),
                 widget = wibox.container.margin
             },
-            bg = beautiful.xbackground,
-            border_width = beautiful.widget_border_width * 0,
+            bg = beautiful.darker_bg,
+            border_width = 0,
             border_color = beautiful.widget_border_color,
-            shape = helpers.rrect(beautiful.border_radius),
+            shape = helpers.rrect(beautiful.border_radius * 0),
             widget = wibox.container.background
         }
     }

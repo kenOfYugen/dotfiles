@@ -50,6 +50,14 @@ hooks.add("install_plugins", function (use)
       use {
         "gpanders/editorconfig.nvim"
       }
+
+      use {
+        "elkowar/yuck.vim"
+      }
+
+      use {
+        "teal-language/vim-teal"
+      }
 end)
 
 -- alternatively, put this in a sub-folder like "lua/custom/plugins/mkdir"

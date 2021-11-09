@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
+
+  theme = import ../theme/theme.nix { };
 
   giph_wrapper =
     pkgs.writeShellScriptBin "jeff" (import ./bin/jeff.nix { inherit pkgs; });
@@ -9,30 +11,32 @@ let
   panes_script = pkgs.writeShellScriptBin "panes" (import ./bin/panes.nix { });
   updoot_script = pkgs.writeShellScriptBin "updoot"
     (import ./bin/updoot.nix { inherit pkgs; });
-  manix_script = pkgs.writeShellScriptBin "manix-search"
-    (import ./bin/manix.nix { inherit pkgs; });
-  search_script = pkgs.writeShellScriptBin "search"
-    (import ./bin/nix-search.nix { inherit pkgs; });
-  custom_fetch =
-    pkgs.writeShellScriptBin "gfetch" (import ./bin/gfetch.nix { });
   preview_script = pkgs.writeShellScriptBin "preview.sh"
     (import ./bin/preview.nix { inherit pkgs; });
-
-in {
-
+in
+{
   home.username = "javacafe01";
   home.homeDirectory = "/home/javacafe01";
 
   home.file = {
-    #    ".config/awesome".source = ../config/awesome;
-    ".config/wezterm".source = ../config/wezterm;
-    ".config/nvim/lua/custom/chadrc.lua".source = ../config/nvchad/rc.lua;
-    ".config/nvim/lua/custom/init.lua".source = ../config/nvchad/init.lua;
+    # ".config/awesome".source = ../config/awesome;
+    # ".config/wezterm".source = ../config/wezterm;
+    ".config/waybar/config".text = import ./programs/waybar/modules.nix { };
+    ".tree-sitter".source = (pkgs.runCommand "grammars" { } ''
+      mkdir -p $out/bin
+      ${
+        lib.concatStringsSep "\n" (lib.mapAttrsToList (name: src:
+          "name=${name}; ln -s ${src}/parser $out/bin/\${name#tree-sitter-}.so")
+          pkgs.tree-sitter.builtGrammars)
+      };
+    '');
   };
 
   home.sessionVariables = { EDITOR = "nvim"; };
 
   home.packages = with pkgs; [
+    eww
+
     # Programs
     mpv
     playerctl
@@ -45,19 +49,16 @@ in {
     evince
     manix
     sqlite
-    element-desktop
     pandoc
     glxinfo
     master.neovim-unwrapped
+    trash-cli
 
     # Bin Scripts
     giph_wrapper
     updoot_script
     panes_script
     screenshot_script
-    custom_fetch
-    manix_script
-    search_script
     preview_script
 
     # Language servers
@@ -73,19 +74,24 @@ in {
     rnix-lsp
     shfmt
 
-    python39Packages.discordpy
+    teal-lang
 
-    discord
+    master.wezterm
 
     # Formatters
-    (import ../derivations/lua-format.nix {
+    (import ../derivations/luaFormatter.nix {
       inherit stdenv fetchFromGitHub pkgs;
     })
     black
-
   ];
 
   programs = {
+    alacritty = {
+      enable = true;
+      package = pkgs.master.alacritty;
+      settings = import ./programs/alacritty.nix { inherit theme; };
+    };
+
     bat = {
       enable = true;
       config = {
@@ -95,14 +101,18 @@ in {
       };
     };
 
-    /*
     discocss = {
       enable = true;
       discord = pkgs.discord;
       discordAlias = true;
-      css = import ./programs/discord-css.nix { };
-      };
-      */
+      css = import ./programs/discord-css.nix { inherit theme; };
+    };
+
+    emacs = {
+      enable = true;
+      package = pkgs.emacsGcc;
+      extraPackages = epkgs: [ epkgs.vterm ];
+    };
 
     exa = {
       enable = true;
@@ -124,10 +134,10 @@ in {
             "browser.startup.homepage" = "https://gs.is-a.dev/startpage/";
             "general.smoothScroll" = true;
           };
-          # userChrome = import ./programs/firefox/userChrome-css.nix { };
-          userContent = import ./programs/firefox/userContent-css.nix { };
 
-          # Pretty pog, I can enable css without going into firefox.
+          userChrome = import ./programs/firefox/userChrome-css.nix { inherit theme; };
+          userContent = import ./programs/firefox/userContent-css.nix { inherit theme; };
+
           extraConfig = ''
             user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
             user_pref("full-screen-api.ignore-widgets", true);
@@ -137,8 +147,8 @@ in {
         chat = {
           id = 1;
           settings = { "general.smoothScroll" = true; };
-          userChrome = import ./programs/firefox/userChrome-css.nix { };
-          userContent = import ./programs/firefox/userContent-css.nix { };
+          userChrome = import ./programs/firefox/userChrome-css.nix { inherit theme; };
+          userContent = import ./programs/firefox/userContent-css.nix { inherit theme; };
 
           extraConfig = ''
             user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
@@ -165,16 +175,22 @@ in {
     };
 
     ncspot = {
-      enable = false;
+      enable = true;
       settings = {
-        use_nerdfont = true;
+        use_nerdfont = false;
         notify = false;
       };
     };
 
     rofi = {
       enable = true;
-      theme = import ./programs/rofi-theme.nix { inherit config; };
+      package = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
+
+      extraConfig = {
+        show-icons = true;
+      };
+
+      theme = import ./programs/rofi-theme.nix { inherit config theme; };
     };
 
     starship = {
@@ -201,6 +217,11 @@ in {
         v = "nvim";
         xwin = "Xephyr -br -ac -noreset -screen 960x600 :1";
         xdisp = "DISPLAY=:1";
+        waycord =
+          "Discord --enable-features=UseOzonePlatform --ozone-platform=wayland";
+        woogle-chrome =
+          "google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland";
+        rm = "${pkgs.trash-cli}/bin/trash-put";
       };
 
       initExtra = ''
@@ -256,30 +277,15 @@ in {
       plugins = with pkgs; [
         {
           name = "zsh-completions";
-          src = fetchFromGitHub {
-            owner = "zsh-users";
-            repo = "zsh-completions";
-            rev = "32732916a0d0a25adcdb25c4906e0111681a81e2";
-            sha256 = "1arj4f0d3k6cmz0h5bs8wl2p9i86s7if39d52ywf9b8rpq9bz0k8";
-          };
+          src = pkgs.zsh-completions-src;
         }
         {
           name = "fzf-tab";
-          src = fetchFromGitHub {
-            owner = "Aloxaf";
-            repo = "fzf-tab";
-            rev = "89a33154707c09789177a893e5a8ebbb131d5d3d";
-            sha256 = "1g8011ldrghbw5ibchsp0p93r31cwyx2r1z5xplksd779jw79wdx";
-          };
+          src = pkgs.fzf-tab-src;
         }
         {
           name = "zsh-syntax-highlighting";
-          src = fetchFromGitHub {
-            owner = "zsh-users";
-            repo = "zsh-syntax-highlighting";
-            rev = "6e0e950154a4c6983d9e077ed052298ad9126144";
-            sha256 = "sha256-m+gKQXNRYTpraWDXVMTU6UPJFivcyhOw3dNofFR4cyU=";
-          };
+          src = pkgs.zsh-syntax-highlighting-src;
           file = "zsh-syntax-highlighting.zsh";
         }
       ];
@@ -300,20 +306,10 @@ in {
 
   gtk = {
     enable = true;
-    theme = let
-      phocus = pkgs.stdenv.mkDerivation {
-        name = "javacafe_phocus";
-        src = builtins.fetchTarball {
-          url =
-            "https://github.com/javacafe01/phocus-gtk/archive/master.tar.gz";
-          sha256 = "0r92v06w769blm8n8hspq82g18m9fahbq8v8cfnp029k81w8jlz9";
-        };
-        nativeBuildInputs = [ pkgs.sass ];
-        installFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
-      };
-    in {
-      package = phocus;
-      name = "javacafe_phocus";
+
+    theme = {
+      package = pkgs.phocus;
+      name = "phocus";
     };
 
     iconTheme = {
@@ -324,6 +320,6 @@ in {
     font.name = "Sarasa UI K 10";
   };
 
-xdg.enable = true;
-  xresources.extraConfig = import ./x/resources.nix { };
+  xdg.enable = true;
+  xresources.extraConfig = import ./x/resources.nix { inherit theme; };
 }

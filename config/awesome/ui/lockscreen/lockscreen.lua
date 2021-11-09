@@ -3,7 +3,7 @@
 -- https://github.com/elenapan/dotfiles/tree/master/config/awesome/elemental/lock_screen
 --
 -- Disclaimer:
--- THIS LOCKSCREEN IS NOT SECURE. PLEASE DON'T THINK THIS CAN STOP HACKERS. 
+-- THIS LOCKSCREEN IS NOT SECURE. PLEASE DON'T THINK THIS CAN STOP HACKERS.
 -- A SIMPLE AWESOMEWM RELOAD CAN BREAK THROUGH. I USE THIS BECAUSE I DONT CARE
 -- ABOUT MY LAPTOP'S SECURITY.
 --
@@ -13,7 +13,6 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
-local naughty = require("naughty")
 local helpers = require("helpers")
 local lock_screen = require("ui.lockscreen")
 
@@ -64,8 +63,8 @@ awful.screen.connect_for_each_screen(function(s)
 end)
 
 local function set_visibility(v)
-    for s in screen do s.mylockscreen.visible = v end
     awesome.emit_signal("widgets::splash::visibility", v)
+    for s in screen do s.mylockscreen.visible = v end
 end
 
 local me_pic = wibox.widget {

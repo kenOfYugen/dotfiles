@@ -33,19 +33,6 @@ function helpers.find(rule)
     return matches
 end
 
-function helpers.volume_control(step)
-    local cmd
-    if step == 0 then
-        cmd = "pactl set-sink-mute @DEFAULT_SINK@ toggle"
-    else
-        sign = step > 0 and "+" or ""
-        cmd =
-            "pactl set-sink-mute @DEFAULT_SINK@ 0 && pactl set-sink-volume @DEFAULT_SINK@ " ..
-                sign .. tostring(step) .. "%"
-    end
-    awful.spawn.with_shell(cmd)
-end
-
 -- Adds a maximized mask to a screen
 function helpers.screen_mask(s, bg)
     local mask = wibox({
@@ -124,6 +111,14 @@ helpers.prrect = function(radius, tl, tr, br, bl)
     return function(cr, width, height)
         gears.shape.partially_rounded_rect(cr, width, height, tl, tr, br, bl,
                                            radius)
+    end
+end
+
+-- Create rounded bar
+
+helpers.rbar = function(width, height)
+    return function(cr)
+        gears.shape.rounded_bar(cr, width, height)
     end
 end
 

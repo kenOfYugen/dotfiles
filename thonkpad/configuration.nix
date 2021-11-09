@@ -6,18 +6,27 @@
   imports = [
     ./hardware-configuration.nix
     ./extra/fonts.nix
-    ./extra/amdgpu.nix
-    ./extra/vscode.nix
-   # ./extra/gaming.nix
+    ./extra/nvidia.nix
+    # ./extra/gaming.nix
   ];
 
   nix = {
-    binaryCaches =
-      [ "https://cache.nixos.org" "https://nix-community.cachix.org" ];
+    binaryCaches = [
+      "https://cache.nixos.org?priority"
+      "https://cache.ngi0.nixos.org/"
+      "https://mjlbach.cachix.org"
+      "https://nix-community.cachix.org"
+      "https://fortuneteller2k.cachix.org"
+      "https://nixpkgs-wayland.cachix.org"
+    ];
 
     binaryCachePublicKeys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "cache.ngi0.nixos.org-1:KqH5CBLNSyX184S9BKZJo1LxrxJ9ltnY2uAs5c/f1MA="
+      "mjlbach.cachix.org-1:dR0V90mvaPbXuYria5mXvnDtFibKYqYc2gtl9MWSkqI="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "fortuneteller2k.cachix.org-1:kXXNkMV5yheEQwT0I4XYh1MaCSz+qg72k8XAi2PthJI="
+      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
     ];
 
     trustedUsers = [ "root" "javacafe01" ];
@@ -43,24 +52,26 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_xanmod;
+    kernelPackages = pkgs.linuxPackages_lqx;
     cleanTmpDir = true;
 
     kernelParams = [
       "acpi_rev_override"
       "mem_sleep_default=deep"
-      # "intel_iommu=igfx_off"
-      # "nvidia-drm.modeset=1"
+      "intel_iommu=igfx_off"
+      "nvidia-drm.modeset=1"
     ];
 
     loader = {
-      grub.enable = false;
-      systemd-boot.enable = true;
-
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot";
+      grub = {
+        enable = true;
+        version = 2;
+        devices = [ "nodev" ];
+        efiSupport = true;
+        useOSProber = true;
       };
+
+      efi = { canTouchEfiVariables = true; };
     };
   };
 
@@ -77,7 +88,7 @@
     };
 
     interfaces = {
-      enp5s0.useDHCP = true;
+      enp0s31f6.useDHCP = true;
       wlan0.useDHCP = true;
     };
   };
@@ -93,15 +104,35 @@
     keyMap = "us";
   };
 
+  security.rtkit.enable = true;
+
   services = {
     blueman.enable = true;
     printing.enable = true;
-    tlp.enable = false;
+    tlp.enable = true;
     upower.enable = true;
     openssh.enable = true;
     acpid.enable = true;
-    thermald.enable = false;
+    thermald.enable = true;
     gvfs.enable = true;
+
+    /*
+      pipewire = {
+      enable = false;
+
+      alsa = {
+      enable = true;
+      support32Bit = true;
+      };
+
+      jack.enable = true;
+      pulse.enable = true;
+
+      config = import ./extra/pipewire;
+      media-session.config = import ./extra/pipewire/media-session.nix;
+      media-session.enable = true;
+      };
+    */
 
     xserver = {
       enable = true;
@@ -111,14 +142,21 @@
       libinput.enable = true;
 
       displayManager = {
-        lightdm = { enable = true; };
+        gdm = {
+          enable = true;
+          autoSuspend = false;
+
+          wayland = true;
+          nvidiaWayland = true;
+        };
 
         autoLogin = {
           enable = true;
-          user = "javacafe01";
+          user = "javacafe";
         };
 
         defaultSession = "none+awesome";
+
       };
 
       windowManager = {
@@ -126,80 +164,84 @@
           enable = true;
 
           luaModules = with pkgs; [
-            lua52Packages.lgi
-            lua52Packages.ldbus
-            lua52Packages.luarocks-nix
-            lua52Packages.luadbi-mysql
-            lua52Packages.luaposix
+            luajitPackages.lgi
+            luajitPackages.ldbus
+            luajitPackages.luadbi-mysql
+            luajitPackages.luaposix
           ];
         };
       };
     };
 
     dbus = {
-      packages = let
-        mopidyDbusServiceFile = pkgs.writeTextFile rec {
-          name = "org.mpris.MediaPlayer2.mopidy.conf";
-          destination = "/share/dbus-1/system.d/${name}";
-          text = ''
-            <!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
-            "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
-            <busconfig>
-            <!-- Allow mopidy user to publish the Mopidy-MPRIS service -->
-            <policy user="mopidy">
-            <allow own="org.mpris.MediaPlayer2.mopidy"/>
-            </policy>
+      packages =
+        let
+          mopidyDbusServiceFile = pkgs.writeTextFile rec {
+            name = "org.mpris.MediaPlayer2.mopidy.conf";
+            destination = "/share/dbus-1/system.d/${name}";
+            text = ''
+              <!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+              "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+              <busconfig>
+              <!-- Allow mopidy user to publish the Mopidy-MPRIS service -->
+              <policy user="mopidy">
+              <allow own="org.mpris.MediaPlayer2.mopidy"/>
+              </policy>
 
-            <!-- Allow anyone to invoke methods on the Mopidy-MPRIS service -->
-            <policy context="default">
-            <allow send_destination="org.mpris.MediaPlayer2.mopidy"/>
-            <allow receive_sender="org.mpris.MediaPlayer2.mopidy"/>
-            </policy>
-            </busconfig>
-          '';
-        };
-      in with pkgs; [ gnome3.dconf mopidyDbusServiceFile ];
+              <!-- Allow anyone to invoke methods on the Mopidy-MPRIS service -->
+              <policy context="default">
+              <allow send_destination="org.mpris.MediaPlayer2.mopidy"/>
+              <allow receive_sender="org.mpris.MediaPlayer2.mopidy"/>
+              </policy>
+              </busconfig>
+            '';
+          };
+        in
+        with pkgs; [ gnome3.dconf mopidyDbusServiceFile ];
 
       enable = true;
     };
 
+    greetd = {
+      enable = false;
+
+      settings = {
+        default_session.command =
+          "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd 'sway --my-next-gpu-wont-be-nvidia'";
+
+        initial_session = {
+          command = "sway --my-next-gpu-wont-be-nvidia";
+          user = "javacafe01";
+        };
+      };
+    };
+
     mopidy = {
       enable = true;
-      extensionPackages = with pkgs; [ mopidy-spotify mopidy-mpris mopidy-mpd ];
+      extensionPackages = with pkgs; [ mopidy-mpris mopidy-mpd ];
       configuration = ''
         [mpris]
         bus_type = system
 
         [audio]
         output = pulsesink server=127.0.0.1
-
-        [spotify]
-        enabled = true
-        client_id = <client_id>
-        client_secret = <client_secret>
-        username = <username>
-        password = <password>
-        bitrate = 320
       '';
     };
 
     picom = {
       enable = true;
       experimentalBackends = true;
-      backend = "glx";
+      backend = "xrender";
       vSync = true;
       shadow = true;
       shadowOffsets = [ (-18) (-18) ];
       shadowOpacity = 0.4;
 
-      settings = {
-        animations = true;
-        animation-stiffness = 300;
-      };
-
       shadowExclude = [
         "class_g = 'slop'"
         "window_type = 'menu'"
+        "window_type = 'dock'"
+        "window_type = 'desktop'"
         "class_g = 'Firefox' && window_type *= 'utility'"
         "_GTK_FRAME_EXTENTS@:c"
       ];
@@ -207,13 +249,20 @@
       wintypes = {
         popup_menu = { full-shadow = true; };
         dropdown_menu = { full-shadow = true; };
-        notification = { shadow = true; full-shadow = true; };
+        notification = { full-shadow = true; };
         normal = { full-shadow = true; };
       };
 
-    };
-  };
+      settings = {
+        corner-radius = 6;
+        rounded-corners-exclude = [
+          "!window_type = 'normal' && !window_type = 'notification'"
+        ];
+      };
 
+    };
+
+  };
   sound.enable = true;
 
   hardware = {
@@ -273,10 +322,8 @@
     binsh = "${pkgs.dash}/bin/dash";
     variables = { "EDITOR" = "vim"; };
     systemPackages = with pkgs; [
-      st
       acpid
       dbus
-      master.wezterm
       pavucontrol
       wget
       vim
@@ -308,10 +355,13 @@
       gnutls
       libtool
       cmake
-      nixfmt
       pkg-config
       iw
       lm_sensors
+      psmisc
+      # pulseaudio
+      alsaTools
+      alsaUtils
     ];
   };
 
@@ -340,30 +390,13 @@
         color = true
       '';
     };
+
+    qt5ct.enable = true;
   };
 
   virtualisation.docker.enable = true;
 
-  vscode.user = "javacafe01";
-  vscode.homeDir = "/home/javacafe01";
-  vscode.extensions = with pkgs.vscode-extensions;
-    [
-      matklad.rust-analyzer
-      pkief.material-icon-theme
-      editorconfig.editorconfig
-    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [{
-      name = "nix-ide";
-      publisher = "jnoortheen";
-      version = "0.1.16";
-      sha256 = "sha256-d/U2neLVDZjCgpsGYA2kvmAmXyW/67F5riFL6X8NfhI=";
-    }];
-
-  system = {
-    stateVersion = "21.05";
-    userActivationScripts.clone-nvchad.text = ''
-      ${pkgs.git}/bin/git clone https://github.com/NvChad/NvChad ~/.config/nvim || true
-    '';
-  };
+  system.stateVersion = "21.05";
 
   xdg.portal.enable = true;
 }

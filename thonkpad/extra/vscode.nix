@@ -15,11 +15,14 @@
     nixpkgs.overlays = [
       (self: super:
         let
-          latestPkgs = import (fetchTarball
-            "https://github.com/nixos/nixpkgs-channels/archive/nixpkgs-unstable.tar.gz") {
+          latestPkgs = import
+            (fetchTarball
+              "https://github.com/nixos/nixpkgs-channels/archive/nixpkgs-unstable.tar.gz")
+            {
               config.allowUnfree = true;
             };
-        in lib.genAttrs config.nixpkgs.latestPackages (pkg: latestPkgs."${pkg}")
+        in
+        lib.genAttrs config.nixpkgs.latestPackages (pkg: latestPkgs."${pkg}")
 
       )
     ];

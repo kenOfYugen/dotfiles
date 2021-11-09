@@ -20,7 +20,7 @@ local music_scratch = bling.module.scratchpad:new{
     sticky = false,
     autoclose = false,
     floating = true,
-    geometry = {x = dpi(10), y = dpi(606), height = dpi(460), width = dpi(960)},
+    geometry = {x = dpi(10), y = dpi(580), height = dpi(460), width = dpi(960)},
     reapply = true,
     rubato = music_anim
 }

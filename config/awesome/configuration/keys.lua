@@ -103,6 +103,9 @@ awful.keyboard.append_global_keybindings({
     awful.key({modkey}, "x",
               function() require("ui.pop.exitscreen").exit_screen_show() end,
               {description = "show exit screen", group = "awesome"}),
+    awful.key({modkey, "Shift"}, "d",
+              function() awesome.emit_signal("panel::open") end,
+              {description = "show panel", group = "awesome"}),
     awful.key({modkey, "Control"}, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({modkey, "Shift"}, "q", awesome.quit,
@@ -132,30 +135,8 @@ awful.keyboard.append_global_keybindings({
     awful.key({modkey, "Control"}, "k",
               function() awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"}),
-    awful.key({modkey}, "d", function() awful.spawn(launcher) end,
-              {description = "show rofi ", group = "launcher"}),
-
-    -- Standard program
     awful.key({modkey}, "t", function() awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
-    awful.key({modkey, shift}, "t", function()
-        awful.spawn.easy_async_with_shell("slop -c '0.61,0.9,0.75,1'",
-                                          function(out)
-            local mywidth, myheight, myx, myy = string.match(out,
-                                                             "(.*)x(.*)+(.*)+(.*)")
-
-            awful.spawn(terminal, {
-                geometry = {
-                    x = myx,
-                    y = myy,
-                    height = myheight,
-                    width = mywidth
-                },
-                floating = true
-            })
-
-        end)
-    end, {description = "open a terminal", group = "launcher"}),
     awful.key({modkey}, "s",
               function() awesome.emit_signal("scratch::music") end,
               {description = "open music", group = "scratchpad"}),

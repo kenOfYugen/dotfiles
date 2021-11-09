@@ -5,6 +5,9 @@
       nerdfonts
       sarasa-gothic
       noto-fonts-emoji-blob-bin
+      emacs-all-the-icons-fonts
+      cantarell-fonts
+      bitmap-font-collections
     ];
 
     fontconfig = {

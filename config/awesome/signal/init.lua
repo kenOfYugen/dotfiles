@@ -1,6 +1,6 @@
 -- These daemons are props to elenapan.
 -- https://github.com/elenapan/dotfiles
--- require("signal.battery")
+require("signal.battery")
 require("signal.volume")
 require("signal.brightness")
 require("signal.ram")

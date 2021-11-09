@@ -1,6 +1,6 @@
-local awful = require("awful")
+-- local awful = require("awful")
 
-require("ui.decorations.ncmpcpp")
+require("ui.decorations.playerctl")
 
 local add_decorations = function(c) require("ui.decorations.top")(c) end
 

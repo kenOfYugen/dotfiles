@@ -19,7 +19,7 @@ local create_button = function(symbol, color, command, playpause)
 
     local icon = wibox.widget {
         markup = helpers.colorize_text(symbol, color),
-        font = beautiful.icon_font_name .. "15",
+        font = beautiful.icon_font_name .. "14",
         align = "center",
         valigin = "center",
         widget = wibox.widget.textbox()
@@ -35,7 +35,7 @@ local create_button = function(symbol, color, command, playpause)
     awesome.connect_signal("bling::playerctl::status", function(playing)
         if playpause then
             if playing then
-                icon.markup = helpers.colorize_text("", color)
+                icon.markup = helpers.colorize_text("", color)
             else
                 icon.markup = helpers.colorize_text("", color)
             end
@@ -100,7 +100,7 @@ local playerctl_next_symbol = create_button("怜", beautiful.xcolor4,
                                             next_command, false)
 
 local slider = wibox.widget {
-    forced_height = dpi(5),
+    forced_height = dpi(3),
     bar_shape = helpers.rrect(beautiful.border_radius),
     shape = helpers.rrect(beautiful.border_radius),
     background_color = beautiful.xcolor0 .. 55,

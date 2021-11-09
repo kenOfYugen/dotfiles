@@ -16,11 +16,4 @@ col.brights = {
     "#eaeaea"
 }
 
-col.tab_bar = {
-    background = "#131a21",
-    active_tab = {bg_color = "#3b4b58", fg_color = "#eaeaea", italic = true},
-    inactive_tab = {bg_color = "#29343d", fg_color = "#131a21"},
-    inactive_tab_hover = {bg_color = "#29343d", fg_color = "#131a21"}
-}
-
 return col

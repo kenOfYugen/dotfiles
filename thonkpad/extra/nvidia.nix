@@ -8,13 +8,14 @@ let
     export __VK_LAYER_NV_optimus=NVIDIA_only
     exec -a "$0" "$@"
   '';
-in {
-  environment.systemPackages = [ 
-    nvidia-offload 
+in
+{
+  environment.systemPackages = [
+    nvidia-offload
   ];
 
   services.xserver = {
-    videoDrivers = [ "nvidiaBeta" ];
+    videoDrivers = [ "nvidia" ];
 
     config = ''
       Section "Device"
@@ -44,11 +45,11 @@ in {
   };
 
   hardware.nvidia = {
-   package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
 
-   modesetting.enable = true;
+    modesetting.enable = true;
 
-   powerManagement.enable = true;
+    powerManagement.enable = true;
 
     prime = {
       offload.enable = true;
@@ -57,7 +58,6 @@ in {
     };
   };
 
-  # POG Feature
   specialisation = {
     external-display.configuration = {
       system.nixos.tags = [ "external-display" ];
@@ -65,5 +65,4 @@ in {
       hardware.nvidia.powerManagement.enable = lib.mkForce false;
     };
   };
-
 }
