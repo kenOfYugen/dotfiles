@@ -1,8 +1,11 @@
 { pkgs, ... }: {
 
   fonts = {
+    fontDir.enable = true;
+    enableGhostscriptFonts = true;
+
     fonts = with pkgs; [
-      nerdfonts
+      (nerdfonts.override { fonts = [ "FiraCode" ]; })
       sarasa-gothic
       noto-fonts-emoji-blob-bin
       emacs-all-the-icons-fonts

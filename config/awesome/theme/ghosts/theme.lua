@@ -90,7 +90,7 @@ theme.button_close = theme.xcolor1
 
 -- Borders
 --
-theme.border_width = dpi(0)
+theme.border_width = dpi(2)
 theme.oof_border_width = dpi(0)
 theme.border_normal = theme.darker_bg
 theme.border_focus = theme.darker_bg
@@ -109,7 +109,7 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
                                   taglist_square_size, theme.fg_normal)
 theme.taglist_font = theme.font_taglist
 theme.taglist_bg = theme.wibar_bg
-theme.taglist_bg_focus = theme.darker_bg
+theme.taglist_bg_focus = theme.lighter_bg
 theme.taglist_fg_focus = theme.xcolor3
 theme.taglist_bg_urgent = theme.wibar_bg
 theme.taglist_fg_urgent = theme.xcolor6
@@ -120,20 +120,23 @@ theme.taglist_fg_empty = theme.xcolor8
 theme.taglist_bg_volatile = transparent
 theme.taglist_fg_volatile = theme.xcolor11
 theme.taglist_disable_icon = true
-theme.taglist_shape_focus = gears.shape.circle
-theme.taglist_shape_empty = gears.shape.circle
-theme.taglist_shape = gears.shape.circle
+
+theme.taglist_shape_focus = helpers.rrect(theme.border_radius)
+theme.taglist_shape_empty = helpers.rrect(theme.border_radius)
+theme.taglist_shape = helpers.rrect(theme.border_radius)
+theme.taglist_shape_urgent = helpers.rrect(theme.border_radius)
+theme.taglist_shape_volatile = helpers.rrect(theme.border_radius)
 
 
 -- Tasklist
 --
 theme.tasklist_font = theme.font
 theme.tasklist_plain_task_name = true
-theme.tasklist_bg_focus = theme.xcolor0
+theme.tasklist_bg_focus = theme.lighter_bg
 theme.tasklist_fg_focus = theme.xcolor6
 theme.tasklist_bg_minimize = theme.xcolor0 .. 55
 theme.tasklist_fg_minimize = theme.xforeground .. 55
-theme.tasklist_bg_normal = theme.xcolor0 .. 70
+theme.tasklist_bg_normal = theme.darker_bg
 theme.tasklist_fg_normal = theme.xforeground
 theme.tasklist_disable_task_name = false
 theme.tasklist_disable_icon = true
@@ -143,7 +146,7 @@ theme.tasklist_align = "center"
 
 -- Titlebars
 --
-theme.titlebar_size = dpi(37)
+theme.titlebar_size = dpi(40)
 theme.titlebar_bg_focus = theme.darker_bg
 theme.titlebar_bg_normal = theme.darker_bg
 theme.titlebar_fg_normal = theme.xcolor15 .. "80"
@@ -206,7 +209,7 @@ theme.useless_gap = dpi(10)
 -- Exit Screen
 --
 theme.exit_screen_fg = theme.xforeground
-theme.exit_screen_bg = theme.xcolor0 .. "90"
+theme.exit_screen_bg = theme.xcolor0 .. "80"
 
 -- Wibar
 --
@@ -278,7 +281,7 @@ theme.tabbar_size = 40
 theme.mstab_bar_ontop = true
 
 theme.notification_spacing = 19
-theme.notification_border_radius = dpi(0)
+theme.notification_border_radius = dpi(6)
 theme.notification_border_width = dpi(0)
 
 -- Swallowing
@@ -301,7 +304,7 @@ theme.machi_editor_active_opacity = 0.25
 
 -- Tag Preview
 --
-theme.tag_preview_widget_border_radius = theme.border_radius * 0
+theme.tag_preview_widget_border_radius = theme.border_radius
 theme.tag_preview_client_border_radius = theme.border_radius * 0.75
 theme.tag_preview_client_opacity = 0.5
 theme.tag_preview_client_bg = theme.xcolor0
@@ -314,21 +317,11 @@ theme.tag_preview_widget_margin = dpi(10)
 
 -- Task Preview
 --
-theme.task_preview_widget_border_radius = theme.border_radius * 0
+theme.task_preview_widget_border_radius = theme.border_radius
 theme.task_preview_widget_bg = theme.xbackground
 theme.task_preview_widget_border_color = theme.widget_border_color
 theme.task_preview_widget_border_width = theme.widget_border_width * 0
 theme.task_preview_widget_margin = dpi(15)
-
--- Window Switcher
---
-theme.window_switcher_widget_bg = theme.xbackground
-theme.window_switcher_widget_border_radius = theme.border_radius * 0
-theme.window_switcher_widget_border_width = theme.widget_border_width * 0
-theme.window_switcher_widget_border_color = theme.widget_border_color
-theme.window_switcher_name_normal_color = theme.xcolor8
-theme.window_switcher_name_focus_color = theme.xcolor4
-theme.window_switcher_icon_width = 0
 
 theme.fade_duration = 250
 

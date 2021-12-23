@@ -2,12 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+
+let theme = import ../theme/theme.nix { };
+in
+{
   imports = [
     ./hardware-configuration.nix
     ./extra/fonts.nix
-    ./extra/nvidia.nix
-    # ./extra/gaming.nix
   ];
 
   nix = {
@@ -30,7 +32,6 @@
     ];
 
     trustedUsers = [ "root" "javacafe01" ];
-    package = pkgs.nixUnstable;
 
     extraOptions = ''
       experimental-features = nix-command flakes
@@ -52,14 +53,18 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_lqx;
+    kernelPackages = pkgs.linuxPackages_latest;
+    blacklistedKernelModules = [ "ideapad_laptop" ];
+    kernelModules = [ "acpi_call" ];
+    kernel.sysctl."vm.swappiness" = 1;
+    extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
+    initrd.kernelModules = [ "i915" ];
     cleanTmpDir = true;
 
     kernelParams = [
       "acpi_rev_override"
       "mem_sleep_default=deep"
-      "intel_iommu=igfx_off"
-      "nvidia-drm.modeset=1"
+      "acpi_backlight=vendor"
     ];
 
     loader = {
@@ -71,12 +76,13 @@
         useOSProber = true;
       };
 
-      efi = { canTouchEfiVariables = true; };
+      efi.canTouchEfiVariables = true;
     };
   };
 
   networking = {
     hostName = "thonkpad";
+    firewall.enable = true;
     wireless.iwd.enable = true;
     wireless.enable = false;
     useDHCP = false;
@@ -88,7 +94,6 @@
     };
 
     interfaces = {
-      enp0s31f6.useDHCP = true;
       wlan0.useDHCP = true;
     };
   };
@@ -99,10 +104,16 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "us";
-  };
+  console =
+    let
+      normal = with theme.colors; [ bg c1 c2 c3 c4 c5 c6 c7 ];
+      bright = with theme.colors; [ lbg c9 c10 c11 c12 c13 c14 c15 ];
+    in
+    {
+      colors = normal ++ bright;
+      font = "Lat2-Terminus16";
+      keyMap = "us";
+    };
 
   security.rtkit.enable = true;
 
@@ -110,19 +121,22 @@
     blueman.enable = true;
     printing.enable = true;
     tlp.enable = true;
+    fprintd.enable = true;
     upower.enable = true;
     openssh.enable = true;
     acpid.enable = true;
     thermald.enable = true;
+    throttled.enable = true;
     gvfs.enable = true;
+    gnome.gnome-keyring.enable = true;
+    fstrim.enable = true;
 
-    /*
-      pipewire = {
-      enable = false;
+    pipewire = {
+      enable = true;
 
       alsa = {
-      enable = true;
-      support32Bit = true;
+        enable = true;
+        support32Bit = true;
       };
 
       jack.enable = true;
@@ -131,28 +145,28 @@
       config = import ./extra/pipewire;
       media-session.config = import ./extra/pipewire/media-session.nix;
       media-session.enable = true;
-      };
-    */
+    };
 
     xserver = {
       enable = true;
       useGlamor = true;
       layout = "us";
       dpi = 96;
-      libinput.enable = true;
+      wacom.enable = true;
+
+      libinput = {
+        enable = true;
+        touchpad.tapping = false;
+      };
 
       displayManager = {
-        gdm = {
+        lightdm = {
           enable = true;
-          autoSuspend = false;
-
-          wayland = true;
-          nvidiaWayland = true;
         };
 
         autoLogin = {
           enable = true;
-          user = "javacafe";
+          user = "javacafe01";
         };
 
         defaultSession = "none+awesome";
@@ -163,42 +177,17 @@
         awesome = {
           enable = true;
 
-          luaModules = with pkgs; [
-            luajitPackages.lgi
-            luajitPackages.ldbus
-            luajitPackages.luadbi-mysql
-            luajitPackages.luaposix
+          luaModules = with pkgs.luajitPackages; [
+            lgi
+            ldbus
+            luadbi-mysql
+            luaposix
           ];
         };
       };
     };
 
     dbus = {
-      packages =
-        let
-          mopidyDbusServiceFile = pkgs.writeTextFile rec {
-            name = "org.mpris.MediaPlayer2.mopidy.conf";
-            destination = "/share/dbus-1/system.d/${name}";
-            text = ''
-              <!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
-              "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
-              <busconfig>
-              <!-- Allow mopidy user to publish the Mopidy-MPRIS service -->
-              <policy user="mopidy">
-              <allow own="org.mpris.MediaPlayer2.mopidy"/>
-              </policy>
-
-              <!-- Allow anyone to invoke methods on the Mopidy-MPRIS service -->
-              <policy context="default">
-              <allow send_destination="org.mpris.MediaPlayer2.mopidy"/>
-              <allow receive_sender="org.mpris.MediaPlayer2.mopidy"/>
-              </policy>
-              </busconfig>
-            '';
-          };
-        in
-        with pkgs; [ gnome3.dconf mopidyDbusServiceFile ];
-
       enable = true;
     };
 
@@ -207,35 +196,23 @@
 
       settings = {
         default_session.command =
-          "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd 'sway --my-next-gpu-wont-be-nvidia'";
+          "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd 'sway'";
 
         initial_session = {
-          command = "sway --my-next-gpu-wont-be-nvidia";
+          command = "sway";
           user = "javacafe01";
         };
       };
     };
 
-    mopidy = {
-      enable = true;
-      extensionPackages = with pkgs; [ mopidy-mpris mopidy-mpd ];
-      configuration = ''
-        [mpris]
-        bus_type = system
-
-        [audio]
-        output = pulsesink server=127.0.0.1
-      '';
-    };
-
     picom = {
       enable = true;
       experimentalBackends = true;
-      backend = "xrender";
+      backend = "glx";
       vSync = true;
-      shadow = true;
+      shadow = false;
       shadowOffsets = [ (-18) (-18) ];
-      shadowOpacity = 0.4;
+      shadowOpacity = 0.3;
 
       shadowExclude = [
         "class_g = 'slop'"
@@ -246,6 +223,10 @@
         "_GTK_FRAME_EXTENTS@:c"
       ];
 
+      opacityRules = [
+        "85:class_g = 'splash'"
+      ];
+
       wintypes = {
         popup_menu = { full-shadow = true; };
         dropdown_menu = { full-shadow = true; };
@@ -254,10 +235,34 @@
       };
 
       settings = {
-        corner-radius = 6;
+        # animations = true;
+
+        corner-radius = 0;
         rounded-corners-exclude = [
-          "!window_type = 'normal' && !window_type = 'notification'"
+          "!window_type = 'normal'"
         ];
+
+        blur-method = "dual_kawase";
+        blur-strength = 8.0;
+        kernel = "11x11gaussian";
+        blur-background = false;
+        blur-background-frame = true;
+        blur-background-fixed = true;
+
+        blur-background-exclude = [
+          "!window_type = 'splash'"
+        ];
+
+        daemon = false;
+        dbus = false;
+        mark-wmwin-focused = true;
+        mark-ovredir-focused = true;
+        detect-rounded-corners = true;
+        detect-client-opacity = true;
+        glx-no-stencil = true;
+        use-damage = true;
+        resize-damage = 1;
+        transparent-clipping = false;
       };
 
     };
@@ -266,8 +271,9 @@
   sound.enable = true;
 
   hardware = {
+    sensor.iio.enable = true;
     pulseaudio = {
-      enable = true;
+      enable = false;
       daemon.config.avoid-resampling = "yes";
       support32Bit = true;
 
@@ -283,14 +289,20 @@
       extraConfig = "\n    load-module module-switch-on-connect\n    ";
     };
 
+    cpu = {
+      intel.updateMicrocode = true;
+    };
+
     opengl = {
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
-
-      extraPackages = with pkgs; [ amdvlk rocm-opencl-icd rocm-opencl-runtime ];
-
-      extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
+      extraPackages = with pkgs; [
+        vaapiIntel
+        vaapiVdpau
+        libvdpau-va-gl
+        intel-media-driver
+      ];
     };
 
     bluetooth.enable = true;
@@ -334,7 +346,6 @@
       gdk_pixbuf
       gnumake
       polkit_gnome
-      google-chrome
       gsettings-desktop-schemas
       firefox
       unzip
@@ -359,7 +370,7 @@
       iw
       lm_sensors
       psmisc
-      # pulseaudio
+      pulseaudio
       alsaTools
       alsaUtils
     ];
@@ -392,11 +403,12 @@
     };
 
     qt5ct.enable = true;
+
   };
 
-  virtualisation.docker.enable = true;
-
-  system.stateVersion = "21.05";
+  system = {
+    stateVersion = "22.05";
+  };
 
   xdg.portal.enable = true;
 }

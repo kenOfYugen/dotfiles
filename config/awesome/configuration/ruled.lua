@@ -71,12 +71,12 @@ ruled.client.connect_signal("request::rules", function()
         id = "titlebars",
         rule_any = {type = {"normal", "dialog"}},
         except_any = {
-            class = {"Steam", "zoom", "jetbrains-studio", "chat", "Org.gnome.Nautilus", "Firefox", "Google-chrome"},
+            class = {"Steam", "zoom", "jetbrains-studio", "chat", "Org.gnome.Nautilus", "Firefox", "Google-chrome", "Brave-browser"},
             type = {"splash"},
             instance = {"onboard"},
             name = {"^discord.com is sharing your screen.$"}
         },
-        properties = {titlebars_enabled = true}
+        properties = {titlebars_enabled = false}
     }
 end)
 

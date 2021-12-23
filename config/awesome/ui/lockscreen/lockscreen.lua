@@ -63,7 +63,6 @@ awful.screen.connect_for_each_screen(function(s)
 end)
 
 local function set_visibility(v)
-    awesome.emit_signal("widgets::splash::visibility", v)
     for s in screen do s.mylockscreen.visible = v end
 end
 

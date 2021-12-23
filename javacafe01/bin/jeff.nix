@@ -15,7 +15,7 @@
           ;;
 
       "selnp")
-          ${pkgs.giph}/bin/giph -y -s -c '0.61,0.9,0.75,1' -p -3 $file
+          ${pkgs.giph}/bin/giph -y -s -c '0.61,0.9,0.75,1' $file
           ;;
 
       "selmp4")
@@ -23,7 +23,7 @@
           ;;
 
       "selnpmp4")
-          ${pkgs.giph}/bin/giph -y -s -f 60 -c '0.61,0.9,0.75,1' -p -3 $file2
+          ${pkgs.giph}/bin/giph -y -s -f 60 -c '0.61,0.9,0.75,1' $file2
           ;;
 
       "mp4")

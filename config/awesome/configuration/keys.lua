@@ -88,10 +88,10 @@ awful.keyboard.append_global_keybindings({
         description = "take a selection with pads",
         group = "awesome"
     }), -- Brightness
-    awful.key({}, "XF86MonBrightnessUp",
+    awful.key({modkey}, "XF86AudioRaiseVolume",
               function() awful.spawn("brightnessctl s +5%") end,
               {description = "increase brightness", group = "awesome"}),
-    awful.key({}, "XF86MonBrightnessDown",
+    awful.key({modkey}, "XF86AudioLowerVolume",
               function() awful.spawn("brightnessctl s 5%-") end,
               {description = "decrease brightness", group = "awesome"}),
 

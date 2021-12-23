@@ -3,87 +3,198 @@
 let
 
   theme = import ../theme/theme.nix { };
-
-  giph_wrapper =
-    pkgs.writeShellScriptBin "jeff" (import ./bin/jeff.nix { inherit pkgs; });
-  screenshot_script =
-    pkgs.writeShellScriptBin "shoot" (import ./bin/shoot.nix { inherit pkgs; });
-  panes_script = pkgs.writeShellScriptBin "panes" (import ./bin/panes.nix { });
-  updoot_script = pkgs.writeShellScriptBin "updoot"
-    (import ./bin/updoot.nix { inherit pkgs; });
-  preview_script = pkgs.writeShellScriptBin "preview.sh"
-    (import ./bin/preview.nix { inherit pkgs; });
 in
 {
-  home.username = "javacafe01";
-  home.homeDirectory = "/home/javacafe01";
 
-  home.file = {
-    # ".config/awesome".source = ../config/awesome;
-    # ".config/wezterm".source = ../config/wezterm;
-    ".config/waybar/config".text = import ./programs/waybar/modules.nix { };
-    ".tree-sitter".source = (pkgs.runCommand "grammars" { } ''
-      mkdir -p $out/bin
-      ${
-        lib.concatStringsSep "\n" (lib.mapAttrsToList (name: src:
-          "name=${name}; ln -s ${src}/parser $out/bin/\${name#tree-sitter-}.so")
-          pkgs.tree-sitter.builtGrammars)
+  fonts.fontconfig.enable = true;
+
+  home = {
+    username = "javacafe01";
+    homeDirectory = "/home/javacafe01";
+
+    file = {
+      # AwesomeWM Config
+      # ".config/awesome".source = ../config/awesome;
+
+      # Waybar Configs
+      ".config/waybar/config".text = import ./programs/waybar/modules.nix { };
+      ".config/waybar/style.css".text = import ./programs/waybar/style.nix { inherit theme; };
+
+      # Sworkstyle Config
+      ".config/sworkstyle/config.toml".text = import ./programs/sworkstyle.nix { };
+
+      # Eww Configs
+      ".config/eww/eww.yuck".text = import ./programs/eww/eww-yuck.nix { inherit pkgs; };
+      ".config/eww/eww.scss".text = import ./programs/eww/eww-scss.nix { inherit theme; };
+      ".config/eww/panel.yuck".text = import ./programs/eww/panel-yuck.nix { inherit pkgs; };
+      ".config/eww/cal.yuck".text = import ./programs/eww/cal-yuck.nix { };
+
+      # Bin Scripts
+      ".local/bin/jeff" = {
+        # X11 Recorder
+        executable = true;
+        text = import ./bin/jeff.nix { inherit pkgs; };
       };
-    '');
+
+      ".local/bin/shoot" = {
+        # X11 Screenshots
+        executable = true;
+        text = import ./bin/shoot.nix { inherit pkgs; };
+      };
+
+      ".local/bin/updoot" = {
+        # Upload and get link
+        executable = true;
+        text = import ./bin/updoot.nix { inherit pkgs; };
+      };
+
+      ".local/bin/preview.sh" = {
+        # Preview script for fzf tab
+        executable = true;
+        text = import ./bin/preview.nix { inherit pkgs; };
+      };
+
+      ".local/bin/art.sh" = {
+        # Eww art script
+        executable = true;
+        text = import ./bin/eww-art.nix { inherit pkgs; };
+      };
+
+      ".local/bin/network.sh" = {
+        # Eww network script
+        executable = true;
+        text = import ./bin/eww-network.nix { inherit pkgs; };
+      };
+
+      ".local/bin/volume.sh" = {
+        # Eww volume script
+        executable = true;
+        text = import ./bin/eww-volume.nix { inherit pkgs; };
+      };
+    };
+
+    sessionPath = [
+      "${config.xdg.configHome}/emacs/bin"
+      "${config.home.homeDirectory}/.local/bin"
+    ];
+
+    sessionVariables = {
+      BROWSER = "${pkgs.brave}/bin/brave";
+      EDITOR = "${config.programs.nixvim.package}/bin/nvim";
+      GOPATH = "${config.home.homeDirectory}/Extras/go";
+      QT_QPA_PLATFORMTHEME = "qt5ct";
+      RUSTUP_HOME = "${config.home.homeDirectory}/.local/share/rustup";
+
+      XDG_SESSION_DESKTOP = "sway";
+      SDL_VIDEODRIVER = "wayland";
+      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+      MOZ_ENABLE_WAYLAND = "1";
+      CLUTTER_BACKEND = "wayland";
+      NO_AT_BRIDGE = "1";
+    };
+
+    packages = with pkgs; [
+
+      # Programs
+      playerctl
+      zoom-us
+      gimp
+      arandr
+      gnome3.nautilus
+      gnome3.eog
+      google-chrome
+      feh
+      evince
+      manix
+      sqlite
+      pandoc
+      glxinfo
+      trash-cli
+      eww-way # Eww compiled for wayland
+
+      # Language servers
+      sumneko-lua-language-server
+      nodePackages.bash-language-server
+      rust-analyzer
+      rustfmt
+      nodePackages.pyright
+      python-language-server
+      nodePackages.vim-language-server
+      ccls
+      texlive.combined.scheme-medium
+      rnix-lsp
+      shfmt
+
+      teal-lang
+
+      # Formatters
+      (import ../derivations/luaFormatter.nix {
+        inherit stdenv fetchFromGitHub pkgs;
+      })
+      black
+
+      editorconfig-core-c
+      glslang
+
+      gocode
+      gomodifytags
+      gotests
+      gore
+
+      ktlint
+      nixfmt
+      maim
+
+      python39
+      python39Packages.pyflakes
+      python39Packages.isort
+      pipenv
+      python39Packages.pytest
+
+      rustc
+      cargo
+
+      shellcheck
+
+      neovide
+
+      unclutter-xfixes # Hides mouse cursor when using touch screen
+
+      spotdl
+
+      # pkgs for Wayland
+      peek
+      swappy
+      autotiling
+      swaylock
+      swayidle
+      swaybg
+      wayland-utils
+      waybar
+      wl-clipboard
+      wf-recorder
+      brightnessctl
+      grim
+      slurp
+      sway-contrib.grimshot
+      qt5.qtwayland
+      xdg-desktop-portal-wlr
+      river
+      kile-wl
+      xdg_utils
+      wayfire
+      wdisplays
+      wtype
+      wlogout
+      sworkstyle
+
+      mpc_cli
+      geoclue2
+      gammastep
+      light
+      jq
+    ];
   };
-
-  home.sessionVariables = { EDITOR = "nvim"; };
-
-  home.packages = with pkgs; [
-    eww
-
-    # Programs
-    mpv
-    playerctl
-    zoom-us
-    gimp
-    arandr
-    gnome3.nautilus
-    gnome3.eog
-    feh
-    evince
-    manix
-    sqlite
-    pandoc
-    glxinfo
-    master.neovim-unwrapped
-    trash-cli
-
-    # Bin Scripts
-    giph_wrapper
-    updoot_script
-    panes_script
-    screenshot_script
-    preview_script
-
-    # Language servers
-    sumneko-lua-language-server
-    nodePackages.bash-language-server
-    rust-analyzer
-    rustfmt
-    nodePackages.pyright
-    python-language-server
-    nodePackages.vim-language-server
-    ccls
-    texlive.combined.scheme-medium
-    rnix-lsp
-    shfmt
-
-    teal-lang
-
-    master.wezterm
-
-    # Formatters
-    (import ../derivations/luaFormatter.nix {
-      inherit stdenv fetchFromGitHub pkgs;
-    })
-    black
-  ];
 
   programs = {
     alacritty = {
@@ -101,6 +212,16 @@ in
       };
     };
 
+    brave = {
+      enable = true;
+      package = pkgs.brave;
+    };
+
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+
     discocss = {
       enable = true;
       discord = pkgs.discord;
@@ -109,8 +230,8 @@ in
     };
 
     emacs = {
-      enable = true;
-      package = pkgs.emacsGcc;
+      enable = false;
+      package = pkgs.emacsPgtkGcc;
       extraPackages = epkgs: [ epkgs.vterm ];
     };
 
@@ -158,6 +279,11 @@ in
       };
     };
 
+    foot = {
+      enable = true;
+      settings = import ./programs/foot.nix { inherit theme; };
+    };
+
     git = {
       enable = true;
       userName = "Gokul Swaminathan";
@@ -169,17 +295,91 @@ in
       path = "…";
     };
 
-    ncmpcpp = {
+    mako = {
       enable = true;
-      settings = import ./programs/ncmpcpp.nix;
+      anchor = "top-right";
+      backgroundColor = "#${theme.colors.dbg}";
+      borderColor = "#${theme.colors.dbg}";
+      borderSize = 0;
+      padding = "20";
+      borderRadius = 6;
+      defaultTimeout = 5000;
+    };
+
+    mpv = {
+      enable = true;
     };
 
     ncspot = {
       enable = true;
-      settings = {
-        use_nerdfont = false;
-        notify = false;
+    };
+
+    nixvim = {
+      enable = true;
+      package = pkgs.neovim-nightly;
+      colorscheme = "javacafe";
+      plugins.gitgutter.enable = true;
+      plugins.telescope.enable = true;
+
+      plugins.lualine = {
+        enable = false;
       };
+
+      plugins.lspsaga = {
+        enable = true;
+        borderStyle = "rounded";
+      };
+
+      /*
+        plugins.lsp = {
+        enable = true;
+        servers = {
+        pyright.enable = true;
+        rnix-lsp.enable = true;
+        rust-analyzer.enable = true;
+        clangd.enable = true;
+        };
+        };
+      */
+
+      plugins.treesitter = {
+        enable = true;
+        ensureInstalled = [ "nix" "lua" "bash" "c" "cpp" "css" "go" "rust" "html" "vim" "typescript" "python" ];
+      };
+
+      extraPlugins = with pkgs.vimPlugins; [ vim-nix ] ++ [ pkgs.themer-lua-nvim ];
+
+      extraConfigLua = ''
+
+        local opt = vim.opt
+        local g = vim.g
+
+        opt.fillchars = { eob = " " }
+
+
+        -- Theme Plugin
+        require("themer").setup({
+          colorscheme = "javacafe",
+          integrations = {
+            treesitter = true,
+          },
+          extra_integrations = {
+            lualine = true,
+          },
+        })
+
+
+             '';
+
+      options = {
+        number = true;
+        relativenumber = true;
+        mouse = "a";
+        clipboard = "unnamedplus";
+
+      };
+
+      globals.mapleader = " ";
     };
 
     rofi = {
@@ -217,10 +417,6 @@ in
         v = "nvim";
         xwin = "Xephyr -br -ac -noreset -screen 960x600 :1";
         xdisp = "DISPLAY=:1";
-        waycord =
-          "Discord --enable-features=UseOzonePlatform --ozone-platform=wayland";
-        woogle-chrome =
-          "google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland";
         rm = "${pkgs.trash-cli}/bin/trash-put";
       };
 
@@ -228,7 +424,7 @@ in
         set -k
         setopt auto_cd
         export PATH="''${HOME}/.local/bin:''${HOME}/go/bin:''${HOME}/.emacs.d/bin:''${HOME}/.npm/bin:''${HOME}/.cargo/bin:''${PATH}"
-        setopt NO_NOMATCH   # disable some globbing
+        setopt NO_NOMATCH   # disable some globbing 
 
         function run() {
           nix run nixpkgs#$@
@@ -265,7 +461,7 @@ in
           zstyle ':completion:complete:*:options' sort false
           zstyle ':fzf-tab:complete:_zlua:*' query-string input
 
-          zstyle ':fzf-tab:complete:*:*' fzf-preview '${preview_script}/bin/preview.sh $realpath'
+          zstyle ':fzf-tab:complete:*:*' fzf-preview 'preview.sh $realpath'
       '';
 
       history = {
@@ -299,10 +495,32 @@ in
       enableSshSupport = true;
     };
 
+    mpd = {
+      enable = true;
+      package = pkgs.master.mpd;
+      musicDirectory = config.xdg.userDirs.music;
+      extraConfig = import ./programs/mpd.nix { };
+    };
+
+    mpdris2 = {
+      enable = config.services.mpd.enable;
+      multimediaKeys = true;
+      notifications = true;
+    };
+
     playerctld.enable = true;
   };
 
-  systemd.user.startServices = true;
+  systemd.user = {
+    startServices = true;
+
+    targets.tray = {
+      Unit = {
+        Description = "Home Manager System Tray";
+        Requires = [ "graphical-session-pre.target" ];
+      };
+    };
+  };
 
   gtk = {
     enable = true;
@@ -320,6 +538,32 @@ in
     font.name = "Sarasa UI K 10";
   };
 
-  xdg.enable = true;
+  wayland.windowManager.sway = {
+    enable = true;
+    package = pkgs.sway-git;
+
+    config = with theme.colors; {
+      bars = [
+      ];
+      keybindings = { };
+    };
+
+    extraConfig = import ./programs/sway.nix { inherit pkgs theme; };
+
+    wrapperFeatures.gtk = true;
+  };
+
+  xdg = {
+    enable = true;
+
+    userDirs = {
+      enable = true;
+      documents = "${config.home.homeDirectory}/Documents";
+      music = "${config.home.homeDirectory}/Music";
+      pictures = "${config.home.homeDirectory}/Pictures";
+      videos = "${config.home.homeDirectory}/Videos";
+    };
+  };
+
   xresources.extraConfig = import ./x/resources.nix { inherit theme; };
 }

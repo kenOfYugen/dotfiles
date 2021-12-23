@@ -75,8 +75,8 @@ local artist_widget = wibox.widget {
 }
 
 -- Get Song Info 
-awesome.connect_signal("bling::playerctl::title_artist_album",
-                       function(title, artist, art_path)
+Playerctl:connect_signal("metadata",
+                       function(title, artist, art_path, album, new, player_name)
     -- Set art widget
     art:set_image(gears.surface.load_uncached(art_path))
 
@@ -87,9 +87,9 @@ awesome.connect_signal("bling::playerctl::title_artist_album",
 end)
 
 local play_command =
-    function() awful.spawn.with_shell("playerctl play-pause") end
-local prev_command = function() awful.spawn.with_shell("playerctl previous") end
-local next_command = function() awful.spawn.with_shell("playerctl next") end
+    function() Playerctl:play_pause() end
+local prev_command = function() Playerctl:previous() end
+local next_command = function() Playerctl:next() end
 
 local playerctl_play_symbol = create_button("", beautiful.xcolor4,
                                             play_command, true)
@@ -110,7 +110,7 @@ local slider = wibox.widget {
     widget = wibox.widget.progressbar
 }
 
-awesome.connect_signal("bling::playerctl::position", function(pos, length)
+Playerctl:connect_signal("position", function(pos, length, _)
     slider.value = (pos / length) * 100
 end)
 

@@ -55,10 +55,7 @@ local get_taglist = function(s)
             {
                 {id = 'icon_role', widget = wibox.widget.imagebox},
                 id = 'margin_role',
-                top = dpi(7),
-                bottom = dpi(7),
-                left = dpi(11),
-                right = dpi(11),
+                margins = dpi(8), 
                 widget = wibox.container.margin
             },
             id = 'background_role',
@@ -71,11 +68,11 @@ local get_taglist = function(s)
                         awesome.emit_signal("bling::tag_preview::visibility", s,
                                             true)
                     end
-                    if self.bg ~= beautiful.darker_bg then
+                    if self.bg ~= beautiful.lighter_bg then
                         self.backup = self.bg
                         self.has_backup = true
                     end
-                    self.bg = beautiful.darker_bg
+                    self.bg = beautiful.lighter_bg
                 end)
                 self:connect_signal('mouse::leave', function()
                     awesome.emit_signal("bling::tag_preview::visibility", s,

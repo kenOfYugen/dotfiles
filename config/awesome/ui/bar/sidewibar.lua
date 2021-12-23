@@ -173,8 +173,8 @@ local clock = wibox.widget {
 }
 
 local datetooltip = awful.tooltip {};
-datetooltip.shape = helpers.prrect(beautiful.border_radius, false, true,
-                                   true, false)
+datetooltip.shape = helpers.prrect(beautiful.border_radius, false, true, true,
+                                   false)
 datetooltip.preferred_alignments = {"middle", "front", "back"}
 datetooltip.mode = "outside"
 datetooltip:add_to_object(clock)
@@ -185,7 +185,7 @@ datetooltip.text = os.date("%d.%m.%y") -- just don't stay up long enough for tha
 -- Systray Widget -------------------------------------------------------------
 
 local mysystray = wibox.widget.systray()
-mysystray:set_base_size(beautiful.systray_icon_size)
+mysystray.base_size = beautiful.systray_icon_size
 
 local mysystray_container = {
     mysystray,
@@ -339,9 +339,9 @@ screen.connect_signal("request::desktop_decoration", function(s)
     end
 
     -- Hide bar when a splash widget is visible
-    awesome.connect_signal("widgets::splash::visibility", function(vis)
+    --[[ awesome.connect_signal("widgets::splash::visibility", function(vis)
         screen.primary.mywibox.visible = not vis
-    end)
+    end) ]] --
 
     client.connect_signal("property::fullscreen", remove_wibar)
 
@@ -356,7 +356,10 @@ screen.connect_signal("request::desktop_decoration", function(s)
         filter = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons,
         bg = beautiful.wibar_bg,
-        style = {bg = beautiful.xcolor0, shape = gears.shape.circle},
+        style = {
+            bg = beautiful.xcolor0,
+            shape = helpers.rrect(beautiful.border_radius)
+        },
         layout = {spacing = dpi(10), layout = wibox.layout.fixed.vertical},
         widget_template = {
             {
@@ -368,13 +371,13 @@ screen.connect_signal("request::desktop_decoration", function(s)
             widget = wibox.container.background,
             create_callback = function(self, c, index, clients)
                 self:connect_signal('mouse::enter', function()
-                    self.border_color = beautiful.xcolor8
-                    self.border_width = dpi(1)
+                    self.bg_temp = self.bg
+                    self.bg = beautiful.xcolor0
                     awesome.emit_signal("bling::task_preview::visibility", s,
                                         true, c)
                 end)
                 self:connect_signal('mouse::leave', function()
-                    self.border_width = dpi(0)
+                    self.bg = self.bg_temp
                     awesome.emit_signal("bling::task_preview::visibility", s,
                                         false, c)
                 end)
@@ -408,7 +411,15 @@ screen.connect_signal("request::desktop_decoration", function(s)
                 }),
                 s.mypromptbox
             },
-            {wrap_widget(s.mytaglist), widget = wibox.container.constraint},
+            {
+                wrap_widget({
+                    s.mytaglist,
+                    left = dpi(5),
+                    right = dpi(5),
+                    widget = wibox.container.margin
+                }),
+                widget = wibox.container.constraint
+            },
             {
                 wrap_widget(clock),
                 wrap_widget(volume_icon),

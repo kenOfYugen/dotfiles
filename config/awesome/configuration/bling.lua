@@ -6,11 +6,7 @@ local bling = require("module.bling")
 local rubato = require("module.rubato")
 
 -- Enable Playerctl Module from Bling
-bling.signal.playerctl.enable {
-    ignore = {},
-    backend = "playerctl_lib",
-    update_on_activity = true
-}
+Playerctl = bling.signal.playerctl.lib()
 
 bling.widget.tag_preview.enable {
     show_client_content = false,
@@ -73,4 +69,4 @@ awful.keyboard.append_global_keybindings({
               {description = "show emoji launcher", group = "launcher"})
 })
 
-bling.widget.window_switcher.enable()
+require('ui.pop.window_switcher').enable()

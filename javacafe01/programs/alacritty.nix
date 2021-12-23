@@ -6,6 +6,21 @@ with theme.colors; {
   font = {
     normal = { family = "Sarasa Mono K"; };
 
+    bold = {
+      family = "Sarasa Mono K";
+      style = "Bold";
+    };
+
+    italic = {
+      family = "Sarasa Mono K";
+      style = "Italic";
+    };
+
+    bold_italic = {
+      family = "Sarasa Mono K";
+      style = "Bold Italic";
+    };
+
     size = 11;
 
     offset = {
@@ -15,7 +30,7 @@ with theme.colors; {
   };
 
   window = {
-    dynamic_padding = false;
+    dynamic_padding = true;
 
     padding = {
       x = 45;
@@ -23,7 +38,7 @@ with theme.colors; {
     };
   };
 
-  cursor.style = "Beam";
+  cursor.style = "Underline";
 
   colors = {
     primary = {

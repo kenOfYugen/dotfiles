@@ -12,4 +12,17 @@ final: prev: {
     inherit (prev.luajitPackages) buildLuarocksPackage argparse luafilesystem busted compat53;
     src = prev.teal-src;
   };
+
+  themer-lua-nvim = prev.callPackage ../derivations/themer-lua.nix {
+    src = prev.themer-lua-nvim-src;
+  };
+
+  galaxyline-nvim = prev.callPackage ../derivations/galaxyline-nvim.nix {
+    src = prev.galaxyline-nvim-src;
+  };
+
+  sworkstyle = prev.callPackage ../derivations/sworkstyle.nix {
+    # inherit (prev.rustPlatform);
+    src = prev.sworkstyle-src;
+  };
 }

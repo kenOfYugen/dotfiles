@@ -5,6 +5,8 @@ with theme.colors;
 ''
   exec ${pkgs.autotiling}/bin/autotiling
   exec ${pkgs.mako}/bin/mako
+  exec_always --no-startup-id ${pkgs.sworkstyle}/bin/sworkstyle &> /tmp/workstyle.log
+  exec ${pkgs.eww-way}/bin/eww open bar
   
   # modkey
   set $mod Mod4
@@ -13,7 +15,7 @@ with theme.colors;
   floating_modifier $mod
 
   # start a terminal
-  set $term alacritty
+  set $term foot
   bindsym $mod+t exec $term
 
   # spawn menu
@@ -118,16 +120,16 @@ with theme.colors;
 
   # applications shortcuts
   bindsym $mod+F2 exec emacs
-  bindsym $mod+w  exec firefox
+  bindsym $mod+w  exec "MOZ_ENABLE_WAYLAND=1 firefox"
 
   # Volume
-  bindsym XF86AudioRaiseVolume exec volume up
-  bindsym XF86AudioLowerVolume exec volume down
-  bindsym XF86AudioMute        exec volume toggle
+  bindsym XF86AudioRaiseVolume exec pamixer -i 5
+  bindsym XF86AudioLowerVolume exec pamixer -d 5
+  bindsym XF86AudioMute        exec pamixer -t
 
   # Brightness
-  bindsym XF86MonBrightnessDown exec brightnessctl -q set 10%-
-  bindsym XF86MonBrightnessUp   exec brightnessctl -q set 10%+
+  bindsym $mod+XF86AudioLowerVolume exec brightnessctl -q set 10%-
+  bindsym $mod+XF86AudioRaiseVolume exec brightnessctl -q set 10%+
 
   # Screenshot
   bindsym $mod+Print   exec grimshot copy area
@@ -137,7 +139,7 @@ with theme.colors;
   bindsym $mod+Shift+q exec swaynag -t warning -m 'Do you really want to exit sway?' -b 'Yes, exit sway' 'swaymsg exit'
 
   default_border pixel 2
-  gaps inner 0
+  gaps inner 15
   smart_borders off
 
   set $color0 #${c0}
@@ -168,7 +170,7 @@ with theme.colors;
   output * bg #${lbg} solid_color
 
   input type:touchpad {
-    tap enabled
+    tap disabled
     natural_scroll enabled
   }
 

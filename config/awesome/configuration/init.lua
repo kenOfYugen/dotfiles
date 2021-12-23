@@ -6,14 +6,14 @@ local beautiful = require("beautiful")
 require("configuration.autostart")
 
 -- Default Applications
-terminal = "wezterm"
-editor = "emacs"
-editor_cmd = terminal .. " start " .. os.getenv("EDITOR")
+terminal = "alacritty"
+editor = "neovide"
+editor_cmd = editor
 browser = "firefox"
 filemanager = "nautilus"
 discord = "discord"
 launcher = "rofi -show drun"
-music = terminal .. " start --class music ncspot"
+music = terminal .. " --class music -e ncspot"
 emoji_launcher = "rofi -show emoji"
 
 -- Global Vars
@@ -35,12 +35,13 @@ screen.connect_signal("request::wallpaper", function(s)
     awful.wallpaper {
         screen = s,
         bg = beautiful.lighter_bg
-        --[[ widget = {
+        --[[
+	widget = {
          horizontal_fit_policy = "fit",
          vertical_fit_policy   = "fit",
          image                 = beautiful.wallpaper,
          widget                = wibox.widget.imagebox,
-        },]] --
+        }]]--
     }
 end)
 

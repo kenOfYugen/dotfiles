@@ -120,7 +120,6 @@ local exit_screen_grabber
 exit_manager.exit_screen_hide = function()
     awful.keygrabber.stop(exit_screen_grabber)
     set_visibility(false)
-    awesome.emit_signal("widgets::splash::visibility", exit_screen.visible)
 end
 
 exit_manager.exit_screen_show = function()
@@ -149,7 +148,6 @@ exit_manager.exit_screen_show = function()
             end
         end)
     set_visibility(true)
-    awesome.emit_signal("widgets::splash::visibility", exit_screen.visible)
 end
 
 exit_screen:buttons(gears.table.join( -- Left click - Hide exit_screen

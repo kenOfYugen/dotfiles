@@ -15,7 +15,7 @@ in
   "#mainbox" = {
     padding = mkLiteral "20px 0px 20px 0px";
     background-color = mkLiteral "#${bg}";
-    border = mkLiteral "2px";
+    border = mkLiteral "0px";
     border-color = mkLiteral "#${dbg}";
     border-radius = mkLiteral "0px";
     children = map mkLiteral [ "inputbar" "message" "listview" ];

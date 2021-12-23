@@ -5,9 +5,8 @@ local beautiful = require("beautiful")
 local helpers = require("helpers")
 local dpi = beautiful.xresources.apply_dpi
 
-local width = dpi(200)
-local height = dpi(200)
-local screen = awful.screen.focused()
+local width = dpi(50)
+local height = dpi(300)
 
 local active_color_1 = {
     type = 'linear',
@@ -20,57 +19,53 @@ local volume_icon = wibox.widget {
     markup = "<span foreground='" .. beautiful.xcolor4 .. "'><b></b></span>",
     align = 'center',
     valign = 'center',
-    font = beautiful.font_name .. '70',
+    font = beautiful.font_name .. '25',
     widget = wibox.widget.textbox
 }
 
-local volume_adjust = wibox({
-    screen = screen.primary,
+local volume_adjust = awful.popup({
     type = "notification",
-    x = screen.geometry.width / 2 - width / 2,
-    y = screen.geometry.height / 2 - height / 2 + 300,
-    width = width,
-    height = height,
+    maximum_width = width,
+    maximum_height = height,
     visible = false,
     ontop = true,
-    bg = "#00000000"
+    widget = wibox.container.background,
+    bg = "#00000000",
+    placement = function(c)
+        awful.placement
+            .right(c, {margins = {right = beautiful.useless_gap * 2}})
+    end
 })
 
 local volume_bar = wibox.widget {
-    widget = wibox.widget.progressbar,
-    shape = gears.shape.rounded_bar,
-    bar_shape = gears.shape.rounded_bar,
+    bar_shape = gears.shape.rectangle,
+    shape = gears.shape.rounded_rect,
+    background_color = beautiful.lighter_bg,
     color = active_color_1,
-    background_color = beautiful.xcolor0,
     max_value = 100,
-    value = 0
+    value = 0,
+    widget = wibox.widget.progressbar
 }
 
-volume_adjust:setup{
+local volume_ratio = wibox.widget {
+    layout = wibox.layout.ratio.vertical,
     {
-        layout = wibox.layout.align.vertical,
-        {
-            volume_icon,
-            top = dpi(30),
-            left = dpi(50),
-            right = dpi(50),
-            bottom = dpi(15),
-            widget = wibox.container.margin
-        },
-        {
-            volume_bar,
-            left = dpi(35),
-            right = dpi(35),
-            bottom = dpi(45),
-            top = dpi(10),
-            widget = wibox.container.margin
-        }
-
+        {volume_bar, direction = "east", widget = wibox.container.rotate},
+        top = dpi(20),
+        left = dpi(20),
+        right = dpi(20),
+        widget = wibox.container.margin
     },
+    volume_icon,
+    nil
+}
+
+volume_ratio:adjust_ratio(2, 0.72, 0.28, 0)
+
+volume_adjust.widget = wibox.widget {
+    volume_ratio,
     shape = helpers.rrect(beautiful.border_radius),
     bg = beautiful.xbackground,
-    border_width = beautiful.widget_border_width,
-    border_color = beautiful.widget_border_color,
     widget = wibox.container.background
 }
 
@@ -79,7 +74,10 @@ volume_adjust:setup{
 local hide_volume_adjust = gears.timer {
     timeout = 3,
     autostart = true,
-    callback = function() volume_adjust.visible = false end
+    callback = function()
+        volume_adjust.visible = false
+        volume_bar.mouse_enter = false
+    end
 }
 
 awesome.connect_signal("signal::volume", function(vol, muted)
@@ -90,7 +88,6 @@ awesome.connect_signal("signal::volume", function(vol, muted)
     else
         volume_icon.markup = "<span foreground='" .. beautiful.xcolor4 ..
                                  "'><b></b></span>"
-
     end
 
     if volume_adjust.visible then
@@ -101,20 +98,3 @@ awesome.connect_signal("signal::volume", function(vol, muted)
     end
 
 end)
---[[
--- show volume-adjust when "volume_change" signal is emitted
-awesome.connect_signal("signal::volume", function(volume, muted)
-    if muted then
-        volume_bar.value = 0
-    else
-        volume_bar.value = volume
-    end
-    -- make volume_adjust component visible
-    if volume_adjust.visible then
-        hide_volume_adjust:again()
-    else
-        volume_adjust.visible = true
-        hide_volume_adjust:start()
-    end
-end)
-]] -- 
