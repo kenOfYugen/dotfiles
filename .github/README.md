@@ -53,9 +53,6 @@ nixos-install --root /mnt --flake /mnt/etc/nixos#thonkpad --impure
 ### Save Floats
 - Saves positions of clients in the floating layout
 
-## Preview
-
-https://github.com/JavaCafe01/dotfiles/blob/master/.github/assets/vid_2021-12-2219:20:14.mp4
 
 ## Sway Widgets/Modules
 ### [sworkstyle](https://github.com/Lyr-7D1h/swayest_workstyle)
