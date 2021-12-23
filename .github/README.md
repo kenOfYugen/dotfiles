@@ -53,12 +53,17 @@ nixos-install --root /mnt --flake /mnt/etc/nixos#thonkpad --impure
 ### Save Floats
 - Saves positions of clients in the floating layout
 
+### Preview
+![](assets/x.gif)
 
 ## Sway Widgets/Modules
 ### [sworkstyle](https://github.com/Lyr-7D1h/swayest_workstyle)
 - Map workspace name to icons defined depending on the windows inside of the workspace
 ### [Eww](https://github.com/elkowar/eww)
 - Wacky
+
+### Preview
+![](assets/way.gif)
 
 ## Special Thanks
 - [elenapan's dotfiles](https://github.com/elenapan/dotfiles)
